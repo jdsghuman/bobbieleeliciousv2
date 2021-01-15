@@ -8,18 +8,27 @@ let client = require("contentful").createClient({
 });
 
 export async function getStaticProps() {
-  let data = await client.getEntries({
-    content_type: "recipe",
-  })
+  let blogs = await client
+    .getEntries({
+      content_type: "blogPost",
+    })
+    .then((response) => response.items);
+
+  let recipes = await client
+    .getEntries({
+      content_type: "recipe",
+    })
+    .then((response) => response.items);
+
   return {
     props: {
-      recipes: data.items,
+      blogs,
+      recipes,
     },
   };
 }
 
-export default function Home({ recipes }) {
-  console.log("recipes", recipes);
+export default function Home({ blogs, recipes }) {
   return (
     <div className={styles.container}>
       <Head>
@@ -27,11 +36,22 @@ export default function Home({ recipes }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>Bobbieleelicious</div>
+      <h3>Recipes</h3>
       <ul>
         {recipes.map((recipe) => (
           <li key={recipe.sys.id}>
             <Link href={"/recipe/" + recipe.fields.slug}>
               <a>{recipe.fields.recipeTitle}</a>
+            </Link>
+          </li>
+        ))}
+      </ul>
+      Blog
+      <ul>
+        {blogs.map((recipe) => (
+          <li key={recipe.sys.id}>
+            <Link href={"/recipe/" + recipe.fields.slug}>
+              <a>{recipe.fields.title}</a>
             </Link>
           </li>
         ))}
