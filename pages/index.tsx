@@ -1,6 +1,7 @@
-import Head from "next/head";
-import Link from "next/link";
-import styles from "../styles/Home.module.css";
+import Head from "next/head"
+import Link from "next/link"
+import styles from "../styles/Home.module.css"
+import { HomePropType } from './PropTypes'
 
 let client = require("contentful").createClient({
   space: process.env.NEXT_CONTENTFUL_SPACE_ID,
@@ -28,7 +29,9 @@ export async function getStaticProps() {
   };
 }
 
-export default function Home({ blogs, recipes }) {
+const Home: React.FC<HomePropType> = ({ blogs, recipes }) => {
+  console.log('recipes----', recipes)
+  console.log('blogs----', blogs)
   return (
     <div className={styles.container}>
       <Head>
@@ -48,10 +51,10 @@ export default function Home({ blogs, recipes }) {
       </ul>
       Blog
       <ul>
-        {blogs.map((recipe) => (
-          <li key={recipe.sys.id}>
-            <Link href={"/recipe/" + recipe.fields.slug}>
-              <a>{recipe.fields.title}</a>
+        {blogs.map((blog) => (
+          <li key={blog.sys.id}>
+            <Link href={"/blog/" + blog.fields.slug}>
+              <a>{blog.fields.title}</a>
             </Link>
           </li>
         ))}
@@ -59,3 +62,5 @@ export default function Home({ blogs, recipes }) {
     </div>
   );
 }
+
+export default Home
