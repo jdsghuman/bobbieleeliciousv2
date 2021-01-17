@@ -6,6 +6,7 @@ let client = require("contentful").createClient({
 });
 
 import { useRouter } from "next/router";
+import { BlogPropType } from '../PropTypes'
 
 export async function getStaticPaths() {
   let data = await client.getEntries({
@@ -33,18 +34,22 @@ export async function getStaticProps({ params }) {
   };
 }
 
-export default function Blog({ blog }) {
+const Blog: React.FC<BlogPropType> = ({ blog }) => {
   const router = useRouter();
 
-  console.log("blog----", blog);
-  console.log("content----", blog.fields.secondBody);
   if (router.isFallback) {
     return <div>Loading...</div>;
   }
   return (
     <>
       <div>{blog.fields.title}</div>
+      {blog.fields.blogImage && <img src={blog.fields.blogImage} />}
+      <p>{blog.fields.author?.fields.name}</p>
+      <p>{blog.fields.publishDate}</p>
       <Markdown>{blog.fields.body}</Markdown>
+      {blog.fields.tag?.map((t, i) => <p key={t.sys.id}>{t.fields.name}</p>)}
     </>
   );
 }
+
+export default Blog

@@ -1,18 +1,17 @@
 export interface BlogsPropType {
   fields: {
-    slug: string;
-    title: string;
-    heroImage: Object;
-    description: string;
+    author: AuthorPropType;
+    blogImage: string;
     body: string;
-    author: Object;
+    description: string;
+    featured: boolean;
     publishDate: string;
-    tags: Array<string>;
+    slug: string;
+    tag: Tag[];
+    title: string;
   };
   sys: {
     id: string;
-    createdAt: string;
-    updatedAt: string;
   };
 }
 
@@ -27,18 +26,24 @@ interface Tag {
 
 interface RecipesPropType {
   fields: {
-    slug: string;
-    recipeTitle: string;
+    author: AuthorPropType[];
+    category: CategoryPropType;
+    cooktime: string;
     featured: boolean;
+    ingredients: string;
+    prep: string;
     publishDate: string;
     recipeDescription: string;
+    recipeDirections: string;
     recipeImage: string;
-    category: {
-      fields: {
-        name: string;
-      };
-    };
+    recipeInstagram: string;
+    recipeNotes: string;
+    recipeTitle: string;
+    recipeYoutubeLink: string;
+    servings: string;
+    slug: string;
     tag: Tag[];
+    tools: string;
   };
   sys: {
     id: string;
@@ -57,6 +62,7 @@ interface AuthorPropType {
     shortBio: string;
     title: string;
     twitter: string;
+    website: string;
   };
   sys: {
     id: string;
@@ -64,12 +70,12 @@ interface AuthorPropType {
 }
 
 interface CategoryPropType {
-    fields: {
-        name: string;
-    }
-    sys: {
-     id: string;   
-    }
+  fields: {
+    name: string;
+  };
+  sys: {
+    id: string;
+  };
 }
 
 export interface RecipePropType {
@@ -77,13 +83,41 @@ export interface RecipePropType {
     fields: {
       author: AuthorPropType[];
       category: CategoryPropType;
-      slug: string;
-      recipeTitle: string;
+      cooktime: string;
       featured: boolean;
+      ingredients: string;
+      prep: string;
       publishDate: string;
       recipeDescription: string;
+      recipeDirections: string;
       recipeImage: string;
+      recipeInstagram: string;
+      recipeNotes: string;
+      recipeTitle: string;
+      recipeYoutubeLink: string;
+      servings: string;
+      slug: string;
       tag: Tag[];
+      tools: string;
+    };
+    sys: {
+      id: string;
+    };
+  };
+}
+
+export interface BlogPropType {
+  blog: {
+    fields: {
+      author: AuthorPropType;
+      blogImage: string;
+      body: string;
+      description: string;
+      featured: boolean;
+      publishDate: string;
+      slug: string;
+      tag: Tag[];
+      title: string;
     };
     sys: {
       id: string;

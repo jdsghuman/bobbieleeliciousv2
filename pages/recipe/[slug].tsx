@@ -36,7 +36,6 @@ export async function getStaticProps({ params }) {
 const Recipe: React.FC<RecipePropType> = ({ recipe }) => {
   const router = useRouter();
 
-  console.log("recipe----", recipe);
   if (router.isFallback) {
     return <div>Loading...</div>;
   }
@@ -47,8 +46,8 @@ const Recipe: React.FC<RecipePropType> = ({ recipe }) => {
       <p>{recipe.fields.publishDate}</p>
       <p>{recipe.fields.category.fields.name}</p>
       {recipe.fields.author?.length && <p>{recipe.fields.author[0]?.fields.name}</p>}
-      {recipe.fields.tag.map((t, i) => <p key={t.sys.id}>{t.fields.name}</p>)}
       <Markdown>{recipe.fields.recipeDescription}</Markdown>
+      {recipe.fields.tag?.map((t, i) => <p key={t.sys.id}>{t.fields.name}</p>)}
     </>
   );
 }
