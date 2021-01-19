@@ -1,0 +1,43 @@
+.nav {
+    &__link {
+      position: relative;
+      float: left;
+      margin-top: 5px;
+      color: #333333;
+      text-align: center;
+      margin: 12px 15px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      vertical-align: middle;
+      letter-spacing: 1.1px;
+      border: none;
+      cursor: pointer;
+      outline: 0;
+      font-family: "Quicksand", sans-serif;
+      font-weight: 600;
+      background: none;
+      text-transform: uppercase;
+      
+      &::after {
+        display: block;
+        margin-top: 2px;
+        content: '';
+        height: 2px;
+        background: #888888;
+        border-radius: 5px;
+        max-width: 0;
+        transition: max-width 800ms cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      &:hover,
+      &--active {
+        color: #888888;
+        &::after {
+          width: 100%;
+          margin-top: 2px;
+          max-width: 200px;
+          transition: max-width 800ms cubic-bezier(0.22, 1, 0.36, 1);
+        }
+      }
+    }
+  }
+  

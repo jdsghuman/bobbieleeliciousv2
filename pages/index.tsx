@@ -2,6 +2,7 @@ import Head from "next/head"
 import Link from "next/link"
 import styles from "../styles/Home.module.css"
 import { HomePropType } from './PropTypes'
+import NavDesktop from '../components/Nav/NavDesktop'
 
 let client = require("contentful").createClient({
   space: process.env.NEXT_CONTENTFUL_SPACE_ID,
@@ -26,6 +27,7 @@ export async function getStaticProps() {
       blogs,
       recipes,
     },
+    revalidate: 60,
   };
 }
 
@@ -38,12 +40,13 @@ const Home: React.FC<HomePropType> = ({ blogs, recipes }) => {
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <NavDesktop />
       <div>Bobbieleelicious</div>
       <h3>Recipes</h3>
       <ul>
         {recipes.map((recipe) => (
           <li key={recipe.sys.id}>
-            <Link href={"/recipe/" + recipe.fields.slug}>
+            <Link href={"/recipes/" + recipe.fields.slug}>
               <a>{recipe.fields.recipeTitle}</a>
             </Link>
           </li>
@@ -53,7 +56,7 @@ const Home: React.FC<HomePropType> = ({ blogs, recipes }) => {
       <ul>
         {blogs.map((blog) => (
           <li key={blog.sys.id}>
-            <Link href={"/blog/" + blog.fields.slug}>
+            <Link href={"/blogs/" + blog.fields.slug}>
               <a>{blog.fields.title}</a>
             </Link>
           </li>

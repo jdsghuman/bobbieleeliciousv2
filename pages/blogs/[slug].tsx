@@ -1,4 +1,5 @@
-import Markdown from 'markdown-to-jsx';
+import Markdown from "markdown-to-jsx";
+import Image from "next/image";
 
 let client = require("contentful").createClient({
   space: process.env.NEXT_CONTENTFUL_SPACE_ID,
@@ -6,7 +7,7 @@ let client = require("contentful").createClient({
 });
 
 import { useRouter } from "next/router";
-import { BlogPropType } from '../PropTypes'
+import { BlogPropType } from "../PropTypes";
 
 export async function getStaticPaths() {
   let data = await client.getEntries({
@@ -31,6 +32,7 @@ export async function getStaticProps({ params }) {
     props: {
       blog: data.items[0],
     },
+    revalidate: 60,
   };
 }
 
@@ -40,16 +42,28 @@ const Blog: React.FC<BlogPropType> = ({ blog }) => {
   if (router.isFallback) {
     return <div>Loading...</div>;
   }
+
   return (
-    <>
-      <div>{blog.fields.title}</div>
-      {blog.fields.blogImage && <img src={blog.fields.blogImage} />}
+    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+      <h3>{blog.fields.title}</h3>
+      {blog.fields.blogImage && (
+        <div>
+          <Image 
+            src={blog.fields.blogImage} 
+            layout="intrinsic"
+            width={500}
+            height={500}
+        />
+        </div>
+      )}
       <p>{blog.fields.author?.fields.name}</p>
       <p>{blog.fields.publishDate}</p>
       <Markdown>{blog.fields.body}</Markdown>
-      {blog.fields.tag?.map((t, i) => <p key={t.sys.id}>{t.fields.name}</p>)}
-    </>
+      {blog.fields.tag?.map((t, i) => (
+        <p key={t.sys.id}>{t.fields.name}</p>
+      ))}
+    </div>
   );
-}
+};
 
-export default Blog
+export default Blog;
