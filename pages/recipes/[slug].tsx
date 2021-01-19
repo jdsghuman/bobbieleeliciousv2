@@ -3,9 +3,10 @@ let client = require("contentful").createClient({
   accessToken: process.env.NEXT_CONTENTFUL_ACCESS_TOKEN,
 });
 
-import Markdown from 'markdown-to-jsx';
+import Markdown from "markdown-to-jsx";
+import Image from "next/image";
 import { useRouter } from "next/router";
-import { RecipePropType } from '../PropTypes'
+import { RecipePropType } from "../PropTypes";
 
 export async function getStaticPaths() {
   let data = await client.getEntries({
@@ -30,11 +31,14 @@ export async function getStaticProps({ params }) {
     props: {
       recipe: data.items[0],
     },
+    revalidate: 60,
   };
 }
 
 const Recipe: React.FC<RecipePropType> = ({ recipe }) => {
   const router = useRouter();
+
+  console.log("recipe----", recipe);
 
   if (router.isFallback) {
     return <div>Loading...</div>;
@@ -42,14 +46,27 @@ const Recipe: React.FC<RecipePropType> = ({ recipe }) => {
   return (
     <>
       <div>{recipe.fields.recipeTitle}</div>
-      <img src={recipe.fields.recipeImage} />
+      {recipe.fields.recipeImage && (
+        <div>
+          <Image
+            src={recipe.fields.recipeImage}
+            layout="intrinsic"
+            width={500}
+            height={500}
+          />
+        </div>
+      )}
       <p>{recipe.fields.publishDate}</p>
       <p>{recipe.fields.category.fields.name}</p>
-      {recipe.fields.author?.length && <p>{recipe.fields.author[0]?.fields.name}</p>}
+      {recipe.fields.author?.length && (
+        <p>{recipe.fields.author[0]?.fields.name}</p>
+      )}
       <Markdown>{recipe.fields.recipeDescription}</Markdown>
-      {recipe.fields.tag?.map((t, i) => <p key={t.sys.id}>{t.fields.name}</p>)}
+      {recipe.fields.tag?.map((t, i) => (
+        <p key={t.sys.id}>{t.fields.name}</p>
+      ))}
     </>
   );
-}
+};
 
-export default Recipe
+export default Recipe;
