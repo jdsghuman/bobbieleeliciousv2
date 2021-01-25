@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "classnames": "^2.2.6",
     "contentful": "^8.1.7",
     "markdown-to-jsx": "^7.1.1",
     "next": "10.0.5",

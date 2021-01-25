@@ -2,7 +2,6 @@ import Head from "next/head"
 import Link from "next/link"
 import styles from "../styles/Home.module.css"
 import { HomePropType } from './PropTypes'
-import NavDesktop from '../components/Nav/NavDesktop'
 
 let client = require("contentful").createClient({
   space: process.env.NEXT_CONTENTFUL_SPACE_ID,
@@ -40,7 +39,6 @@ const Home: React.FC<HomePropType> = ({ blogs, recipes }) => {
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <NavDesktop />
       <div>Bobbieleelicious</div>
       <h3>Recipes</h3>
       <ul>

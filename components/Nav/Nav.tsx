@@ -1,92 +1,98 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { connect } from 'react-redux';
-import DrawerToggleButton from '../SideDrawer/DrawerToggleButton';
-import NavDesktop from './NavDesktop';
-import './Nav.css';
-import { resizeHeaderOnScroll } from '../Shared/Utilities/Utilities'
-import SocialMediaIcons from '../SocialMediaIcons/SocialMediaIcons';
-import Icon from '../Shared/Icon/Icon';
-import Filter from '../Filter/Filter';
-import ProfileIcon from '../Shared/Icon/ProfileIcon';
-import ProfileDisplay from '../ProfileDisplay/ProfileDisplay';
+import React, { useState } from "react";
+import { useRouter } from "next/router";
+import classNames from "classnames/bind";
+import Link from "../Link/Link";
+import Icon from "../Icon/Icon";
+import styles from "./Nav.module.scss";
+import Button from "../Button/Button";
 
-const Nav = ({ activate, activateBanner, drawerToggleClickHandler, show, user }) => {
-  let location = useLocation();
-  const [clicked, setClicked] = useState(true);
-  const [isOpenFilter, setIsOpenFilter] = useState(false);
-  const [isOpenProfileDisplay, setIsOpenProfileDisplay] = useState(false);
+const cx = classNames.bind(styles);
 
-  const toggleFilter = () => {
-    setIsOpenFilter(!isOpenFilter)
-    setIsOpenProfileDisplay(false);
-  }
+const Nav = () => {
+  const router = useRouter();
+  const [isExpanded, setIsExpanded] = useState(false);
 
-  const closeProfileDisplay = () => {
-    setIsOpenProfileDisplay(false);
-  }
-  const toggleProfileDisplay = () => {
-    setIsOpenProfileDisplay(!isOpenProfileDisplay);
-    setIsOpenFilter(false);
-  }
+  const handleMobileMenu = () => {
+    setIsExpanded(!isExpanded);
+  };
 
-  useEffect(() => {
-    window.addEventListener("scroll", resizeHeaderOnScroll);
-    return () => window.removeEventListener("scroll", resizeHeaderOnScroll);
-  }, []);
+  const goToHomePage = () => {
+    router.pathname === "/" && window.location.reload();
+  };
 
   return (
-    <div className="nav">
-      <div className={`${activateBanner && user.id ? 'banner__logged-in' : 'banner__logged-out'}`}>
-        Logged in!
-      </div>
-      <div className="nav__top">
-        <ProfileIcon click={toggleProfileDisplay} fill={"#ddd9d9"} styles={"profile-icon"} viewBox={"0 0 512 512"} />
-        <ProfileDisplay activate={activate} closeProfile={closeProfileDisplay} isOpen={isOpenProfileDisplay} />
-        <div onClick={() => setClicked(!clicked)} className="nav-left">
-          <Link to="/">
-            <img className="image__logo--nav" alt="logo" src="/images/BobbieLeeLicious-logo-black.png" />
+    <header className={styles.header}>
+      <div className={styles.header__container}>
+        <div className={styles.logo__container}>
+          <Link href="/">
+            <a onClick={goToHomePage}>
+              <img
+                className={styles.logo__image}
+                src="/images/bobbieleelicious-logo-black.png"
+              />
+            </a>
           </Link>
         </div>
-        <div className="nav-right">
-          <div className="menu--mobile">
-            {/* Hamburger menu for tablet/mobile */}
-            <DrawerToggleButton show={show} click={drawerToggleClickHandler} />
-          </div>
-          <div className="menu--desktop">
-            <NavDesktop />
-          </div>
-        </div>
-        {location.pathname === '/' &&
-          <div
-            className="menu--filter"
+        <nav className={styles.nav}>
+          <Button
+            onClick={handleMobileMenu}
+            type="button"
+            primary
+            className={styles.nav__button}
           >
-            <Filter
-              isOpen={isOpenFilter}
-              closeFilter={toggleFilter}
-            />
+            Menu
             <Icon
-              identifier="search"
-              viewBox="0 0 600 350"
-              fill={'#555'}
-              dimensions={{ height: 30, width: 26 }}
-              className={'icon-search'}
-              click={toggleFilter}
+              identifier="chevron"
+              viewBox="0 0 600 750"
+              fill={"#555"}
+              dimensions={{ height: 20, width: 20 }}
+              className={cx("nav__chevron", {
+                "nav__chevron--rotate": isExpanded,
+              })}
             />
-          </div>
-        }
-        <div className="menu--desktop">
-          <div className="nav-social">
-            <SocialMediaIcons position="navbar" />
-          </div>
-        </div>
+          </Button>
+          <ul
+            className={cx("nav__items", {
+              "nav__items--hidden": !isExpanded,
+            })}
+          >
+            <li className={styles["nav__items--home"]}>
+              <Link href="/">
+                <a onClick={handleMobileMenu} className={styles.nav__link}>
+                  Home
+                </a>
+              </Link>
+            </li>
+            <li>
+              <Link href="/recipes">
+                <a onClick={handleMobileMenu} className={styles.nav__link}>Recipes</a>
+              </Link>
+            </li>
+            <li>
+              <Link href="/blogs">
+                <a onClick={handleMobileMenu} className={styles.nav__link}>Blog</a>
+              </Link>
+            </li>
+            <li>
+              <Link href="/about">
+                <a onClick={handleMobileMenu} className={styles.nav__link}>About</a>
+              </Link>
+            </li>
+            {router.pathname !== "/about" && (
+              <Icon
+                identifier="search"
+                viewBox="0 0 600 350"
+                fill={"#555"}
+                dimensions={{ height: 30, width: 26 }}
+                className={styles.nav__search}
+                // click={toggleFilter}
+              />
+            )}
+          </ul>
+        </nav>
       </div>
-    </div>
+    </header>
   );
-}
+};
 
-const mapStateToProps = state => ({
-  user: state.user,
-});
-
-export default connect(mapStateToProps)(Nav);
+export default Nav;
