@@ -30,7 +30,7 @@ export async function getStaticProps() {
   };
 }
 
-const Home: React.FC<HomePropType> = ({ blogs, recipes }) => {
+const Home = ({ blogs, recipes }: HomePropType) => {
   console.log('recipes----', recipes)
   console.log('blogs----', blogs)
   return (

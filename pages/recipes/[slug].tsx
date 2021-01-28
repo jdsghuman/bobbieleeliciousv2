@@ -35,7 +35,7 @@ export async function getStaticProps({ params }) {
   };
 }
 
-const Recipe: React.FC<RecipePropType> = ({ recipe }) => {
+const Recipe = ({ recipe }: RecipePropType) => {
   const router = useRouter();
 
   console.log("recipe----", recipe);
