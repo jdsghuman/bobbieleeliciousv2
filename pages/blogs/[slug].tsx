@@ -36,7 +36,7 @@ export async function getStaticProps({ params }) {
   };
 }
 
-const Blog: React.FC<BlogPropType> = ({ blog }) => {
+const Blog = ({ blog }: BlogPropType) => {
   const router = useRouter();
 
   if (router.isFallback) {
