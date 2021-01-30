@@ -1,17 +1,11 @@
-let client = require("contentful").createClient({
-  space: process.env.NEXT_CONTENTFUL_SPACE_ID,
-  accessToken: process.env.NEXT_CONTENTFUL_ACCESS_TOKEN,
-});
-
 import Markdown from "markdown-to-jsx";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { RecipePropType } from "../PropTypes";
+import { getAllPostsWithSlug, getPostBySlug, getMorePosts } from '../../lib/index'
 
 export async function getStaticPaths() {
-  let data = await client.getEntries({
-    content_type: "recipe",
-  });
+  const data = await getAllPostsWithSlug('recipe')
 
   return {
     paths: data.items.map((item) => ({
@@ -22,23 +16,22 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  let data = await client.getEntries({
-    content_type: "recipe",
-    "fields.slug": params.slug,
-  });
-
+  const post = await getPostBySlug('recipe', params.slug)
+  const morePosts = await getMorePosts('recipe', params.slug)
   return {
     props: {
-      recipe: data.items[0],
+      recipe: post,
+      morePosts: morePosts ? morePosts : null,
     },
     revalidate: 60,
   };
 }
 
-const Recipe = ({ recipe }: RecipePropType) => {
+const Recipe = ({ recipe, morePosts }: RecipePropType) => {
   const router = useRouter();
 
   console.log("recipe----", recipe);
+  console.log("morePosts----", morePosts);
 
   if (router.isFallback) {
     return <div>Loading...</div>;

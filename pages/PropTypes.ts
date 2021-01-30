@@ -104,6 +104,7 @@ export interface RecipePropType {
       id: string;
     };
   };
+  morePosts?: Array<any>;
 }
 
 export interface BlogPropType {
