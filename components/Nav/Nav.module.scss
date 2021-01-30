@@ -139,7 +139,7 @@ $breakpoint--md: 800px;
       list-style: none;
       opacity: 1;
       overflow: hidden;
-      // transition: all 600ms cubic-bezier(0.22, 1, 0.36, 1);
+      transition: all 600ms cubic-bezier(0.22, 1, 0.36, 1);
       @media (max-width: 800px) {
         flex-flow: column;
         text-align: center;

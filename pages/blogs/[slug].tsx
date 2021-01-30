@@ -1,18 +1,11 @@
 import Markdown from "markdown-to-jsx";
 import Image from "next/image";
-
-let client = require("contentful").createClient({
-  space: process.env.NEXT_CONTENTFUL_SPACE_ID,
-  accessToken: process.env.NEXT_CONTENTFUL_ACCESS_TOKEN,
-});
-
 import { useRouter } from "next/router";
 import { BlogPropType } from "../PropTypes";
+import { getAllPostsWithSlug, getPostBySlug, getMorePosts } from '../../lib/index'
 
 export async function getStaticPaths() {
-  let data = await client.getEntries({
-    content_type: "blogPost",
-  });
+  const data = await getAllPostsWithSlug('blogPost')
 
   return {
     paths: data.items.map((item) => ({
@@ -23,14 +16,12 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  let data = await client.getEntries({
-    content_type: "blogPost",
-    "fields.slug": params.slug,
-  });
-
+  const post = await getPostBySlug('blogPost', params.slug)
+  const morePosts = await getMorePosts('blogPost', params.slug)
   return {
     props: {
-      blog: data.items[0],
+      blog: post,
+      morePosts: morePosts ? morePosts : null,
     },
     revalidate: 60,
   };
@@ -45,7 +36,7 @@ const Blog = ({ blog }: BlogPropType) => {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-      <h3>{blog.fields.title}</h3>
+      <h3>{blog.fields?.title}</h3>
       {blog.fields.blogImage && (
         <div>
           <Image 

@@ -1,5 +1,13 @@
+interface IconPropType {
+  className?: string;
+  click?: () => void;
+  dimensions?: object;
+  fill?: string;
+  identifier?: string;
+  viewBox?: string;
+}
 
-const Icon = ({ className, click, dimensions, fill, identifier, viewBox }) => {
+const Icon = ({ className, click, dimensions, fill, identifier, viewBox }: IconPropType) => {
 
   const icons = {
     add: ["M26,0C11.664,0,0,11.663,0,26s11.664,26,26,26s26-11.663,26-26S40.336,0,26,0z M26,50C12.767,50,2,39.233,2,26" +
