@@ -1,11 +1,10 @@
 import className from "classnames/bind";
 import styles from "./index.module.scss";
-import { aboutText } from "../../data/about";
+import { aboutText } from "../../data/data";
 
 const cx = className.bind(styles);
 
 const About = () => {
-
   const buildAboutDescription = () => {
     let descriptionAbout = aboutText.split("--");
     return descriptionAbout.map((about, i) => {
