@@ -69,3 +69,9 @@
   margin-right: 5px;
   border-left: 2px solid #cebf37;
 }
+
+.social {
+  &__container {
+    max-width: 100%;
+  }
+}

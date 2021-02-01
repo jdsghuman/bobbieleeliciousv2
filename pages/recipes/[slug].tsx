@@ -1,7 +1,7 @@
 import Markdown from "markdown-to-jsx";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { RecipePropType } from "../PropTypes";
+import { RecipePropType } from "../../components/PropTypes/PropTypes";
 import { getAllPostsWithSlug, getPostBySlug, getMorePosts } from '../../lib/index'
 
 export async function getStaticPaths() {

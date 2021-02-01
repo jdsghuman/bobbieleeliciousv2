@@ -2,7 +2,7 @@ import { GetStaticProps } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import styles from "../styles/Home.module.css";
-import { HomePropType } from "./PropTypes";
+import { HomePropType } from "../components/PropTypes/PropTypes";
 import { getAllPosts } from "../lib/index";
 
 export const getStaticProps: GetStaticProps = async (context) => {

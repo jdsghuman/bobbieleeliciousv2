@@ -130,3 +130,11 @@ export interface HomePropType {
   blogs: BlogsPropType[];
   recipes: RecipesPropType[];
 }
+
+export interface IconPropType {
+  fill?: string;
+  link?: string;
+  position?: string;
+  className?: string;
+  viewBox?: string;
+}

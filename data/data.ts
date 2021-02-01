@@ -18,3 +18,10 @@ export const aboutText = `Hi, I'm Bobbie. I am a mom of two sweet little
   and wellness, eating a healthy diet is one of the greatest gifts we can 
   give ourselves and families. Life can be complicated, eating a well 
   balanced, plant focused diet shouldn't be! -- Bobbie, XO`;
+
+  export enum SocialMediaLinks {
+    Instagram = 'www.instagram.com/bobbieleelicious/',
+    Facebook = 'www.facebook.com/groups/2504992539751293/',
+    Email = 'bobbie@bobbieleelicious.com',
+    Blog = '/blogs',
+  }
