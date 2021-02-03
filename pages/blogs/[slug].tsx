@@ -37,10 +37,10 @@ const Blog = ({ blog }: BlogPropType) => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
       <h3>{blog.fields?.title}</h3>
-      {blog.fields.blogImage && (
+      {blog.fields.image && (
         <div>
           <Image 
-            src={blog.fields.blogImage} 
+            src={blog.fields.image} 
             layout="intrinsic"
             width={500}
             height={500}

@@ -38,11 +38,11 @@ const Recipe = ({ recipe, morePosts }: RecipePropType) => {
   }
   return (
     <>
-      <div>{recipe.fields.recipeTitle}</div>
-      {recipe.fields.recipeImage && (
+      <div>{recipe.fields.title}</div>
+      {recipe.fields.image && (
         <div>
           <Image
-            src={recipe.fields.recipeImage}
+            src={recipe.fields.image}
             layout="intrinsic"
             width={500}
             height={500}
@@ -54,7 +54,7 @@ const Recipe = ({ recipe, morePosts }: RecipePropType) => {
       {recipe.fields.author?.length && (
         <p>{recipe.fields.author[0]?.fields.name}</p>
       )}
-      <Markdown>{recipe.fields.recipeDescription}</Markdown>
+      <Markdown>{recipe.fields.description}</Markdown>
       {recipe.fields.tag?.map((t, i) => (
         <p key={t.sys.id}>{t.fields.name}</p>
       ))}

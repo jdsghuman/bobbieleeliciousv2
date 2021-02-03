@@ -1,7 +1,10 @@
 interface IconPropType {
   className?: string;
   click?: () => void;
-  dimensions?: object;
+  dimensions?: {
+    width: number;
+    height: number;
+  };
   fill?: string;
   identifier?: string;
   viewBox?: string;

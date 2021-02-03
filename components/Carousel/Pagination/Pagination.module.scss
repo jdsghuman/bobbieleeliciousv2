@@ -1,0 +1,13 @@
+.pagination {
+  &__circle {
+    width: 10px;
+    height: 10px;
+    margin: 0 5px;
+    border: 2px solid rgb(194, 191, 191);
+    border-radius: 100%;
+    cursor: pointer;
+    &--active {
+      background: rgb(194, 191, 191);
+    }
+  }
+}
