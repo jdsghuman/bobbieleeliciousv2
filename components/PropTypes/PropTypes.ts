@@ -1,7 +1,7 @@
 export interface BlogsPropType {
   fields: {
     author: AuthorPropType;
-    blogImage: string;
+    image: string;
     body: string;
     description: string;
     featured: boolean;
@@ -33,12 +33,12 @@ interface RecipesPropType {
     ingredients: string;
     prep: string;
     publishDate: string;
-    recipeDescription: string;
+    description: string;
     recipeDirections: string;
-    recipeImage: string;
+    image: string;
     recipeInstagram: string;
     recipeNotes: string;
-    recipeTitle: string;
+    title: string;
     recipeYoutubeLink: string;
     servings: string;
     slug: string;
@@ -88,12 +88,12 @@ export interface RecipePropType {
       ingredients: string;
       prep: string;
       publishDate: string;
-      recipeDescription: string;
+      description: string;
       recipeDirections: string;
-      recipeImage: string;
+      image: string;
       recipeInstagram: string;
       recipeNotes: string;
-      recipeTitle: string;
+      title: string;
       recipeYoutubeLink: string;
       servings: string;
       slug: string;
@@ -111,7 +111,7 @@ export interface BlogPropType {
   blog: {
     fields: {
       author: AuthorPropType;
-      blogImage: string;
+      image: string;
       body: string;
       description: string;
       featured: boolean;
@@ -129,6 +129,7 @@ export interface BlogPropType {
 export interface HomePropType {
   blogs: BlogsPropType[];
   recipes: RecipesPropType[];
+  featuredPosts: Array<any>;
 }
 
 export interface IconPropType {

@@ -62,7 +62,7 @@ const SocialMediaIcons = ({ position }: propTypes) => {
           link="/blogs"
         />
       )}
-      {SocialMediaLinks.Youtube && (
+      {/* {SocialMediaLinks.Youtube && (
         <YoutubeIcon
           fill={"#555555"}
           className={cx("icon__container", {
@@ -71,7 +71,7 @@ const SocialMediaIcons = ({ position }: propTypes) => {
           viewBox={"0 10 700 512"}
           link={`https://${SocialMediaLinks.Youtube}`}
         />
-      )}
+      )} */}
     </div>
   );
 };

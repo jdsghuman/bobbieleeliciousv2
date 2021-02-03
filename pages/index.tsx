@@ -4,34 +4,38 @@ import Link from "next/link";
 import styles from "../styles/Home.module.css";
 import { HomePropType } from "../components/PropTypes/PropTypes";
 import { getAllPosts } from "../lib/index";
+import Carousel from '../components/Carousel/Carousel'
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const posts = await getAllPosts();
+  const featuredBlogs = posts.blogs.filter(blog => blog.fields.featured)
+  const featuredRecipes = posts.recipes.filter(recipe => recipe.fields.featured)
   return {
     props: {
       blogs: posts.blogs,
       recipes: posts.recipes,
+      featuredPosts: [...featuredBlogs, ...featuredRecipes]
     },
     revalidate: 60,
   };
 };
 
-const Home = ({ blogs, recipes }: HomePropType) => {
-  console.log("recipes----", recipes);
-  console.log("blogs----", blogs);
+const Home = ({ blogs, featuredPosts, recipes }: HomePropType) => {
   return (
     <div className={styles.container}>
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div>Bobbieleelicious</div>
+      <Carousel
+        featuredPosts={featuredPosts}
+      />
       <h3>Recipes</h3>
       <ul>
         {recipes.map((recipe) => (
           <li key={recipe.sys.id}>
             <Link href={"/recipes/" + recipe.fields.slug}>
-              <a>{recipe.fields.recipeTitle}</a>
+              <a>{recipe.fields.title}</a>
             </Link>
           </li>
         ))}

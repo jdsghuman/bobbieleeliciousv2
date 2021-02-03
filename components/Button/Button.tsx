@@ -13,11 +13,11 @@ enum ButtonTypes {
 
 interface ButtonPropTypes extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   type: any;
-  className: string;
+  className?: string;
   children: any;
   primary?: boolean;
   accent?: boolean;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 const Button = ({ children, type, className, primary, accent, onClick }: ButtonPropTypes) => (
