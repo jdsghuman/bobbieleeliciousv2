@@ -5,6 +5,7 @@ import styles from "../styles/Home.module.css";
 import { HomePropType } from "../components/PropTypes/PropTypes";
 import { getAllPosts } from "../lib/index";
 import Carousel from '../components/Carousel/Carousel'
+import Subscribe from '../components/Subscribe/Banner'
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const posts = await getAllPosts();
@@ -30,6 +31,7 @@ const Home = ({ blogs, featuredPosts, recipes }: HomePropType) => {
       <Carousel
         featuredPosts={featuredPosts}
       />
+      <Subscribe />
       <h3>Recipes</h3>
       <ul>
         {recipes.map((recipe) => (
