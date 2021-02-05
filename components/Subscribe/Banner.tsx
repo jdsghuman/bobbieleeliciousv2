@@ -9,7 +9,8 @@ const SubscribeBanner = () => {
         <input type="text" />
         <p>Subscribe to receive updates!</p>
         <Button
-        className={styles.banner__button} 
+        className={styles.banner__button}
+        type={'button'}
         accent
         >
           Subscribe

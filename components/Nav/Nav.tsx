@@ -6,11 +6,11 @@ import Link from "../Link/Link";
 import Icon from "../Icon/Icon";
 import styles from "./Nav.module.scss";
 import Button from "../Button/Button";
-import DrawerToggleButton from '../SideDrawer/DrawerToggleButton'
+import DrawerToggleButton from '../SideDrawer/DrawerToggle/DrawerToggleButton'
 
 const cx = classNames.bind(styles);
 
-const Nav = () => {
+const Nav = ({ drawerToggleClickHandler, sideDrawerOpen }) => {
   const router = useRouter();
   const [isExpanded, setIsExpanded] = useState(false);
   const [isTopOfPage, setIsTopOfPage] = useState(true);
@@ -82,8 +82,8 @@ const Nav = () => {
         <nav className={styles.nav__mobile}>
             {/* Hamburger menu for tablet/mobile */}
             <DrawerToggleButton 
-              // show={show} 
-              // click={drawerToggleClickHandler}
+              show={sideDrawerOpen} 
+              click={drawerToggleClickHandler}
             />
           </nav>
         <nav
