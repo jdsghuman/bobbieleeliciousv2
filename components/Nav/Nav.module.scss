@@ -40,7 +40,6 @@ $breakpoint--md: 800px;
     @media (max-width: 800px) {
       flex-flow: column;
       margin: 0.8em 0;
-      // margin-bottom: 0;
       flex-direction: row;
       padding: 0;
     }
@@ -87,12 +86,6 @@ $breakpoint--md: 800px;
       font-size: 0.9rem;
     }
     @media (max-width: 800px) {
-      // border-top: 0.5px solid rgba(0, 0, 0, 0.12);
-      // margin-top: 0.5em;
-      // width: 60vw;
-      // &__border--unset {
-      //   border-top: 0.5px solid rgba(0, 0, 0, 0);
-      // }
       display: none;
     }
     &__link {
@@ -198,10 +191,10 @@ $breakpoint--md: 800px;
       margin-left: 18px;
       margin-top: 5px;
       &__container {
-        @media(max-width: 800px) {
+        @media (max-width: 800px) {
           margin-bottom: 20px;
         }
-        @media(max-width: 500px) {
+        @media (max-width: 500px) {
           margin-left: 20px;
         }
       }
@@ -229,7 +222,7 @@ $breakpoint--md: 800px;
       @media (min-width: 801px) {
         display: none;
       }
-      @media(max-width: 500px) {
+      @media (max-width: 500px) {
         margin-right: 15px;
       }
     }

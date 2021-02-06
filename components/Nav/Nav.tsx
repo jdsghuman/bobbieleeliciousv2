@@ -5,7 +5,6 @@ import debounce from "lodash.debounce";
 import Link from "../Link/Link";
 import Icon from "../Icon/Icon";
 import styles from "./Nav.module.scss";
-import Button from "../Button/Button";
 import DrawerToggleButton from '../SideDrawer/DrawerToggle/DrawerToggleButton'
 
 const cx = classNames.bind(styles);
@@ -92,25 +91,6 @@ const Nav = ({ drawerToggleClickHandler, sideDrawerOpen }) => {
             "nav__border--unset": !isTopOfPage,
           })}
         >
-          {/* <Button
-            onClick={handleMobileMenu}
-            type="button"
-            primary
-            className={cx('nav__button', {
-              'nav__button--small': !isTopOfPage
-            })}
-          >
-            Menu
-            <Icon
-              identifier="chevron"
-              viewBox="0 0 600 750"
-              fill={"#555"}
-              dimensions={{ height: 20, width: 20 }}
-              className={cx("nav__chevron", {
-                "nav__chevron--rotate": isExpanded,
-              })}
-            />
-          </Button> */}
           <ul
             className={cx("nav__items", {
               "nav__items--hidden": !isExpanded,
