@@ -77,22 +77,6 @@
   }
 }
 
-// .side-drawer--height {
-//   height: 100%;
-//   margin-top: 20px;
-//   list-style: none;
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: center;
-//   font-size: 1.5rem;
-//   align-items: center;
-//   padding: 0;
-// }
-
-// .side-drawer__border--none {
-//   border-bottom: none !important;
-// }
-
 @media only screen and (max-height: 415px) {
   .site-header__side-drawer {
     margin-bottom: 20px;
@@ -107,33 +91,3 @@
     width: 80%;
   }
 }
-
-// .side-drawer__login {
-//   margin-top: auto;
-//   width: 90%;
-//   transform: translateZ(0);
-//   -webkit-transform: translateZ(0);
-// }
-
-// .sidebar__login-link {
-//   color: #333333;
-//   padding: 5px 0;
-//   margin: 5px 15px;
-//   text-decoration: none;
-//   font-size: 0.9rem;
-//   letter-spacing: 1.2px;
-//   border: none;
-//   cursor: pointer;
-//   outline: 0;
-//   font-family: "Roboto", sans-serif;
-//   font-weight: 300;
-//   transition: all 0.2s ease-in;
-//   background: none;
-//   text-transform: uppercase;
-//   transform: translateZ(0);
-//   -webkit-transform: translateZ(0);
-// }
-
-// .side-drawer--last {
-//   margin-bottom: 40px;
-// }

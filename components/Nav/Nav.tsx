@@ -16,7 +16,6 @@ const Nav = ({ drawerToggleClickHandler, sideDrawerOpen }) => {
 
   const resizeHeaderOnScroll = () => {
     const distanceY = window.pageYOffset || document.documentElement.scrollTop;
-    console.log("distanceY", distanceY);
     if (distanceY > 200) {
       setIsTopOfPage(false);
     } else if (distanceY < 50) {
