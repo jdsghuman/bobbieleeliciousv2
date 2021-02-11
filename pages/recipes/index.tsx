@@ -1,6 +1,3 @@
-const Recipes = () => (
-  <>
-    <div>Recipes</div>
-  </>
-);
-export default Recipes;
+const Recipes = () => <div>Recipes</div>
+
+export default Recipes

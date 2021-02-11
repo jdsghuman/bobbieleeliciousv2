@@ -6,10 +6,7 @@ $secondary: #585a59;
 
 .banner {
   display: grid;
-  grid-template-columns: minmax(5%, 1fr) repeat(6, minmax(100px, 400px)) minmax(
-      5%,
-      1fr
-    );
+  grid-template-columns: minmax(5%, 1fr) repeat(6, minmax(100px, 400px)) minmax(5%, 1fr);
   overflow: hidden;
   margin-top: 70px;
   margin-bottom: 70px;
@@ -71,7 +68,7 @@ $secondary: #585a59;
     padding: 8px 24px;
     align-self: center;
     font-size: 1rem;
-    font-family: "Poppins", sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-weight: 300;
     text-transform: uppercase;
     letter-spacing: 1.1px;
@@ -82,7 +79,7 @@ $secondary: #585a59;
     }
   }
   &__text {
-    font-family: "Rock Salt", cursive;
+    font-family: 'Rock Salt', cursive;
     margin-right: 2em;
     font-size: 1.1rem;
     color: #555555;
@@ -112,7 +109,7 @@ $secondary: #585a59;
     border-bottom: 1px solid #333333;
     outline: 0;
     font-size: 1.1rem;
-    font-family: "Poppins", sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-weight: 300;
     color: #333333;
     padding: 7px 0;
@@ -139,12 +136,12 @@ $secondary: #585a59;
       color: transparent;
     }
     &:placeholder-shown ~ .form__label {
-      font-family: "Poppins", sans-serif;
+      font-family: 'Poppins', sans-serif;
       font-weight: 300;
       font-size: 1.2rem;
       cursor: text;
       top: 30px;
-      @media(max-width: 1050px) {
+      @media (max-width: 1050px) {
         top: 25px;
       }
     }
@@ -156,7 +153,7 @@ $secondary: #585a59;
     transition: 0.2s;
     font-size: 1rem;
     color: #555555;
-    font-family: "Poppins", sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-weight: 300;
   }
 }

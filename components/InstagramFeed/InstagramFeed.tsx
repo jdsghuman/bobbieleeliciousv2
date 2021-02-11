@@ -1,4 +1,4 @@
-import styles from "./InstagramFeed.module.scss";
+import styles from './InstagramFeed.module.scss'
 
 const InstagramFeed = ({ instagramPosts }) => {
   return (
@@ -10,16 +10,14 @@ const InstagramFeed = ({ instagramPosts }) => {
               <img
                 className={styles.social__image}
                 src={node.display_resources[0].src}
-                alt={node.edge_media_to_caption.edges[0].node.text
-                  .replace(/(#\w+)+/g, "")
-                  .trim()}
+                alt={node.edge_media_to_caption.edges[0].node.text.replace(/(#\w+)+/g, '').trim()}
               />
             </a>
           </li>
-        );
+        )
       })}
     </ul>
-  );
-};
+  )
+}
 
-export default InstagramFeed;
+export default InstagramFeed

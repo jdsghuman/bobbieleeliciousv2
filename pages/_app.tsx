@@ -1,4 +1,4 @@
-import "../styles/globals.css";
+import '../styles/globals.css'
 import Layout from '../components/Layout/Layout'
 
 function MyApp({ Component, pageProps }) {
@@ -6,7 +6,7 @@ function MyApp({ Component, pageProps }) {
     <Layout>
       <Component {...pageProps} />
     </Layout>
-  );
+  )
 }
 
-export default MyApp;
+export default MyApp

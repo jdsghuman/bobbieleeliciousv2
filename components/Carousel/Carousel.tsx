@@ -1,16 +1,16 @@
-import { useEffect, useState } from "react";
-import CarouselItem from "./CarouselItem/CarouselItem";
+import { useEffect, useState } from 'react'
+import CarouselItem from './CarouselItem/CarouselItem'
 import Pagination from './Pagination/Pagination'
 
-import styles from "./Carousel.module.scss";
+import styles from './Carousel.module.scss'
 
 interface Carousel {
-  featuredPosts: Array<any>;
+  featuredPosts: Array<any>
 }
 
 const Carousel = ({ featuredPosts }: Carousel) => {
-  const [currentInterval, setCurrentInterval] = useState(0);
-  const [style, setStyle] = useState(styles.carousel__container);
+  const [currentInterval, setCurrentInterval] = useState(0)
+  const [style, setStyle] = useState(styles.carousel__container)
 
   const images = featuredPosts.map((post, i) => {
     return {
@@ -20,23 +20,21 @@ const Carousel = ({ featuredPosts }: Carousel) => {
       description: post.fields.description,
       slug: post.fields.slug,
       type: post.sys.contentType.sys.id,
-    };
-  });
+    }
+  })
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setStyle(styles["container--none"]);
+      setStyle(styles['container--none'])
 
-      setCurrentInterval(
-        currentInterval < featuredPosts.length - 1 ? currentInterval + 1 : 0
-      );
-    }, 6000);
-    return () => clearInterval(interval);
-  });
+      setCurrentInterval(currentInterval < featuredPosts.length - 1 ? currentInterval + 1 : 0)
+    }, 6000)
+    return () => clearInterval(interval)
+  })
 
   useEffect(() => {
-    setStyle(styles.carousel__container);
-  }, [currentInterval]);
+    setStyle(styles.carousel__container)
+  }, [currentInterval])
 
   return (
     <>
@@ -49,9 +47,7 @@ const Carousel = ({ featuredPosts }: Carousel) => {
           />
         </div>
         <div className={styles.carousel__controls}>
-          <CarouselItem
-            imageDetails={images[currentInterval]}
-          />
+          <CarouselItem imageDetails={images[currentInterval]} />
         </div>
       </div>
       <ul className={styles.carousel__pagination}>
@@ -65,7 +61,7 @@ const Carousel = ({ featuredPosts }: Carousel) => {
         ))}
       </ul>
     </>
-  );
-};
+  )
+}
 
-export default Carousel;
+export default Carousel

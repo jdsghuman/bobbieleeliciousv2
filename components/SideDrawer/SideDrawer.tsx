@@ -1,14 +1,17 @@
-import Link from "../Link/Link";
-import classNames from "classnames/bind";
-import styles from "./SideDrawer.module.scss";
+import Link from '../Link/Link'
+import classNames from 'classnames/bind'
+import styles from './SideDrawer.module.scss'
 
-const cx = classNames.bind(styles);
+const cx = classNames.bind(styles)
 
 const SideDrawer = ({ click, show }) => {
   return (
-    <nav onClick={click} className={cx('drawer', {
-      'drawer--open': show
-    })}>
+    <nav
+      onClick={click}
+      className={cx('drawer', {
+        'drawer--open': show,
+      })}
+    >
       <div onClick={click} className={styles.drawer__header}>
         <Link href="/">
           <img
@@ -34,7 +37,7 @@ const SideDrawer = ({ click, show }) => {
         </Link>
       </div>
     </nav>
-  );
-};
+  )
+}
 
-export default SideDrawer;
+export default SideDrawer

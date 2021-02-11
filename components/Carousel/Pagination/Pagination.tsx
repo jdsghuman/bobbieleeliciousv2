@@ -1,7 +1,7 @@
 import styles from './Pagination.module.scss'
-import classNames from "classnames/bind";
+import classNames from 'classnames/bind'
 
-const cx = classNames.bind(styles);
+const cx = classNames.bind(styles)
 
 const Pagination = ({ active, count, setActiveImage }) => {
   return (
@@ -11,8 +11,7 @@ const Pagination = ({ active, count, setActiveImage }) => {
           'pagination__circle--active': active,
         })}
         onClick={() => setActiveImage(count)}
-      >
-      </div>
+      ></div>
     </li>
   )
 }

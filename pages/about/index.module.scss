@@ -1,9 +1,6 @@
 .about {
   display: grid;
-  grid-template-columns: minmax(5%, 1fr) repeat(2, minmax(300px, 425px)) minmax(
-      5%,
-      1fr
-    );
+  grid-template-columns: minmax(5%, 1fr) repeat(2, minmax(300px, 425px)) minmax(5%, 1fr);
   grid-gap: 40px;
   margin-top: 40px;
   margin-bottom: 60px;
@@ -44,7 +41,7 @@
     margin-top: 0;
     line-height: 1.8;
     color: #333333;
-    font-family: "Lato", sans-serif;
+    font-family: 'Lato', sans-serif;
     font-weight: 400;
     letter-spacing: 0.3px;
     text-align: justify;
@@ -64,7 +61,7 @@
 }
 
 .about__text-container > .about__description-text:first-child:before {
-  content: "";
+  content: '';
   margin: 0 auto;
   margin-right: 5px;
   border-left: 2px solid #cebf37;

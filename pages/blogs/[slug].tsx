@@ -1,7 +1,7 @@
-import Markdown from "markdown-to-jsx";
-import Image from "next/image";
-import { useRouter } from "next/router";
-import { BlogPropType } from "../../components/PropTypes/PropTypes";
+import Markdown from 'markdown-to-jsx'
+import Image from 'next/image'
+import { useRouter } from 'next/router'
+import { BlogPropType } from '../../components/PropTypes/PropTypes'
 import { getAllPostsWithSlug, getPostBySlug, getMorePosts } from '../../lib/index'
 
 export async function getStaticPaths() {
@@ -12,7 +12,7 @@ export async function getStaticPaths() {
       params: { slug: item.fields.slug },
     })),
     fallback: true,
-  };
+  }
 }
 
 export async function getStaticProps({ params }) {
@@ -24,27 +24,28 @@ export async function getStaticProps({ params }) {
       morePosts: morePosts ? morePosts : null,
     },
     revalidate: 60,
-  };
+  }
 }
 
 const Blog = ({ blog }: BlogPropType) => {
-  const router = useRouter();
+  const router = useRouter()
 
   if (router.isFallback) {
-    return <div>Loading...</div>;
+    return <div>Loading...</div>
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+      }}
+    >
       <h3>{blog.fields?.title}</h3>
       {blog.fields.image && (
         <div>
-          <Image 
-            src={blog.fields.image} 
-            layout="intrinsic"
-            width={500}
-            height={500}
-        />
+          <Image src={blog.fields.image} layout="intrinsic" width={500} height={500} />
         </div>
       )}
       <p>{blog.fields.author?.fields.name}</p>
@@ -54,7 +55,7 @@ const Blog = ({ blog }: BlogPropType) => {
         <p key={t.sys.id}>{t.fields.name}</p>
       ))}
     </div>
-  );
-};
+  )
+}
 
-export default Blog;
+export default Blog
