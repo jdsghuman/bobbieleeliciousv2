@@ -17,7 +17,7 @@
   border: none;
   outline: none;
   color: #333;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: 'Barlow Condensed', sans-serif;
   font-size: 1.1rem;
   font-weight: 700;
   border-radius: 2%;
@@ -36,7 +36,7 @@
   }
   &--active {
     &::after {
-      content: "";
+      content: '';
       height: 100%;
       width: 5px;
       position: absolute;
@@ -66,7 +66,7 @@
     }
     margin-top: 0;
     margin-bottom: 15px;
-    font-family: "Poppins", sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 1rem;
     padding: 0.3em 1em;
 

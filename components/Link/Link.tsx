@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import styles from './Link.module.scss'
 
-export default ({ href, children }) => {
+const LinkDisplay = ({ href, children }) => {
   const router = useRouter()
 
   let className = children.props.className || ''
@@ -19,3 +19,5 @@ export default ({ href, children }) => {
 
   return <Link href={href}>{React.cloneElement(children, { className })}</Link>
 }
+
+export default LinkDisplay

@@ -1,7 +1,7 @@
-import Markdown from "markdown-to-jsx";
-import Image from "next/image";
-import { useRouter } from "next/router";
-import { RecipePropType } from "../../components/PropTypes/PropTypes";
+import Markdown from 'markdown-to-jsx'
+import Image from 'next/image'
+import { useRouter } from 'next/router'
+import { RecipePropType } from '../../components/PropTypes/PropTypes'
 import { getAllPostsWithSlug, getPostBySlug, getMorePosts } from '../../lib/index'
 
 export async function getStaticPaths() {
@@ -12,7 +12,7 @@ export async function getStaticPaths() {
       params: { slug: item.fields.slug },
     })),
     fallback: true,
-  };
+  }
 }
 
 export async function getStaticProps({ params }) {
@@ -24,42 +24,35 @@ export async function getStaticProps({ params }) {
       morePosts: morePosts ? morePosts : null,
     },
     revalidate: 60,
-  };
+  }
 }
 
 const Recipe = ({ recipe, morePosts }: RecipePropType) => {
-  const router = useRouter();
+  const router = useRouter()
 
-  console.log("recipe----", recipe);
-  console.log("morePosts----", morePosts);
+  console.log('recipe----', recipe)
+  console.log('morePosts----', morePosts)
 
   if (router.isFallback) {
-    return <div>Loading...</div>;
+    return <div>Loading...</div>
   }
   return (
     <>
       <div>{recipe.fields.title}</div>
       {recipe.fields.image && (
         <div>
-          <Image
-            src={recipe.fields.image}
-            layout="intrinsic"
-            width={500}
-            height={500}
-          />
+          <Image src={recipe.fields.image} layout="intrinsic" width={500} height={500} />
         </div>
       )}
       <p>{recipe.fields.publishDate}</p>
       <p>{recipe.fields.category.fields.name}</p>
-      {recipe.fields.author?.length && (
-        <p>{recipe.fields.author[0]?.fields.name}</p>
-      )}
+      {recipe.fields.author?.length && <p>{recipe.fields.author[0]?.fields.name}</p>}
       <Markdown>{recipe.fields.description}</Markdown>
-      {recipe.fields.tag?.map((t, i) => (
+      {recipe.fields.tag?.map((t) => (
         <p key={t.sys.id}>{t.fields.name}</p>
       ))}
     </>
-  );
-};
+  )
+}
 
-export default Recipe;
+export default Recipe

@@ -1,5 +1,5 @@
-import Link from "next/link";
-import styles from "./SocialMediaDisplay/SocialMediaDisplay.module.scss";
+import Link from 'next/link'
+import styles from './SocialMediaDisplay/SocialMediaDisplay.module.scss'
 import { IconPropType } from '../../PropTypes/PropTypes'
 
 const BlogIcon = ({ fill, link, className, viewBox }: IconPropType) => {
@@ -13,7 +13,7 @@ const BlogIcon = ({ fill, link, className, viewBox }: IconPropType) => {
         </a>
       </Link>
     </div>
-  );
-};
+  )
+}
 
-export default BlogIcon;
+export default BlogIcon

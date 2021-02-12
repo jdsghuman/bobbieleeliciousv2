@@ -1,11 +1,11 @@
-import styles from "./Footer.module.scss";
-import SocialMediaDisplay from "../Icon/SocialMedia/SocialMediaDisplay/SocialMediaDisplay";
+import styles from './Footer.module.scss'
+import SocialMediaDisplay from '../Icon/SocialMedia/SocialMediaDisplay/SocialMediaDisplay'
 
 const Footer = () => {
   const getCopyrightYear = () => {
-    let currentDate = new Date();
-    return currentDate.getFullYear();
-  };
+    const currentDate = new Date()
+    return currentDate.getFullYear()
+  }
 
   return (
     <footer className={styles.footer}>
@@ -17,11 +17,9 @@ const Footer = () => {
         />
       </div>
       <SocialMediaDisplay />
-      <div className={styles.footer__copy}>
-        Bobbieleelicious &copy; {getCopyrightYear()}
-      </div>
+      <div className={styles.footer__copy}>Bobbieleelicious &copy; {getCopyrightYear()}</div>
     </footer>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer

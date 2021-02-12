@@ -1,10 +1,10 @@
-import Button from "../Button/Button";
-import styles from "./Banner.module.scss";
+import Button from '../Button/Button'
+import styles from './Banner.module.scss'
 
 const SubscribeBanner = () => {
   return (
     <div className={styles.banner}>
-      <div className={styles["banner__bg-banner"]} />
+      <div className={styles['banner__bg-banner']} />
       <div className={styles.banner__container}>
         <p className={styles.banner__text}>Subscribe to receive updates!</p>
         <div className={styles.form}>
@@ -19,13 +19,13 @@ const SubscribeBanner = () => {
           <label className={styles.form__label} htmlFor="email">
             Email
           </label>
-          <Button className={styles.banner__button} type={"button"} accent>
+          <Button className={styles.banner__button} type={'button'} accent>
             Subscribe
           </Button>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default SubscribeBanner;
+export default SubscribeBanner
