@@ -7,7 +7,7 @@ import { getAllPosts } from '../lib/index'
 import Carousel from '../components/Carousel/Carousel'
 import Subscribe from '../components/Subscribe/Banner'
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getStaticProps: GetStaticProps = async () => {
   const posts = await getAllPosts()
   const featuredBlogs = posts.blogs.filter((blog) => blog.fields.featured)
   const featuredRecipes = posts.recipes.filter((recipe) => recipe.fields.featured)

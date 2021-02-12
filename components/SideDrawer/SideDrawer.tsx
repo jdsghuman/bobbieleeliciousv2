@@ -6,6 +6,7 @@ const cx = classNames.bind(styles)
 
 const SideDrawer = ({ click, show }) => {
   return (
+    // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
     <nav
       onClick={click}
       className={cx('drawer', {

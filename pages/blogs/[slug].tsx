@@ -51,7 +51,7 @@ const Blog = ({ blog }: BlogPropType) => {
       <p>{blog.fields.author?.fields.name}</p>
       <p>{blog.fields.publishDate}</p>
       <Markdown>{blog.fields.body}</Markdown>
-      {blog.fields.tag?.map((t, i) => (
+      {blog.fields.tag?.map((t) => (
         <p key={t.sys.id}>{t.fields.name}</p>
       ))}
     </div>
