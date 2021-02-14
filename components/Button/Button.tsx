@@ -10,7 +10,7 @@ interface ButtonPropTypes extends React.ButtonHTMLAttributes<HTMLButtonElement> 
   children: any
   primary?: boolean
   accent?: boolean
-  onClick?: () => void
+  onClick?: any
 }
 
 const Button = ({ children, type, className, primary, accent, onClick }: ButtonPropTypes) => (
