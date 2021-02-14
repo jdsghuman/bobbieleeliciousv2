@@ -3,6 +3,8 @@ $breakpoint--sm: 600px;
 $palette--primary: #f7f7f7;
 $primary: #2c2e2e;
 $secondary: #585a59;
+$errorValidation: #ec1b1b;
+$success: #27c013;
 
 .banner {
   display: grid;
@@ -84,6 +86,14 @@ $secondary: #585a59;
     font-size: 1.1rem;
     color: #555555;
     letter-spacing: 1.1px;
+    &--error {
+      color: $errorValidation;
+      animation: text-focus-in 0.3s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+    }
+    &--success {
+      color: $success;
+      animation: text-focus-in 0.3s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+    }
     @media (max-width: 950px) {
       margin-right: 0;
     }
@@ -115,6 +125,9 @@ $secondary: #585a59;
     padding: 7px 0;
     background: transparent;
     border-radius: 0;
+    &--error {
+      border-bottom: 1px solid $errorValidation;
+    }
     &:required,
     &:invalid {
       box-shadow: none;
@@ -155,5 +168,18 @@ $secondary: #585a59;
     color: #555555;
     font-family: 'Poppins', sans-serif;
     font-weight: 300;
+  }
+}
+
+@keyframes text-focus-in {
+  0% {
+    filter: blur(12px);
+    opacity: 0;
+    font-size: 1.3rem;
+  }
+  100% {
+    filter: blur(0px);
+    opacity: 1;
+    font-size: 1.1rem;
   }
 }

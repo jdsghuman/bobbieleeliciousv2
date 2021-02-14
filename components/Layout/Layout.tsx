@@ -5,7 +5,7 @@ import Backdrop from '../Backdrop/Backdrop'
 import SideDrawer from '../SideDrawer/SideDrawer'
 
 const Layout = ({ children }) => {
-  const [sideDrawerOpen, setSideDrawerOpen] = useState(false)
+  const [sideDrawerOpen, setSideDrawerOpen] = useState<boolean>(false)
 
   const backdropClickHandler = () => {
     setSideDrawerOpen(false)
