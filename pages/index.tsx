@@ -30,7 +30,7 @@ const Home = ({ blogs, featuredPosts, recipes }: HomePropType) => {
       </Head>
       <Carousel featuredPosts={featuredPosts} />
       <Subscribe />
-      <h3>Recipes</h3>
+      <h3 style={{}}>Recipes</h3>
       <ul>
         {recipes.map((recipe) => (
           <li key={recipe.sys.id}>

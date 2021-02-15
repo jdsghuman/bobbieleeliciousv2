@@ -1,3 +1,5 @@
+@import '../../styles/color-palette';
+
 .loader {
   margin: auto;
   margin-top: 60px;
@@ -6,9 +8,9 @@
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  border-top-color: #cebf37;
-  border-right-color: #cebf37;
-  border-bottom-color: #cebf37;
+  border-top-color: $palette-brand-secondary;
+  border-right-color: $palette-brand-secondary;
+  border-bottom-color: $palette-brand-secondary;
   animation: spin 1s linear infinite;
 }
 
