@@ -1,3 +1,5 @@
+@import '../../../styles/color-palette';
+
 .item {
   &__container {
     margin-bottom: 15px;
@@ -42,7 +44,7 @@
       position: absolute;
       right: 0;
       top: 0;
-      background-color: #cebf37;
+      background-color: $palette-brand-secondary;
     }
   }
   &__button {

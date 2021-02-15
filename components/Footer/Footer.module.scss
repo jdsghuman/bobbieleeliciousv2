@@ -1,3 +1,5 @@
+@import '../../styles/color-palette';
+
 .footer {
   bottom: 0;
   width: 100%;
@@ -15,7 +17,7 @@
   &__copy {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 0.8rem;
-    border-top: 1px solid #cebf37;
+    border-top: 1px solid $palette-brand-secondary;
     padding-top: 5px;
   }
 }
