@@ -41,6 +41,8 @@
   &__button--all {
     grid-column: -3;
     align-self: center;
+    padding: 5px 10px;
+    width: 180px;
     font-size: 1rem;
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
@@ -58,6 +60,16 @@
     -webkit-backface-visibility: hidden;
     &:hover {
       background: rgba(233, 206, 194, 0.7);
+    }
+    @media (max-width: 1390px) {
+      grid-column: -4 / span 2;
+    }
+    @media (max-width: 890px) {
+      grid-column: 3;
+      justify-self: center;
+    }
+    @media (max-width: 500px) {
+      grid-column: 2;
     }
     @media (max-width: 600px) {
       margin-top: 2em;
