@@ -38,6 +38,31 @@
       margin-left: 2em;
     }
   }
+  &__button--all {
+    grid-column: -3;
+    align-self: center;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.1px;
+    height: 40px;
+    color: #333;
+    background: $palette-brand-tertiary;
+    transition: all 0.2s ease-in;
+    opacity: 1;
+    animation: fadeIn 0.8s ease-in-out;
+    animation-fill-mode: backwards;
+    animation-delay: 0.1s;
+    animation-play-state: running;
+    -webkit-backface-visibility: hidden;
+    &:hover {
+      background: rgba(233, 206, 194, 0.7);
+    }
+    @media (max-width: 600px) {
+      margin-top: 2em;
+    }
+  }
   .items {
     grid-column: 2 / -2;
     align-self: flex-start;
@@ -48,8 +73,6 @@
     flex-wrap: wrap;
     justify-content: center;
     position: relative;
-    // background: green;
-
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, 450px));
     justify-content: center;
@@ -62,18 +85,10 @@
   .item {
     display: flex;
     flex-direction: column;
-    // position: relative;
     margin: 20px;
-    // width: 30%;
-    // width: 150px;
-    // height: 200px;
-
-    // background: yellow;
     display: inline-block;
     background-size: cover;
-    // height: 300px;
     text-align: center;
-    cursor: pointer;
     opacity: 1;
     animation: fadeIn 0.8s ease-in-out;
     animation-fill-mode: backwards;
@@ -83,22 +98,37 @@
     img {
       height: 275px;
       border-radius: 3px;
+      cursor: pointer;
+      transition: opacity 0.2s ease-in;
+      &:hover {
+        opacity: 0.8;
+      }
     }
     &__link {
       justify-content: flex-end;
-      // background: red;
       height: 40px;
       align-self: center;
       margin: 1em;
       a {
         text-decoration: none;
-        color: #333;
+        color: #555;
         font-size: 1.5rem;
         cursor: pointer;
         font-family: 'Barlow Condensed', sans-serif;
         font-weight: 700;
         border-bottom: 2px solid transparent;
-        transition: color 0.2s ease-in, border 0.2s ease-in;
+        transition: color 0.2s ease-in;
+        &:hover {
+          color: #888;
+        }
+      }
+    }
+    &__button {
+      border: 1px solid rgb(233, 206, 194);
+      color: #555;
+      &:hover {
+        color: #888;
+        box-shadow: $box-shadow-button;
       }
     }
     &__image {

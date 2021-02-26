@@ -32,7 +32,7 @@ const Home = ({ blogs, featuredPosts, recipes }: HomePropType) => {
       <Carousel featuredPosts={featuredPosts} />
       <Subscribe />
       <FeatureList title="Recipes" articles={recipes.slice(0, 3)} slug="recipe" />
-      <FeatureList title="Blogs" articles={blogs.slice(0, 3)} slug="blogs" />
+      <FeatureList title="Blogs" articles={blogs.slice(0, 3)} slug="blog" />
     </div>
   )
 }

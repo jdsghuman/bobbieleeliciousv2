@@ -1,9 +1,8 @@
 import Link from 'next/link'
-import Image from 'next/image'
+import Button from '../Button/Button'
 import styles from './FeatureList.module.scss'
 
 const FeatureList = ({ articles, slug, title }) => {
-  console.log('FeatureList----', articles)
   const truncateDescription = (description) => {
     return description && description.length > 154
       ? `${description.substring(0, 154)}...`
@@ -18,16 +17,17 @@ const FeatureList = ({ articles, slug, title }) => {
           <div className={styles.item} key={article.sys.id}>
             {article.fields.image && (
               <div>
-                <img
-                  src={article.fields.image}
-                  alt={article.fields.title}
-                  className={styles.item__image}
-                  // layout="fill"
-                />
+                <Link href={`/${slug}/` + article.fields.slug}>
+                  <img
+                    src={article.fields.image}
+                    alt={article.fields.title}
+                    className={styles.item__image}
+                  />
+                </Link>
               </div>
             )}
             <div className={styles.item__link}>
-              <Link href={`/${slug}s/` + article.fields.slug}>
+              <Link href={`/${slug}/` + article.fields.slug}>
                 <a>{article.fields.title}</a>
               </Link>
             </div>
@@ -36,9 +36,19 @@ const FeatureList = ({ articles, slug, title }) => {
                 ? truncateDescription(article.fields.description)
                 : article.fields.description}
             </p>
+            <Link href={`/${slug}/` + article.fields.slug}>
+              <Button className={styles.item__button} accent>
+                Read more
+              </Button>
+            </Link>
           </div>
         ))}
       </div>
+      <Link href={`/${slug}s`}>
+        <Button primary className={styles['container__button--all']}>
+          Go to {slug}s
+        </Button>
+      </Link>
     </div>
   )
 }

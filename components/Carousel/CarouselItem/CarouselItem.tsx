@@ -13,9 +13,7 @@ const CarouselItem = ({ imageDetails }) => {
       <div className={styles.item}>
         <h3 className={styles.item__title}>{imageDetails.label}</h3>
         <p className={styles.item__description}>{truncateDescription(imageDetails.description)}</p>
-        <Link
-          href={`${imageDetails.type === 'recipe' ? '/recipes' : '/blogs'}/${imageDetails.slug}`}
-        >
+        <Link href={`${imageDetails.type === 'recipe' ? '/recipe' : '/blog'}/${imageDetails.slug}`}>
           <a className={styles.item__button}>Read More</a>
         </Link>
       </div>
