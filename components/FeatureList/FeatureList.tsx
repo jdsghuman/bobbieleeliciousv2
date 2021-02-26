@@ -24,7 +24,7 @@ const FeatureList = ({ articles, slug, title }) => {
             )}
             <div className={styles.item__link}>
               <Link href={`/${slug}/` + article.fields.slug}>
-                <a>{truncateText(article.fields.title, 35)}</a>
+                <a>{truncateText(article.fields.title, 30)}</a>
               </Link>
             </div>
             <p>

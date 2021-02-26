@@ -27,7 +27,7 @@ $breakpoint--md: 800px;
   @media (max-width: 800px) {
     flex-flow: column;
     margin-bottom: 0;
-    border-bottom: none;
+    // border-bottom: none;
   }
   &__container {
     grid-column: 2/-2;
