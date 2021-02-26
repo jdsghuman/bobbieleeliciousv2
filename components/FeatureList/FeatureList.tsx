@@ -1,16 +1,12 @@
 import Link from 'next/link'
 import Button from '../Button/Button'
+import { truncateText } from '../Util/Util'
 import styles from './FeatureList.module.scss'
 
 const FeatureList = ({ articles, slug, title }) => {
-  const truncateDescription = (description) => {
-    return description && description.length > 154
-      ? `${description.substring(0, 154)}...`
-      : description
-  }
-
   return (
     <div className={styles.container}>
+      {console.log('title length----', title)}
       <h3 className={styles.title}>{title}</h3>
       <div className={styles.items}>
         {articles.map((article) => (
@@ -28,12 +24,12 @@ const FeatureList = ({ articles, slug, title }) => {
             )}
             <div className={styles.item__link}>
               <Link href={`/${slug}/` + article.fields.slug}>
-                <a>{article.fields.title}</a>
+                <a>{truncateText(article.fields.title, 35)}</a>
               </Link>
             </div>
             <p>
               {article.fields.description.length > 154
-                ? truncateDescription(article.fields.description)
+                ? truncateText(article.fields.description, 154)
                 : article.fields.description}
             </p>
             <Link href={`/${slug}/` + article.fields.slug}>

@@ -121,15 +121,18 @@
       height: 40px;
       align-self: center;
       margin: 1em;
+      margin-bottom: 0.5em;
       a {
         text-decoration: none;
         color: #555;
         font-size: 1.5rem;
+        padding-bottom: 0.2em;
         cursor: pointer;
         font-family: 'Barlow Condensed', sans-serif;
         font-weight: 700;
-        border-bottom: 2px solid transparent;
+        border-bottom: 1px solid rgb(233, 206, 194);
         transition: color 0.2s ease-in;
+        -moz-transition: color 0.2s ease-in;
         &:hover {
           color: #888;
         }
@@ -137,6 +140,7 @@
     }
     &__button {
       border: 1px solid rgb(233, 206, 194);
+      box-shadow: none;
       color: #555;
       &:hover {
         color: #888;
@@ -148,6 +152,7 @@
       object-fit: cover;
     }
     p {
+      margin-top: 0;
       font-weight: 300;
       font-family: sans-serif;
       text-align: justify;
