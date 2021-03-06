@@ -1,10 +1,12 @@
 import Markdown from 'markdown-to-jsx'
+import { GetStaticPaths, GetStaticProps } from 'next'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
+import Spinner from '../../components/Spinner/Spinner'
 import { RecipePropType } from '../../components/PropTypes/PropTypes'
 import { getAllPostsWithSlug, getPostBySlug, getMorePosts } from '../../lib/index'
 
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths = async () => {
   const data = await getAllPostsWithSlug('recipe')
 
   return {
@@ -15,9 +17,14 @@ export async function getStaticPaths() {
   }
 }
 
-export async function getStaticProps({ params }) {
+export const getStaticProps: GetStaticProps = async ({ params }) => {
   const post = await getPostBySlug('recipe', params.slug)
   const morePosts = await getMorePosts('recipe', params.slug)
+
+  if (!post || !morePosts) {
+    return { notFound: true }
+  }
+
   return {
     props: {
       recipe: post,
@@ -34,7 +41,7 @@ const Recipe = ({ recipe, morePosts }: RecipePropType) => {
   console.log('morePosts----', morePosts)
 
   if (router.isFallback) {
-    return <div>Loading...</div>
+    return <Spinner />
   }
   return (
     <>

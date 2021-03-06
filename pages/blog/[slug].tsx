@@ -1,10 +1,12 @@
+import { GetStaticPaths, GetStaticProps } from 'next'
 import Markdown from 'markdown-to-jsx'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
+import Spinner from '../../components/Spinner/Spinner'
 import { BlogPropType } from '../../components/PropTypes/PropTypes'
 import { getAllPostsWithSlug, getPostBySlug, getMorePosts } from '../../lib/index'
 
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths = async () => {
   const data = await getAllPostsWithSlug('blogPost')
 
   return {
@@ -15,9 +17,14 @@ export async function getStaticPaths() {
   }
 }
 
-export async function getStaticProps({ params }) {
+export const getStaticProps: GetStaticProps = async ({ params }) => {
   const post = await getPostBySlug('blogPost', params.slug)
   const morePosts = await getMorePosts('blogPost', params.slug)
+
+  if (!post || !morePosts) {
+    return { notFound: true }
+  }
+
   return {
     props: {
       blog: post,
@@ -31,7 +38,7 @@ const Blog = ({ blog }: BlogPropType) => {
   const router = useRouter()
 
   if (router.isFallback) {
-    return <div>Loading...</div>
+    return <Spinner />
   }
 
   return (

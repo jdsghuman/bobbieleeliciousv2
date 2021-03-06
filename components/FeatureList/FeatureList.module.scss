@@ -152,12 +152,13 @@
       width: 100%;
       object-fit: cover;
     }
-    p {
+    &__description {
       margin-top: 0;
       font-weight: 300;
-      font-family: sans-serif;
+      color: #4d5156;
+      font-family: 'Roboto', arial, sans-serif;
       text-align: justify;
-      line-height: 1.4;
+      line-height: 1.45;
     }
   }
 }

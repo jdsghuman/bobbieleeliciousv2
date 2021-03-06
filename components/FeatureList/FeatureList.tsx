@@ -27,7 +27,7 @@ const FeatureList = ({ articles, slug, title }) => {
                 <a>{truncateText(article.fields.title, 30)}</a>
               </Link>
             </div>
-            <p>
+            <p className={styles.item__description}>
               {article.fields.description.length > 154
                 ? truncateText(article.fields.description, 154)
                 : article.fields.description}
