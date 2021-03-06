@@ -10,8 +10,10 @@ $breakpoint--md: 800px;
   top: 0;
   z-index: 150;
   background: #ffffff;
+  border-bottom: 10px solid #e9cec2;
   &--small {
     max-height: 100px;
+    border-bottom: 6px solid #e9cec2;
     @media (max-width: 800px) {
       max-height: unset;
     }
@@ -25,7 +27,7 @@ $breakpoint--md: 800px;
   @media (max-width: 800px) {
     flex-flow: column;
     margin-bottom: 0;
-    border-bottom: none;
+    // border-bottom: none;
   }
   &__container {
     grid-column: 2/-2;

@@ -6,6 +6,7 @@ import { HomePropType } from '../components/PropTypes/PropTypes'
 import { getAllPosts } from '../lib/index'
 import Carousel from '../components/Carousel/Carousel'
 import Subscribe from '../components/Subscribe/Banner'
+import FeatureList from '../components/FeatureList/FeatureList'
 
 export const getStaticProps: GetStaticProps = async () => {
   const posts = await getAllPosts()
@@ -30,26 +31,8 @@ const Home = ({ blogs, featuredPosts, recipes }: HomePropType) => {
       </Head>
       <Carousel featuredPosts={featuredPosts} />
       <Subscribe />
-      <h3 style={{}}>Recipes</h3>
-      <ul>
-        {recipes.map((recipe) => (
-          <li key={recipe.sys.id}>
-            <Link href={'/recipes/' + recipe.fields.slug}>
-              <a>{recipe.fields.title}</a>
-            </Link>
-          </li>
-        ))}
-      </ul>
-      Blog
-      <ul>
-        {blogs.map((blog) => (
-          <li key={blog.sys.id}>
-            <Link href={'/blogs/' + blog.fields.slug}>
-              <a>{blog.fields.title}</a>
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <FeatureList title="Recipes" articles={recipes.slice(0, 3)} slug="recipe" />
+      <FeatureList title="Blogs" articles={blogs.slice(0, 3)} slug="blog" />
     </div>
   )
 }

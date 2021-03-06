@@ -94,7 +94,7 @@ const SubscribeBanner = () => {
             className={styles.banner__button}
             type={'button'}
             disabled={loading}
-            accent
+            primary
           >
             Subscribe
           </Button>

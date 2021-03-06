@@ -9,17 +9,21 @@
   outline: none;
   transition: all 400ms cubic-bezier(0.22, 1, 0.36, 1);
   &--primary {
-    background: none;
-    border: 0.5px solid #ccc;
-    color: #555555;
-    transition: all 400ms cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  &--accent {
     background: rgba(0, 0, 0, 0.4);
     color: #ffffff;
     transition: all 800ms cubic-bezier(0.22, 1, 0.36, 1);
     &:hover {
       background: rgba(0, 0, 0, 0.2);
+    }
+  }
+  &--accent {
+    background: none;
+    border: 0.5px solid #ccc;
+    color: #555555;
+    transition: all 400ms cubic-bezier(0.22, 1, 0.36, 1);
+    &:hover {
+      color: #888;
+      background: rgba(55, 55, 55, 0.01);
     }
   }
 }

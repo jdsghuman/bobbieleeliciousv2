@@ -4,7 +4,6 @@
   position: relative;
   padding: 0;
   overflow: hidden;
-  margin: 5px 0;
   height: 600px;
   @media (max-width: 890px) {
     grid-template-columns: repeat(5, minmax(100px, 200px));

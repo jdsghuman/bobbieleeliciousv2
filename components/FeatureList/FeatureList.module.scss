@@ -1,0 +1,173 @@
+@import '../../styles/variables';
+
+.container {
+  display: grid;
+  grid-template-columns: minmax(5%, 1fr) repeat(8, minmax(100px, 300px)) minmax(5%, 1fr);
+  align-items: flex-end;
+  padding: 3em 0;
+  border-bottom: $rule;
+  position: relative;
+  &:last-child {
+    border-bottom: none;
+  }
+  @media (max-width: 890px) {
+    grid-template-columns: repeat(5, minmax(100px, 200px));
+  }
+  @media (max-width: 500px) {
+    grid-template-columns: repeat(3, minmax(100px, 200px));
+  }
+  .title {
+    grid-column: 2 / -2;
+    position: relative;
+    font-family: 'Barlow Condensed', sans-serif;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    letter-spacing: 0.5px;
+    color: rgba(0, 0, 0, 0.5);
+    &::before {
+      content: '';
+      width: 2px;
+      height: 1.5em;
+      background: $palette-brand-secondary;
+      position: absolute;
+      margin-left: -1em;
+      top: -0.1em;
+    }
+    @media (max-width: 890px) {
+      grid-column: 1 / -2;
+      margin-left: 2em;
+    }
+  }
+  &__button--all {
+    grid-column: -3;
+    align-self: center;
+    padding: 5px 10px;
+    width: 180px;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.1px;
+    height: 40px;
+    color: #333;
+    background: $palette-brand-tertiary;
+    transition: all 0.2s ease-in;
+    opacity: 1;
+    animation: fadeIn 0.8s ease-in-out;
+    animation-fill-mode: backwards;
+    animation-delay: 0.1s;
+    animation-play-state: running;
+    -webkit-backface-visibility: hidden;
+    &:hover {
+      background: rgba(233, 206, 194, 0.7);
+    }
+    @media (max-width: 1390px) {
+      grid-column: -4 / span 2;
+    }
+    @media (max-width: 890px) {
+      grid-column: 3;
+      justify-self: center;
+    }
+    @media (max-width: 500px) {
+      grid-column: 2;
+    }
+    @media (max-width: 600px) {
+      margin-top: 2em;
+    }
+  }
+  .items {
+    grid-column: 2 / -2;
+    align-self: flex-start;
+    margin: 1em 0;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 450px));
+    justify-content: center;
+    grid-gap: 8px;
+    @media (max-width: $breakpoint--md) {
+      grid-column: 2 / -2;
+    }
+    grid-column-end: -2;
+  }
+  .item {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    display: inline-block;
+    background-size: cover;
+    text-align: center;
+    opacity: 1;
+    animation: fadeIn 0.8s ease-in-out;
+    animation-fill-mode: backwards;
+    animation-delay: 0.1s;
+    animation-play-state: running;
+    -webkit-backface-visibility: hidden;
+    img {
+      height: 275px;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: opacity 0.2s ease-in;
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+    &__link {
+      justify-content: flex-end;
+      height: 40px;
+      align-self: center;
+      margin: 1em;
+      margin-bottom: 0.5em;
+      a {
+        text-decoration: none;
+        color: #555;
+        font-size: 1.5rem;
+        padding-bottom: 0.2em;
+        cursor: pointer;
+        font-family: 'Barlow Condensed', sans-serif;
+        font-weight: 700;
+        border-bottom: 1px solid rgb(233, 206, 194);
+        transition: color 0.2s ease-in;
+        -moz-transition: color 0.2s ease-in;
+        &:hover {
+          color: #888;
+        }
+      }
+    }
+    &__button {
+      border: 1px solid rgb(233, 206, 194);
+      box-shadow: none;
+      color: #555;
+      font-size: 1rem;
+      &:hover {
+        color: #888;
+        box-shadow: $box-shadow-button;
+      }
+    }
+    &__image {
+      width: 100%;
+      object-fit: cover;
+    }
+    &__description {
+      margin-top: 0;
+      font-weight: 300;
+      color: #4d5156;
+      font-family: 'Roboto', arial, sans-serif;
+      text-align: justify;
+      line-height: 1.45;
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
