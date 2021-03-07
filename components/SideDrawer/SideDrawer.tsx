@@ -1,4 +1,4 @@
-import Link from '../Link/Link'
+import LinkDisplay from '../Link/LinkDisplay'
 import classNames from 'classnames/bind'
 import styles from './SideDrawer.module.scss'
 
@@ -14,28 +14,28 @@ const SideDrawer = ({ click, show }) => {
       })}
     >
       <div onClick={click} className={styles.drawer__header}>
-        <Link href="/">
+        <LinkDisplay link="/">
           <img
             className={styles.drawer__image}
             alt="logo"
             src="/images/BobbieLeeLicious-logo-transparent.png"
           />
-        </Link>
+        </LinkDisplay>
       </div>
       <div className={styles.drawer__item}>
-        <Link href="/recipes">
+        <LinkDisplay link="/recipes">
           <a>Recipes</a>
-        </Link>
+        </LinkDisplay>
       </div>
       <div className={styles.drawer__item}>
-        <Link href="/blogs">
+        <LinkDisplay link="/blogs">
           <a>Blog</a>
-        </Link>
+        </LinkDisplay>
       </div>
       <div className={styles.drawer__item}>
-        <Link href="/about">
+        <LinkDisplay link="/about">
           <a>About</a>
-        </Link>
+        </LinkDisplay>
       </div>
     </nav>
   )

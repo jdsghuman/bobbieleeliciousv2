@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import classNames from 'classnames/bind'
 import debounce from 'lodash.debounce'
-import Link from '../Link/Link'
+import LinkDisplay from '../Link/LinkDisplay'
 import Icon from '../Icon/Icon'
 import styles from './Nav.module.scss'
 import DrawerToggleButton from '../SideDrawer/DrawerToggle/DrawerToggleButton'
@@ -66,7 +66,7 @@ const Nav = ({ drawerToggleClickHandler, sideDrawerOpen }) => {
           </div>
         )}
         <div className={styles.logo__container}>
-          <Link href="/">
+          <LinkDisplay link="/">
             <a onClick={goToHomePage}>
               <img
                 className={cx('logo__image', {
@@ -76,7 +76,7 @@ const Nav = ({ drawerToggleClickHandler, sideDrawerOpen }) => {
                 alt={'WIP'}
               />
             </a>
-          </Link>
+          </LinkDisplay>
         </div>
         <nav className={styles.nav__mobile}>
           {/* Hamburger menu for tablet/mobile */}
@@ -94,32 +94,32 @@ const Nav = ({ drawerToggleClickHandler, sideDrawerOpen }) => {
             })}
           >
             <li className={styles['nav__items--home']}>
-              <Link href="/">
+              <LinkDisplay link="/">
                 <a onClick={handleMobileMenu} className={styles.nav__link}>
                   Home
                 </a>
-              </Link>
+              </LinkDisplay>
             </li>
             <li>
-              <Link href="/recipes">
+              <LinkDisplay link="/recipes">
                 <a onClick={handleMobileMenu} className={styles.nav__link}>
                   Recipes
                 </a>
-              </Link>
+              </LinkDisplay>
             </li>
             <li>
-              <Link href="/blogs">
+              <LinkDisplay link="/blogs">
                 <a onClick={handleMobileMenu} className={styles.nav__link}>
                   Blog
                 </a>
-              </Link>
+              </LinkDisplay>
             </li>
             <li>
-              <Link href="/about">
+              <LinkDisplay link="/about">
                 <a onClick={handleMobileMenu} className={styles.nav__link}>
                   About
                 </a>
-              </Link>
+              </LinkDisplay>
             </li>
             {router.pathname !== '/about' && (
               <Icon

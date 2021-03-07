@@ -1,12 +1,12 @@
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
-import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 import { HomePropType } from '../components/PropTypes/PropTypes'
 import { getAllPosts } from '../lib/index'
 import Carousel from '../components/Carousel/Carousel'
 import Subscribe from '../components/Subscribe/Banner'
 import FeatureList from '../components/FeatureList/FeatureList'
+import Spinner from '../components/Spinner/Spinner'
 
 export const getStaticProps: GetStaticProps = async () => {
   const posts = await getAllPosts()
@@ -23,6 +23,9 @@ export const getStaticProps: GetStaticProps = async () => {
 }
 
 const Home = ({ blogs, featuredPosts, recipes }: HomePropType) => {
+  if (!blogs && !featuredPosts && !recipes) {
+    return <Spinner />
+  }
   return (
     <div className={styles.container}>
       <Head>
