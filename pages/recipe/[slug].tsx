@@ -37,9 +37,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 const Recipe = ({ recipe, morePosts }: RecipePropType) => {
   const router = useRouter()
 
-  console.log('recipe----', recipe)
-  console.log('morePosts----', morePosts)
-
   if (router.isFallback) {
     return <Spinner />
   }

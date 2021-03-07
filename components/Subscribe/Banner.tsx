@@ -47,7 +47,6 @@ const SubscribeBanner = () => {
     return re.test(email)
   }
 
-  console.log('email', email)
   return (
     <div className={styles.banner}>
       <div className={styles['banner__bg-banner']} />

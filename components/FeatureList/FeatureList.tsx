@@ -34,7 +34,7 @@ const FeatureList = ({ articles, slug, title }) => {
                 : article.fields.description}
             </p>
             <Link href={`/${slug}/` + article.fields.slug}>
-              <Button className={styles.item__button} accent>
+              <Button className={styles.item__button} type="button" accent>
                 Read more
               </Button>
             </Link>
@@ -43,7 +43,7 @@ const FeatureList = ({ articles, slug, title }) => {
       </div>
       {router.pathname === '/' && (
         <Link href={`/${slug}s`}>
-          <Button primary className={styles['container__button--all']}>
+          <Button primary className={styles['container__button--all']} type="button">
             Go to {slug}s
           </Button>
         </Link>
