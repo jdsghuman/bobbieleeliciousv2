@@ -1,6 +1,8 @@
 @import '../../styles/variables';
 
 .container {
+  max-width: 1600px;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: minmax(5%, 1fr) repeat(8, minmax(100px, 300px)) minmax(5%, 1fr);
   align-items: flex-end;

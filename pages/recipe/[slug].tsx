@@ -43,6 +43,11 @@ const Recipe = ({ recipe, morePosts }: RecipePropType) => {
   if (router.isFallback) {
     return <Spinner />
   }
+
+  if (!recipe) {
+    return <Spinner />
+  }
+
   return (
     <>
       <div>{recipe.fields.title}</div>

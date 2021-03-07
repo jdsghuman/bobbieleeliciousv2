@@ -25,6 +25,34 @@ export async function getAllPosts() {
   }
 }
 
+export async function getAllBlogs() {
+  const blogs = await client
+    .getEntries({
+      content_type: 'blogPost',
+    })
+    .then((response) => response.items)
+
+  if (blogs) {
+    return {
+      blogs,
+    }
+  }
+}
+
+export async function getAllRecipes() {
+  const recipes = await client
+    .getEntries({
+      content_type: 'recipe',
+    })
+    .then((response) => response.items)
+
+  if (recipes) {
+    return {
+      recipes,
+    }
+  }
+}
+
 export async function getPostBySlug(type, slug) {
   const data = await client.getEntries({
     content_type: type,

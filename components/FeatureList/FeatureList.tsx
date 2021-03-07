@@ -1,12 +1,13 @@
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import Button from '../Button/Button'
 import { truncateText } from '../Util/Util'
 import styles from './FeatureList.module.scss'
 
 const FeatureList = ({ articles, slug, title }) => {
+  const router = useRouter()
   return (
     <div className={styles.container}>
-      {console.log('title length----', title)}
       <h3 className={styles.title}>{title}</h3>
       <div className={styles.items}>
         {articles.map((article) => (
@@ -40,11 +41,13 @@ const FeatureList = ({ articles, slug, title }) => {
           </div>
         ))}
       </div>
-      <Link href={`/${slug}s`}>
-        <Button primary className={styles['container__button--all']}>
-          Go to {slug}s
-        </Button>
-      </Link>
+      {router.pathname === '/' && (
+        <Link href={`/${slug}s`}>
+          <Button primary className={styles['container__button--all']}>
+            Go to {slug}s
+          </Button>
+        </Link>
+      )}
     </div>
   )
 }

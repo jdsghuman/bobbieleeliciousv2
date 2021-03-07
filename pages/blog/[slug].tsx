@@ -41,6 +41,10 @@ const Blog = ({ blog }: BlogPropType) => {
     return <Spinner />
   }
 
+  if (!blog) {
+    return <Spinner />
+  }
+
   return (
     <div
       style={{
