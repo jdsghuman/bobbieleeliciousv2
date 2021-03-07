@@ -19,7 +19,7 @@ export const getStaticProps: GetStaticProps = async () => {
 }
 const Recipes = ({ recipes }: HomePropType) => {
   const [pageNumber, setPageNuber] = useState(0)
-  const observer = useRef()
+  const observer = useRef<any>()
   const { postsToShow, loading, hasMore, error } = useInfiniteScroll(pageNumber, recipes)
   const lastPostElementRef = useCallback(
     (node) => {
