@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback, useRef } from 'react'
+import Head from 'next/head'
 import { GetStaticProps } from 'next'
 import { getAllRecipes } from '../../lib/index'
 import { HomePropType } from '../../components/PropTypes/PropTypes'
@@ -42,6 +43,10 @@ const Recipes = ({ recipes }: HomePropType) => {
   if (postsToShow.length === 0) return <Spinner />
   return (
     <>
+      <Head>
+        <title>Bobbieleelicious - Recipes</title>
+        <meta name="description" content="Delicious and nutritious healthy vegetarian recipes" />
+      </Head>
       <FeatureListItemContainer title="recipes">
         {postsToShow.map((recipe, index) => {
           if (postsToShow.length === index + 1) {

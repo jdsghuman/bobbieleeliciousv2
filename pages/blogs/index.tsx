@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback, useRef } from 'react'
+import Head from 'next/head'
 import { GetStaticProps } from 'next'
 import { getAllBlogs } from '../../lib/index'
 import { HomePropType } from '../../components/PropTypes/PropTypes'
@@ -44,6 +45,10 @@ const Blogs = ({ blogs }: HomePropType) => {
 
   return (
     <>
+      <Head>
+        <title>Bobbieleelicious - Blog</title>
+        <meta name="description" content="Delicious and nutritious healthy vegetarian recipes" />
+      </Head>
       <FeatureListItemContainer title="blogs">
         {postsToShow.map((blog, index) => {
           if (postsToShow.length === index + 1) {

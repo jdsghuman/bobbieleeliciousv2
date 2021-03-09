@@ -1,4 +1,5 @@
 import Markdown from 'markdown-to-jsx'
+import Head from 'next/head'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
@@ -37,6 +38,12 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 const Recipe = ({ recipe, morePosts }: RecipePropType) => {
   const router = useRouter()
 
+  let pageHeadData = (
+    <Head>
+      <title>Recipe</title>
+    </Head>
+  )
+
   if (router.isFallback) {
     return <Spinner />
   }
@@ -45,8 +52,16 @@ const Recipe = ({ recipe, morePosts }: RecipePropType) => {
     return <Spinner />
   }
 
+  pageHeadData = (
+    <Head>
+      <title>{recipe.fields.title}</title>
+      <meta name="description" content={recipe.fields.description} />
+    </Head>
+  )
+
   return (
     <>
+      {pageHeadData}
       <div>{recipe.fields.title}</div>
       {recipe.fields.image && (
         <div>

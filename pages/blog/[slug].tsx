@@ -1,4 +1,5 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
+import Head from 'next/head'
 import Markdown from 'markdown-to-jsx'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
@@ -37,6 +38,13 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 const Blog = ({ blog }: BlogPropType) => {
   const router = useRouter()
 
+  let pageHeadData = (
+    <Head>
+      <title>Bobbieleelicous - Blog</title>
+      <meta name="description" content={`Healthy, lifstyle blog`} />
+    </Head>
+  )
+
   if (router.isFallback) {
     return <Spinner />
   }
@@ -45,27 +53,37 @@ const Blog = ({ blog }: BlogPropType) => {
     return <Spinner />
   }
 
+  pageHeadData = (
+    <Head>
+      <title>{blog.fields.title}</title>
+      <meta name="description" content={blog.fields.description} />
+    </Head>
+  )
+
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-      }}
-    >
-      <h3>{blog.fields?.title}</h3>
-      {blog.fields.image && (
-        <div>
-          <Image src={blog.fields.image} layout="intrinsic" width={500} height={500} />
-        </div>
-      )}
-      <p>{blog.fields.author?.fields.name}</p>
-      <p>{blog.fields.publishDate}</p>
-      <Markdown>{blog.fields.body}</Markdown>
-      {blog.fields.tag?.map((t) => (
-        <p key={t.sys.id}>{t.fields.name}</p>
-      ))}
-    </div>
+    <>
+      {pageHeadData}
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+        }}
+      >
+        <h3>{blog.fields?.title}</h3>
+        {blog.fields.image && (
+          <div>
+            <Image src={blog.fields.image} layout="intrinsic" width={500} height={500} />
+          </div>
+        )}
+        <p>{blog.fields.author?.fields.name}</p>
+        <p>{blog.fields.publishDate}</p>
+        <Markdown>{blog.fields.body}</Markdown>
+        {blog.fields.tag?.map((t) => (
+          <p key={t.sys.id}>{t.fields.name}</p>
+        ))}
+      </div>
+    </>
   )
 }
 
