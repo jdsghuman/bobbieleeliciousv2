@@ -23,20 +23,27 @@ export const getStaticProps: GetStaticProps = async () => {
 }
 
 const Home = ({ blogs, featuredPosts, recipes }: HomePropType) => {
+  const pageHeadData = (
+    <Head>
+      <title>Bobbieleelicious</title>
+      <meta name="description" content="Delicious and nutritious healthy vegetarian recipes" />
+    </Head>
+  )
+
   if (!blogs && !featuredPosts && !recipes) {
     return <Spinner />
   }
+
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <Carousel featuredPosts={featuredPosts} />
-      <Subscribe />
-      <FeatureList title="Recipes" articles={recipes.slice(0, 3)} slug="recipe" />
-      <FeatureList title="Blogs" articles={blogs.slice(0, 3)} slug="blog" />
-    </div>
+    <>
+      {pageHeadData}
+      <div className={styles.container}>
+        <Carousel featuredPosts={featuredPosts} />
+        <Subscribe />
+        <FeatureList title="Recipes" articles={recipes.slice(0, 3)} slug="recipe" />
+        <FeatureList title="Blogs" articles={blogs.slice(0, 3)} slug="blog" />
+      </div>
+    </>
   )
 }
 

@@ -1,19 +1,22 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import Button from '../Button/Button'
 import { truncateText } from '../Util/Util'
 
 import styles from './FeatureList.module.scss'
 
-const FeatureListItem = ({ article, slug, lastRef }) => {
+const PostItem = ({ article, slug, lastRef }) => {
   return (
     <div className={styles.item} key={article.sys.id} ref={lastRef}>
       {article.fields.image && (
         <div>
           <Link href={`/${slug}/` + article.fields.slug}>
-            <img
+            <Image
               src={article.fields.image}
               alt={article.fields.title}
               className={styles.item__image}
+              width={475}
+              height={300}
             />
           </Link>
         </div>
@@ -37,4 +40,4 @@ const FeatureListItem = ({ article, slug, lastRef }) => {
   )
 }
 
-export default FeatureListItem
+export default PostItem

@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { useRouter } from 'next/router'
 import Button from '../Button/Button'
 import { truncateText } from '../Util/Util'
@@ -15,10 +16,12 @@ const FeatureList = ({ articles, slug, title }) => {
             {article.fields.image && (
               <div>
                 <Link href={`/${slug}/` + article.fields.slug}>
-                  <img
+                  <Image
                     src={article.fields.image}
                     alt={article.fields.title}
                     className={styles.item__image}
+                    width={475}
+                    height={300}
                   />
                 </Link>
               </div>
