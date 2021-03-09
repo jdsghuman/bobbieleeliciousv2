@@ -3,8 +3,8 @@ import Head from 'next/head'
 import { GetStaticProps } from 'next'
 import { getAllBlogs } from '../../lib/index'
 import { HomePropType } from '../../components/PropTypes/PropTypes'
-import FeatureListItemContainer from '../../components/FeatureList/FeatureListItemContainer'
-import FeatureListItem from '../../components/FeatureList/FeatureListItem'
+import PostItemContainer from '../../components/FeatureList/PostItemContainer'
+import PosttItem from '../../components/FeatureList/PostItem'
 import Subscribe from '../../components/Subscribe/Banner'
 import useInfiniteScroll from '../../components/Util/Hooks/useInfiniteScroll'
 import Spinner from '../../components/Spinner/Spinner'
@@ -49,17 +49,17 @@ const Blogs = ({ blogs }: HomePropType) => {
         <title>Bobbieleelicious - Blog</title>
         <meta name="description" content="Delicious and nutritious healthy vegetarian recipes" />
       </Head>
-      <FeatureListItemContainer title="blogs">
+      <PostItemContainer title="blogs">
         {postsToShow.map((blog, index) => {
           if (postsToShow.length === index + 1) {
-            return <FeatureListItem lastRef={lastPostElementRef} article={blog} slug="blog" />
+            return <PosttItem lastRef={lastPostElementRef} article={blog} slug="blog" />
           } else {
-            return <FeatureListItem article={blog} slug="blog" lastRef={null} />
+            return <PosttItem article={blog} slug="blog" lastRef={null} />
           }
         })}
         <div>{loading && 'Loading...'}</div>
         <div>{error && 'Error'}</div>
-      </FeatureListItemContainer>
+      </PostItemContainer>
       <Subscribe />
     </>
   )

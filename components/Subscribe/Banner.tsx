@@ -27,7 +27,7 @@ const SubscribeBanner = () => {
         return setErrorMessage('Please enter a valid email')
       }
       try {
-        const response = await axios.post('/api/subscribe', { email })
+        await axios.post('/api/subscribe', { email })
         setLoading(false)
         setEmail('')
         setSuccessMessage('Thank you for subscribing!')

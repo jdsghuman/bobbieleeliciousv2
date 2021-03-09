@@ -3,8 +3,8 @@ import Head from 'next/head'
 import { GetStaticProps } from 'next'
 import { getAllRecipes } from '../../lib/index'
 import { HomePropType } from '../../components/PropTypes/PropTypes'
-import FeatureListItemContainer from '../../components/FeatureList/FeatureListItemContainer'
-import FeatureListItem from '../../components/FeatureList/FeatureListItem'
+import PostItemContainer from '../../components/FeatureList/PostItemContainer'
+import PostItem from '../../components/FeatureList/PostItem'
 import Subscribe from '../../components/Subscribe/Banner'
 import useInfiniteScroll from '../../components/Util/Hooks/useInfiniteScroll'
 import Spinner from '../../components/Spinner/Spinner'
@@ -47,11 +47,11 @@ const Recipes = ({ recipes }: HomePropType) => {
         <title>Bobbieleelicious - Recipes</title>
         <meta name="description" content="Delicious and nutritious healthy vegetarian recipes" />
       </Head>
-      <FeatureListItemContainer title="recipes">
+      <PostItemContainer title="recipes">
         {postsToShow.map((recipe, index) => {
           if (postsToShow.length === index + 1) {
             return (
-              <FeatureListItem
+              <PostItem
                 key={recipe.sys.id}
                 lastRef={lastPostElementRef}
                 article={recipe}
@@ -59,14 +59,12 @@ const Recipes = ({ recipes }: HomePropType) => {
               />
             )
           } else {
-            return (
-              <FeatureListItem key={recipe.sys.id} article={recipe} slug="recipe" lastRef={null} />
-            )
+            return <PostItem key={recipe.sys.id} article={recipe} slug="recipe" lastRef={null} />
           }
         })}
         <div>{loading && 'Loading...'}</div>
         <div>{error && 'Error'}</div>
-      </FeatureListItemContainer>
+      </PostItemContainer>
       <Subscribe />
     </>
   )

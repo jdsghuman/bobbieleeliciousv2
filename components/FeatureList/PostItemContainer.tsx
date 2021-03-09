@@ -1,6 +1,6 @@
 import styles from './FeatureList.module.scss'
 
-const FeatureListItemContainer = ({ children, title }) => {
+const PostItemContainer = ({ children, title }) => {
   return (
     <div className={styles.container}>
       <h3 className={styles.title}>{title}</h3>
@@ -9,4 +9,4 @@ const FeatureListItemContainer = ({ children, title }) => {
   )
 }
 
-export default FeatureListItemContainer
+export default PostItemContainer

@@ -20,8 +20,8 @@ const FeatureList = ({ articles, slug, title }) => {
                     src={article.fields.image}
                     alt={article.fields.title}
                     className={styles.item__image}
-                    width={450}
-                    height={275}
+                    width={475}
+                    height={300}
                   />
                 </Link>
               </div>
