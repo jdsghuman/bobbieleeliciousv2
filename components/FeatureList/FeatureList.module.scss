@@ -113,15 +113,6 @@
     &:hover {
       box-shadow: 0px 0px 12px 0px rgb(0 0 0 / 8%);
     }
-    img {
-      height: 275px;
-      border-radius: 3px;
-      cursor: pointer;
-      transition: opacity 0.2s ease-in;
-      &:hover {
-        opacity: 0.8;
-      }
-    }
     &__link {
       justify-content: flex-end;
       height: 40px;
@@ -144,10 +135,55 @@
         }
       }
     }
-    &__button {
+    &__container__button {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
       margin-top: auto;
       margin-bottom: 8px;
+      &--center {
+        justify-content: center;
+      }
+      &__image {
+        width: 30px;
+        height: 40px;
+        border-radius: 50%;
+      }
+      &__author {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        &__image__container {
+          width: 35px;
+          height: 35px;
+          margin: 0 10px;
+        }
+        &__name__container {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        &__name {
+          margin: 0;
+          font-size: 0.9rem;
+          color: #333;
+          margin-left: 0;
+          padding-left: 0;
+          font-family: 'Barlow Condensed', sans-serif;
+          font-weight: 600;
+        }
+        &__date {
+          margin: 0;
+          font-size: 0.9rem;
+          font-family: 'Barlow Condensed', sans-serif;
+          color: #888;
+        }
+      }
+    }
+    &__button {
       align-self: center;
+      margin-top: auto;
+      margin-right: 10px;
       border: 1px solid rgb(233, 206, 194);
       box-shadow: none;
       color: #555;
@@ -160,6 +196,13 @@
     &__image {
       width: 100%;
       object-fit: cover;
+      height: 275px;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: opacity 0.2s ease-in;
+      &:hover {
+        opacity: 0.8;
+      }
     }
     &__description {
       margin-top: 0;
