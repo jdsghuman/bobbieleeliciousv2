@@ -8,12 +8,14 @@ export async function getAllPosts() {
   const blogs = await client
     .getEntries({
       content_type: 'blogPost',
+      order: '-fields.publishDate',
     })
     .then((response) => response.items)
 
   const recipes = await client
     .getEntries({
       content_type: 'recipe',
+      order: '-fields.publishDate',
     })
     .then((response) => response.items)
 
@@ -29,6 +31,7 @@ export async function getAllBlogs() {
   const blogs = await client
     .getEntries({
       content_type: 'blogPost',
+      order: '-fields.publishDate',
     })
     .then((response) => response.items)
 
@@ -43,6 +46,7 @@ export async function getAllRecipes() {
   const recipes = await client
     .getEntries({
       content_type: 'recipe',
+      order: '-fields.publishDate',
     })
     .then((response) => response.items)
 
