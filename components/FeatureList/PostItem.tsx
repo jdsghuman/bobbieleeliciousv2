@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import classNames from 'classnames/bind'
+import PropTypes from 'prop-types'
 import Button from '../Button/Button'
 import { formatDate, truncateText } from '../Util/Util'
 import styles from './FeatureList.module.scss'
@@ -8,8 +9,6 @@ import styles from './FeatureList.module.scss'
 const cx = classNames.bind(styles)
 
 const PostItem = ({ article, slug, lastRef }) => {
-  console.log('article----', article)
-  console.log('type----', article.sys.contentType.sys.id)
   return (
     <div className={styles.item} key={article.sys.id} ref={lastRef}>
       {article.fields.image && (
@@ -71,6 +70,12 @@ const PostItem = ({ article, slug, lastRef }) => {
       </div>
     </div>
   )
+}
+
+PostItem.propTypes = {
+  article: PropTypes.array.isRequired,
+  slug: PropTypes.string.isRequired,
+  lastRef: PropTypes.oneOfType([PropTypes.func, PropTypes.shape({ current: PropTypes.any })]),
 }
 
 export default PostItem
