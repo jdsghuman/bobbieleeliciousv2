@@ -3,7 +3,7 @@ import debounce from 'lodash.debounce'
 import classNames from 'classnames/bind'
 import smoothscroll from 'smoothscroll-polyfill'
 import RecipeData from './RecipeData/RecipeData'
-
+import RecipeTabs from './RecipeTabs/RecipeTabs'
 import styles from './RecipeController.module.scss'
 
 const cx = classNames.bind(styles)
@@ -41,6 +41,19 @@ const RecipeController = ({ post }) => {
         prep={post.fields.prep}
         servings={post.fields.servings}
       />
+      <RecipeTabs />
+      <p>this thing</p>
+      <p>this thing</p>
+      <p>this thing</p>
+      <p>this thing</p>
+      <p>this thing</p>
+      <p>this thing</p>
+      <p>this thing</p>
+      <p>this thing</p>
+      <p>this thing</p>
+      <p>this thing</p>
+      <p>this thing</p>
+      <p>this thing</p>
     </div>
   )
 }
