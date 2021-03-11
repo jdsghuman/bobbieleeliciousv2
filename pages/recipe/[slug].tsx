@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 import Spinner from '../../components/Spinner/Spinner'
 import { RecipePropType } from '../../components/PropTypes/PropTypes'
 import { getAllPostsWithSlug, getPostBySlug, getMorePosts } from '../../lib/index'
+import PostDetail from '../../components/PostDetail/PostDetail'
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const data = await getAllPostsWithSlug('recipe')
@@ -59,10 +60,12 @@ const Recipe = ({ recipe, morePosts }: RecipePropType) => {
     </Head>
   )
 
+  console.log('recipe in slug', recipe)
   return (
     <>
       {pageHeadData}
-      <div>{recipe.fields.title}</div>
+      <PostDetail post={recipe} />
+      {/* <div>{recipe.fields.title}</div>
       {recipe.fields.image && (
         <div>
           <Image src={recipe.fields.image} layout="intrinsic" width={500} height={500} />
@@ -74,7 +77,7 @@ const Recipe = ({ recipe, morePosts }: RecipePropType) => {
       <Markdown>{recipe.fields.description}</Markdown>
       {recipe.fields.tag?.map((t) => (
         <p key={t.sys.id}>{t.fields.name}</p>
-      ))}
+      ))} */}
     </>
   )
 }

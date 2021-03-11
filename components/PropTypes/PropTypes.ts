@@ -15,6 +15,25 @@ export interface BlogsPropType {
   }
 }
 
+export interface BlogPropType {
+  blog: {
+    fields: {
+      author: AuthorPropType
+      image: string
+      body: string
+      description: string
+      featured: boolean
+      publishDate: string
+      slug: string
+      tag: Tag[]
+      title: string
+    }
+    sys: {
+      id: string
+    }
+  }
+}
+
 interface Tag {
   fields: {
     name: string
@@ -24,7 +43,7 @@ interface Tag {
   }
 }
 
-interface RecipesPropType {
+export interface RecipesPropType {
   fields: {
     author: AuthorPropType[]
     category: CategoryPropType
@@ -44,34 +63,6 @@ interface RecipesPropType {
     slug: string
     tag: Tag[]
     tools: string
-  }
-  sys: {
-    id: string
-  }
-}
-
-interface AuthorPropType {
-  fields: {
-    company: string
-    email: string
-    facebook: string
-    image: string
-    instagram: string
-    name: string
-    phone: string
-    shortBio: string
-    title: string
-    twitter: string
-    website: string
-  }
-  sys: {
-    id: string
-  }
-}
-
-interface CategoryPropType {
-  fields: {
-    name: string
   }
   sys: {
     id: string
@@ -107,22 +98,31 @@ export interface RecipePropType {
   morePosts?: Array<any>
 }
 
-export interface BlogPropType {
-  blog: {
-    fields: {
-      author: AuthorPropType
-      image: string
-      body: string
-      description: string
-      featured: boolean
-      publishDate: string
-      slug: string
-      tag: Tag[]
-      title: string
-    }
-    sys: {
-      id: string
-    }
+interface AuthorPropType {
+  fields: {
+    company: string
+    email: string
+    facebook: string
+    image: string
+    instagram: string
+    name: string
+    phone: string
+    shortBio: string
+    title: string
+    twitter: string
+    website: string
+  }
+  sys: {
+    id: string
+  }
+}
+
+interface CategoryPropType {
+  fields: {
+    name: string
+  }
+  sys: {
+    id: string
   }
 }
 
