@@ -5,11 +5,13 @@ import smoothscroll from 'smoothscroll-polyfill'
 import RecipeData from './RecipeData/RecipeData'
 import RecipeTabs from './RecipeTabs/RecipeTabs'
 import styles from './RecipeController.module.scss'
+import RecipeDescription from './RecipeDescription/RecipeDescription'
 
 const cx = classNames.bind(styles)
 
 const RecipeController = ({ post }) => {
   const [isTop, setIsTop] = useState(true)
+  const [activeTab, setActiveTab] = useState('Details')
 
   const handleScroll = () => {
     document.getElementById('details__hr').scrollIntoView({
@@ -19,6 +21,10 @@ const RecipeController = ({ post }) => {
 
   const scrollUp = () => {
     window.scrollY > 75 ? setIsTop(false) : setIsTop(true)
+  }
+
+  const setTab = (tab) => {
+    setActiveTab(tab)
   }
 
   useEffect(() => {
@@ -41,7 +47,8 @@ const RecipeController = ({ post }) => {
         prep={post.fields.prep}
         servings={post.fields.servings}
       />
-      <RecipeTabs />
+      <RecipeTabs activeTab={activeTab} setTab={setTab} />
+      {activeTab === 'Details' && <RecipeDescription post={post} />}
       <p>this thing</p>
       <p>this thing</p>
       <p>this thing</p>
