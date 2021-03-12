@@ -148,6 +148,10 @@
         width: 30px;
         height: 40px;
         border-radius: 50%;
+        &--default {
+          height: 33px;
+          background: #e6e3e3;
+        }
       }
       &__author {
         display: flex;
@@ -200,6 +204,10 @@
       border-radius: 3px;
       cursor: pointer;
       transition: opacity 0.2s ease-in;
+      &--default {
+        height: 258px;
+        background: #e6e3e3;
+      }
       &:hover {
         opacity: 0.8;
       }

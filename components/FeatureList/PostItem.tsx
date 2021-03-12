@@ -11,7 +11,7 @@ const cx = classNames.bind(styles)
 const PostItem = ({ article, slug, lastRef }) => {
   return (
     <div className={styles.item} key={article.sys.id} ref={lastRef}>
-      {article.fields.image && (
+      {article.fields.image ? (
         <div>
           <Link href={`/${slug}/` + article.fields.slug}>
             <Image
@@ -23,6 +23,8 @@ const PostItem = ({ article, slug, lastRef }) => {
             />
           </Link>
         </div>
+      ) : (
+        <div className={cx('item__image', 'item__image--default')}></div>
       )}
       <div className={styles.item__link}>
         <Link href={`/${slug}/` + article.fields.slug}>
@@ -40,16 +42,25 @@ const PostItem = ({ article, slug, lastRef }) => {
         })}
       >
         <div className={styles.item__container__button__author}>
-          {article.sys.contentType.sys.id === 'blogPost' && article?.fields?.author?.fields?.image && (
+          {article.sys.contentType.sys.id === 'blogPost' && (
             <>
               <div className={styles.item__container__button__author__image__container}>
-                <Image
-                  src={article.fields.author.fields.image}
-                  alt={article.fields.author.fields.name}
-                  className={styles.item__container__button__image}
-                  width={40}
-                  height={40}
-                />
+                {article?.fields?.author?.fields?.image ? (
+                  <Image
+                    src={article.fields.author.fields.image}
+                    alt={article.fields.author.fields.name}
+                    className={styles.item__container__button__image}
+                    width={40}
+                    height={40}
+                  />
+                ) : (
+                  <div
+                    className={cx(
+                      'item__container__button__image',
+                      'item__container__button__image--default'
+                    )}
+                  ></div>
+                )}
               </div>
               <div className={styles.item__container__button__author__name__container}>
                 <p className={styles.item__container__button__author__name}>
