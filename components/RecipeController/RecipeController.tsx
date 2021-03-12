@@ -6,6 +6,8 @@ import RecipeData from './RecipeData/RecipeData'
 import RecipeTabs from './RecipeTabs/RecipeTabs'
 import styles from './RecipeController.module.scss'
 import RecipeDescription from './RecipeDescription/RecipeDescription'
+import RecipeIngredients from './RecipeIngredients/RecipeIngredients'
+import RecipeDirections from './RecipeDirections/RecipeDirections'
 
 const cx = classNames.bind(styles)
 
@@ -49,18 +51,8 @@ const RecipeController = ({ post }) => {
       />
       <RecipeTabs activeTab={activeTab} setTab={setTab} />
       {activeTab === 'Details' && <RecipeDescription post={post} />}
-      <p>this thing</p>
-      <p>this thing</p>
-      <p>this thing</p>
-      <p>this thing</p>
-      <p>this thing</p>
-      <p>this thing</p>
-      <p>this thing</p>
-      <p>this thing</p>
-      <p>this thing</p>
-      <p>this thing</p>
-      <p>this thing</p>
-      <p>this thing</p>
+      {activeTab === 'Ingredients' && <RecipeIngredients ingredients={post.fields.ingredients} />}
+      {activeTab === 'Directions' && <RecipeDirections directions={post.fields.recipeDirections} />}
     </div>
   )
 }
