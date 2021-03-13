@@ -1,12 +1,13 @@
 import Markdown from 'markdown-to-jsx'
 import Head from 'next/head'
 import { GetStaticPaths, GetStaticProps } from 'next'
-import Image from 'next/image'
 import { useRouter } from 'next/router'
 import Spinner from '../../components/Spinner/Spinner'
 import { RecipePropType } from '../../components/PropTypes/PropTypes'
 import { getAllPostsWithSlug, getPostBySlug, getMorePosts } from '../../lib/index'
 import PostDetail from '../../components/PostDetail/PostDetail'
+import FeatureList from '../../components/FeatureList/FeatureList'
+import Subscribe from '../../components/Subscribe/Banner'
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const data = await getAllPostsWithSlug('recipe')
@@ -61,6 +62,7 @@ const Recipe = ({ recipe, morePosts }: RecipePropType) => {
   )
 
   console.log('recipe in slug', recipe)
+  console.log('morePosts in slug', morePosts)
   return (
     <>
       {pageHeadData}
@@ -78,6 +80,8 @@ const Recipe = ({ recipe, morePosts }: RecipePropType) => {
       {recipe.fields.tag?.map((t) => (
         <p key={t.sys.id}>{t.fields.name}</p>
       ))} */}
+      <FeatureList title="More From Bobbieleelicious" articles={morePosts} slug="recipe" />
+      <Subscribe />
     </>
   )
 }

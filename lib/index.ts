@@ -66,16 +66,22 @@ export async function getPostBySlug(type, slug) {
   return data.items[0]
 }
 
+// get more 3 latest posts
 export async function getMorePosts(type, slug) {
-  const data = await client.getEntries({
+  const entries = await client.getEntries({
     content_type: type,
     limit: 3,
     order: '-fields.publishDate',
-    'fields.slug': slug,
+    'fields.slug[nin]': slug,
   })
 
-  return data ? data : null
+  if (entries.items) {
+    return entries.items
+  }
+  console.log(`Error getting Entries.`)
 }
+
+//
 
 export async function getAllPostsWithSlug(type) {
   const data = await client.getEntries({
