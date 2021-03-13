@@ -84,7 +84,7 @@ const PostItem = ({ article, slug, lastRef }) => {
 }
 
 PostItem.propTypes = {
-  article: PropTypes.array.isRequired,
+  article: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
   slug: PropTypes.string.isRequired,
   lastRef: PropTypes.oneOfType([PropTypes.func, PropTypes.shape({ current: PropTypes.any })]),
 }
