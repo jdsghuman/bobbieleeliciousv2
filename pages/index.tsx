@@ -34,6 +34,7 @@ const Home = ({ blogs, featuredPosts, recipes }: HomePropType) => {
     return <Spinner />
   }
 
+  console.log('recipes----', recipes)
   return (
     <>
       {pageHeadData}
