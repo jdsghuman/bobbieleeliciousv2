@@ -52,9 +52,16 @@ const Blogs = ({ blogs }: HomePropType) => {
       <PostItemContainer title="blogs">
         {postsToShow.map((blog, index) => {
           if (postsToShow.length === index + 1) {
-            return <PosttItem lastRef={lastPostElementRef} article={blog} slug="blog" />
+            return (
+              <PosttItem
+                lastRef={lastPostElementRef}
+                key={blog.sys.id}
+                article={blog}
+                slug="blog"
+              />
+            )
           } else {
-            return <PosttItem article={blog} slug="blog" lastRef={null} />
+            return <PosttItem article={blog} key={blog.sys.id} slug="blog" lastRef={null} />
           }
         })}
         <div>{loading && 'Loading...'}</div>
