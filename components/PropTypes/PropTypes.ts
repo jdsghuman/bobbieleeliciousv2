@@ -58,7 +58,7 @@ export interface RecipesPropType {
     recipeInstagram: string
     recipeNotes: string
     title: string
-    recipeYoutubeLink: string
+    youtubeLink: string
     servings: string
     slug: string
     tag: Tag[]
@@ -85,7 +85,7 @@ export interface RecipePropType {
       recipeInstagram: string
       recipeNotes: string
       title: string
-      recipeYoutubeLink: string
+      youtubeLink: string
       servings: string
       slug: string
       tag: Tag[]
