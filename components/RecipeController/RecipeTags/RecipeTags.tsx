@@ -5,7 +5,6 @@ interface RecipeTagsPropType {
   tags: TagPropType[]
 }
 const RecipeTags = ({ tags }: RecipeTagsPropType) => {
-  console.log('tags in recipeTags----', tags)
   return (
     <div className={styles.container}>
       {tags?.map((tag) => {
