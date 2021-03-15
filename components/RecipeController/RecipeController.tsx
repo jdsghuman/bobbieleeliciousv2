@@ -50,7 +50,7 @@ const RecipeController = ({ post }) => {
         servings={post.fields.servings}
       />
       <RecipeTabs activeTab={activeTab} setTab={setTab} />
-      {activeTab === 'Details' && <RecipeDescription post={post} />}
+      {activeTab === 'Details' && <RecipeDescription recipe={post} />}
       {activeTab === 'Ingredients' && <RecipeIngredients ingredients={post.fields.ingredients} />}
       {activeTab === 'Directions' && <RecipeDirections directions={post.fields.recipeDirections} />}
     </div>

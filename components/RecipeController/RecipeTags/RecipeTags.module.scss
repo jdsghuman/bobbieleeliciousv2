@@ -1,3 +1,5 @@
+@import '../../../styles/variables';
+
 .container {
   margin: 0 auto;
   margin-top: 30px;
@@ -15,7 +17,7 @@
   letter-spacing: 0.3px;
   color: #333333;
   .tag {
-    color: #cebf37;
+    color: $palette-brand-secondary;
     display: inline-block;
     margin-left: 8px;
     margin-right: 8px;
