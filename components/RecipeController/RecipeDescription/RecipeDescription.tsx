@@ -1,7 +1,8 @@
 import classNames from 'classnames/bind'
-import styles from './RecipeDescription.module.scss'
 import ReactMarkdown from 'react-markdown'
-import VideoDetail from '../VideoDetail/VideoDetail'
+import VideoDetail from '../../VideoDetail/VideoDetail'
+import RecipeTags from '../RecipeTags/RecipeTags'
+import styles from './RecipeDescription.module.scss'
 
 const cx = classNames.bind(styles)
 
@@ -26,6 +27,7 @@ const RecipeDescription = ({ post }) => {
           <ReactMarkdown>{post.fields.tools}</ReactMarkdown>
         </p>
       )}
+      {post?.fields?.tag && <RecipeTags tags={post.fields.tag} />}
     </div>
   )
 }
