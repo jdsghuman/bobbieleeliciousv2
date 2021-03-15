@@ -16,22 +16,7 @@ export interface BlogsPropType {
 }
 
 export interface BlogPropType {
-  blog: {
-    fields: {
-      author: AuthorPropType
-      image: string
-      body: string
-      description: string
-      featured: boolean
-      publishDate: string
-      slug: string
-      tag: TagPropType[]
-      title: string
-    }
-    sys: {
-      id: string
-    }
-  }
+  blog: BlogsPropType
 }
 
 export interface TagPropType {
@@ -70,31 +55,7 @@ export interface RecipesPropType {
 }
 
 export interface RecipePropType {
-  recipe: {
-    fields: {
-      author: AuthorPropType[]
-      category: CategoryPropType
-      cooktime: string
-      featured: boolean
-      ingredients: string
-      prep: string
-      publishDate: string
-      description: string
-      recipeDirections: string
-      image: string
-      recipeInstagram: string
-      recipeNotes: string
-      title: string
-      youtubeLink: string
-      servings: string
-      slug: string
-      tag: TagPropType[]
-      tools: string
-    }
-    sys: {
-      id: string
-    }
-  }
+  recipe: RecipesPropType
   morePosts?: Array<any>
 }
 
