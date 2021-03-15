@@ -7,7 +7,7 @@ export interface BlogsPropType {
     featured: boolean
     publishDate: string
     slug: string
-    tag: Tag[]
+    tag: TagPropType[]
     title: string
   }
   sys: {
@@ -25,7 +25,7 @@ export interface BlogPropType {
       featured: boolean
       publishDate: string
       slug: string
-      tag: Tag[]
+      tag: TagPropType[]
       title: string
     }
     sys: {
@@ -34,7 +34,7 @@ export interface BlogPropType {
   }
 }
 
-interface Tag {
+export interface TagPropType {
   fields: {
     name: string
   }
@@ -61,7 +61,7 @@ export interface RecipesPropType {
     youtubeLink: string
     servings: string
     slug: string
-    tag: Tag[]
+    tag: TagPropType[]
     tools: string
   }
   sys: {
@@ -88,7 +88,7 @@ export interface RecipePropType {
       youtubeLink: string
       servings: string
       slug: string
-      tag: Tag[]
+      tag: TagPropType[]
       tools: string
     }
     sys: {
