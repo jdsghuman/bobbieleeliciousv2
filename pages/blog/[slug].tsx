@@ -6,6 +6,9 @@ import { useRouter } from 'next/router'
 import Spinner from '../../components/Spinner/Spinner'
 import { BlogPropType } from '../../components/PropTypes/PropTypes'
 import { getAllPostsWithSlug, getPostBySlug, getMorePosts } from '../../lib/index'
+import BlogDetail from '../../components/BlogController/BlogDetail/BlogDetail'
+import FeatureList from '../../components/FeatureList/FeatureList'
+import Subscribe from '../../components/Subscribe/Banner'
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const data = await getAllPostsWithSlug('blogPost')
@@ -35,7 +38,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   }
 }
 
-const Blog = ({ blog }: BlogPropType) => {
+const Blog = ({ blog, morePosts }: BlogPropType) => {
   const router = useRouter()
 
   let pageHeadData = (
@@ -60,10 +63,13 @@ const Blog = ({ blog }: BlogPropType) => {
     </Head>
   )
 
+  console.log('blog in slug----', blog)
+  console.log('morePosts in slug----', morePosts)
+
   return (
     <>
       {pageHeadData}
-      <div
+      {/* <div
         style={{
           display: 'flex',
           flexDirection: 'column',
@@ -82,7 +88,10 @@ const Blog = ({ blog }: BlogPropType) => {
         {blog.fields.tag?.map((t) => (
           <p key={t.sys.id}>{t.fields.name}</p>
         ))}
-      </div>
+      </div> */}
+      <BlogDetail blog={blog} />
+      <FeatureList title="More From Bobbieleelicious" articles={morePosts} slug="blog" />
+      <Subscribe />
     </>
   )
 }

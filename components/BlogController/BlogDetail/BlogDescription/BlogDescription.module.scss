@@ -1,15 +1,12 @@
-@import '../../../styles/variables';
+@import '../../../../styles/variables';
 
 .container {
-  margin-left: 10px;
-  margin-right: 10px;
   margin-bottom: 40px;
   padding-top: 40px;
   padding-bottom: 30px;
   min-height: 300px;
   text-align: left;
   background: rgba(247, 244, 244, 0.7);
-  border-radius: 5px;
   .markdown {
     margin: 0 auto;
     margin-bottom: 16px;
@@ -33,25 +30,6 @@
       height: auto;
     }
     a {
-      color: #555555;
-    }
-    &__notes {
-      margin-top: 30px;
-      font-size: 1rem;
-      line-height: 1.25;
-      font-weight: 300;
-      color: #555555;
-      &__description {
-        font-weight: 600;
-        padding-right: 10px;
-        font-style: normal;
-      }
-    }
-    &__tools {
-      margin-top: 30px;
-      font-size: 1rem;
-      line-height: 1.25;
-      font-weight: 300;
       color: #555555;
     }
   }
