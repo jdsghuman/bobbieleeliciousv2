@@ -73,7 +73,7 @@ const Nav = ({ drawerToggleClickHandler, sideDrawerOpen }) => {
                   'logo__image--small': !isTopOfPage,
                 })}
                 src="/images/bobbieleelicious-logo-black.png"
-                alt={'WIP'}
+                alt={'Logo'}
               />
             </a>
           </LinkDisplay>

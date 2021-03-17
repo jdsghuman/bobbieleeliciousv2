@@ -4,6 +4,7 @@ import classNames from 'classnames/bind'
 import PropTypes from 'prop-types'
 import Button from '../Button/Button'
 import { formatDate, truncateText } from '../Util/Util'
+import Icon from '../Icon/Icon'
 import styles from './FeatureList.module.scss'
 
 const cx = classNames.bind(styles)
@@ -75,7 +76,14 @@ const PostItem = ({ article, slug, lastRef }) => {
         </div>
         <Link href={`/${slug}/` + article.fields.slug}>
           <Button className={styles.item__button} type="button" accent>
-            Read more
+            Read more{' '}
+            <Icon
+              identifier="arrowright"
+              viewBox="0 0 24 24"
+              dimensions={{ height: 24, width: 24 }}
+              fill={'rgb(233, 206, 194)'}
+              className={styles.icon__right}
+            />
           </Button>
         </Link>
       </div>
