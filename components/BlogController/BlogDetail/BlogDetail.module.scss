@@ -3,6 +3,13 @@
 .container {
   max-width: 800px;
   margin: 0 auto;
+  &--blog--icons {
+    padding: 20px 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
   .title {
     letter-spacing: 1px;
     animation: fadeIn 1s ease-in-out;
