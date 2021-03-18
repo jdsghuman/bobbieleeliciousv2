@@ -9,7 +9,6 @@ import styles from './RecipeDescription.module.scss'
 const cx = classNames.bind(styles)
 
 const RecipeDescription = ({ recipe }: RecipePropType) => {
-  console.log('post in description', recipe)
   return (
     <div className={styles.container}>
       <ReactMarkdown className={styles.markdown} source={recipe.fields.description} />

@@ -1,7 +1,5 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
-import Markdown from 'markdown-to-jsx'
-import Image from 'next/image'
 import { useRouter } from 'next/router'
 import Spinner from '../../components/Spinner/Spinner'
 import { BlogPropType } from '../../components/PropTypes/PropTypes'
@@ -62,33 +60,9 @@ const Blog = ({ blog, morePosts }: BlogPropType) => {
       <meta name="description" content={blog.fields.description} />
     </Head>
   )
-
-  console.log('blog in slug----', blog)
-  console.log('morePosts in slug----', morePosts)
-
   return (
     <>
       {pageHeadData}
-      {/* <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-        }}
-      >
-        <h3>{blog.fields?.title}</h3>
-        {blog.fields.image && (
-          <div>
-            <Image src={blog.fields.image} layout="intrinsic" width={500} height={500} />
-          </div>
-        )}
-        <p>{blog.fields.author?.fields.name}</p>
-        <p>{blog.fields.publishDate}</p>
-        <Markdown>{blog.fields.body}</Markdown>
-        {blog.fields.tag?.map((t) => (
-          <p key={t.sys.id}>{t.fields.name}</p>
-        ))}
-      </div> */}
       <BlogDetail blog={blog} />
       <FeatureList title="More From Bobbieleelicious" articles={morePosts} slug="blog" />
       <Subscribe />

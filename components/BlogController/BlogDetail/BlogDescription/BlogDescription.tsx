@@ -6,8 +6,6 @@ import ShareIconItem from '../../../SocialMedia/ShareIcons/ShareIconItem'
 import styles from './BlogDescription.module.scss'
 
 const BlogDescription = ({ blog }: BlogPropType) => {
-  console.log('blog in description', blog)
-
   return (
     <div className={styles.container}>
       <ReactMarkdown className={styles.markdown} source={blog.fields.description} />

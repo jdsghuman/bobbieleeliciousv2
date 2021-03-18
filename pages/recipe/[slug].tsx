@@ -59,9 +59,6 @@ const Recipe = ({ recipe, morePosts }: RecipePropType) => {
       <meta name="description" content={recipe.fields.description} />
     </Head>
   )
-
-  console.log('recipe in slug', recipe)
-  console.log('morePosts in slug', morePosts)
   return (
     <>
       {pageHeadData}

@@ -33,8 +33,6 @@ const Home = ({ blogs, featuredPosts, recipes }: HomePropType) => {
   if (!blogs && !featuredPosts && !recipes) {
     return <Spinner />
   }
-
-  console.log('recipes----', recipes)
   return (
     <>
       {pageHeadData}
