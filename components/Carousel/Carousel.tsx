@@ -47,15 +47,13 @@ const Carousel = ({ featuredPosts }: Carousel) => {
 
   return (
     <>
-      <div className={styles.carousel}>
+      <div {...handlers} className={styles.carousel}>
         <div className={style}>
-          <div {...handlers}>
-            <img
-              className={styles.carousel__image}
-              src={images[currentInterval].path}
-              alt={images[currentInterval].label}
-            />
-          </div>
+          <img
+            className={styles.carousel__image}
+            src={images[currentInterval].path}
+            alt={images[currentInterval].label}
+          />
         </div>
         <div className={styles.carousel__controls}>
           <CarouselItem imageDetails={images[currentInterval]} />
