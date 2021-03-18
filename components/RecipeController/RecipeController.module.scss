@@ -15,7 +15,7 @@
   margin-right: auto;
   max-width: 800px;
   transition: margin-top 0.3s ease-out;
-  animation: 1.2s ease-out backwards recipeDetails;
+  animation: recipeDetails 1.2s ease-out backwards;
   @media (max-width: 625px) {
     margin-top: -150px;
   }
@@ -40,6 +40,7 @@
     transform: translateY(1000px);
   }
   to {
+    opacity: 1;
     transform: translateY(0);
   }
 }
