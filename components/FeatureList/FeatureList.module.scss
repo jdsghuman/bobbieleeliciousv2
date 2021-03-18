@@ -60,6 +60,11 @@
     animation-delay: 0.1s;
     animation-play-state: running;
     -webkit-backface-visibility: hidden;
+    &__cursive {
+      font-family: 'Calligraffitti', cursive;
+      text-transform: lowercase;
+      font-size: 1.1rem;
+    }
     &:hover {
       background: rgba(233, 206, 194, 0.7);
     }

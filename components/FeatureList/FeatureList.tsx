@@ -17,7 +17,7 @@ const FeatureList = ({ articles, slug, title }) => {
       {router.pathname === '/' && (
         <Link href={`/${slug}s`}>
           <Button primary className={styles['container__button--all']} type="button">
-            Go to {slug}s
+            Go <span className={styles['container__button--all__cursive']}>to</span> {slug}s
           </Button>
         </Link>
       )}
