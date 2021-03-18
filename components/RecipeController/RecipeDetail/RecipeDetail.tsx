@@ -11,7 +11,13 @@ const RecipeDetail = ({ post }: RecipeDetailPropTypes) => {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>{truncateText(post.fields.title, 40)}</h1>
-      <img src={post.fields.image} alt={post.fields.title} className={styles['image--main']} />
+      {post?.fields.image ? (
+        <img src={post.fields.image} alt={post.fields.title} className={styles['image--main']} />
+      ) : (
+        <div className={styles['image--main--error']}>
+          <p className={styles['image--main--error__text']}>Image failed to load</p>
+        </div>
+      )}
       <RecipeController post={post} />
     </div>
   )

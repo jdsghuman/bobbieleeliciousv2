@@ -13,7 +13,13 @@ const BlogDetail = ({ blog }: BlogPropType) => {
         <AuthorItem blog={blog} />
         <ShareIconItem postImage={blog.fields.image} postName={blog.fields.title} />
       </div>
-      <img src={blog.fields.image} alt={blog.fields.title} className={styles['image--main']} />
+      {blog?.fields?.image ? (
+        <img src={blog.fields.image} alt={blog.fields.title} className={styles['image--main']} />
+      ) : (
+        <div className={styles['image--main--error']}>
+          <p className={styles['image--main--error__text']}>Image failed to load</p>
+        </div>
+      )}
       <BlogDescription blog={blog} />
     </div>
   )
