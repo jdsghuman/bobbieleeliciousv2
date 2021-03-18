@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import CarouselItem from './CarouselItem/CarouselItem'
 import Pagination from './Pagination/Pagination'
-
+import { useSwipeable } from 'react-swipeable'
 import styles from './Carousel.module.scss'
 
 interface Carousel {
@@ -23,6 +23,15 @@ const Carousel = ({ featuredPosts }: Carousel) => {
     }
   })
 
+  const handlers = useSwipeable({
+    onSwipedLeft: () =>
+      setCurrentInterval(currentInterval < featuredPosts.length - 1 ? currentInterval + 1 : 0),
+    onSwipedRight: () =>
+      setCurrentInterval(currentInterval > 0 ? currentInterval - 1 : featuredPosts.length - 1),
+    preventDefaultTouchmoveEvent: true,
+    trackMouse: true,
+  })
+
   useEffect(() => {
     const interval = setInterval(() => {
       setStyle(styles['container--none'])
@@ -40,11 +49,13 @@ const Carousel = ({ featuredPosts }: Carousel) => {
     <>
       <div className={styles.carousel}>
         <div className={style}>
-          <img
-            className={styles.carousel__image}
-            src={images[currentInterval].path}
-            alt={images[currentInterval].label}
-          />
+          <div {...handlers}>
+            <img
+              className={styles.carousel__image}
+              src={images[currentInterval].path}
+              alt={images[currentInterval].label}
+            />
+          </div>
         </div>
         <div className={styles.carousel__controls}>
           <CarouselItem imageDetails={images[currentInterval]} />
