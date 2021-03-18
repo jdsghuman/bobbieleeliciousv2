@@ -22,8 +22,10 @@ const Recipes = ({ recipes }: HomePropType) => {
   const [pageNumber, setPageNuber] = useState(0)
   const observer = useRef<any>()
   const { postsToShow, loading, hasMore, error } = useInfiniteScroll(pageNumber, recipes)
+
   const lastPostElementRef = useCallback(
-    (node) => {
+    async (node) => {
+      await initializeObserver()
       if (loading) return
       if (observer.current) observer.current.disconnect()
       observer.current = new IntersectionObserver((entries) => {
@@ -35,6 +37,13 @@ const Recipes = ({ recipes }: HomePropType) => {
     },
     [loading, hasMore]
   )
+
+  async function initializeObserver() {
+    if (!('IntersectionObserver' in window)) {
+      //     // This is specifically for Safari - Polyfill
+      await import('intersection-observer')
+    }
+  }
 
   useEffect(() => {
     setPageNuber(1)
