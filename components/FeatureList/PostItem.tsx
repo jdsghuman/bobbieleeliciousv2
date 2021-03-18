@@ -3,8 +3,10 @@ import Image from 'next/image'
 import classNames from 'classnames/bind'
 import PropTypes from 'prop-types'
 import Button from '../Button/Button'
-import { formatDate, truncateText } from '../Util/Util'
+import { truncateText } from '../Util/Util'
+import Icon from '../Icon/Icon'
 import styles from './FeatureList.module.scss'
+import AuthorItem from '../Author/AuthorItem'
 
 const cx = classNames.bind(styles)
 
@@ -41,41 +43,17 @@ const PostItem = ({ article, slug, lastRef }) => {
           'item__container__button--center': article.sys.contentType.sys.id !== 'blogPost',
         })}
       >
-        <div className={styles.item__container__button__author}>
-          {article.sys.contentType.sys.id === 'blogPost' && (
-            <>
-              <div className={styles.item__container__button__author__image__container}>
-                {article?.fields?.author?.fields?.image ? (
-                  <Image
-                    src={article.fields.author.fields.image}
-                    alt={article.fields.author.fields.name}
-                    className={styles.item__container__button__image}
-                    width={40}
-                    height={40}
-                  />
-                ) : (
-                  <div
-                    className={cx(
-                      'item__container__button__image',
-                      'item__container__button__image--default'
-                    )}
-                  ></div>
-                )}
-              </div>
-              <div className={styles.item__container__button__author__name__container}>
-                <p className={styles.item__container__button__author__name}>
-                  {article.fields.author.fields.name}
-                </p>
-                <p className={styles.item__container__button__author__date}>
-                  {formatDate(article.fields.publishDate)}
-                </p>
-              </div>
-            </>
-          )}
-        </div>
+        <AuthorItem blog={article} />
         <Link href={`/${slug}/` + article.fields.slug}>
           <Button className={styles.item__button} type="button" accent>
-            Read more
+            Read more{' '}
+            <Icon
+              identifier="arrowright"
+              viewBox="0 0 24 24"
+              dimensions={{ height: 24, width: 24 }}
+              fill={'rgb(233, 206, 194)'}
+              className={styles.icon__right}
+            />
           </Button>
         </Link>
       </div>

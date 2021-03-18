@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind'
 import ReactMarkdown from 'react-markdown'
 import VideoDetail from '../../VideoDetail/VideoDetail'
-import RecipeTags from '../RecipeTags/RecipeTags'
+import PostTags from '../../PostTags/PostTags'
 import ShareIcons from '../../SocialMedia/ShareIcons/ShareIcons'
 import { RecipePropType } from '../../PropTypes/PropTypes'
 import styles from './RecipeDescription.module.scss'
@@ -9,7 +9,6 @@ import styles from './RecipeDescription.module.scss'
 const cx = classNames.bind(styles)
 
 const RecipeDescription = ({ recipe }: RecipePropType) => {
-  console.log('post in description', recipe)
   return (
     <div className={styles.container}>
       <ReactMarkdown className={styles.markdown} source={recipe.fields.description} />
@@ -31,7 +30,7 @@ const RecipeDescription = ({ recipe }: RecipePropType) => {
         </p>
       )}
       <ShareIcons postImage={recipe.fields.image} postName={recipe.fields.title} />
-      {recipe?.fields?.tag && <RecipeTags tags={recipe.fields.tag} />}
+      {recipe?.fields?.tag && <PostTags tags={recipe.fields.tag} />}
     </div>
   )
 }

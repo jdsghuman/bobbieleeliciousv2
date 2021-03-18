@@ -1,10 +1,10 @@
-import styles from './RecipeTags.module.scss'
-import { TagPropType } from '../../PropTypes/PropTypes'
+import styles from './PostTags.module.scss'
+import { TagPropType } from '../PropTypes/PropTypes'
 
-interface RecipeTagsPropType {
+interface PostTagsPropType {
   tags: TagPropType[]
 }
-const RecipeTags = ({ tags }: RecipeTagsPropType) => {
+const PostTags = ({ tags }: PostTagsPropType) => {
   return (
     <div className={styles.container}>
       {tags?.map((tag) => {
@@ -18,4 +18,4 @@ const RecipeTags = ({ tags }: RecipeTagsPropType) => {
   )
 }
 
-export default RecipeTags
+export default PostTags

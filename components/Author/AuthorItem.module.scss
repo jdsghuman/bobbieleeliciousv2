@@ -1,0 +1,39 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  &--image {
+    width: 35px;
+    height: 35px;
+    margin: 0 10px;
+  }
+  &--name {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .image {
+    width: 30px;
+    height: 40px;
+    border-radius: 50%;
+    &--default {
+      height: 33px;
+      background: #e6e3e3;
+    }
+  }
+  .name {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #333;
+    margin-left: 0;
+    padding-left: 0;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+  }
+  .date {
+    margin: 0;
+    font-size: 0.9rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    color: #888;
+  }
+}

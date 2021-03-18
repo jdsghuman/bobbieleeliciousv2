@@ -23,6 +23,11 @@ const SideDrawer = ({ click, show }) => {
         </LinkDisplay>
       </div>
       <div className={styles.drawer__item}>
+        <LinkDisplay link="/">
+          <a>Home</a>
+        </LinkDisplay>
+      </div>
+      <div className={styles.drawer__item}>
         <LinkDisplay link="/recipes">
           <a>Recipes</a>
         </LinkDisplay>

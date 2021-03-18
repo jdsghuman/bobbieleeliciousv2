@@ -12,11 +12,17 @@ export interface BlogsPropType {
   }
   sys: {
     id: string
+    contentType: {
+      sys: {
+        id: string
+      }
+    }
   }
 }
 
 export interface BlogPropType {
   blog: BlogsPropType
+  morePosts?: Array<any>
 }
 
 export interface TagPropType {
