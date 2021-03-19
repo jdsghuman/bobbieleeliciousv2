@@ -4,7 +4,6 @@
   max-width: 800px;
   margin: 0 auto;
   .title {
-    letter-spacing: 1px;
     animation: fadeIn 1s ease-in-out;
     animation-fill-mode: forwards;
     opacity: 0;
@@ -14,7 +13,7 @@
     font-family: 'Barlow Condensed', sans-serif;
     color: #333333;
     @media (max-width: $breakpoint--md) {
-      font-size: 2.1rem;
+      font-size: 1.8rem;
     }
   }
   .image--main {

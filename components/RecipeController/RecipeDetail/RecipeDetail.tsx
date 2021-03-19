@@ -10,7 +10,7 @@ interface RecipeDetailPropTypes {
 const RecipeDetail = ({ post }: RecipeDetailPropTypes) => {
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>{truncateText(post.fields.title, 40)}</h1>
+      <h1 className={styles.title}>{truncateText(post.fields.title, 60)}</h1>
       {post?.fields.image ? (
         <img src={post.fields.image} alt={post.fields.title} className={styles['image--main']} />
       ) : (

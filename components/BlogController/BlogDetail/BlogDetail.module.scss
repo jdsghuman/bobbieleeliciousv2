@@ -11,17 +11,17 @@
     align-items: center;
   }
   .title {
-    letter-spacing: 1px;
     animation: fadeIn 1s ease-in-out;
     animation-fill-mode: forwards;
+    padding: 0 3px;
     opacity: 0;
     text-align: center;
     font-size: 2.3rem;
     font-weight: 600;
     font-family: 'Barlow Condensed', sans-serif;
     color: #333333;
-    @media (max-width: $breakpoint--md) {
-      font-size: 2.1rem;
+    @media (max-width: $breakpoint--sm) {
+      font-size: 1.8rem;
     }
   }
   .image--main {

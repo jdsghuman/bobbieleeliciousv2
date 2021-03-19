@@ -8,7 +8,7 @@ import styles from './BlogDetail.module.scss'
 const BlogDetail = ({ blog }: BlogPropType) => {
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>{truncateText(blog.fields.title, 40)}</h1>
+      <h1 className={styles.title}>{truncateText(blog.fields.title, 80)}</h1>
       <div className={styles['container--blog--icons']}>
         <AuthorItem blog={blog} />
         <ShareIconItem postImage={blog.fields.image} postName={blog.fields.title} />
