@@ -4,6 +4,7 @@ import { BlogPropType } from '../../../PropTypes/PropTypes'
 import PostTags from '../../../PostTags/PostTags'
 import ShareIconItem from '../../../SocialMedia/ShareIcons/ShareIconItem'
 import styles from './BlogDescription.module.scss'
+import Signature from '../../../Signature/Signature'
 
 const BlogDescription = ({ blog }: BlogPropType) => {
   return (
@@ -13,6 +14,7 @@ const BlogDescription = ({ blog }: BlogPropType) => {
         className={styles.markdown}
         source={blog.fields.description}
       />
+      <Signature author={blog.fields.author.fields.name} />
       <div className={styles['container--blog--icons']}>
         <AuthorItem blog={blog} />
         <ShareIconItem postImage={blog.fields.image} postName={blog.fields.title} />
