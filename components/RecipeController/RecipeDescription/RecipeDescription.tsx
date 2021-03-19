@@ -4,6 +4,7 @@ import VideoDetail from '../../VideoDetail/VideoDetail'
 import PostTags from '../../PostTags/PostTags'
 import ShareIcons from '../../SocialMedia/ShareIcons/ShareIcons'
 import { RecipePropType } from '../../PropTypes/PropTypes'
+import Signature from '../../Signature/Signature'
 import styles from './RecipeDescription.module.scss'
 
 const cx = classNames.bind(styles)
@@ -33,6 +34,7 @@ const RecipeDescription = ({ recipe }: RecipePropType) => {
           <ReactMarkdown>{recipe.fields.tools}</ReactMarkdown>
         </p>
       )}
+      <Signature author={recipe.fields.author[0].fields.name} />
       <ShareIcons postImage={recipe.fields.image} postName={recipe.fields.title} />
       {recipe?.fields?.tag && <PostTags tags={recipe.fields.tag} />}
     </div>
