@@ -8,7 +8,11 @@ import styles from './BlogDescription.module.scss'
 const BlogDescription = ({ blog }: BlogPropType) => {
   return (
     <div className={styles.container}>
-      <ReactMarkdown className={styles.markdown} source={blog.fields.description} />
+      <ReactMarkdown
+        linkTarget="_blank"
+        className={styles.markdown}
+        source={blog.fields.description}
+      />
       <div className={styles['container--blog--icons']}>
         <AuthorItem blog={blog} />
         <ShareIconItem postImage={blog.fields.image} postName={blog.fields.title} />

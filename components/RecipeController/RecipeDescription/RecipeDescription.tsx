@@ -11,7 +11,11 @@ const cx = classNames.bind(styles)
 const RecipeDescription = ({ recipe }: RecipePropType) => {
   return (
     <div className={styles.container}>
-      <ReactMarkdown className={styles.markdown} source={recipe.fields.description} />
+      <ReactMarkdown
+        linkTarget="_blank"
+        className={styles.markdown}
+        source={recipe.fields.description}
+      />
       {recipe?.fields?.youtubeLink && (
         <div className={cx('markdown', 'markdown__video')}>
           <VideoDetail url={recipe.fields.youtubeLink} />
