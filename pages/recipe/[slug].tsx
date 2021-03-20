@@ -1,4 +1,3 @@
-import Head from 'next/head'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import Spinner from '../../components/Spinner/Spinner'
@@ -7,6 +6,9 @@ import { getAllPostsWithSlug, getPostBySlug, getMorePosts } from '../../lib/inde
 import RecipeDetail from '../../components/RecipeController/RecipeDetail/RecipeDetail'
 import FeatureList from '../../components/FeatureList/FeatureList'
 import Subscribe from '../../components/Subscribe/Banner'
+import { MetaTags, PageType, RobotsContent } from '../../components/PropTypes/Tags'
+import Meta from '../../components/Meta'
+import { truncateText } from '../../components/Util/Util'
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const data = await getAllPostsWithSlug('recipe')
@@ -39,12 +41,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 const Recipe = ({ recipe, morePosts }: RecipePropType) => {
   const router = useRouter()
 
-  let pageHeadData = (
-    <Head>
-      <title>Recipe</title>
-    </Head>
-  )
-
   if (router.isFallback) {
     return <Spinner />
   }
@@ -53,15 +49,17 @@ const Recipe = ({ recipe, morePosts }: RecipePropType) => {
     return <Spinner />
   }
 
-  pageHeadData = (
-    <Head>
-      <title>{recipe.fields.title}</title>
-      <meta name="description" content={recipe.fields.description} />
-    </Head>
-  )
+  const postMetaTags: MetaTags = {
+    canonical: 'https://www.bobbieleelicious.com',
+    description: `${truncateText(recipe.fields.description, 160)}`,
+    image: `${recipe.fields.image}`,
+    robots: `${RobotsContent.follow},${RobotsContent.index}`,
+    title: `${recipe.fields.title}`,
+    type: PageType.article,
+  }
   return (
     <>
-      {pageHeadData}
+      <Meta tags={postMetaTags} />
       <RecipeDetail post={recipe} />
       <FeatureList title="More From Bobbieleelicious" articles={morePosts} slug="recipe" />
       <Subscribe />

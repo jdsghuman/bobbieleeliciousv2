@@ -2,6 +2,8 @@ import Head from 'next/head'
 import className from 'classnames/bind'
 import styles from './index.module.scss'
 import { aboutText } from '../../data/data'
+import { MetaTags, PageType, RobotsContent } from '../../components/PropTypes/Tags'
+import Meta from '../../components/Meta'
 
 const cx = className.bind(styles)
 
@@ -17,12 +19,18 @@ const About = () => {
     })
   }
 
+  const postMetaTags: MetaTags = {
+    canonical: 'https://www.bobbieleelicious.com',
+    description: `Delicious and nutritious healthy vegetarian recipes`,
+    image: `https://cdn.filestackcontent.com/eFCXsb8GSvWzOcZTJoEO`,
+    robots: `${RobotsContent.follow},${RobotsContent.index}`,
+    title: `Bobbieleelicious`,
+    type: PageType.website,
+  }
+
   return (
     <>
-      <Head>
-        <title>About</title>
-        <meta name="description" content="Delicious and nutritious healthy vegetarian recipes" />
-      </Head>
+      <Meta tags={postMetaTags} />
       <div className={styles.about}>
         <div className={styles.about__image__container}>
           <img

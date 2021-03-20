@@ -1,5 +1,4 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
-import Head from 'next/head'
 import { useRouter } from 'next/router'
 import Spinner from '../../components/Spinner/Spinner'
 import { BlogPropType } from '../../components/PropTypes/PropTypes'
@@ -7,6 +6,9 @@ import { getAllPostsWithSlug, getPostBySlug, getMorePosts } from '../../lib/inde
 import BlogDetail from '../../components/BlogController/BlogDetail/BlogDetail'
 import FeatureList from '../../components/FeatureList/FeatureList'
 import Subscribe from '../../components/Subscribe/Banner'
+import { MetaTags, PageType, RobotsContent } from '../../components/PropTypes/Tags'
+import Meta from '../../components/Meta'
+import { truncateText } from '../../components/Util/Util'
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const data = await getAllPostsWithSlug('blogPost')
@@ -39,13 +41,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 const Blog = ({ blog, morePosts }: BlogPropType) => {
   const router = useRouter()
 
-  let pageHeadData = (
-    <Head>
-      <title>Bobbieleelicous - Blog</title>
-      <meta name="description" content={`Healthy, lifstyle blog`} />
-    </Head>
-  )
-
   if (router.isFallback) {
     return <Spinner />
   }
@@ -54,15 +49,18 @@ const Blog = ({ blog, morePosts }: BlogPropType) => {
     return <Spinner />
   }
 
-  pageHeadData = (
-    <Head>
-      <title>{blog.fields.title}</title>
-      <meta name="description" content={blog.fields.description} />
-    </Head>
-  )
+  const postMetaTags: MetaTags = {
+    canonical: 'https://www.bobbieleelicious.com',
+    description: `${truncateText(blog.fields.description, 160)}`,
+    image: `${blog.fields.image}`,
+    robots: `${RobotsContent.follow},${RobotsContent.index}`,
+    title: `${blog.fields.title}`,
+    type: PageType.article,
+  }
+
   return (
     <>
-      {pageHeadData}
+      <Meta tags={postMetaTags} />
       <BlogDetail blog={blog} />
       <FeatureList title="More From Bobbieleelicious" articles={morePosts} slug="blog" />
       <Subscribe />
