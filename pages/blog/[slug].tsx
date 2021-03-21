@@ -51,7 +51,11 @@ const Blog = ({ blog, morePosts }: BlogPropType) => {
 
   const postMetaTags: MetaTags = {
     canonical: 'https://www.bobbieleelicious.com',
-    description: `${truncateText(blog.fields.description, 160)}`,
+    description: `${
+      blog.fields.metaDescription
+        ? blog.fields.metaDescription
+        : truncateText(blog.fields.description, 160)
+    }`,
     image: `${blog.fields.image}`,
     robots: `${RobotsContent.follow},${RobotsContent.index}`,
     title: `${blog.fields.title}`,
