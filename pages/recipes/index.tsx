@@ -1,5 +1,4 @@
 import { useEffect, useState, useCallback, useRef } from 'react'
-import Head from 'next/head'
 import { GetStaticProps } from 'next'
 import { getAllRecipes } from '../../lib/index'
 import { HomePropType } from '../../components/PropTypes/PropTypes'
@@ -8,6 +7,8 @@ import PostItem from '../../components/FeatureList/PostItem'
 import Subscribe from '../../components/Subscribe/Banner'
 import useInfiniteScroll from '../../components/Util/Hooks/useInfiniteScroll'
 import Spinner from '../../components/Spinner/Spinner'
+import { MetaTags, PageType, RobotsContent } from '../../components/PropTypes/Tags'
+import Meta from '../../components/Meta'
 
 export const getStaticProps: GetStaticProps = async () => {
   const posts = await getAllRecipes()
@@ -45,6 +46,15 @@ const Recipes = ({ recipes }: HomePropType) => {
     }
   }
 
+  const postMetaTags: MetaTags = {
+    canonical: 'https://www.bobbieleelicious.com',
+    description: `Delicious and nutritious healthy vegetarian recipes`,
+    image: 'https://www.bobbieleelicious.com/images/bobbieleelicious.png',
+    robots: `${RobotsContent.follow},${RobotsContent.index}`,
+    title: `Bobbieleelicious`,
+    type: PageType.website,
+  }
+
   useEffect(() => {
     setPageNuber(1)
   }, [])
@@ -52,10 +62,7 @@ const Recipes = ({ recipes }: HomePropType) => {
   if (postsToShow.length === 0) return <Spinner />
   return (
     <>
-      <Head>
-        <title>Bobbieleelicious - Recipes</title>
-        <meta name="description" content="Delicious and nutritious healthy vegetarian recipes" />
-      </Head>
+      <Meta tags={postMetaTags} />
       <PostItemContainer title="recipes">
         {postsToShow.map((recipe, index) => {
           if (postsToShow.length === index + 1) {

@@ -9,6 +9,7 @@ export interface BlogsPropType {
     slug: string
     tag: TagPropType[]
     title: string
+    metaDescription: string
   }
   sys: {
     id: string
@@ -54,6 +55,7 @@ export interface RecipesPropType {
     slug: string
     tag: TagPropType[]
     tools: string
+    metaDescription: string
   }
   sys: {
     id: string
