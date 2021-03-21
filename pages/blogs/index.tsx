@@ -1,5 +1,4 @@
 import { useEffect, useState, useCallback, useRef } from 'react'
-import Head from 'next/head'
 import { GetStaticProps } from 'next'
 import { getAllBlogs } from '../../lib/index'
 import { HomePropType } from '../../components/PropTypes/PropTypes'
