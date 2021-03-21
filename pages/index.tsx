@@ -8,8 +8,10 @@ import FeatureList from '../components/FeatureList/FeatureList'
 import Spinner from '../components/Spinner/Spinner'
 import { MetaTags, PageType, RobotsContent } from '../components/PropTypes/Tags'
 import Meta from '../components/Meta'
+import generateSitemap from '../components/Util/Sitemap'
 
 export const getStaticProps: GetStaticProps = async () => {
+  await generateSitemap()
   const posts = await getAllPosts()
   const featuredBlogs = posts.blogs.filter((blog) => blog.fields.featured)
   const featuredRecipes = posts.recipes.filter((recipe) => recipe.fields.featured)
