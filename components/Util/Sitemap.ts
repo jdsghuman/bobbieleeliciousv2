@@ -8,10 +8,9 @@ import { getAllPosts } from '../../lib/index'
 // pages that should not be in the sitemap
 const blocklist = ['/404']
 async function generateSitemap() {
-  // if (process.env.NODE_ENV === 'development') {
-  //   return
-  // }
-  console.log('GENERATING SITEMAP----')
+  if (process.env.NODE_ENV === 'development') {
+    return
+  }
   const baseUrl = process.env.BASE_URL
   const pages = await globby([
     'pages/**/*{.js,.tsx,.ts,.mdx}',
