@@ -1,4 +1,3 @@
-import Head from 'next/head'
 import className from 'classnames/bind'
 import styles from './index.module.scss'
 import { aboutText } from '../../data/data'

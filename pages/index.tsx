@@ -7,6 +7,8 @@ import Carousel from '../components/Carousel/Carousel'
 import Subscribe from '../components/Subscribe/Banner'
 import FeatureList from '../components/FeatureList/FeatureList'
 import Spinner from '../components/Spinner/Spinner'
+import { MetaTags, PageType, RobotsContent } from '../components/PropTypes/Tags'
+import Meta from '../components/Meta'
 
 export const getStaticProps: GetStaticProps = async () => {
   const posts = await getAllPosts()
@@ -23,19 +25,21 @@ export const getStaticProps: GetStaticProps = async () => {
 }
 
 const Home = ({ blogs, featuredPosts, recipes }: HomePropType) => {
-  const pageHeadData = (
-    <Head>
-      <title>Bobbieleelicious</title>
-      <meta name="description" content="Delicious and nutritious healthy vegetarian recipes" />
-    </Head>
-  )
+  const postMetaTags: MetaTags = {
+    canonical: 'https://www.bobbieleelicious.com',
+    description: `Delicious and nutritious healthy vegetarian recipes`,
+    image: 'https://www.bobbieleelicious.com/images/bobbieleelicious.png',
+    robots: `${RobotsContent.follow},${RobotsContent.index}`,
+    title: `Bobbieleelicious`,
+    type: PageType.website,
+  }
 
   if (!blogs && !featuredPosts && !recipes) {
     return <Spinner />
   }
   return (
     <>
-      {pageHeadData}
+      <Meta tags={postMetaTags} />
       <div className={styles.container}>
         <Carousel featuredPosts={featuredPosts} />
         <Subscribe />
