@@ -4,8 +4,7 @@ import Router from 'next/router'
 import '../styles/main.scss'
 import Layout from '../components/Layout/Layout'
 import { defaultMetaTags } from '../components/Util/Constants'
-import { trackPageView } from '../components/PropTypes/GTags'
-import { GA_TRACKING_ID } from '../components/PropTypes/GTags'
+import { trackPageView, GA_TRACKING_ID } from '../components/PropTypes/GTags'
 
 Router.events.on('routeChangeComplete', (url) => trackPageView(url))
 
