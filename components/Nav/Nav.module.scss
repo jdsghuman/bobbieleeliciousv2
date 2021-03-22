@@ -5,7 +5,7 @@ $breakpoint--md: 800px;
 .header {
   display: grid;
   grid-template-columns: minmax(5%, 1fr) repeat(6, minmax(100px, 200px)) minmax(5%, 1fr);
-  overflow: hidden;
+  // overflow: hidden;
   position: sticky;
   top: 0;
   z-index: 150;
@@ -190,7 +190,12 @@ $breakpoint--md: 800px;
       cursor: pointer;
       margin-left: 18px;
       margin-top: 5px;
+      &--none {
+        width: 44px;
+        height: 26px;
+      }
       &__container {
+        position: relative;
         @media (max-width: 800px) {
           margin-bottom: 20px;
         }
@@ -199,6 +204,13 @@ $breakpoint--md: 800px;
         }
       }
       &__mobile {
+        @media (min-width: 801px) {
+          display: none;
+        }
+      }
+      &__mobile--none {
+        width: 50px;
+        height: 26px;
         @media (min-width: 801px) {
           display: none;
         }

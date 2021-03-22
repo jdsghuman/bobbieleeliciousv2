@@ -4,12 +4,14 @@ import classNames from 'classnames/bind'
 import debounce from 'lodash.debounce'
 import LinkDisplay from '../Link/LinkDisplay'
 import Icon from '../Icon/Icon'
-import styles from './Nav.module.scss'
 import DrawerToggleButton from '../SideDrawer/DrawerToggle/DrawerToggleButton'
+import Filter from '../Filter/Filter'
+import styles from './Nav.module.scss'
 
 const cx = classNames.bind(styles)
 
 const Nav = ({ drawerToggleClickHandler, sideDrawerOpen }) => {
+  const [isOpenFilter, setIsOpenFilter] = useState(false)
   const router = useRouter()
   const [isExpanded, setIsExpanded] = useState(false)
   const [isTopOfPage, setIsTopOfPage] = useState(true)
@@ -31,6 +33,11 @@ const Nav = ({ drawerToggleClickHandler, sideDrawerOpen }) => {
     router.pathname === '/' && window.location.reload()
   }
 
+  const toggleFilter = () => {
+    console.log('clicked')
+    setIsOpenFilter(!isOpenFilter)
+  }
+
   useEffect(() => {
     const debounceNav = debounce(() => resizeHeaderOnScroll(), 100)
 
@@ -49,21 +56,20 @@ const Nav = ({ drawerToggleClickHandler, sideDrawerOpen }) => {
           'header__container--small': !isTopOfPage,
         })}
       >
-        {router.pathname !== '/about' && (
+        {router.pathname === '/recipes' || router.pathname === '/blogs' ? (
           <div className={styles.nav__search__container}>
-            {/* <Filter
-              isOpen={isOpenFilter}
-              closeFilter={toggleFilter}
-            /> */}
+            <Filter isOpen={isOpenFilter} closeFilter={toggleFilter} />
             <Icon
               identifier="search"
               viewBox="0 0 600 350"
               fill={'#555'}
               dimensions={{ height: 30, width: 26 }}
               className={styles.nav__search__mobile}
-              // click={toggleFilter}
+              click={toggleFilter}
             />
           </div>
+        ) : (
+          <div className={styles['nav__search__mobile--none']}></div>
         )}
         <div className={styles.logo__container}>
           <LinkDisplay link="/">
@@ -121,15 +127,17 @@ const Nav = ({ drawerToggleClickHandler, sideDrawerOpen }) => {
                 </a>
               </LinkDisplay>
             </li>
-            {router.pathname !== '/about' && (
+            {router.pathname === '/recipes' || router.pathname === '/blogs' ? (
               <Icon
                 identifier="search"
                 viewBox="0 0 600 350"
                 fill={'#555'}
                 dimensions={{ height: 30, width: 26 }}
                 className={styles.nav__search}
-                // click={toggleFilter}
+                click={toggleFilter}
               />
+            ) : (
+              <div className={styles['nav__search--none']}></div>
             )}
           </ul>
         </nav>
