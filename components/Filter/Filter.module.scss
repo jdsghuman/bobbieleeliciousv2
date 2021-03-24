@@ -24,4 +24,59 @@
     position: absolute;
     z-index: 160;
   }
+
+  .search {
+    &__container {
+      position: relative;
+      margin-top: 20px;
+      width: 90%;
+    }
+    &__icon {
+      position: absolute;
+      left: 0;
+      top: 8px;
+      padding: 2px 2px;
+      padding-left: 4px;
+      color: #aaa;
+      transition: 0.3s;
+    }
+  }
+  &__close {
+    margin: 8px;
+    position: absolute;
+    align-self: flex-end;
+    top: 0;
+    right: 0;
+    height: 30px;
+    width: 30px;
+    color: #333;
+    fill: #888;
+    cursor: pointer;
+    &:hover {
+      fill: #555555;
+    }
+  }
+  .search {
+    width: 95%;
+    &__input {
+      width: 100%;
+      margin: 0;
+      margin-top: 5px;
+      padding-left: 35px;
+      position: relative;
+      outline: 0;
+      border-width: 0 0 2px;
+      border-color: #555555;
+      height: 50px;
+      background: transparent;
+      font-size: 16px;
+      font-weight: 300;
+      color: #555555;
+      font-family: 'Barlow Condensed', sans-serif;
+      letter-spacing: 1px;
+      &:focus {
+        border-color: #cebf37;
+      }
+    }
+  }
 }

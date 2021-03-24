@@ -34,7 +34,6 @@ const Nav = ({ drawerToggleClickHandler, sideDrawerOpen }) => {
   }
 
   const toggleFilter = () => {
-    console.log('clicked')
     setIsOpenFilter(!isOpenFilter)
   }
 
