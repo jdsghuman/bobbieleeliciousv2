@@ -1,0 +1,11 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  .posts {
+    &--none {
+      align-self: center;
+      color: #333333;
+    }
+  }
+}

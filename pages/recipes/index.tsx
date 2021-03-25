@@ -10,6 +10,8 @@ import Spinner from '../../components/Spinner/Spinner'
 import { MetaTags, PageType, RobotsContent } from '../../components/PropTypes/Tags'
 import Meta from '../../components/Meta'
 import SearchContext from '../../store/search-context'
+import FilterApplied from '../../components/Filter/FilterApplied/FilterApplied'
+import PostsNotFound from '../../components/Filter/PostsNotFound/PostsNotFound'
 
 export const getStaticProps: GetStaticProps = async () => {
   const posts = await getAllRecipes()
@@ -90,13 +92,14 @@ const Recipes = ({ recipes }: HomePropType) => {
   }, [])
 
   if (postsToShow.length === 0 && searchCtx.filter.searchTerm.length > 0) {
-    return <p>No recipes found</p>
+    return <PostsNotFound />
   } else if (postsToShow.length === 0) {
     return <Spinner />
   }
   return (
     <>
       <Meta tags={postMetaTags} />
+      <FilterApplied />
       <PostItemContainer title="recipes">
         {postsToShow.map((recipe, index) => {
           if (postsToShow.length === index + 1) {

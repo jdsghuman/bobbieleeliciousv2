@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { useRouter } from 'next/router'
 import classNames from 'classnames/bind'
 import debounce from 'lodash.debounce'
@@ -6,6 +6,8 @@ import LinkDisplay from '../Link/LinkDisplay'
 import Icon from '../Icon/Icon'
 import DrawerToggleButton from '../SideDrawer/DrawerToggle/DrawerToggleButton'
 import Filter from '../Filter/Filter'
+import SearchContext from '../../store/search-context'
+
 import styles from './Nav.module.scss'
 
 const cx = classNames.bind(styles)
@@ -15,6 +17,7 @@ const Nav = ({ drawerToggleClickHandler, sideDrawerOpen }) => {
   const router = useRouter()
   const [isExpanded, setIsExpanded] = useState(false)
   const [isTopOfPage, setIsTopOfPage] = useState(true)
+  const searchCtx = useContext(SearchContext)
 
   const resizeHeaderOnScroll = () => {
     const distanceY = window.pageYOffset || document.documentElement.scrollTop
@@ -48,6 +51,7 @@ const Nav = ({ drawerToggleClickHandler, sideDrawerOpen }) => {
     <header
       className={cx('header', {
         'header--small': !isTopOfPage,
+        'header--border': searchCtx.filter.searchTerm.length === 0,
       })}
     >
       <div

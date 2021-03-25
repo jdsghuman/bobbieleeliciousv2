@@ -1,0 +1,21 @@
+@import '../../../styles//variables';
+
+.filter {
+  &--show {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    z-index: 100;
+    background: $palette-brand-tertiary;
+    color: #ffffff;
+    text-align: center;
+    font-family: 'Quicksand', sans-serif;
+    cursor: pointer;
+    height: 30px;
+  }
+  &--hide {
+    display: none;
+  }
+}
