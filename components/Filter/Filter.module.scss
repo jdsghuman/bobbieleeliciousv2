@@ -1,6 +1,8 @@
+@import '../../styles/variables';
+
 .container {
   width: 325px;
-  height: 340px;
+  height: 175px;
   background: rgba(255, 255, 255, 0.95);
   display: none;
   margin-left: 760px;
@@ -57,7 +59,7 @@
     }
   }
   .search {
-    width: 95%;
+    width: 100%;
     &__input {
       width: 100%;
       margin: 0;
@@ -75,8 +77,23 @@
       font-family: 'Barlow Condensed', sans-serif;
       letter-spacing: 1px;
       &:focus {
-        border-color: #cebf37;
+        border-color: $palette-brand-secondary;
       }
+    }
+  }
+  .button__container {
+    display: flex;
+    width: 90%;
+    justify-content: flex-end;
+    margin-top: 20px;
+  }
+  .button {
+    margin-left: 10px;
+    background: $palette-brand-tertiary;
+    color: #333;
+    outline: gold;
+    &:hover {
+      background: rgba(233, 206, 194, 0.8);
     }
   }
 }

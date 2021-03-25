@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { createContext, useState, useEffect, ChangeEvent } from 'react'
+import { createContext, useState } from 'react'
 
 interface ContextProp {
   filter: {
@@ -7,7 +7,7 @@ interface ContextProp {
     categories: string[]
     tags: string[]
   }
-  updateFilter: (e: ChangeEvent<HTMLInputElement>) => void
+  updateFilter: (name, value) => void
   clearFilter: () => void
 }
 const SearchContext = createContext<ContextProp>({} as ContextProp)
@@ -25,8 +25,8 @@ export function SearchContextProvider(props) {
     setActiveFilter(initialState)
   }
 
-  function updateFilterHandler(e) {
-    setActiveFilter((prevData) => ({ ...prevData, [e.target.name]: e.target.value }))
+  function updateFilterHandler(name, value) {
+    setActiveFilter((prevData) => ({ ...prevData, [name]: value }))
   }
 
   const context = {

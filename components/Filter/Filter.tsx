@@ -1,17 +1,35 @@
-import { useContext, useEffect, useRef } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
 
 import classNames from 'classnames/bind'
 import SearchContext from '../../store/search-context'
 import Icon from '../Icon/Icon'
+import Button from '../Button/Button'
 import styles from './Filter.module.scss'
 const cx = classNames.bind(styles)
 
 const Filter = ({ closeFilter, isOpen }) => {
+  const [search, setSearch] = useState('')
   const searchCtx = useContext(SearchContext)
   const router = useRouter()
 
   const inputRef = useRef(null)
+
+  const clear = () => {
+    searchCtx.clearFilter()
+    setSearch('')
+  }
+
+  const updateSearch = (e) => {
+    setSearch(e.target.value)
+  }
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      searchCtx.updateFilter('searchTerm', search)
+      closeFilter()
+    }
+  }
 
   useEffect(() => {
     inputRef.current.focus()
@@ -19,6 +37,11 @@ const Filter = ({ closeFilter, isOpen }) => {
 
   useEffect(() => {
     searchCtx.clearFilter()
+  }, [search.length === 0])
+
+  useEffect(() => {
+    searchCtx.clearFilter()
+    setSearch('')
   }, [router.asPath])
 
   return (
@@ -39,8 +62,9 @@ const Filter = ({ closeFilter, isOpen }) => {
           <input
             type="text"
             name="searchTerm"
-            onChange={(e) => searchCtx.updateFilter(e)}
-            value={searchCtx.filter.searchTerm}
+            onChange={(e) => updateSearch(e)}
+            onKeyDown={handleKeyDown}
+            value={search}
             ref={inputRef}
             className={styles.search__input}
           />
@@ -52,6 +76,19 @@ const Filter = ({ closeFilter, isOpen }) => {
           dimensions={{ height: 30, width: 26 }}
           className={styles.search__icon}
         />
+      </div>
+      <div className={styles.button__container}>
+        <Button type="button" onClick={clear} accent>
+          Clear
+        </Button>
+        <Button
+          type="button"
+          className={styles.button}
+          onClick={() => searchCtx.updateFilter('searchTerm', search)}
+          primary
+        >
+          Search
+        </Button>
       </div>
     </div>
   )

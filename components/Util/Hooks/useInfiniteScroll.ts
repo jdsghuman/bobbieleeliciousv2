@@ -5,16 +5,21 @@ export default function useInfiniteScroll(pageNumber, posts, query = '') {
   const [error, setError] = useState(false)
   const [postsToShow, setPostsToShow] = useState([])
   const [hasMore, setHasMore] = useState(false)
+  const [resetFilter, setResetFilter] = useState(false)
 
   useEffect(() => {
     setPostsToShow([])
+    setResetFilter(true)
   }, [query])
 
   useEffect(() => {
     setLoading(true)
     setError(false)
-    if (!postsToShow) {
+    if (!postsToShow && resetFilter) {
       setPostsToShow(posts.slice(0, 9))
+    } else if (resetFilter) {
+      setPostsToShow(posts.slice(0, 9))
+      setResetFilter(false)
     } else {
       setPostsToShow((prevPosts) => {
         return [...prevPosts, ...posts.slice(postsToShow.length, postsToShow.length + 10)]
@@ -22,7 +27,7 @@ export default function useInfiniteScroll(pageNumber, posts, query = '') {
     }
     setHasMore(posts.length > postsToShow.length)
     setLoading(false)
-  }, [pageNumber, query])
+  }, [pageNumber, query, posts])
 
   return { postsToShow, loading, hasMore, error }
 }
