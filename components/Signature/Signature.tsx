@@ -7,7 +7,8 @@ interface SignaturePropType {
 const Signature = ({ author }: SignaturePropType) => {
   return (
     <div className={styles.container}>
-      <p className={styles.signature}>-{author}</p>
+      <p className={styles.xo}>XO,</p>
+      <p className={styles.signature}>{author}</p>
     </div>
   )
 }
