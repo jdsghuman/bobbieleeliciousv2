@@ -7,9 +7,9 @@ interface PostTagsPropType {
 const PostTags = ({ tags }: PostTagsPropType) => {
   return (
     <div className={styles.container}>
-      {tags?.map((tag) => {
+      {tags?.map((tag, i) => {
         return (
-          <p key={tag.sys.id} className={styles.tag}>
+          <p key={tag.sys.id + i} className={styles.tag}>
             #{tag.fields.name}
           </p>
         )

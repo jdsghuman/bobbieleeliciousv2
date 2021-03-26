@@ -230,6 +230,18 @@
   .icon__right {
     vertical-align: middle;
   }
+  .filter--show {
+    position: fixed;
+    padding: 2px;
+    height: 30px;
+    width: 100%;
+    z-index: 100;
+    background: #cebf37;
+    color: #ffffff;
+    text-align: center;
+    font-family: 'Roboto', arial, sans-serif;
+    cursor: pointer;
+  }
 }
 
 @keyframes fadeIn {

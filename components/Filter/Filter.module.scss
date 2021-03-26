@@ -1,0 +1,99 @@
+@import '../../styles/variables';
+
+.container {
+  width: 325px;
+  height: 175px;
+  background: rgba(255, 255, 255, 0.95);
+  display: none;
+  margin-left: 760px;
+  margin-top: 50px;
+  border-radius: 2px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.3), 0 2px 6px 2px rgba(0, 0, 0, 0.2);
+  @media only screen and (max-width: 1250px) {
+    margin-left: 600px;
+  }
+  @media only screen and (max-width: 1100px) {
+    margin-left: 480px;
+  }
+  @media only screen and (max-width: 900px) {
+    margin-left: 5px;
+  }
+
+  &--show {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    z-index: 160;
+  }
+
+  .search {
+    &__container {
+      position: relative;
+      margin-top: 20px;
+      width: 90%;
+    }
+    &__icon {
+      position: absolute;
+      left: 0;
+      top: 8px;
+      padding: 2px 2px;
+      padding-left: 4px;
+      color: #aaa;
+      transition: 0.3s;
+    }
+  }
+  &__close {
+    margin: 8px;
+    position: absolute;
+    align-self: flex-end;
+    top: 0;
+    right: 0;
+    height: 30px;
+    width: 30px;
+    color: #333;
+    fill: #888;
+    cursor: pointer;
+    &:hover {
+      fill: #555555;
+    }
+  }
+  .search {
+    width: 100%;
+    &__input {
+      width: 100%;
+      margin: 0;
+      margin-top: 5px;
+      padding-left: 35px;
+      position: relative;
+      outline: 0;
+      border-width: 0 0 2px;
+      border-color: #555555;
+      height: 50px;
+      background: transparent;
+      font-size: 16px;
+      font-weight: 300;
+      color: #555555;
+      font-family: 'Barlow Condensed', sans-serif;
+      letter-spacing: 1px;
+      &:focus {
+        border-color: $palette-brand-secondary;
+      }
+    }
+  }
+  .button__container {
+    display: flex;
+    width: 90%;
+    justify-content: flex-end;
+    margin-top: 20px;
+  }
+  .button {
+    margin-left: 10px;
+    background: $palette-brand-tertiary;
+    color: #333;
+    outline: gold;
+    &:hover {
+      background: rgba(233, 206, 194, 0.8);
+    }
+  }
+}

@@ -5,12 +5,15 @@ $breakpoint--md: 800px;
 .header {
   display: grid;
   grid-template-columns: minmax(5%, 1fr) repeat(6, minmax(100px, 200px)) minmax(5%, 1fr);
-  overflow: hidden;
   position: sticky;
   top: 0;
   z-index: 150;
   background: #ffffff;
   border-bottom: 10px solid #e9cec2;
+
+  &--border {
+    border-bottom: none !important;
+  }
   &--small {
     max-height: 100px;
     border-bottom: 6px solid #e9cec2;
@@ -27,7 +30,6 @@ $breakpoint--md: 800px;
   @media (max-width: 800px) {
     flex-flow: column;
     margin-bottom: 0;
-    // border-bottom: none;
   }
   &__container {
     grid-column: 2/-2;
@@ -104,6 +106,12 @@ $breakpoint--md: 800px;
       font-weight: 300;
       background: none;
       text-transform: uppercase;
+      -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+      -khtml-user-select: none; /* Konqueror HTML */
+      -moz-user-select: none; /* Old versions of Firefox */
+      -ms-user-select: none; /* Internet Explorer/Edge */
+      user-select: none;
       &::after {
         display: block;
         margin-top: 2px;
@@ -190,7 +198,12 @@ $breakpoint--md: 800px;
       cursor: pointer;
       margin-left: 18px;
       margin-top: 5px;
+      &--none {
+        width: 44px;
+        height: 26px;
+      }
       &__container {
+        position: relative;
         @media (max-width: 800px) {
           margin-bottom: 20px;
         }
@@ -199,6 +212,13 @@ $breakpoint--md: 800px;
         }
       }
       &__mobile {
+        @media (min-width: 801px) {
+          display: none;
+        }
+      }
+      &__mobile--none {
+        width: 50px;
+        height: 26px;
         @media (min-width: 801px) {
           display: none;
         }

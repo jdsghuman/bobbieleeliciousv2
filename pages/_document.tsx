@@ -13,6 +13,7 @@ class MyDocument extends Document<Props> {
         <body>
           <Main />
           <NextScript />
+          <div id="modal"></div>
         </body>
       </Html>
     )
