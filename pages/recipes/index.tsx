@@ -12,6 +12,7 @@ import Meta from '../../components/Meta'
 import SearchContext from '../../store/search-context'
 import FilterApplied from '../../components/Filter/FilterApplied/FilterApplied'
 import PostsNotFound from '../../components/Filter/PostsNotFound/PostsNotFound'
+import ScrollToTop from '../../components/ScrollToTop/ScrollToTop'
 
 export const getStaticProps: GetStaticProps = async () => {
   const posts = await getAllRecipes()
@@ -100,6 +101,7 @@ const Recipes = ({ recipes }: HomePropType) => {
     <>
       <Meta tags={postMetaTags} />
       <FilterApplied />
+      <ScrollToTop />
       <PostItemContainer title="recipes">
         {postsToShow.map((recipe, index) => {
           if (postsToShow.length === index + 1) {

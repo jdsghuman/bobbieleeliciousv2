@@ -1,0 +1,21 @@
+.icon {
+  cursor: pointer;
+  opacity: 0.4;
+  width: 40px !important;
+  height: 40px !important;
+  position: fixed;
+  bottom: 15px;
+  right: 10px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  color: #555555;
+  transition: all 0.3s ease-in;
+  z-index: 150;
+  &:hover {
+    opacity: 1;
+  }
+  &--hide {
+    display: none;
+  }
+}
