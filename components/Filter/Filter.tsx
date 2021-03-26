@@ -16,6 +16,7 @@ const Filter = ({ closeFilter, isOpen }) => {
   const inputRef = useRef(null)
 
   const clear = () => {
+    searchCtx.filter.searchTerm === '' && search === '' && closeFilter()
     searchCtx.clearFilter()
     setSearch('')
   }
@@ -29,6 +30,11 @@ const Filter = ({ closeFilter, isOpen }) => {
       searchCtx.updateFilter('searchTerm', search)
       closeFilter()
     }
+  }
+
+  const searchRecipes = () => {
+    searchCtx.updateFilter('searchTerm', search)
+    closeFilter()
   }
 
   useEffect(() => {
@@ -81,12 +87,7 @@ const Filter = ({ closeFilter, isOpen }) => {
         <Button type="button" onClick={clear} accent>
           Clear
         </Button>
-        <Button
-          type="button"
-          className={styles.button}
-          onClick={() => searchCtx.updateFilter('searchTerm', search)}
-          primary
-        >
+        <Button type="button" className={styles.button} onClick={searchRecipes} primary>
           Search
         </Button>
       </div>

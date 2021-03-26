@@ -51,7 +51,7 @@ const Nav = ({ drawerToggleClickHandler, sideDrawerOpen }) => {
     <header
       className={cx('header', {
         'header--small': !isTopOfPage,
-        'header--border': searchCtx.filter.searchTerm.length === 0,
+        'header--border': searchCtx.filter.searchTerm.length > 0,
       })}
     >
       <div

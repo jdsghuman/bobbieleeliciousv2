@@ -5,13 +5,14 @@ $breakpoint--md: 800px;
 .header {
   display: grid;
   grid-template-columns: minmax(5%, 1fr) repeat(6, minmax(100px, 200px)) minmax(5%, 1fr);
-  // overflow: hidden;
   position: sticky;
   top: 0;
   z-index: 150;
   background: #ffffff;
+  border-bottom: 10px solid #e9cec2;
+
   &--border {
-    border-bottom: 10px solid #e9cec2;
+    border-bottom: none !important;
   }
   &--small {
     max-height: 100px;
@@ -29,7 +30,6 @@ $breakpoint--md: 800px;
   @media (max-width: 800px) {
     flex-flow: column;
     margin-bottom: 0;
-    // border-bottom: none;
   }
   &__container {
     grid-column: 2/-2;
