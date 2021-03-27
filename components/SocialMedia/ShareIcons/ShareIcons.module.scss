@@ -6,6 +6,11 @@
     display: flex;
     justify-content: center;
     // margin-bottom: 50px;
+    &__side {
+      flex-direction: column;
+      height: 250px;
+      justify-content: space-evenly;
+    }
     .icon {
       margin-left: 5px;
       margin-right: 5px;
