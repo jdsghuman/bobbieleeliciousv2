@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-
+import classNames from 'classnames/bind'
 import {
   EmailShareButton,
   FacebookShareButton,
@@ -21,40 +21,56 @@ import {
 } from 'react-share'
 import styles from './ShareIcons.module.scss'
 
+const cx = classNames.bind(styles)
+
 const colorIcons = 'rgb(233, 206, 194)'
 
-const ShareIconItem = ({ postImage, postName }) => {
-  const [url, setUrl] = useState('')
+interface ShareIconItemProps {
+  postImage?: string
+  postName?: string
+  className?: string
+  iconSize?: string
+  iconRef?: any
+}
 
+const ShareIconItem = ({
+  postImage,
+  postName,
+  className,
+  iconSize,
+  iconRef,
+}: ShareIconItemProps) => {
+  const [url, setUrl] = useState('')
+  const defaultIconSize = iconSize ? iconSize : '2rem'
   useEffect(() => {
     setUrl(String(window.location))
   }, [])
   return (
-    <div className={styles.container__share}>
+    <div ref={iconRef} className={cx('container__share', className)}>
       <FacebookShareButton
         url={url}
         quote={`Bobbieleelicous - ${postName}`}
         hashtag={'Bobbieleelicious'}
         className={styles.icon}
       >
-        <FacebookIcon size={'2rem'} round={true} bgStyle={{ fill: `${colorIcons}` }} />
+        <FacebookIcon size={defaultIconSize} round={true} bgStyle={{ fill: `${colorIcons}` }} />
       </FacebookShareButton>
       <PinterestShareButton url={url} media={postImage} className={styles.icon}>
-        <PinterestIcon size={'2rem'} round bgStyle={{ fill: `${colorIcons}` }} />
+        <PinterestIcon size={defaultIconSize} round bgStyle={{ fill: `${colorIcons}` }} />
       </PinterestShareButton>
       <EmailShareButton
         url={url}
         subject={'Check out this recipe on Bobbieleelicious'}
         className={styles.icon}
       >
-        <EmailIcon size={'2rem'} round bgStyle={{ fill: `${colorIcons}` }} />
+        <EmailIcon size={defaultIconSize} round bgStyle={{ fill: `${colorIcons}` }} />
       </EmailShareButton>
       <WhatsappShareButton
         url={url}
         title={'Check out this recipe on Bobbieleelicous'}
         className={styles.icon}
       >
-        <WhatsappIcon size={'2rem'} round={true} bgStyle={{ fill: `${colorIcons}` }} />
+        <WhatsappIcon size={defaultIconSize} round={true} bgStyle={{ fill: `${colorIcons}` }} />
       </WhatsappShareButton>
     </div>
   )
