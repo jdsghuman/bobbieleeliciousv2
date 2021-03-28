@@ -93,9 +93,12 @@
     justify-content: center;
     position: relative;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 450px));
+    grid-template-columns: repeat(auto-fit, minmax(380px, 450px));
     justify-content: center;
     grid-gap: 8px;
+    @media (max-width: 370px) {
+      grid-template-columns: repeat(auto-fit, minmax(340px, 450px));
+    }
     @media (max-width: $breakpoint--md) {
       grid-column: 2 / -2;
     }
