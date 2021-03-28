@@ -59,6 +59,11 @@ export interface RecipesPropType {
   }
   sys: {
     id: string
+    contentType: {
+      sys: {
+        id: string
+      }
+    }
   }
 }
 
