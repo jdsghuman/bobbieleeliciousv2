@@ -3,6 +3,7 @@ import styles from './index.module.scss'
 import { aboutText } from '../../data/data'
 import { MetaTags, PageType, RobotsContent } from '../../components/PropTypes/Tags'
 import Meta from '../../components/Meta'
+import Signature from '../../components/Signature/Signature'
 
 const cx = className.bind(styles)
 
@@ -40,7 +41,10 @@ const About = () => {
             src="https://cdn.filestackcontent.com/eFCXsb8GSvWzOcZTJoEO"
           />
         </div>
-        <div className={styles['about__text-container']}>{buildAboutDescription()}</div>
+        <div className={styles['about__text-container']}>
+          {buildAboutDescription()}
+          <Signature author={'Bobbielee'} location={'about'} />
+        </div>
       </div>
     </>
   )

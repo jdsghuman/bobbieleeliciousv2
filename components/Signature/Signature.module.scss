@@ -6,6 +6,9 @@
   line-height: 1.9;
   max-width: 600px;
   font-family: 'Calligraffitti', cursive;
+  &__about {
+    padding-left: 0;
+  }
   .signature {
     font-size: 1.4rem;
     margin-top: -10px;

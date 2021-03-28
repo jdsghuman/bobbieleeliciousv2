@@ -17,7 +17,7 @@ export const aboutText = `Hi, I'm Bobbie. I am a mom of two sweet little
   my friend, you are in the right place! -- When it comes to ones health 
   and wellness, eating a healthy diet is one of the greatest gifts we can 
   give ourselves and families. Life can be complicated, eating a well 
-  balanced, plant focused diet shouldn't be! -- Bobbie, XO`
+  balanced, plant focused diet shouldn't be!`
 
 export enum SocialMediaLinks {
   Instagram = 'www.instagram.com/bobbieleelicious/',
