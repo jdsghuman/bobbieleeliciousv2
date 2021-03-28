@@ -66,6 +66,20 @@
       color: #555555;
     }
   }
+  .button__comment {
+    &__container {
+      display: flex;
+      justify-content: center;
+      margin: 40px auto;
+      width: 100%;
+    }
+    margin: 0 auto;
+    border: 1px solid #e9cec2;
+    text-align: center;
+    color: #333;
+    font-size: 1rem;
+    background: #ffffff;
+  }
 }
 
 @keyframes text-focus {

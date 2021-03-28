@@ -5,6 +5,8 @@ import AuthorItem from '../../../Author/AuthorItem'
 import { BlogPropType } from '../../../PropTypes/PropTypes'
 import PostTags from '../../../PostTags/PostTags'
 import ShareIconItem from '../../../SocialMedia/ShareIcons/ShareIconItem'
+import Button from '../../../Button/Button'
+import DisqusComments from '../../../DisqusComments/DisqusComments'
 import styles from './BlogDescription.module.scss'
 import Signature from '../../../Signature/Signature'
 
@@ -12,6 +14,7 @@ const cx = classNames.bind(styles)
 
 const BlogDescription = ({ blog }: BlogPropType) => {
   const [isVisible, setIsVisible] = useState(false)
+  const [showComments, setShowComments] = useState(false)
   const observer = useRef<any>()
 
   const callbackFunction = (entries) => {
@@ -69,6 +72,17 @@ const BlogDescription = ({ blog }: BlogPropType) => {
         />
       </div>
       {blog?.fields?.tag && <PostTags tags={blog.fields.tag} />}
+      <div className={styles.button__comment__container}>
+        <Button
+          className={styles.button__comment}
+          type="button"
+          onClick={() => setShowComments(!showComments)}
+          accent
+        >
+          {!showComments ? 'Show' : 'Hide'} Comments
+        </Button>
+      </div>
+      {showComments && <DisqusComments post={blog} />}
     </div>
   )
 }
