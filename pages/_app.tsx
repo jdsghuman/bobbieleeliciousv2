@@ -1,13 +1,13 @@
-import React, { Fragment } from 'react'
+import React, { useEffect, Fragment } from 'react'
 import Head from 'next/head'
-import Router from 'next/router'
+import { useRouter } from 'next/router'
 import '../styles/main.scss'
 import Layout from '../components/Layout/Layout'
 import { defaultMetaTags } from '../components/Util/Constants'
-import { trackPageView, GA_TRACKING_ID } from '../components/PropTypes/GTags'
+import * as gtag from '../components/PropTypes/GTags'
 import { SearchContextProvider } from '../store/search-context'
 
-Router.events.on('routeChangeComplete', (url) => trackPageView(url))
+const GA_TRACKING_ID = process.env.GA_TRACKING_ID
 
 export const getStaticProps = async () => {
   const isProduction = process.env.NODE_ENV.toLowerCase() === 'production'
@@ -20,16 +20,17 @@ export const getStaticProps = async () => {
 }
 
 function MyApp({ Component, pageProps, isProduction }) {
-  const setGoogleTags = (GA_TRACKING_ID) => {
-    return {
-      __html: `
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', '${GA_TRACKING_ID}');
-            `,
+  const router = useRouter()
+
+  useEffect(() => {
+    const handleRouteChange = (url) => {
+      gtag.pageview(url)
     }
-  }
+    router.events.on('routeChangeComplete', handleRouteChange)
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange)
+    }
+  }, [router.events])
   return (
     <SearchContextProvider>
       <Layout metaTags={defaultMetaTags}>
@@ -46,14 +47,6 @@ function MyApp({ Component, pageProps, isProduction }) {
           <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#e9cec2" />
           <meta name="msapplication-TileColor" content="#e9cec2" />
           <meta name="theme-color" content="#ffffff"></meta>
-          {/* Global Site Tag (gtag.js) -- Google Analytics -- Check if isProduction */}
-          {isProduction && (
-            <Fragment>
-              <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`} />
-              {/* Call the function above to inject the contents of the script tag */}
-              <script dangerouslySetInnerHTML={setGoogleTags(GA_TRACKING_ID)} />
-            </Fragment>
-          )}
         </Head>
         <Component {...pageProps} />
       </Layout>
