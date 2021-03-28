@@ -8,7 +8,7 @@
   text-align: left;
   background: rgba(247, 244, 244, 0.7);
   &--blog--icons {
-    padding: 20px 0;
+    padding: 20px 10px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -43,15 +43,15 @@
   .markdown {
     margin: 0 auto;
     margin-bottom: 16px;
-    padding-left: 10px;
-    padding-right: 10px;
-    font-size: 1rem;
+    padding-left: 12px;
+    padding-right: 12px;
+    font-size: 1.1rem;
     font-family: 'Lato', sans-serif;
     font-weight: 400;
     line-height: 1.9;
     max-width: 600px;
     text-align: justify;
-    letter-spacing: 0.3px;
+    letter-spacing: 0.2px;
     color: #333333;
     animation: text-focus 0.3s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
     &__video {

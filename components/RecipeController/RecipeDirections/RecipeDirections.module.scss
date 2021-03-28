@@ -19,7 +19,7 @@
     padding-right: 10px;
     font-family: 'Rock Salt', cursive;
     color: #333;
-    font-size: 1rem;
+    font-size: 1.1rem;
     animation: text-focus 0.3s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
     &:before {
       content: '';
@@ -44,7 +44,7 @@
     font-family: 'Lato', sans-serif;
     cursor: pointer;
     letter-spacing: 0.3px;
-    font-size: 1rem;
+    font-size: 1.1rem;
     color: #333333;
     font-weight: normal;
     counter-increment: directions-counter;
