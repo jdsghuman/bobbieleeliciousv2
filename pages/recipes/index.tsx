@@ -20,7 +20,7 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       recipes: posts.recipes,
     },
-    revalidate: 180,
+    revalidate: 600,
   }
 }
 const Recipes = ({ recipes }: HomePropType) => {
