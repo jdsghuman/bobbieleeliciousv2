@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 import debounce from 'lodash.debounce'
 import classNames from 'classnames/bind'
 import smoothscroll from 'smoothscroll-polyfill'
@@ -12,6 +13,8 @@ import RecipeDirections from './RecipeDirections/RecipeDirections'
 const cx = classNames.bind(styles)
 
 const RecipeController = ({ post }) => {
+  const router = useRouter()
+
   const [isTop, setIsTop] = useState(true)
   const [activeTab, setActiveTab] = useState('Details')
 
@@ -28,6 +31,11 @@ const RecipeController = ({ post }) => {
   const setTab = (tab) => {
     setActiveTab(tab)
   }
+
+  useEffect(() => {
+    console.log('pathname changed')
+    setActiveTab('Details')
+  }, [router.asPath])
 
   useEffect(() => {
     window.scrollTo(0, 0)
