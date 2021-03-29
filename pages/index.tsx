@@ -44,8 +44,8 @@ const Home = ({ blogs, featuredPosts, recipes }: HomePropType) => {
       <div className={styles.container}>
         <Carousel featuredPosts={featuredPosts} />
         <Subscribe />
-        <FeatureList title="Recipes" articles={recipes.slice(0, 3)} slug="recipe" />
-        <FeatureList title="Blogs" articles={blogs.slice(0, 3)} slug="blog" />
+        <FeatureList title="Latest Recipes" articles={recipes.slice(0, 3)} slug="recipe" />
+        <FeatureList title="Latest Blogs" articles={blogs.slice(0, 3)} slug="blog" />
       </div>
     </>
   )
