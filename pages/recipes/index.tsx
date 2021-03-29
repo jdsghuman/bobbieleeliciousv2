@@ -93,7 +93,7 @@ const Recipes = ({ recipes }: HomePropType) => {
   }, [])
 
   if (postsToShow.length === 0 && searchCtx.filter.searchTerm.length > 0) {
-    return <PostsNotFound />
+    return <PostsNotFound postType={'recipe'} />
   } else if (postsToShow.length === 0) {
     return <Spinner />
   }
