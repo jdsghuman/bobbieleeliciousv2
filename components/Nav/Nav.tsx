@@ -48,104 +48,120 @@ const Nav = ({ drawerToggleClickHandler, sideDrawerOpen }) => {
   }, [])
 
   return (
-    <header
-      className={cx('header', {
-        'header--small': !isTopOfPage,
-        'header--border': searchCtx.filter.searchTerm.length > 0,
-      })}
-    >
-      <div
-        className={cx('header__container', {
-          'header__container--small': !isTopOfPage,
+    <>
+      <div className={styles['logo__container--desktop']}>
+        <LinkDisplay link="/">
+          <a onClick={goToHomePage}>
+            <img
+              className={styles.image}
+              src="/images/bobbieleelicious-logo-black.png"
+              alt={'Logo'}
+            />
+          </a>
+        </LinkDisplay>
+      </div>
+      <header
+        className={cx('header', {
+          'header--border': searchCtx.filter.searchTerm.length > 0,
         })}
       >
-        {router.pathname === '/recipes' || router.pathname === '/blogs' ? (
-          <div className={styles.nav__search__container}>
-            <Filter isOpen={isOpenFilter} closeFilter={toggleFilter} />
-            <Icon
-              identifier="search"
-              viewBox="0 0 600 350"
-              fill={'#555'}
-              dimensions={{ height: 30, width: 26 }}
-              className={styles.nav__search__mobile}
-              click={toggleFilter}
-            />
-          </div>
-        ) : (
-          <div className={styles['nav__search__mobile--none']}></div>
-        )}
-        <div className={styles.logo__container}>
-          <LinkDisplay link="/">
-            <a onClick={goToHomePage}>
-              <img
-                className={cx('logo__image', {
-                  'logo__image--small': !isTopOfPage,
-                })}
-                src="/images/bobbieleelicious-logo-black.png"
-                alt={'Logo'}
-              />
-            </a>
-          </LinkDisplay>
-        </div>
-        <nav className={styles.nav__mobile}>
-          {/* Hamburger menu for tablet/mobile */}
-          <DrawerToggleButton show={sideDrawerOpen} click={drawerToggleClickHandler} />
-        </nav>
-        <nav
-          className={cx('nav', {
-            'nav--small': !isTopOfPage,
-            'nav__border--unset': !isTopOfPage,
-          })}
-        >
-          <ul
-            className={cx('nav__items', {
-              'nav__items--hidden': !isExpanded,
-            })}
-          >
-            <li className={styles['nav__items--home']}>
-              <LinkDisplay link="/">
-                <a onClick={handleMobileMenu} className={styles.nav__link}>
-                  Home
-                </a>
-              </LinkDisplay>
-            </li>
-            <li>
-              <LinkDisplay link="/recipes">
-                <a onClick={handleMobileMenu} className={styles.nav__link}>
-                  Recipes
-                </a>
-              </LinkDisplay>
-            </li>
-            <li>
-              <LinkDisplay link="/blogs">
-                <a onClick={handleMobileMenu} className={styles.nav__link}>
-                  Blog
-                </a>
-              </LinkDisplay>
-            </li>
-            <li>
-              <LinkDisplay link="/about">
-                <a onClick={handleMobileMenu} className={styles.nav__link}>
-                  About
-                </a>
-              </LinkDisplay>
-            </li>
-            {router.pathname === '/recipes' || router.pathname === '/blogs' ? (
+        <div className={styles.header__container}>
+          {router.pathname === '/recipes' || router.pathname === '/blogs' ? (
+            <div
+              className={cx('nav__search__container', {
+                'nav__search__container__mobile--top': !isTopOfPage,
+              })}
+            >
+              <Filter isOpen={isOpenFilter} closeFilter={toggleFilter} />
               <Icon
                 identifier="search"
                 viewBox="0 0 600 350"
                 fill={'#555'}
                 dimensions={{ height: 30, width: 26 }}
-                className={styles.nav__search}
+                className={styles.nav__search__mobile}
                 click={toggleFilter}
               />
-            ) : (
-              <div className={styles['nav__search--none']}></div>
-            )}
-          </ul>
-        </nav>
-      </div>
-    </header>
+            </div>
+          ) : (
+            <div className={styles['nav__search__mobile--none']}></div>
+          )}
+          <div className={styles['logo__container--mobile']}>
+            <LinkDisplay link="/">
+              <a onClick={goToHomePage}>
+                <img
+                  className={cx('logo__image', {
+                    'logo__image--small': !isTopOfPage,
+                  })}
+                  src="/images/bobbieleelicious-logo-black.png"
+                  alt={'Logo'}
+                />
+              </a>
+            </LinkDisplay>
+          </div>
+          <nav
+            className={cx('nav__mobile', {
+              'nav__mobile--small': !isTopOfPage,
+            })}
+          >
+            {/* Hamburger menu for tablet/mobile */}
+            <DrawerToggleButton show={sideDrawerOpen} click={drawerToggleClickHandler} />
+          </nav>
+          <nav
+            className={cx('nav', {
+              'nav--small': !isTopOfPage,
+              'nav__border--unset': !isTopOfPage,
+            })}
+          >
+            <ul
+              className={cx('nav__items', {
+                'nav__items--hidden': !isExpanded,
+              })}
+            >
+              <li className={styles['nav__items--home']}>
+                <LinkDisplay link="/">
+                  <a onClick={handleMobileMenu} className={styles.nav__link}>
+                    Home
+                  </a>
+                </LinkDisplay>
+              </li>
+              <li>
+                <LinkDisplay link="/recipes">
+                  <a onClick={handleMobileMenu} className={styles.nav__link}>
+                    Recipes
+                  </a>
+                </LinkDisplay>
+              </li>
+              <li>
+                <LinkDisplay link="/blogs">
+                  <a onClick={handleMobileMenu} className={styles.nav__link}>
+                    Blog
+                  </a>
+                </LinkDisplay>
+              </li>
+              <li>
+                <LinkDisplay link="/about">
+                  <a onClick={handleMobileMenu} className={styles.nav__link}>
+                    About
+                  </a>
+                </LinkDisplay>
+              </li>
+              {router.pathname === '/recipes' || router.pathname === '/blogs' ? (
+                <Icon
+                  identifier="search"
+                  viewBox="0 0 600 350"
+                  fill={'#555'}
+                  dimensions={{ height: 30, width: 26 }}
+                  className={styles.nav__search}
+                  click={toggleFilter}
+                />
+              ) : (
+                <div className={styles['nav__search--none']}></div>
+              )}
+            </ul>
+          </nav>
+        </div>
+      </header>
+    </>
   )
 }
 
