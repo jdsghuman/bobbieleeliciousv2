@@ -1,4 +1,5 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
+import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import Spinner from '../../components/Spinner/Spinner'
 import { BlogPropType } from '../../components/PropTypes/PropTypes'
@@ -62,9 +63,17 @@ const Blog = ({ blog, morePosts }: BlogPropType) => {
     type: PageType.article,
   }
 
+  const ScrollToTop = dynamic(
+    () => {
+      return import('../../components/ScrollToTop/ScrollToTop')
+    },
+    { ssr: false }
+  )
+
   return (
     <>
       <Meta tags={postMetaTags} />
+      <ScrollToTop />
       <BlogDetail blog={blog} />
       <FeatureList title="More From Bobbieleelicious" articles={morePosts} slug="blog" />
       <Subscribe />

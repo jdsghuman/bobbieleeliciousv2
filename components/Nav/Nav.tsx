@@ -7,6 +7,7 @@ import Icon from '../Icon/Icon'
 import DrawerToggleButton from '../SideDrawer/DrawerToggle/DrawerToggleButton'
 import Filter from '../Filter/Filter'
 import SearchContext from '../../store/search-context'
+import FilterApplied from '../Filter/FilterApplied/FilterApplied'
 
 import styles from './Nav.module.scss'
 
@@ -65,7 +66,11 @@ const Nav = ({ drawerToggleClickHandler, sideDrawerOpen }) => {
           'header--border': searchCtx.filter.searchTerm.length > 0,
         })}
       >
-        <div className={styles.header__container}>
+        <div
+          className={cx('header__container', {
+            'header__container--filter': searchCtx.filter.searchTerm.length > 0,
+          })}
+        >
           {router.pathname === '/recipes' || router.pathname === '/blogs' ? (
             <div
               className={cx('nav__search__container', {
@@ -160,6 +165,7 @@ const Nav = ({ drawerToggleClickHandler, sideDrawerOpen }) => {
             </ul>
           </nav>
         </div>
+        {searchCtx.filter.searchTerm.length > 0 && <FilterApplied />}
       </header>
     </>
   )

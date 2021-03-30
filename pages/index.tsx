@@ -1,4 +1,5 @@
 import { GetStaticProps } from 'next'
+import dynamic from 'next/dynamic'
 import styles from '../styles/Home.module.css'
 import { HomePropType } from '../components/PropTypes/PropTypes'
 import { getAllPosts } from '../lib/index'
@@ -38,9 +39,18 @@ const Home = ({ blogs, featuredPosts, recipes }: HomePropType) => {
   if (!blogs && !featuredPosts && !recipes) {
     return <Spinner />
   }
+
+  const ScrollToTop = dynamic(
+    () => {
+      return import('../components/ScrollToTop/ScrollToTop')
+    },
+    { ssr: false }
+  )
+
   return (
     <>
       <Meta tags={postMetaTags} />
+      <ScrollToTop />
       <div className={styles.container}>
         <Carousel featuredPosts={featuredPosts} />
         <Subscribe />

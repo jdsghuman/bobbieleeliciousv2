@@ -21,6 +21,9 @@
     align-items: center;
     position: absolute;
     z-index: 160;
+    @media (max-width: 800px) {
+      position: absolute;
+    }
   }
 
   .search {
