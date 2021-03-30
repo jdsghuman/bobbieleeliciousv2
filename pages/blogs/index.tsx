@@ -10,7 +10,6 @@ import Spinner from '../../components/Spinner/Spinner'
 import { MetaTags, PageType, RobotsContent } from '../../components/PropTypes/Tags'
 import Meta from '../../components/Meta'
 import SearchContext from '../../store/search-context'
-import FilterApplied from '../../components/Filter/FilterApplied/FilterApplied'
 import PostsNotFound from '../../components/Filter/PostsNotFound/PostsNotFound'
 import ScrollToTop from '../../components/ScrollToTop/ScrollToTop'
 
@@ -100,7 +99,6 @@ const Blogs = ({ blogs }: HomePropType) => {
   return (
     <>
       <Meta tags={postMetaTags} />
-      <FilterApplied />
       <ScrollToTop />
       <PostItemContainer title="blogs">
         {postsToShow.map((blog, index) => {

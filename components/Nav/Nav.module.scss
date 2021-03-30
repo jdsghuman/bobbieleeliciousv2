@@ -10,7 +10,9 @@ $breakpoint--md: 800px;
   z-index: 150;
   background: #ffffff;
   border-bottom: 10px solid #e9cec2;
-
+  @media (max-width: 800px) {
+    position: sticky;
+  }
   &--border {
     border-bottom: none !important;
   }
@@ -34,11 +36,19 @@ $breakpoint--md: 800px;
   &__container {
     grid-column: 2/-2;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    margin: 2em 0;
-    padding: 0 2em 0.5em;
+    margin: 1em 0;
+    margin-top: 0;
+    // padding: 0 2em 0.5em;
     align-items: center;
-    transition: all 200ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition: all 100ms cubic-bezier(0.22, 1, 0.36, 1);
+    &--filter {
+      margin-bottom: 40px !important;
+    }
+    &--small {
+      flex-direction: row;
+    }
     @media (max-width: 800px) {
       flex-flow: column;
       margin: 0.8em 0;
@@ -60,9 +70,12 @@ $breakpoint--md: 800px;
     }
   }
   .logo {
-    &__container {
+    &__container--mobile {
       grid-column: 2 / span 2;
       text-align: center;
+      @media (min-width: 801px) {
+        display: none;
+      }
     }
     &__image {
       max-width: 200px;
@@ -84,9 +97,7 @@ $breakpoint--md: 800px;
     align-self: center;
     flex: 1;
     font-size: 1.1rem;
-    &--small {
-      font-size: 0.9rem;
-    }
+
     @media (max-width: 800px) {
       display: none;
     }
@@ -148,10 +159,11 @@ $breakpoint--md: 800px;
       display: flex;
       justify-content: flex-end;
       max-height: 350px;
+      margin-bottom: 0;
       list-style: none;
       opacity: 1;
       overflow: hidden;
-      transition: all 400ms cubic-bezier(0.22, 1, 0.36, 1);
+      transition: all 400ms linear;
       @media (max-width: 800px) {
         flex-flow: column;
         text-align: center;
@@ -206,6 +218,9 @@ $breakpoint--md: 800px;
         position: relative;
         @media (max-width: 800px) {
           margin-bottom: 20px;
+          &__mobile--top {
+            margin-top: 10px;
+          }
         }
         @media (max-width: 500px) {
           margin-left: 20px;
@@ -239,6 +254,9 @@ $breakpoint--md: 800px;
     }
     &__mobile {
       margin-bottom: 8px;
+      &--small {
+        margin-bottom: 0;
+      }
       @media (min-width: 801px) {
         display: none;
       }
@@ -263,5 +281,29 @@ $breakpoint--md: 800px;
     -o-transform: rotate(0.01deg);
     -webkit-transform: rotate(0.01deg);
     transform: rotate(0.01deg);
+  }
+}
+
+.logo__container--desktop {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  margin-bottom: -10px;
+  @media (max-width: 801px) {
+    display: none;
+  }
+  .image {
+    max-width: 200px;
+    height: auto;
+    transition: all 0.2s linear;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    &--small {
+      padding-top: 5px;
+      max-width: 150px;
+    }
   }
 }
