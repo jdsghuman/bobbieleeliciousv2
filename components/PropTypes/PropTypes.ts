@@ -3,6 +3,7 @@ export interface BlogsPropType {
     author: AuthorPropType
     image: string
     body: string
+    category: CategoryPropType
     description: string
     featured: boolean
     publishDate: string
