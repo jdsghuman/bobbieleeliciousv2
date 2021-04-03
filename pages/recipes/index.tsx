@@ -28,15 +28,18 @@ export const getStaticProps: GetStaticProps = async () => {
 const Recipes = ({ categories, recipes }: HomePropType) => {
   const searchCtx = useContext(SearchContext)
   const [postsToDisplay, setPostsToDisplay] = useState([])
+  console.log('recipes[0]', recipes[1].fields.category.fields.name)
+  const noCat = recipes.map((recipe) => recipe?.fields?.title)
+  console.log('noCat----', noCat)
   console.log('postsToDisplay', postsToDisplay)
   const [pageNumber, setPageNumber] = useState(0)
   const observer = useRef<any>()
-  const [selectedCategory, setSelectedCategory] = useState('')
   console.log('categories----', categories)
   const { postsToShow, loading, hasMore, error } = useInfiniteScroll(
     pageNumber,
     postsToDisplay,
-    searchCtx.filter.searchTerm
+    searchCtx.filter.searchTerm,
+    searchCtx.filter.categories
   )
 
   const lastPostElementRef = useCallback(
@@ -61,12 +64,6 @@ const Recipes = ({ categories, recipes }: HomePropType) => {
     }
   }
 
-  const toggleCategorySlider = (id) => {
-    // categories.includes(id)
-    //   ? setCategories(categories.filter((category) => category !== id))
-    //   : setCategories([...categories, id])
-  }
-
   const postMetaTags: MetaTags = {
     canonical: 'https://www.bobbieleelicious.com',
     description: `Delicious and nutritious healthy vegetarian recipes`,
@@ -77,45 +74,58 @@ const Recipes = ({ categories, recipes }: HomePropType) => {
   }
 
   useEffect(() => {
-    if (searchCtx.filter.searchTerm.length > 0) {
+    if (searchCtx.filter.searchTerm.length > 0 || searchCtx.filter.categories.length > 0) {
       setPageNumber(1)
-      const filteredRecipes = recipes.filter((recipe) =>
-        recipe.fields.title.toLowerCase().includes(searchCtx.filter.searchTerm.toLowerCase())
-      )
+      let filteredRecipes = []
+
+      if (searchCtx.filter.searchTerm.length > 0) {
+        filteredRecipes = recipes.filter((recipe) =>
+          recipe.fields.title.toLowerCase().includes(searchCtx.filter.searchTerm.toLowerCase())
+        )
+      }
+
+      if (searchCtx.filter.categories.length > 0) {
+        filteredRecipes = recipes.filter((recipe) =>
+          recipe?.fields?.category?.fields?.name
+            .toLowerCase()
+            .includes(searchCtx.filter.categories.toLowerCase())
+        )
+      }
       setPostsToDisplay(filteredRecipes)
-    } else if (searchCtx.filter.searchTerm.length === 0) {
+    } else if (
+      searchCtx.filter.searchTerm.length === 0 &&
+      searchCtx.filter.categories.length === 0
+    ) {
       setPageNumber(1)
       setPostsToDisplay(recipes)
     }
-  }, [searchCtx.filter.searchTerm])
+  }, [searchCtx.filter.searchTerm, searchCtx.filter.categories])
 
   useEffect(() => {
-    if (searchCtx.filter.searchTerm.length === 0) {
+    if (searchCtx.filter.searchTerm.length === 0 && searchCtx.filter.categories.length === 0) {
       setPageNumber(1)
       setPostsToDisplay(recipes)
     }
-  }, [searchCtx.filter.searchTerm])
+  }, [searchCtx.filter.searchTerm, searchCtx.filter.categories])
 
   useEffect(() => {
     setPageNumber(1)
     setPostsToDisplay(recipes)
   }, [])
 
-  if (postsToShow.length === 0 && searchCtx.filter.searchTerm.length > 0) {
+  if (
+    (postsToShow.length === 0 && searchCtx.filter.searchTerm.length > 0) ||
+    (postsToShow.length === 0 && searchCtx.filter.categories.length > 0)
+  ) {
     return <PostsNotFound postType={'recipe'} />
   } else if (postsToShow.length === 0) {
     return <Spinner />
   }
   return (
     <>
-      {/* {categories.map((category) => JSON.stringify(category))} */}
       <Meta tags={postMetaTags} />
       <ScrollToTop />
-      <Slider
-        toggleSliderOption={toggleCategorySlider}
-        items={categories}
-        selected={selectedCategory}
-      />
+      <Slider items={categories} />
       <PostItemContainer title="recipes">
         {postsToShow.map((recipe, index) => {
           if (postsToShow.length === index + 1) {

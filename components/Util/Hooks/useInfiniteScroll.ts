@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-export default function useInfiniteScroll(pageNumber, posts, query = '') {
+export default function useInfiniteScroll(pageNumber, posts, query = '', categories = '') {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   const [postsToShow, setPostsToShow] = useState([])
@@ -10,7 +10,7 @@ export default function useInfiniteScroll(pageNumber, posts, query = '') {
   useEffect(() => {
     setPostsToShow([])
     setResetFilter(true)
-  }, [query])
+  }, [query, categories])
 
   useEffect(() => {
     setLoading(true)
@@ -27,7 +27,7 @@ export default function useInfiniteScroll(pageNumber, posts, query = '') {
     }
     setHasMore(posts.length > postsToShow.length)
     setLoading(false)
-  }, [pageNumber, query, posts])
+  }, [pageNumber, query, posts, categories])
 
   return { postsToShow, loading, hasMore, error }
 }
