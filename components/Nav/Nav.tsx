@@ -125,6 +125,8 @@ const Nav = ({ drawerToggleClickHandler, sideDrawerOpen }) => {
           >
             <ul
               className={cx('nav__items', {
+                'nav__items--filter':
+                  searchCtx.filter.searchTerm.length > 0 || searchCtx.filter.categories.length > 0,
                 'nav__items--hidden': !isExpanded,
               })}
             >
