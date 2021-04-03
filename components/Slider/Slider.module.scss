@@ -1,0 +1,88 @@
+@import '../../styles/variables';
+
+.container__slider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 95%;
+  margin: 0 auto;
+  margin-top: 20px;
+  flex-shrink: 0;
+  height: auto;
+  .arrow {
+    cursor: pointer;
+    @media (min-width: 1200px) {
+      display: none;
+    }
+  }
+  svg {
+    min-height: 35px;
+    max-height: 35px;
+    min-width: 30px;
+    max-width: 30px;
+    transition: 0.2s ease-in;
+    border-radius: 5px;
+    &:active {
+      background: #888888;
+    }
+  }
+  @media (max-width: 800px) {
+    svg {
+      min-height: 25px;
+      min-width: 30px;
+    }
+  }
+}
+.container {
+  display: flex;
+  flex-direction: row;
+  overflow-x: scroll;
+  height: 40px;
+  flex-wrap: nowrap;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  scrollbar-width: none;
+  align-items: center;
+  scroll-behavior: smooth;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  .item {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding: 4px;
+    height: 30px;
+    background: rgba(245, 219, 208, 0.3);
+    margin-left: 5px;
+    margin-right: 5px;
+    cursor: pointer;
+    flex: 0 0 auto;
+    border-radius: 4px;
+    color: #333333;
+  }
+  .item-clicked {
+    background: rgba(245, 219, 208, 0.8);
+  }
+  .item-title {
+    padding: 4px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    color: #333333;
+  }
+  .unselectable {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+  }
+  .item-title-clicked {
+    color: #555555;
+  }
+}

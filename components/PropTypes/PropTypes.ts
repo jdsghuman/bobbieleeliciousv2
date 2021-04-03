@@ -104,7 +104,8 @@ interface CategoryPropType {
 export interface HomePropType {
   blogs: BlogsPropType[]
   recipes: RecipesPropType[]
-  featuredPosts: Array<any>
+  featuredPosts: []
+  categories: []
 }
 
 export interface IconPropType {

@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback, useRef, useContext } from 'react'
 import { GetStaticProps } from 'next'
-import { getAllRecipes } from '../../lib/index'
+import { getAllRecipes, getAllCategories } from '../../lib/index'
 import { HomePropType } from '../../components/PropTypes/PropTypes'
 import PostItemContainer from '../../components/FeatureList/PostItemContainer'
 import PostItem from '../../components/FeatureList/PostItem'
@@ -12,27 +12,29 @@ import Meta from '../../components/Meta'
 import SearchContext from '../../store/search-context'
 import PostsNotFound from '../../components/Filter/PostsNotFound/PostsNotFound'
 import ScrollToTop from '../../components/ScrollToTop/ScrollToTop'
+import Slider from '../../components/Slider/Slider'
 
 export const getStaticProps: GetStaticProps = async () => {
   const posts = await getAllRecipes()
+  const categories = await getAllCategories('category')
   return {
     props: {
       recipes: posts.recipes,
+      categories: categories,
     },
     revalidate: 600,
   }
 }
-const Recipes = ({ recipes }: HomePropType) => {
+const Recipes = ({ categories, recipes }: HomePropType) => {
   const searchCtx = useContext(SearchContext)
   const [postsToDisplay, setPostsToDisplay] = useState([])
-
   const [pageNumber, setPageNumber] = useState(0)
   const observer = useRef<any>()
-
   const { postsToShow, loading, hasMore, error } = useInfiniteScroll(
     pageNumber,
     postsToDisplay,
-    searchCtx.filter.searchTerm
+    searchCtx.filter.searchTerm,
+    searchCtx.filter.categories
   )
 
   const lastPostElementRef = useCallback(
@@ -67,31 +69,58 @@ const Recipes = ({ recipes }: HomePropType) => {
   }
 
   useEffect(() => {
-    if (searchCtx.filter.searchTerm.length > 0) {
+    if (searchCtx.filter.searchTerm.length > 0 || searchCtx.filter.categories.length > 0) {
       setPageNumber(1)
-      const filteredRecipes = recipes.filter((recipe) =>
-        recipe.fields.title.toLowerCase().includes(searchCtx.filter.searchTerm.toLowerCase())
-      )
+      let filteredRecipes = []
+
+      if (searchCtx.filter.searchTerm.length > 0 && searchCtx.filter.categories.length === 0) {
+        filteredRecipes = recipes.filter((recipe) =>
+          recipe.fields.title.toLowerCase().includes(searchCtx.filter.searchTerm.toLowerCase())
+        )
+      } else if (
+        searchCtx.filter.categories.length > 0 &&
+        searchCtx.filter.searchTerm.length === 0
+      ) {
+        filteredRecipes = recipes.filter((recipe) =>
+          recipe?.fields?.category?.fields?.name
+            .toLowerCase()
+            .includes(searchCtx.filter.categories.toLowerCase())
+        )
+      } else {
+        filteredRecipes = recipes.filter(
+          (recipe) =>
+            recipe?.fields?.category?.fields?.name
+              .toLowerCase()
+              .includes(searchCtx.filter.categories.toLowerCase()) &&
+            recipe.fields.title.toLowerCase().includes(searchCtx.filter.searchTerm.toLowerCase())
+        )
+      }
       setPostsToDisplay(filteredRecipes)
-    } else if (searchCtx.filter.searchTerm.length === 0) {
+    } else if (
+      searchCtx.filter.searchTerm.length === 0 &&
+      searchCtx.filter.categories.length === 0
+    ) {
       setPageNumber(1)
       setPostsToDisplay(recipes)
     }
-  }, [searchCtx.filter.searchTerm])
+  }, [searchCtx.filter.searchTerm, searchCtx.filter.categories])
 
   useEffect(() => {
-    if (searchCtx.filter.searchTerm.length === 0) {
+    if (searchCtx.filter.searchTerm.length === 0 && searchCtx.filter.categories.length === 0) {
       setPageNumber(1)
       setPostsToDisplay(recipes)
     }
-  }, [searchCtx.filter.searchTerm])
+  }, [searchCtx.filter.searchTerm, searchCtx.filter.categories])
 
   useEffect(() => {
     setPageNumber(1)
     setPostsToDisplay(recipes)
   }, [])
 
-  if (postsToShow.length === 0 && searchCtx.filter.searchTerm.length > 0) {
+  if (
+    (postsToShow.length === 0 && searchCtx.filter.searchTerm.length > 0) ||
+    (postsToShow.length === 0 && searchCtx.filter.categories.length > 0)
+  ) {
     return <PostsNotFound postType={'recipe'} />
   } else if (postsToShow.length === 0) {
     return <Spinner />
@@ -100,6 +129,7 @@ const Recipes = ({ recipes }: HomePropType) => {
     <>
       <Meta tags={postMetaTags} />
       <ScrollToTop />
+      <Slider items={categories} />
       <PostItemContainer title="recipes">
         {postsToShow.map((recipe, index) => {
           if (postsToShow.length === index + 1) {

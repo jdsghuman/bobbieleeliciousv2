@@ -90,3 +90,17 @@ export async function getAllPostsWithSlug(type) {
 
   return data
 }
+
+export async function getAllCategories(type) {
+  const data = await client
+    .getEntries({
+      content_type: type,
+    })
+    .then((response) => response.items)
+
+  if (data) {
+    return {
+      data,
+    }
+  }
+}

@@ -9,31 +9,27 @@ import styles from './Filter.module.scss'
 const cx = classNames.bind(styles)
 
 const Filter = ({ closeFilter, isOpen }) => {
-  const [search, setSearch] = useState('')
   const searchCtx = useContext(SearchContext)
   const router = useRouter()
 
   const inputRef = useRef(null)
 
   const clear = () => {
-    searchCtx.filter.searchTerm === '' && search === '' && closeFilter()
+    searchCtx.filter.searchTerm === '' && closeFilter()
     searchCtx.clearFilter()
-    setSearch('')
   }
 
   const updateSearch = (e) => {
-    setSearch(e.target.value)
+    searchCtx.updateFilter('searchTerm', e.target.value)
   }
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
-      searchCtx.updateFilter('searchTerm', search)
       closeFilter()
     }
   }
 
   const searchRecipes = () => {
-    searchCtx.updateFilter('searchTerm', search)
     closeFilter()
   }
 
@@ -43,11 +39,6 @@ const Filter = ({ closeFilter, isOpen }) => {
 
   useEffect(() => {
     searchCtx.clearFilter()
-  }, [search.length === 0])
-
-  useEffect(() => {
-    searchCtx.clearFilter()
-    setSearch('')
   }, [router.asPath])
 
   return (
@@ -70,7 +61,7 @@ const Filter = ({ closeFilter, isOpen }) => {
             name="searchTerm"
             onChange={(e) => updateSearch(e)}
             onKeyDown={handleKeyDown}
-            value={search}
+            value={searchCtx.filter.searchTerm}
             ref={inputRef}
             className={styles.search__input}
           />

@@ -33,7 +33,6 @@ const RecipeController = ({ post }) => {
   }
 
   useEffect(() => {
-    console.log('pathname changed')
     setActiveTab('Details')
   }, [router.asPath])
 
