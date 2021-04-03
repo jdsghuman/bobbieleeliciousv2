@@ -28,13 +28,8 @@ export const getStaticProps: GetStaticProps = async () => {
 const Recipes = ({ categories, recipes }: HomePropType) => {
   const searchCtx = useContext(SearchContext)
   const [postsToDisplay, setPostsToDisplay] = useState([])
-  console.log('recipes[0]', recipes[1].fields.category.fields.name)
-  const noCat = recipes.map((recipe) => recipe?.fields?.title)
-  console.log('noCat----', noCat)
-  console.log('postsToDisplay', postsToDisplay)
   const [pageNumber, setPageNumber] = useState(0)
   const observer = useRef<any>()
-  console.log('categories----', categories)
   const { postsToShow, loading, hasMore, error } = useInfiniteScroll(
     pageNumber,
     postsToDisplay,
@@ -78,17 +73,26 @@ const Recipes = ({ categories, recipes }: HomePropType) => {
       setPageNumber(1)
       let filteredRecipes = []
 
-      if (searchCtx.filter.searchTerm.length > 0) {
+      if (searchCtx.filter.searchTerm.length > 0 && searchCtx.filter.categories.length === 0) {
         filteredRecipes = recipes.filter((recipe) =>
           recipe.fields.title.toLowerCase().includes(searchCtx.filter.searchTerm.toLowerCase())
         )
-      }
-
-      if (searchCtx.filter.categories.length > 0) {
+      } else if (
+        searchCtx.filter.categories.length > 0 &&
+        searchCtx.filter.searchTerm.length === 0
+      ) {
         filteredRecipes = recipes.filter((recipe) =>
           recipe?.fields?.category?.fields?.name
             .toLowerCase()
             .includes(searchCtx.filter.categories.toLowerCase())
+        )
+      } else {
+        filteredRecipes = recipes.filter(
+          (recipe) =>
+            recipe?.fields?.category?.fields?.name
+              .toLowerCase()
+              .includes(searchCtx.filter.categories.toLowerCase()) &&
+            recipe.fields.title.toLowerCase().includes(searchCtx.filter.searchTerm.toLowerCase())
         )
       }
       setPostsToDisplay(filteredRecipes)

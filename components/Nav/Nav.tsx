@@ -48,6 +48,10 @@ const Nav = ({ drawerToggleClickHandler, sideDrawerOpen }) => {
     return () => window.removeEventListener('scroll', debounceNav)
   }, [])
 
+  useEffect(() => {
+    searchCtx.clearFilter()
+  }, [router.asPath])
+
   return (
     <>
       <div className={styles['logo__container--desktop']}>
@@ -63,12 +67,14 @@ const Nav = ({ drawerToggleClickHandler, sideDrawerOpen }) => {
       </div>
       <header
         className={cx('header', {
-          'header--border': searchCtx.filter.searchTerm.length > 0,
+          'header--border':
+            searchCtx.filter.searchTerm.length > 0 || searchCtx.filter.categories.length > 0,
         })}
       >
         <div
           className={cx('header__container', {
-            'header__container--filter': searchCtx.filter.searchTerm.length > 0,
+            'header__container--filter':
+              searchCtx.filter.searchTerm.length > 0 || searchCtx.filter.categories.length > 0,
           })}
         >
           {router.pathname === '/recipes' || router.pathname === '/blogs' ? (
@@ -165,7 +171,9 @@ const Nav = ({ drawerToggleClickHandler, sideDrawerOpen }) => {
             </ul>
           </nav>
         </div>
-        {searchCtx.filter.searchTerm.length > 0 && <FilterApplied />}
+        {(searchCtx.filter.searchTerm.length > 0 || searchCtx.filter.categories.length > 0) && (
+          <FilterApplied />
+        )}
       </header>
     </>
   )

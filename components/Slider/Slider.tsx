@@ -16,11 +16,6 @@ interface SliderPropType {
 
 const Slider = ({ items }: SliderPropType) => {
   const searchCtx = useContext(SearchContext)
-  console.log(
-    'items----',
-    items.data.map((category) => category)
-  )
-  console.log('useContextState in Slider----', searchCtx.filter)
   const ref = useRef<HTMLDivElement>(null)
 
   const scroll = (scrollOffset) => {
@@ -80,7 +75,7 @@ const Slider = ({ items }: SliderPropType) => {
 }
 
 Slider.propTypes = {
-  items: PropTypes.array.isRequired,
+  items: PropTypes.oneOfType([PropTypes.array, PropTypes.any]),
   // toggleSliderOption: PropTypes.func,
   // selected: PropTypes.string,
 }
