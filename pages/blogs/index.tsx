@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback, useRef, useContext } from 'react'
 import { GetStaticProps } from 'next'
-import { getAllBlogs } from '../../lib/index'
+import { getAllBlogs, getAllCategories } from '../../lib/index'
 import { HomePropType } from '../../components/PropTypes/PropTypes'
 import PostItemContainer from '../../components/FeatureList/PostItemContainer'
 import PosttItem from '../../components/FeatureList/PostItem'
@@ -12,18 +12,21 @@ import Meta from '../../components/Meta'
 import SearchContext from '../../store/search-context'
 import PostsNotFound from '../../components/Filter/PostsNotFound/PostsNotFound'
 import ScrollToTop from '../../components/ScrollToTop/ScrollToTop'
+import Slider from '../../components/Slider/Slider'
 
 export const getStaticProps: GetStaticProps = async () => {
   const posts = await getAllBlogs()
+  const categories = await getAllCategories('categoryBlogs')
   return {
     props: {
       blogs: posts.blogs,
+      categories: categories,
     },
     revalidate: 600,
   }
 }
 
-const Blogs = ({ blogs }: HomePropType) => {
+const Blogs = ({ blogs, categories }: HomePropType) => {
   const searchCtx = useContext(SearchContext)
   const [postsToDisplay, setPostsToDisplay] = useState([])
 
@@ -32,7 +35,8 @@ const Blogs = ({ blogs }: HomePropType) => {
   const { postsToShow, loading, hasMore, error } = useInfiniteScroll(
     pageNumber,
     postsToDisplay,
-    searchCtx.filter.searchTerm
+    searchCtx.filter.searchTerm,
+    searchCtx.filter.categories
   )
 
   const lastPostElementRef = useCallback(
@@ -59,7 +63,7 @@ const Blogs = ({ blogs }: HomePropType) => {
 
   const postMetaTags: MetaTags = {
     canonical: 'https://www.bobbieleelicious.com',
-    description: `Delicious and nutritious healthy vegetarian recipes`,
+    description: `Healthy lifestyle and living`,
     image: 'https://www.bobbieleelicious.com/images/bobbieleelicious.png',
     robots: `${RobotsContent.follow},${RobotsContent.index}`,
     title: `Bobbieleelicious`,
@@ -67,32 +71,61 @@ const Blogs = ({ blogs }: HomePropType) => {
   }
 
   useEffect(() => {
-    if (searchCtx.filter.searchTerm.length > 0) {
+    if (searchCtx.filter.searchTerm.length > 0 || searchCtx.filter.categories.length > 0) {
       setPageNumber(1)
-      const filteredBlogs = blogs.filter((blog) =>
-        blog.fields.title.toLowerCase().includes(searchCtx.filter.searchTerm.toLowerCase())
-      )
+      let filteredBlogs = []
+
+      if (searchCtx.filter.searchTerm.length > 0 && searchCtx.filter.categories.length === 0) {
+        filteredBlogs = blogs.filter((blog) =>
+          blog.fields.title.toLowerCase().includes(searchCtx.filter.searchTerm.toLowerCase().trim())
+        )
+      } else if (
+        searchCtx.filter.categories.length > 0 &&
+        searchCtx.filter.searchTerm.length === 0
+      ) {
+        filteredBlogs = blogs.filter((blog) =>
+          blog?.fields?.category[0]?.fields?.name
+            .toLowerCase()
+            .includes(searchCtx.filter.categories.toLowerCase())
+        )
+      } else {
+        filteredBlogs = blogs.filter(
+          (blog) =>
+            blog?.fields?.category[0]?.fields?.name
+              .toLowerCase()
+              .includes(searchCtx.filter.categories.toLowerCase()) &&
+            blog.fields.title
+              .toLowerCase()
+              .includes(searchCtx.filter.searchTerm.toLowerCase().trim())
+        )
+      }
       setPostsToDisplay(filteredBlogs)
-    } else if (searchCtx.filter.searchTerm.length === 0) {
+    } else if (
+      searchCtx.filter.searchTerm.length === 0 &&
+      searchCtx.filter.categories.length === 0
+    ) {
       setPageNumber(1)
       setPostsToDisplay(blogs)
     }
-  }, [searchCtx.filter.searchTerm])
+  }, [searchCtx.filter.searchTerm, searchCtx.filter.categories])
 
   useEffect(() => {
-    if (searchCtx.filter.searchTerm.length === 0) {
+    if (searchCtx.filter.searchTerm.length === 0 && searchCtx.filter.categories.length === 0) {
       setPageNumber(1)
       setPostsToDisplay(blogs)
     }
-  }, [searchCtx.filter.searchTerm])
+  }, [searchCtx.filter.searchTerm, searchCtx.filter.categories])
 
   useEffect(() => {
     setPageNumber(1)
     setPostsToDisplay(blogs)
   }, [])
 
-  if (postsToShow.length === 0 && searchCtx.filter.searchTerm.length > 0) {
-    return <PostsNotFound />
+  if (
+    (postsToShow.length === 0 && searchCtx.filter.searchTerm.length > 0) ||
+    (postsToShow.length === 0 && searchCtx.filter.categories.length > 0)
+  ) {
+    return <PostsNotFound postType={'blog'} />
   } else if (postsToShow.length === 0) {
     return <Spinner />
   }
@@ -100,6 +133,7 @@ const Blogs = ({ blogs }: HomePropType) => {
     <>
       <Meta tags={postMetaTags} />
       <ScrollToTop />
+      <Slider items={categories} />
       <PostItemContainer title="blogs">
         {postsToShow.map((blog, index) => {
           if (postsToShow.length === index + 1) {

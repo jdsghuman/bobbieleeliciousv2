@@ -10,8 +10,6 @@ const cx = classNames.bind(styles)
 
 interface SliderPropType {
   items: any
-  // toggleSliderOption: (item: string) => void
-  // selected?: string
 }
 
 const Slider = ({ items }: SliderPropType) => {
@@ -41,25 +39,29 @@ const Slider = ({ items }: SliderPropType) => {
         click={() => scroll(-60)}
       />
       <div ref={ref} className={styles.container}>
-        {items.data.map((item) => {
-          return (
-            <div
-              key={item.sys.id}
-              onClick={() => toggleSliderOption(item.fields.name)}
-              className={cx('item', {
-                'item-clicked': searchCtx.filter.categories.includes(item.fields.name),
-              })}
-            >
-              <p
-                className={cx('item-title', 'unselectable', {
-                  'item-title-clicked': searchCtx.filter.categories.includes(item.fields.name),
+        {items.data
+          .sort((a, b) => {
+            return a.fields.name.toLowerCase() > b.fields.name.toLowerCase() ? 1 : -1
+          })
+          .map((item) => {
+            return (
+              <div
+                key={item.sys.id}
+                onClick={() => toggleSliderOption(item.fields.name)}
+                className={cx('item', {
+                  'item-clicked': searchCtx.filter.categories.includes(item.fields.name),
                 })}
               >
-                {item.fields.name}
-              </p>
-            </div>
-          )
-        })}
+                <p
+                  className={cx('item-title', 'unselectable', {
+                    'item-title-clicked': searchCtx.filter.categories.includes(item.fields.name),
+                  })}
+                >
+                  {item.fields.name}
+                </p>
+              </div>
+            )
+          })}
       </div>
       <Icon
         identifier="chevronForward"
@@ -76,8 +78,6 @@ const Slider = ({ items }: SliderPropType) => {
 
 Slider.propTypes = {
   items: PropTypes.oneOfType([PropTypes.array, PropTypes.any]),
-  // toggleSliderOption: PropTypes.func,
-  // selected: PropTypes.string,
 }
 
 export default Slider

@@ -75,7 +75,9 @@ const Recipes = ({ categories, recipes }: HomePropType) => {
 
       if (searchCtx.filter.searchTerm.length > 0 && searchCtx.filter.categories.length === 0) {
         filteredRecipes = recipes.filter((recipe) =>
-          recipe.fields.title.toLowerCase().includes(searchCtx.filter.searchTerm.toLowerCase())
+          recipe.fields.title
+            .toLowerCase()
+            .includes(searchCtx.filter.searchTerm.toLowerCase().trim())
         )
       } else if (
         searchCtx.filter.categories.length > 0 &&
@@ -92,7 +94,9 @@ const Recipes = ({ categories, recipes }: HomePropType) => {
             recipe?.fields?.category?.fields?.name
               .toLowerCase()
               .includes(searchCtx.filter.categories.toLowerCase()) &&
-            recipe.fields.title.toLowerCase().includes(searchCtx.filter.searchTerm.toLowerCase())
+            recipe.fields.title
+              .toLowerCase()
+              .includes(searchCtx.filter.searchTerm.toLowerCase().trim())
         )
       }
       setPostsToDisplay(filteredRecipes)
