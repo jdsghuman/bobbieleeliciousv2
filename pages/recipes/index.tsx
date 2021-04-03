@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback, useRef, useContext } from 'react'
 import { GetStaticProps } from 'next'
-import { getAllRecipes } from '../../lib/index'
+import { getAllRecipes, getAllCategories } from '../../lib/index'
 import { HomePropType } from '../../components/PropTypes/PropTypes'
 import PostItemContainer from '../../components/FeatureList/PostItemContainer'
 import PostItem from '../../components/FeatureList/PostItem'
@@ -12,23 +12,27 @@ import Meta from '../../components/Meta'
 import SearchContext from '../../store/search-context'
 import PostsNotFound from '../../components/Filter/PostsNotFound/PostsNotFound'
 import ScrollToTop from '../../components/ScrollToTop/ScrollToTop'
+import Slider from '../../components/Slider/Slider'
 
 export const getStaticProps: GetStaticProps = async () => {
   const posts = await getAllRecipes()
+  const categories = await getAllCategories('category')
   return {
     props: {
       recipes: posts.recipes,
+      categories: categories,
     },
     revalidate: 600,
   }
 }
-const Recipes = ({ recipes }: HomePropType) => {
+const Recipes = ({ categories, recipes }: HomePropType) => {
   const searchCtx = useContext(SearchContext)
   const [postsToDisplay, setPostsToDisplay] = useState([])
-
+  console.log('postsToDisplay', postsToDisplay)
   const [pageNumber, setPageNumber] = useState(0)
   const observer = useRef<any>()
-
+  const [selectedCategory, setSelectedCategory] = useState('')
+  console.log('categories----', categories)
   const { postsToShow, loading, hasMore, error } = useInfiniteScroll(
     pageNumber,
     postsToDisplay,
@@ -55,6 +59,12 @@ const Recipes = ({ recipes }: HomePropType) => {
       //     // This is specifically for Safari - Polyfill
       await import('intersection-observer')
     }
+  }
+
+  const toggleCategorySlider = (id) => {
+    // categories.includes(id)
+    //   ? setCategories(categories.filter((category) => category !== id))
+    //   : setCategories([...categories, id])
   }
 
   const postMetaTags: MetaTags = {
@@ -98,8 +108,14 @@ const Recipes = ({ recipes }: HomePropType) => {
   }
   return (
     <>
+      {/* {categories.map((category) => JSON.stringify(category))} */}
       <Meta tags={postMetaTags} />
       <ScrollToTop />
+      <Slider
+        toggleSliderOption={toggleCategorySlider}
+        items={categories}
+        selected={selectedCategory}
+      />
       <PostItemContainer title="recipes">
         {postsToShow.map((recipe, index) => {
           if (postsToShow.length === index + 1) {

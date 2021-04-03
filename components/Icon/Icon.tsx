@@ -8,9 +8,20 @@ interface IconPropType {
   fill?: string
   identifier?: string
   viewBox?: string
+  stroke?: string
+  strokeWidth?: string
 }
 
-const Icon = ({ className, click, dimensions, fill, identifier, viewBox }: IconPropType) => {
+const Icon = ({
+  className,
+  click,
+  dimensions,
+  fill,
+  identifier,
+  viewBox,
+  stroke,
+  strokeWidth,
+}: IconPropType) => {
   const icons = {
     add: [
       'M26,0C11.664,0,0,11.663,0,26s11.664,26,26,26s26-11.663,26-26S40.336,0,26,0z M26,50C12.767,50,2,39.233,2,26' +
@@ -76,11 +87,8 @@ const Icon = ({ className, click, dimensions, fill, identifier, viewBox }: IconP
         'M28,0c-4.411,0-8,3.589-8,8s3.589,8,8,8s8-3.589,8-8S32.411,0,28,0z' +
         'M48,16c4.411,0,8-3.589,8-8s-3.589-8-8-8s-8,3.589-8,8S43.589,16,48,16z',
     ],
-    chevron: [
-      'M386.235,248.308L140.902,2.975c-4.267-4.053-10.987-3.947-15.04,0.213c-3.947,4.16-3.947,10.667,0,14.827l237.76,237.76' +
-        'l-237.76,237.867c-4.267,4.053-4.373,10.88-0.213,15.04c4.053,4.267,10.88,4.373,15.04,0.213c0.107-0.107,0.213-0.213,0.213-0.213' +
-        'l245.333-245.333C390.395,259.188,390.395,252.468,386.235,248.308z',
-    ],
+    chevronBack: ['M328 112L184 256l144 144'],
+    chevronForward: ['M184 112l144 144-144 144'],
   }
 
   const buildPaths = () => {
@@ -104,6 +112,8 @@ const Icon = ({ className, click, dimensions, fill, identifier, viewBox }: IconP
       fill={fill}
       style={styles}
       onClick={click}
+      stroke={stroke}
+      strokeWidth={strokeWidth}
     >
       {buildPaths()}
     </svg>

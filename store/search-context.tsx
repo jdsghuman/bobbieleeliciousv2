@@ -3,7 +3,7 @@ import { createContext, useState } from 'react'
 interface ContextProp {
   filter: {
     searchTerm: string
-    categories: string[]
+    categories: string
     tags: string[]
   }
   updateFilter: (name, value) => void
@@ -13,7 +13,7 @@ const SearchContext = createContext<ContextProp>({} as ContextProp)
 
 const initialState = {
   searchTerm: '',
-  categories: [],
+  categories: '',
   tags: [],
 }
 
