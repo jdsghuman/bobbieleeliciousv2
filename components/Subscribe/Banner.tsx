@@ -35,6 +35,7 @@ const SubscribeBanner = () => {
         setLoading(false)
       } catch (e) {
         setErrorMessage(e.response.data.error)
+        console.log(e.response.data)
         setLoading(false)
       }
     } else {
@@ -85,7 +86,12 @@ const SubscribeBanner = () => {
             type="email"
             required
           />
-          <label className={styles.form__label} htmlFor="email">
+          <label
+            className={cx('form__label', {
+              'form__label--error': errorMessage || required,
+            })}
+            htmlFor="email"
+          >
             Email
           </label>
           <Button

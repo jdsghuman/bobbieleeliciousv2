@@ -168,6 +168,9 @@
     color: #555555;
     font-family: 'Poppins', sans-serif;
     font-weight: 300;
+    &--error {
+      color: $errorValidation;
+    }
   }
 }
 
