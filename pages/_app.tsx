@@ -1,25 +1,13 @@
-import React, { useEffect, Fragment } from 'react'
+import React, { useEffect } from 'react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import '../styles/main.scss'
 import Layout from '../components/Layout/Layout'
 import { defaultMetaTags } from '../components/Util/Constants'
-import * as gtag from '../components/PropTypes/GTags'
+import * as gtag from '../lib/gtag'
 import { SearchContextProvider } from '../store/search-context'
 
-const GA_TRACKING_ID = process.env.GA_TRACKING_ID
-
-export const getStaticProps = async () => {
-  const isProduction = process.env.NODE_ENV.toLowerCase() === 'production'
-  // const initialProps = await Document.getStaticProps(context)
-  return {
-    props: {
-      isProduction,
-    },
-  }
-}
-
-function MyApp({ Component, pageProps, isProduction }) {
+function MyApp({ Component, pageProps }) {
   const router = useRouter()
 
   useEffect(() => {
