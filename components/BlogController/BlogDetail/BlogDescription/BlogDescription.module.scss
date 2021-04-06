@@ -51,7 +51,6 @@
     line-height: 1.9;
     max-width: 600px;
     text-align: justify;
-    letter-spacing: 0.2px;
     color: #333333;
     animation: text-focus 0.3s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
     &__video {
@@ -64,6 +63,10 @@
     }
     a {
       color: #555555;
+    }
+    ol {
+      margin: 0;
+      padding: 0;
     }
   }
   .button__comment {
