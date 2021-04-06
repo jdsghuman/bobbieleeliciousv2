@@ -29,7 +29,7 @@ export const getStaticProps: GetStaticProps = async () => {
 const Home = ({ blogs, featuredPosts, recipes }: HomePropType) => {
   const postMetaTags: MetaTags = {
     canonical: 'https://www.bobbieleelicious.com',
-    description: `Delicious and nutritious healthy vegetarian recipes`,
+    description: `Delicious and nutritious healthy vegetarian recipes and lifestyle blog`,
     image: 'https://www.bobbieleelicious.com/images/bobbieleelicious.png',
     robots: `${RobotsContent.follow},${RobotsContent.index}`,
     title: `Bobbieleelicious`,
