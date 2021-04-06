@@ -51,7 +51,7 @@ const Blog = ({ blog, morePosts }: BlogPropType) => {
   }
 
   const postMetaTags: MetaTags = {
-    canonical: 'https://www.bobbieleelicious.com',
+    canonical: `https://www.bobbieleelicious.com/blog/${blog.fields.slug}`,
     description: `${
       blog.fields.metaDescription
         ? blog.fields.metaDescription
