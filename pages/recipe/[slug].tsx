@@ -51,7 +51,7 @@ const Recipe = ({ recipe, morePosts }: RecipePropType) => {
   }
 
   const postMetaTags: MetaTags = {
-    canonical: 'https://www.bobbieleelicious.com',
+    canonical: `https://www.bobbieleelicious.com/recipe/${recipe.fields.slug}`,
     description: `${
       recipe.fields.metaDescription
         ? recipe.fields.metaDescription
