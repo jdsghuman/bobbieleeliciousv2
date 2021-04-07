@@ -10,6 +10,7 @@ import Spinner from '../components/Spinner/Spinner'
 import { MetaTags, PageType, RobotsContent } from '../components/PropTypes/Tags'
 import Meta from '../components/Meta'
 import generateSitemap from '../components/Util/Sitemap'
+import PromptSubscribe from '../components/Subscribe/PromptSubscribe/PromptSubscribe'
 
 export const getStaticProps: GetStaticProps = async () => {
   await generateSitemap()
@@ -51,6 +52,7 @@ const Home = ({ blogs, featuredPosts, recipes }: HomePropType) => {
     <>
       <Meta tags={postMetaTags} />
       <ScrollToTop />
+      <PromptSubscribe />
       <div className={styles.container}>
         <Carousel featuredPosts={featuredPosts} />
         <Subscribe />

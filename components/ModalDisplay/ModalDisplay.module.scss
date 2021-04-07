@@ -1,0 +1,14 @@
+.icon {
+  margin: 8px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 30px;
+  width: 30px;
+  color: #333;
+  fill: #888;
+  cursor: pointer;
+  &:hover {
+    fill: #555555;
+  }
+}
