@@ -7,7 +7,6 @@ import ShareIcons from '../../SocialMedia/ShareIcons/ShareIcons'
 import { RecipePropType } from '../../PropTypes/PropTypes'
 import Signature from '../../Signature/Signature'
 import ShareIconItem from '../../SocialMedia/ShareIcons/ShareIconItem'
-import Button from '../../Button/Button'
 import DisqusComments from '../../DisqusComments/DisqusComments'
 import styles from './RecipeDescription.module.scss'
 
@@ -15,7 +14,6 @@ const cx = classNames.bind(styles)
 
 const RecipeDescription = ({ recipe }: RecipePropType) => {
   const [isVisible, setIsVisible] = useState(false)
-  const [showComments, setShowComments] = useState(false)
   const observer = useRef<any>()
 
   const callbackFunction = (entries) => {
@@ -69,17 +67,17 @@ const RecipeDescription = ({ recipe }: RecipePropType) => {
         </div>
       )}
       {recipe?.fields?.recipeNotes && (
-        <p className={cx('markdown', 'markdown__notes')}>
+        <div className={cx('markdown', 'markdown__notes')}>
           <span className={styles.markdown__notes__description}>Notes: </span>
           {recipe.fields.recipeNotes}
-        </p>
+        </div>
       )}
       <Signature author={recipe.fields.author[0].fields.name} />
       {recipe?.fields?.tools && (
-        <p className={cx('markdown', 'markdown__tools')}>
+        <div className={cx('markdown', 'markdown__tools')}>
           <span className={styles.markdown__notes__description}>Tools: </span>
           <ReactMarkdown>{recipe.fields.tools}</ReactMarkdown>
-        </p>
+        </div>
       )}
       <ShareIcons
         iconRef={iconRef}
@@ -87,17 +85,7 @@ const RecipeDescription = ({ recipe }: RecipePropType) => {
         postName={recipe.fields.title}
       />
       {recipe?.fields?.tag && <PostTags tags={recipe.fields.tag} />}
-      <div className={styles.button__comment__container}>
-        <Button
-          className={styles.button__comment}
-          type="button"
-          onClick={() => setShowComments(!showComments)}
-          accent
-        >
-          {!showComments ? 'Show' : 'Hide'} Comments
-        </Button>
-      </div>
-      {showComments && <DisqusComments post={recipe} />}
+      <DisqusComments post={recipe} />
     </div>
   )
 }
