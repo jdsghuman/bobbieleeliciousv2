@@ -74,13 +74,13 @@ const RecipeDescription = ({ recipe }: RecipePropType) => {
           {recipe.fields.recipeNotes}
         </p>
       )}
+      <Signature author={recipe.fields.author[0].fields.name} />
       {recipe?.fields?.tools && (
         <p className={cx('markdown', 'markdown__tools')}>
           <span className={styles.markdown__notes__description}>Tools: </span>
           <ReactMarkdown>{recipe.fields.tools}</ReactMarkdown>
         </p>
       )}
-      <Signature author={recipe.fields.author[0].fields.name} />
       <ShareIcons
         iconRef={iconRef}
         postImage={recipe.fields.image}
