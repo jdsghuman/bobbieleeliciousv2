@@ -67,17 +67,17 @@ const RecipeDescription = ({ recipe }: RecipePropType) => {
         </div>
       )}
       {recipe?.fields?.recipeNotes && (
-        <p className={cx('markdown', 'markdown__notes')}>
+        <div className={cx('markdown', 'markdown__notes')}>
           <span className={styles.markdown__notes__description}>Notes: </span>
           {recipe.fields.recipeNotes}
-        </p>
+        </div>
       )}
       <Signature author={recipe.fields.author[0].fields.name} />
       {recipe?.fields?.tools && (
-        <p className={cx('markdown', 'markdown__tools')}>
+        <div className={cx('markdown', 'markdown__tools')}>
           <span className={styles.markdown__notes__description}>Tools: </span>
           <ReactMarkdown>{recipe.fields.tools}</ReactMarkdown>
-        </p>
+        </div>
       )}
       <ShareIcons
         iconRef={iconRef}
