@@ -86,7 +86,13 @@
     text-align: center;
     color: #333;
     font-size: 1rem;
-    background: #ffffff;
+    background: $palette-brand-tertiary;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .icon__comment {
+      margin-left: 10px;
+    }
   }
 }
 
