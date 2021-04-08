@@ -7,13 +7,16 @@ import ShareIcons from '../../SocialMedia/ShareIcons/ShareIcons'
 import { RecipePropType } from '../../PropTypes/PropTypes'
 import Signature from '../../Signature/Signature'
 import ShareIconItem from '../../SocialMedia/ShareIcons/ShareIconItem'
+import Button from '../../Button/Button'
 import DisqusComments from '../../DisqusComments/DisqusComments'
+import Icon from '../../Icon/Icon'
 import styles from './RecipeDescription.module.scss'
 
 const cx = classNames.bind(styles)
 
 const RecipeDescription = ({ recipe }: RecipePropType) => {
   const [isVisible, setIsVisible] = useState(false)
+  const [showComments, setShowComments] = useState(false)
   const observer = useRef<any>()
 
   const callbackFunction = (entries) => {
@@ -85,7 +88,24 @@ const RecipeDescription = ({ recipe }: RecipePropType) => {
         postName={recipe.fields.title}
       />
       {recipe?.fields?.tag && <PostTags tags={recipe.fields.tag} />}
-      <DisqusComments post={recipe} />
+      <div className={styles.button__comment__container}>
+        <Button
+          className={styles.button__comment}
+          type="button"
+          onClick={() => setShowComments(!showComments)}
+          accent
+        >
+          {!showComments ? 'Show' : 'Hide'} Comments
+          <Icon
+            identifier="comment"
+            viewBox="0 0 24 24"
+            dimensions={{ height: 22, width: 22 }}
+            fill={'#333333'}
+            className={styles.icon__comment}
+          />
+        </Button>
+      </div>
+      {showComments && <DisqusComments post={recipe} />}
     </div>
   )
 }
