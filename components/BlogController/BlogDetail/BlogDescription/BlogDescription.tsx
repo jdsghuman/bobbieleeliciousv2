@@ -7,6 +7,7 @@ import PostTags from '../../../PostTags/PostTags'
 import ShareIconItem from '../../../SocialMedia/ShareIcons/ShareIconItem'
 import Button from '../../../Button/Button'
 import DisqusComments from '../../../DisqusComments/DisqusComments'
+import Icon from '../../../Icon/Icon'
 import styles from './BlogDescription.module.scss'
 import Signature from '../../../Signature/Signature'
 
@@ -80,6 +81,13 @@ const BlogDescription = ({ blog }: BlogPropType) => {
           accent
         >
           {!showComments ? 'Show' : 'Hide'} Comments
+          <Icon
+            identifier="comment"
+            viewBox="0 0 24 24"
+            dimensions={{ height: 22, width: 22 }}
+            fill={'#333333'}
+            className={styles.icon__comment}
+          />
         </Button>
       </div>
       {showComments && <DisqusComments post={blog} />}

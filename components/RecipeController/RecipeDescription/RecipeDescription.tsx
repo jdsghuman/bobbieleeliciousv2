@@ -9,6 +9,7 @@ import Signature from '../../Signature/Signature'
 import ShareIconItem from '../../SocialMedia/ShareIcons/ShareIconItem'
 import Button from '../../Button/Button'
 import DisqusComments from '../../DisqusComments/DisqusComments'
+import Icon from '../../Icon/Icon'
 import styles from './RecipeDescription.module.scss'
 
 const cx = classNames.bind(styles)
@@ -69,17 +70,17 @@ const RecipeDescription = ({ recipe }: RecipePropType) => {
         </div>
       )}
       {recipe?.fields?.recipeNotes && (
-        <p className={cx('markdown', 'markdown__notes')}>
+        <div className={cx('markdown', 'markdown__notes')}>
           <span className={styles.markdown__notes__description}>Notes: </span>
           {recipe.fields.recipeNotes}
-        </p>
+        </div>
       )}
       <Signature author={recipe.fields.author[0].fields.name} />
       {recipe?.fields?.tools && (
-        <p className={cx('markdown', 'markdown__tools')}>
+        <div className={cx('markdown', 'markdown__tools')}>
           <span className={styles.markdown__notes__description}>Tools: </span>
           <ReactMarkdown>{recipe.fields.tools}</ReactMarkdown>
-        </p>
+        </div>
       )}
       <ShareIcons
         iconRef={iconRef}
@@ -95,6 +96,13 @@ const RecipeDescription = ({ recipe }: RecipePropType) => {
           accent
         >
           {!showComments ? 'Show' : 'Hide'} Comments
+          <Icon
+            identifier="comment"
+            viewBox="0 0 24 24"
+            dimensions={{ height: 22, width: 22 }}
+            fill={'#333333'}
+            className={styles.icon__comment}
+          />
         </Button>
       </div>
       {showComments && <DisqusComments post={recipe} />}
