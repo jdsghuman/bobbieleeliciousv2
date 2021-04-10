@@ -22,7 +22,7 @@ export const getStaticProps: GetStaticProps = async () => {
       recipes: posts.recipes,
       featuredPosts: [...featuredBlogs, ...featuredRecipes],
     },
-    revalidate: 600,
+    revalidate: 200,
   }
 }
 

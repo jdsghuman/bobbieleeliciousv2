@@ -35,7 +35,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       blog: post,
       morePosts: morePosts ? morePosts : null,
     },
-    revalidate: 600,
+    revalidate: 200,
   }
 }
 

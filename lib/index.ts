@@ -47,6 +47,7 @@ export async function getAllRecipes() {
     .getEntries({
       content_type: 'recipe',
       order: '-fields.publishDate',
+      limit: 200,
     })
     .then((response) => response.items)
 
