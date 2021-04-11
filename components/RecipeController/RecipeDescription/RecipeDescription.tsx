@@ -69,13 +69,13 @@ const RecipeDescription = ({ recipe }: RecipePropType) => {
           <VideoDetail url={recipe.fields.youtubeLink} />
         </div>
       )}
+      <Signature author={recipe.fields.author[0].fields.name} />
       {recipe?.fields?.recipeNotes && (
         <div className={cx('markdown', 'markdown__notes')}>
           <span className={styles.markdown__notes__description}>Notes: </span>
           {recipe.fields.recipeNotes}
         </div>
       )}
-      <Signature author={recipe.fields.author[0].fields.name} />
       {recipe?.fields?.tools && (
         <div className={cx('markdown', 'markdown__tools')}>
           <span className={styles.markdown__notes__description}>Tools: </span>
