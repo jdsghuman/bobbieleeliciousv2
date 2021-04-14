@@ -105,10 +105,9 @@ $breakpoint--md: 800px;
     &__link {
       position: relative;
       float: left;
-      margin-top: 5px;
       color: #333333;
       text-align: center;
-      margin: 12px 15px;
+      margin: 5px 35px;
       text-decoration: none;
       vertical-align: middle;
       letter-spacing: 1.1px;
@@ -160,7 +159,7 @@ $breakpoint--md: 800px;
       display: flex;
       justify-content: flex-end;
       max-height: 350px;
-      margin-bottom: 15px;
+      margin: 20px auto;
       list-style: none;
       opacity: 1;
       overflow: hidden;
@@ -177,6 +176,10 @@ $breakpoint--md: 800px;
         padding-left: 0;
       }
       li {
+        border-right: 1px solid #ccc;
+        &:first-child {
+          border-left: 1px solid #ccc;
+        }
         @media (max-width: $breakpoint--md) {
           margin-left: 0;
           padding-bottom: 0.9em;
@@ -211,7 +214,7 @@ $breakpoint--md: 800px;
     }
     &__search {
       cursor: pointer;
-      margin-left: 18px;
+      margin-left: 28px;
       margin-top: 5px;
       &--none {
         width: 44px;
