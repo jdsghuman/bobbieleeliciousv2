@@ -1,4 +1,5 @@
-import { useCallback, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { useRouter } from 'next/router'
 import classNames from 'classnames/bind'
 import ReactMarkdown from 'react-markdown'
 import AuthorItem from '../../../Author/AuthorItem'
@@ -6,7 +7,7 @@ import { BlogPropType } from '../../../PropTypes/PropTypes'
 import PostTags from '../../../PostTags/PostTags'
 import ShareIconItem from '../../../SocialMedia/ShareIcons/ShareIconItem'
 import Button from '../../../Button/Button'
-import DisqusComments from '../../../DisqusComments/DisqusComments'
+import FacebookComments from '../../../Comments/FacebookComments'
 import Icon from '../../../Icon/Icon'
 import styles from './BlogDescription.module.scss'
 import Signature from '../../../Signature/Signature'
@@ -14,6 +15,8 @@ import Signature from '../../../Signature/Signature'
 const cx = classNames.bind(styles)
 
 const BlogDescription = ({ blog }: BlogPropType) => {
+  const router = useRouter()
+
   const [isVisible, setIsVisible] = useState(false)
   const [showComments, setShowComments] = useState(false)
   const observer = useRef<any>()
@@ -44,6 +47,17 @@ const BlogDescription = ({ blog }: BlogPropType) => {
       await import('intersection-observer')
     }
   }
+
+  useEffect(() => {
+    if (showComments) {
+      setShowComments(false)
+    }
+  }, [router.asPath])
+
+  useEffect(() => {
+    setShowComments(false)
+  }, [])
+
   return (
     <div className={styles.container}>
       <div
@@ -73,7 +87,11 @@ const BlogDescription = ({ blog }: BlogPropType) => {
         />
       </div>
       {blog?.fields?.tag && <PostTags tags={blog.fields.tag} />}
-      <div className={styles.button__comment__container}>
+      <div
+        className={cx('button__comment__container', {
+          'button__comment__container--hide': showComments,
+        })}
+      >
         <Button
           className={styles.button__comment}
           type="button"
@@ -90,7 +108,7 @@ const BlogDescription = ({ blog }: BlogPropType) => {
           />
         </Button>
       </div>
-      {showComments && <DisqusComments post={blog} />}
+      {showComments && <FacebookComments post={blog} />}
     </div>
   )
 }

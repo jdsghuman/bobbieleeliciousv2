@@ -23,6 +23,13 @@ class MyDocument extends Document {
           `,
             }}
           />
+          <script
+            async
+            defer
+            crossOrigin="anonymous"
+            src={`https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v10.0&appId=${process.env.FACEBOOK_APP_ID}&autoLogAppEvents=1`}
+            nonce="PudrHDZ4"
+          ></script>
         </Head>
         <body>
           <Main />
