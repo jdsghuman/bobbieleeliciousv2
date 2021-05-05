@@ -61,6 +61,9 @@ const Meta = ({ tags }: Props) => {
         {/* End of Twitter Display card */}
 
         <meta name="robots" content={`${tags.robots}`} />
+        <meta property="fb:app_id" content={process.env.FACEBOOK_APP_ID} />
+        <meta property="fb:admins" content={process.env.FACEBOOK_USER_ID_1} />
+        <meta property="fb:admins" content={process.env.FACEBOOK_USER_ID_2} />
 
         {/* The URL of the canonical tags */}
         <link rel="canonical" key="canonical" href={tags.canonical} />
