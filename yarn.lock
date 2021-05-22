@@ -212,6 +212,11 @@
   resolved "https://registry.yarnpkg.com/@opentelemetry/context-base/-/context-base-0.14.0.tgz#c67fc20a4d891447ca1a855d7d70fa79a3533001"
   integrity sha512-sDOAZcYwynHFTbLo6n8kIbLiVF3a3BLkrmehJUyEbT9F+Smbi47kLGS2gG2g0fjBLR/Lr1InPD7kXL7FaTqEkw==
 
+"@types/facebook-js-sdk@^3.3.2":
+  version "3.3.2"
+  resolved "https://registry.yarnpkg.com/@types/facebook-js-sdk/-/facebook-js-sdk-3.3.2.tgz#4e34c7bf758a1ac848baef1dc3fc03e9b67553a6"
+  integrity sha512-s4L1r0lhdSz7Q138pnXU6/0escJCisKAgaIMOPiAOS32OxrdOkRTPXJShEd08jwmrvD3KCpj+kboWiH343n3vg==
+
 "@types/gtag.js@^0.0.4":
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/@types/gtag.js/-/gtag.js-0.0.4.tgz#81427d703b5a889b4fd1c37eaae6f2a6db228e5a"

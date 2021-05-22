@@ -80,6 +80,9 @@
       justify-content: center;
       margin: 40px auto;
       width: 100%;
+      &--hide {
+        display: none;
+      }
     }
     margin: 0 auto;
     border: 1px solid #e9cec2;

@@ -22,7 +22,7 @@ export const getStaticProps: GetStaticProps = async () => {
       recipes: posts.recipes,
       categories: categories,
     },
-    revalidate: 600,
+    revalidate: 200,
   }
 }
 const Recipes = ({ categories, recipes }: HomePropType) => {

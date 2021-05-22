@@ -1,4 +1,5 @@
-import { useCallback, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { useRouter } from 'next/router'
 import classNames from 'classnames/bind'
 import ReactMarkdown from 'react-markdown'
 import VideoDetail from '../../VideoDetail/VideoDetail'
@@ -8,13 +9,14 @@ import { RecipePropType } from '../../PropTypes/PropTypes'
 import Signature from '../../Signature/Signature'
 import ShareIconItem from '../../SocialMedia/ShareIcons/ShareIconItem'
 import Button from '../../Button/Button'
-import DisqusComments from '../../DisqusComments/DisqusComments'
+import FacebookComments from '../../Comments/FacebookComments'
 import Icon from '../../Icon/Icon'
 import styles from './RecipeDescription.module.scss'
 
 const cx = classNames.bind(styles)
 
 const RecipeDescription = ({ recipe }: RecipePropType) => {
+  const router = useRouter()
   const [isVisible, setIsVisible] = useState(false)
   const [showComments, setShowComments] = useState(false)
   const observer = useRef<any>()
@@ -45,6 +47,17 @@ const RecipeDescription = ({ recipe }: RecipePropType) => {
       await import('intersection-observer')
     }
   }
+
+  useEffect(() => {
+    if (showComments) {
+      setShowComments(false)
+    }
+  }, [router.asPath])
+
+  useEffect(() => {
+    setShowComments(false)
+  }, [])
+
   return (
     <div className={styles.container}>
       <div
@@ -69,13 +82,13 @@ const RecipeDescription = ({ recipe }: RecipePropType) => {
           <VideoDetail url={recipe.fields.youtubeLink} />
         </div>
       )}
+      <Signature author={recipe.fields.author[0].fields.name} />
       {recipe?.fields?.recipeNotes && (
         <div className={cx('markdown', 'markdown__notes')}>
           <span className={styles.markdown__notes__description}>Notes: </span>
           {recipe.fields.recipeNotes}
         </div>
       )}
-      <Signature author={recipe.fields.author[0].fields.name} />
       {recipe?.fields?.tools && (
         <div className={cx('markdown', 'markdown__tools')}>
           <span className={styles.markdown__notes__description}>Tools: </span>
@@ -88,7 +101,11 @@ const RecipeDescription = ({ recipe }: RecipePropType) => {
         postName={recipe.fields.title}
       />
       {recipe?.fields?.tag && <PostTags tags={recipe.fields.tag} />}
-      <div className={styles.button__comment__container}>
+      <div
+        className={cx('button__comment__container', {
+          'button__comment__container--hide': showComments,
+        })}
+      >
         <Button
           className={styles.button__comment}
           type="button"
@@ -105,7 +122,7 @@ const RecipeDescription = ({ recipe }: RecipePropType) => {
           />
         </Button>
       </div>
-      {showComments && <DisqusComments post={recipe} />}
+      {showComments && <FacebookComments post={recipe} />}
     </div>
   )
 }

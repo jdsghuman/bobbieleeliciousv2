@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { GetStaticProps } from 'next'
 import dynamic from 'next/dynamic'
 import styles from '../styles/Home.module.css'
@@ -23,7 +24,7 @@ export const getStaticProps: GetStaticProps = async () => {
       recipes: posts.recipes,
       featuredPosts: [...featuredBlogs, ...featuredRecipes],
     },
-    revalidate: 600,
+    revalidate: 200,
   }
 }
 
@@ -47,6 +48,19 @@ const Home = ({ blogs, featuredPosts, recipes }: HomePropType) => {
     },
     { ssr: false }
   )
+
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.getRegistrations().then((registrations) => {
+          // eslint-disable-next-line prefer-const
+          for (let registration of registrations) {
+            registration.unregister()
+          }
+        })
+      })
+    }
+  }, [])
 
   return (
     <>
