@@ -1,8 +1,7 @@
+import { useEffect } from 'react'
 import Modal from 'react-modal'
 import Icon from '../Icon/Icon'
 import styles from './ModalDisplay.module.scss'
-
-Modal.setAppElement('#modal')
 
 const customStyles = {
   overlay: {
@@ -22,6 +21,9 @@ const customStyles = {
 }
 
 const ModalDisplay = ({ isOpen, closeModal, ...props }) => {
+  useEffect(() => {
+    Modal.setAppElement('#modal')
+  }, [])
   return (
     <div>
       <Modal isOpen={isOpen} onRequestClose={closeModal} style={customStyles} contentLabel="Modal">
