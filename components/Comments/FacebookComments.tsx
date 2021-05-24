@@ -11,10 +11,7 @@ const FacebookComments = ({ post }: CommentsPropType) => {
   const [showSpinner, setShowSpinner] = useState(true)
   const postType = post.sys.contentType.sys.id === 'recipe' ? 'recipe' : 'blog'
 
-  console.log('render CommentsFacebook')
-
   useEffect(() => {
-    console.log('load facebook script')
     const facebookScript = document.createElement('script')
     facebookScript.async = true
     facebookScript.src = `https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v7.0&appId=${process.env.FACEBOOK_APP_ID}&autoLogAppEvents=1`

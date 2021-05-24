@@ -1,12 +1,11 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios'
 import classNames from 'classnames/bind'
-import Button from '../Button/Button'
-import styles from './Banner.module.scss'
+import Button from '../../Button/Button'
+import styles from './SubscribeModal.module.scss'
 
 const cx = classNames.bind(styles)
-
-const SubscribeBanner = () => {
+const SubscribeModal = ({ closeModal }) => {
   const [email, setEmail] = useState<string>('')
   const [successMessage, setSuccessMessage] = useState<string | null>(null)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
@@ -15,6 +14,12 @@ const SubscribeBanner = () => {
 
   const handleChange = (e) => {
     setEmail(e.target.value.trim())
+  }
+
+  const close = () => {
+    setTimeout(() => {
+      closeModal()
+    }, 2000)
   }
 
   const handleSubmit = async () => {
@@ -33,6 +38,8 @@ const SubscribeBanner = () => {
         setSuccessMessage('Thank you for subscribing!')
         setErrorMessage(null)
         setLoading(false)
+        localStorage.setItem('submit', 'subscribed')
+        close()
       } catch (e) {
         setErrorMessage(e.response.data.error)
         console.log(e.response.data)
@@ -47,15 +54,13 @@ const SubscribeBanner = () => {
     const re = /\S+@\S+\.\S+/
     return re.test(email)
   }
-
   return (
-    <div className={styles.banner}>
-      <div className={styles['banner__bg-banner']} />
-      <div className={styles.banner__container}>
+    <div className={styles.modal}>
+      <div className={styles.modal__container}>
         {successMessage && (
           <p
-            className={cx('banner__text', {
-              'banner__text--success': successMessage,
+            className={cx('modal__text', {
+              'modal__text--success': successMessage,
             })}
           >
             Thank you for subscribing!
@@ -63,20 +68,20 @@ const SubscribeBanner = () => {
         )}
         {errorMessage && (
           <p
-            className={cx('banner__text', {
-              'banner__text--error': errorMessage || required,
+            className={cx('modal__text', {
+              'modal__text--error': errorMessage || required,
             })}
           >
             {errorMessage}
           </p>
         )}
         {!errorMessage && !successMessage && (
-          <p className={styles.banner__text}>Subscribe to receive updates!</p>
+          <p className={styles.modal__text}>Subscribe to receive updates!</p>
         )}
         <div className={styles.form}>
           <input
-            id="email"
-            name="email"
+            id="emailModal"
+            name="emailModal"
             placeholder="Email"
             className={cx('form__field', {
               'form__field--error': errorMessage || required,
@@ -90,13 +95,13 @@ const SubscribeBanner = () => {
             className={cx('form__label', {
               'form__label--error': errorMessage || required,
             })}
-            htmlFor="email"
+            htmlFor="emailModal"
           >
             Email
           </label>
           <Button
             onClick={handleSubmit}
-            className={styles.banner__button}
+            className={styles.modal__button}
             type={'button'}
             disabled={loading}
             primary
@@ -109,4 +114,4 @@ const SubscribeBanner = () => {
   )
 }
 
-export default SubscribeBanner
+export default SubscribeModal

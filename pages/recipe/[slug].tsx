@@ -6,10 +6,11 @@ import { RecipePropType } from '../../components/PropTypes/PropTypes'
 import { getAllPostsWithSlug, getPostBySlug, getMorePosts } from '../../lib/index'
 import RecipeDetail from '../../components/RecipeController/RecipeDetail/RecipeDetail'
 import FeatureList from '../../components/FeatureList/FeatureList'
-import Subscribe from '../../components/Subscribe/Banner'
+import Subscribe from '../../components/Subscribe/Banner/Banner'
 import { MetaTags, PageType, RobotsContent } from '../../components/PropTypes/Tags'
 import Meta from '../../components/Meta'
 import { truncateText } from '../../components/Util/Util'
+import PromptSubscribe from '../../components/Subscribe/PromptSubscribe/PromptSubscribe'
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const data = await getAllPostsWithSlug('recipe')
@@ -74,6 +75,7 @@ const Recipe = ({ recipe, morePosts }: RecipePropType) => {
     <>
       <Meta tags={postMetaTags} />
       <ScrollToTop />
+      <PromptSubscribe />
       <RecipeDetail post={recipe} />
       <FeatureList title="More From Bobbieleelicious" articles={morePosts} slug="recipe" />
       <Subscribe />

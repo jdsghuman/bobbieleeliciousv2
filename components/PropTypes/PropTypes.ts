@@ -115,3 +115,13 @@ export interface IconPropType {
   className?: string
   viewBox?: string
 }
+
+export interface FeaturedPost {
+  fields: {
+    author: AuthorPropType
+    image: string
+    featured: boolean
+    publishDate: string
+    title: string
+  }
+}

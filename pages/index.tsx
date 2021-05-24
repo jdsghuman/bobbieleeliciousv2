@@ -2,15 +2,16 @@ import { useEffect } from 'react'
 import { GetStaticProps } from 'next'
 import dynamic from 'next/dynamic'
 import styles from '../styles/Home.module.css'
-import { HomePropType } from '../components/PropTypes/PropTypes'
+import { HomePropType, FeaturedPost } from '../components/PropTypes/PropTypes'
 import { getAllPosts } from '../lib/index'
 import Carousel from '../components/Carousel/Carousel'
-import Subscribe from '../components/Subscribe/Banner'
+import Subscribe from '../components/Subscribe/Banner/Banner'
 import FeatureList from '../components/FeatureList/FeatureList'
 import Spinner from '../components/Spinner/Spinner'
 import { MetaTags, PageType, RobotsContent } from '../components/PropTypes/Tags'
 import Meta from '../components/Meta'
 import generateSitemap from '../components/Util/Sitemap'
+import PromptSubscribe from '../components/Subscribe/PromptSubscribe/PromptSubscribe'
 
 export const getStaticProps: GetStaticProps = async () => {
   await generateSitemap()
@@ -21,7 +22,10 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       blogs: posts.blogs,
       recipes: posts.recipes,
-      featuredPosts: [...featuredBlogs, ...featuredRecipes],
+      featuredPosts: [...featuredBlogs, ...featuredRecipes].sort(
+        (a, b) =>
+          new Date(b.fields.publishDate).valueOf() - new Date(a.fields.publishDate).valueOf()
+      ),
     },
     revalidate: 200,
   }
@@ -65,6 +69,7 @@ const Home = ({ blogs, featuredPosts, recipes }: HomePropType) => {
     <>
       <Meta tags={postMetaTags} />
       <ScrollToTop />
+      <PromptSubscribe />
       <div className={styles.container}>
         <Carousel featuredPosts={featuredPosts} />
         <Subscribe />
