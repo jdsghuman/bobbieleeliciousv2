@@ -28,7 +28,13 @@ const ModalDisplay = ({ isOpen, closeModal, ...props }) => {
   }, [])
   return (
     <div>
-      <Modal isOpen={isOpen} onRequestClose={closeModal} style={customStyles} contentLabel="Modal">
+      <Modal
+        isOpen={isOpen}
+        onRequestClose={closeModal}
+        style={customStyles}
+        ariaHideApp={false}
+        contentLabel="Modal"
+      >
         <Icon
           identifier="close"
           viewBox="0 0 500 512"
