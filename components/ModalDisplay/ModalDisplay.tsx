@@ -22,7 +22,9 @@ const customStyles = {
 
 const ModalDisplay = ({ isOpen, closeModal, ...props }) => {
   useEffect(() => {
-    Modal.setAppElement('#modal')
+    if (document.getElementById('modal')) {
+      Modal.setAppElement('#modal')
+    }
   }, [])
   return (
     <div>

@@ -6,10 +6,11 @@ import { BlogPropType } from '../../components/PropTypes/PropTypes'
 import { getAllPostsWithSlug, getPostBySlug, getMorePosts } from '../../lib/index'
 import BlogDetail from '../../components/BlogController/BlogDetail/BlogDetail'
 import FeatureList from '../../components/FeatureList/FeatureList'
-import Subscribe from '../../components/Subscribe/Banner'
+import Subscribe from '../../components/Subscribe/Banner/Banner'
 import { MetaTags, PageType, RobotsContent } from '../../components/PropTypes/Tags'
 import Meta from '../../components/Meta'
 import { truncateText } from '../../components/Util/Util'
+import PromptSubscribe from '../../components/Subscribe/PromptSubscribe/PromptSubscribe'
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const data = await getAllPostsWithSlug('blogPost')
@@ -74,6 +75,7 @@ const Blog = ({ blog, morePosts }: BlogPropType) => {
     <>
       <Meta tags={postMetaTags} />
       <ScrollToTop />
+      <PromptSubscribe />
       <BlogDetail blog={blog} />
       <FeatureList title="More From Bobbieleelicious" articles={morePosts} slug="blog" />
       <Subscribe />

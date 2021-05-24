@@ -4,7 +4,7 @@ import { getAllRecipes, getAllCategories } from '../../lib/index'
 import { HomePropType } from '../../components/PropTypes/PropTypes'
 import PostItemContainer from '../../components/FeatureList/PostItemContainer'
 import PostItem from '../../components/FeatureList/PostItem'
-import Subscribe from '../../components/Subscribe/Banner'
+import Subscribe from '../../components/Subscribe/Banner/Banner'
 import useInfiniteScroll from '../../components/Util/Hooks/useInfiniteScroll'
 import Spinner from '../../components/Spinner/Spinner'
 import { MetaTags, PageType, RobotsContent } from '../../components/PropTypes/Tags'
@@ -13,6 +13,7 @@ import SearchContext from '../../store/search-context'
 import PostsNotFound from '../../components/Filter/PostsNotFound/PostsNotFound'
 import ScrollToTop from '../../components/ScrollToTop/ScrollToTop'
 import Slider from '../../components/Slider/Slider'
+import PromptSubscribe from '../../components/Subscribe/PromptSubscribe/PromptSubscribe'
 
 export const getStaticProps: GetStaticProps = async () => {
   const posts = await getAllRecipes()
@@ -133,6 +134,7 @@ const Recipes = ({ categories, recipes }: HomePropType) => {
     <>
       <Meta tags={postMetaTags} />
       <ScrollToTop />
+      <PromptSubscribe />
       <Slider items={categories} />
       <PostItemContainer title="recipes">
         {postsToShow.map((recipe, index) => {
