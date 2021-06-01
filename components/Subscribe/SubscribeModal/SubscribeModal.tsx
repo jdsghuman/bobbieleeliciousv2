@@ -1,16 +1,21 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import axios from 'axios'
 import classNames from 'classnames/bind'
 import Button from '../../Button/Button'
 import styles from './SubscribeModal.module.scss'
 
 const cx = classNames.bind(styles)
-const SubscribeModal = ({ closeModal }) => {
+
+interface SubscribeModalPropTypes {
+  closeModal: () => void
+}
+
+const SubscribeModal = ({ closeModal }: SubscribeModalPropTypes) => {
   const [email, setEmail] = useState<string>('')
   const [successMessage, setSuccessMessage] = useState<string | null>(null)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const [loading, setLoading] = useState<boolean>(false)
-  const [required, setRequired] = useState(false)
+  const [required, setRequired] = useState<boolean>(false)
 
   const handleChange = (e) => {
     setEmail(e.target.value.trim())

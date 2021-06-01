@@ -20,7 +20,13 @@ const customStyles = {
   },
 }
 
-const ModalDisplay = ({ isOpen, closeModal, ...props }) => {
+interface ModalDisplayPropType {
+  isOpen: boolean
+  closeModal: () => void
+  children: any
+}
+
+const ModalDisplay = ({ isOpen, closeModal, ...props }: ModalDisplayPropType) => {
   useEffect(() => {
     if (document.getElementById('modal')) {
       Modal.setAppElement('#modal')

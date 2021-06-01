@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useContext } from 'react'
+import { useEffect, useRef, useContext } from 'react'
 import SearchContext from '../../store/search-context'
 import PropTypes from 'prop-types'
 import Icon from '../Icon/Icon'

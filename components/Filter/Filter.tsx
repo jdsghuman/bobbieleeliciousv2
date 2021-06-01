@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useRef } from 'react'
 import { useRouter } from 'next/router'
 
 import classNames from 'classnames/bind'
