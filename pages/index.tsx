@@ -193,7 +193,7 @@ const Home = ({ blogs, featuredPosts, recipes }: HomePropType) => {
       ) : (
         <PostItemContainer title="posts">
           {postsToShow.map((post, index) => {
-            console.log(post.sys.contentType.sys.id)
+            console.log(post.fields.title, post.sys.contentType.sys.id)
             if (postsToShow.length === index + 1) {
               return (
                 <PosttItem
@@ -204,7 +204,14 @@ const Home = ({ blogs, featuredPosts, recipes }: HomePropType) => {
                 />
               )
             } else {
-              return <PosttItem article={post} key={post.sys.id} slug="blog" lastRef={null} />
+              return (
+                <PosttItem
+                  article={post}
+                  key={post.sys.id}
+                  slug={post.sys.contentType.sys.id === 'blogPost' ? 'blog' : 'recipe'}
+                  lastRef={null}
+                />
+              )
             }
           })}
           <div>{loading && 'Loading...'}</div>
