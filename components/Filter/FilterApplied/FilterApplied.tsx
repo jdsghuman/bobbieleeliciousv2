@@ -26,7 +26,9 @@ const FilterApplied = () => {
       className={cx('filter--show', {
         'filter--hide':
           (searchCtx.filter.searchTerm.length === 0 && searchCtx.filter.categories.length === 0) ||
-          (router.pathname !== '/recipes' && router.pathname !== '/blogs'),
+          (router.pathname !== '/recipes' &&
+            router.pathname !== '/blogs' &&
+            router.pathname !== '/'),
       })}
       onClick={searchCtx.clearFilter}
     >
