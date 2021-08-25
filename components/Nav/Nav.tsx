@@ -79,8 +79,7 @@ const Nav = ({ drawerToggleClickHandler, sideDrawerOpen }) => {
         >
           {router.pathname === '/recipes' ||
           router.pathname === '/blogs' ||
-          router.pathname === '/' ||
-          router.pathname === '/search' ? (
+          router.pathname === '/' ? (
             <div
               className={cx('nav__search__container', {
                 'nav__search__container__mobile--top': !isTopOfPage,
@@ -163,8 +162,7 @@ const Nav = ({ drawerToggleClickHandler, sideDrawerOpen }) => {
               </li>
               {router.pathname === '/recipes' ||
               router.pathname === '/blogs' ||
-              router.pathname === '/' ||
-              router.pathname === '/search' ? (
+              router.pathname === '/' ? (
                 <Icon
                   identifier="search"
                   viewBox="0 0 600 350"
