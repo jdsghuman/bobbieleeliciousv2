@@ -193,7 +193,6 @@ const Home = ({ blogs, featuredPosts, recipes }: HomePropType) => {
       ) : (
         <PostItemContainer title="posts">
           {postsToShow.map((post, index) => {
-            console.log(post.fields.title, post.sys.contentType.sys.id)
             if (postsToShow.length === index + 1) {
               return (
                 <PosttItem
