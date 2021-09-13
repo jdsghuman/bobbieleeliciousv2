@@ -3,7 +3,7 @@ import { GetStaticProps } from 'next'
 import dynamic from 'next/dynamic'
 import styles from '../styles/Home.module.css'
 import { HomePropType } from '../components/PropTypes/PropTypes'
-import { getAllPosts } from '../lib/index'
+import { getAllPosts, getAllRecipes } from '../lib/index'
 import Carousel from '../components/Carousel/Carousel'
 import Subscribe from '../components/Subscribe/Banner/Banner'
 import FeatureList from '../components/FeatureList/FeatureList'
@@ -23,10 +23,11 @@ export const getStaticProps: GetStaticProps = async () => {
   const posts = await getAllPosts()
   const featuredBlogs = posts.blogs.filter((blog) => blog.fields.featured)
   const featuredRecipes = posts.recipes.filter((recipe) => recipe.fields.featured)
+  const allRecipesNoMaxLimit = await getAllRecipes()
   return {
     props: {
       blogs: posts.blogs,
-      recipes: posts.recipes,
+      recipes: allRecipesNoMaxLimit.recipes,
       featuredPosts: [...featuredBlogs, ...featuredRecipes].sort(
         (a, b) =>
           new Date(b.fields.publishDate).valueOf() - new Date(a.fields.publishDate).valueOf()
@@ -49,7 +50,6 @@ const Home = ({ blogs, featuredPosts, recipes }: HomePropType) => {
     searchCtx.filter.searchTerm,
     searchCtx.filter.categories
   )
-
   const lastPostElementRef = useCallback(
     async (node) => {
       await initializeObserver()
@@ -96,7 +96,7 @@ const Home = ({ blogs, featuredPosts, recipes }: HomePropType) => {
     if (searchCtx.filter.searchTerm.length > 0 || searchCtx.filter.categories.length > 0) {
       setPageNumber(1)
       let filteredPosts = []
-
+      debugger
       if (searchCtx.filter.searchTerm.length > 0 && searchCtx.filter.categories.length === 0) {
         filteredPosts = [
           ...blogs.filter((blog) =>
@@ -121,7 +121,7 @@ const Home = ({ blogs, featuredPosts, recipes }: HomePropType) => {
               .includes(searchCtx.filter.categories.toLowerCase())
           ),
           ...recipes.filter((recipe) =>
-            recipe?.fields?.category[0]?.fields?.name
+            recipe?.fields?.category?.fields?.name
               .toLowerCase()
               .includes(searchCtx.filter.categories.toLowerCase())
           ),
@@ -139,7 +139,7 @@ const Home = ({ blogs, featuredPosts, recipes }: HomePropType) => {
           ),
           ...recipes.filter(
             (recipe) =>
-              recipe?.fields?.category[0]?.fields?.name
+              recipe?.fields?.category?.fields?.name
                 .toLowerCase()
                 .includes(searchCtx.filter.categories.toLowerCase()) &&
               recipe.fields.title
@@ -149,12 +149,6 @@ const Home = ({ blogs, featuredPosts, recipes }: HomePropType) => {
         ]
       }
       setPostsToDisplay(filteredPosts)
-    } else if (
-      searchCtx.filter.searchTerm.length === 0 &&
-      searchCtx.filter.categories.length === 0
-    ) {
-      setPageNumber(1)
-      setPostsToDisplay([...blogs, ...recipes])
     }
   }, [searchCtx.filter.searchTerm, searchCtx.filter.categories])
 
