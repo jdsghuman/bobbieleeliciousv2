@@ -96,7 +96,6 @@ const Home = ({ blogs, featuredPosts, recipes }: HomePropType) => {
     if (searchCtx.filter.searchTerm.length > 0 || searchCtx.filter.categories.length > 0) {
       setPageNumber(1)
       let filteredPosts = []
-      debugger
       if (searchCtx.filter.searchTerm.length > 0 && searchCtx.filter.categories.length === 0) {
         filteredPosts = [
           ...blogs.filter((blog) =>
