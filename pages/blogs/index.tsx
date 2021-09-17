@@ -14,6 +14,7 @@ import PostsNotFound from '../../components/Filter/PostsNotFound/PostsNotFound'
 import ScrollToTop from '../../components/ScrollToTop/ScrollToTop'
 import Slider from '../../components/Slider/Slider'
 import PromptSubscribe from '../../components/Subscribe/PromptSubscribe/PromptSubscribe'
+import useDisplayPosts from '../../components/Util/Hooks/useDisplayPosts'
 
 export const getStaticProps: GetStaticProps = async () => {
   const posts = await getAllBlogs()
@@ -21,7 +22,7 @@ export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
       blogs: posts.blogs,
-      categories: categories,
+      categories,
     },
     revalidate: 200,
   }
@@ -29,9 +30,8 @@ export const getStaticProps: GetStaticProps = async () => {
 
 const Blogs = ({ blogs, categories }: HomePropType) => {
   const searchCtx = useContext(SearchContext)
-  const [postsToDisplay, setPostsToDisplay] = useState([])
+  const { postsToDisplay, pageNumber, setPageNumber } = useDisplayPosts(blogs, 'blogs')
 
-  const [pageNumber, setPageNumber] = useState(0)
   const observer = useRef<any>()
   const { postsToShow, loading, hasMore, error } = useInfiniteScroll(
     pageNumber,
@@ -70,57 +70,6 @@ const Blogs = ({ blogs, categories }: HomePropType) => {
     title: `Bobbieleelicious`,
     type: PageType.website,
   }
-
-  useEffect(() => {
-    if (searchCtx.filter.searchTerm.length > 0 || searchCtx.filter.categories.length > 0) {
-      setPageNumber(1)
-      let filteredBlogs = []
-
-      if (searchCtx.filter.searchTerm.length > 0 && searchCtx.filter.categories.length === 0) {
-        filteredBlogs = blogs.filter((blog) =>
-          blog.fields.title.toLowerCase().includes(searchCtx.filter.searchTerm.toLowerCase().trim())
-        )
-      } else if (
-        searchCtx.filter.categories.length > 0 &&
-        searchCtx.filter.searchTerm.length === 0
-      ) {
-        filteredBlogs = blogs.filter((blog) =>
-          blog?.fields?.category[0]?.fields?.name
-            .toLowerCase()
-            .includes(searchCtx.filter.categories.toLowerCase())
-        )
-      } else {
-        filteredBlogs = blogs.filter(
-          (blog) =>
-            blog?.fields?.category[0]?.fields?.name
-              .toLowerCase()
-              .includes(searchCtx.filter.categories.toLowerCase()) &&
-            blog.fields.title
-              .toLowerCase()
-              .includes(searchCtx.filter.searchTerm.toLowerCase().trim())
-        )
-      }
-      setPostsToDisplay(filteredBlogs)
-    } else if (
-      searchCtx.filter.searchTerm.length === 0 &&
-      searchCtx.filter.categories.length === 0
-    ) {
-      setPageNumber(1)
-      setPostsToDisplay(blogs)
-    }
-  }, [searchCtx.filter.searchTerm, searchCtx.filter.categories])
-
-  useEffect(() => {
-    if (searchCtx.filter.searchTerm.length === 0 && searchCtx.filter.categories.length === 0) {
-      setPageNumber(1)
-      setPostsToDisplay(blogs)
-    }
-  }, [searchCtx.filter.searchTerm, searchCtx.filter.categories])
-
-  useEffect(() => {
-    setPageNumber(1)
-    setPostsToDisplay(blogs)
-  }, [])
 
   if (
     (postsToShow.length === 0 && searchCtx.filter.searchTerm.length > 0) ||

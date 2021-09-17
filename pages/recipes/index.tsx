@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback, useRef, useContext } from 'react'
+import { useCallback, useRef, useContext } from 'react'
 import { GetStaticProps } from 'next'
 import { getAllRecipes, getAllCategories } from '../../lib/index'
 import { HomePropType } from '../../components/PropTypes/PropTypes'
@@ -14,6 +14,7 @@ import PostsNotFound from '../../components/Filter/PostsNotFound/PostsNotFound'
 import ScrollToTop from '../../components/ScrollToTop/ScrollToTop'
 import Slider from '../../components/Slider/Slider'
 import PromptSubscribe from '../../components/Subscribe/PromptSubscribe/PromptSubscribe'
+import useDisplayPosts from '../../components/Util/Hooks/useDisplayPosts'
 
 export const getStaticProps: GetStaticProps = async () => {
   const posts = await getAllRecipes()
@@ -21,15 +22,15 @@ export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
       recipes: posts.recipes,
-      categories: categories,
+      categories,
     },
     revalidate: 200,
   }
 }
 const Recipes = ({ categories, recipes }: HomePropType) => {
   const searchCtx = useContext(SearchContext)
-  const [postsToDisplay, setPostsToDisplay] = useState([])
-  const [pageNumber, setPageNumber] = useState(0)
+  const { postsToDisplay, pageNumber, setPageNumber } = useDisplayPosts(recipes, 'recipes')
+
   const observer = useRef<any>()
   const { postsToShow, loading, hasMore, error } = useInfiniteScroll(
     pageNumber,
@@ -68,59 +69,6 @@ const Recipes = ({ categories, recipes }: HomePropType) => {
     title: `Bobbieleelicious`,
     type: PageType.website,
   }
-
-  useEffect(() => {
-    if (searchCtx.filter.searchTerm.length > 0 || searchCtx.filter.categories.length > 0) {
-      setPageNumber(1)
-      let filteredRecipes = []
-
-      if (searchCtx.filter.searchTerm.length > 0 && searchCtx.filter.categories.length === 0) {
-        filteredRecipes = recipes.filter((recipe) =>
-          recipe.fields.title
-            .toLowerCase()
-            .includes(searchCtx.filter.searchTerm.toLowerCase().trim())
-        )
-      } else if (
-        searchCtx.filter.categories.length > 0 &&
-        searchCtx.filter.searchTerm.length === 0
-      ) {
-        filteredRecipes = recipes.filter((recipe) =>
-          recipe?.fields?.category?.fields?.name
-            .toLowerCase()
-            .includes(searchCtx.filter.categories.toLowerCase())
-        )
-      } else {
-        filteredRecipes = recipes.filter(
-          (recipe) =>
-            recipe?.fields?.category?.fields?.name
-              .toLowerCase()
-              .includes(searchCtx.filter.categories.toLowerCase()) &&
-            recipe.fields.title
-              .toLowerCase()
-              .includes(searchCtx.filter.searchTerm.toLowerCase().trim())
-        )
-      }
-      setPostsToDisplay(filteredRecipes)
-    } else if (
-      searchCtx.filter.searchTerm.length === 0 &&
-      searchCtx.filter.categories.length === 0
-    ) {
-      setPageNumber(1)
-      setPostsToDisplay(recipes)
-    }
-  }, [searchCtx.filter.searchTerm, searchCtx.filter.categories])
-
-  useEffect(() => {
-    if (searchCtx.filter.searchTerm.length === 0 && searchCtx.filter.categories.length === 0) {
-      setPageNumber(1)
-      setPostsToDisplay(recipes)
-    }
-  }, [searchCtx.filter.searchTerm, searchCtx.filter.categories])
-
-  useEffect(() => {
-    setPageNumber(1)
-    setPostsToDisplay(recipes)
-  }, [])
 
   if (
     (postsToShow.length === 0 && searchCtx.filter.searchTerm.length > 0) ||
