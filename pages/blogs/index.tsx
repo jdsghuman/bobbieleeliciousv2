@@ -22,7 +22,7 @@ export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
       blogs: posts.blogs,
-      categories: categories,
+      categories,
     },
     revalidate: 200,
   }
@@ -30,7 +30,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
 const Blogs = ({ blogs, categories }: HomePropType) => {
   const searchCtx = useContext(SearchContext)
-  const { postsToDisplay, pageNumber, setPageNumber } = useDisplayPosts(searchCtx, blogs)
+  const { postsToDisplay, pageNumber, setPageNumber } = useDisplayPosts(blogs, 'blogs')
 
   const observer = useRef<any>()
   const { postsToShow, loading, hasMore, error } = useInfiniteScroll(

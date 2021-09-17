@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback, useRef, useContext } from 'react'
+import { useCallback, useRef, useContext } from 'react'
 import { GetStaticProps } from 'next'
 import { getAllRecipes, getAllCategories } from '../../lib/index'
 import { HomePropType } from '../../components/PropTypes/PropTypes'
@@ -22,14 +22,14 @@ export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
       recipes: posts.recipes,
-      categories: categories,
+      categories,
     },
     revalidate: 200,
   }
 }
 const Recipes = ({ categories, recipes }: HomePropType) => {
   const searchCtx = useContext(SearchContext)
-  const { postsToDisplay, pageNumber, setPageNumber } = useDisplayPosts(searchCtx, recipes)
+  const { postsToDisplay, pageNumber, setPageNumber } = useDisplayPosts(recipes, 'recipes')
 
   const observer = useRef<any>()
   const { postsToShow, loading, hasMore, error } = useInfiniteScroll(

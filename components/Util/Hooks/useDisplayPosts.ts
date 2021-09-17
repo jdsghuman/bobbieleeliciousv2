@@ -1,14 +1,14 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
+import SearchContext from '../../../store/search-context'
 
-export default function useDisplayPosts(searchCtx, posts) {
+export default function useDisplayPosts(posts, type) {
   const [postsToDisplay, setPostsToDisplay] = useState([])
   const [pageNumber, setPageNumber] = useState(0)
-
+  const searchCtx = useContext(SearchContext)
   useEffect(() => {
     if (searchCtx.filter.searchTerm.length > 0 || searchCtx.filter.categories.length > 0) {
       setPageNumber(1)
       let filteredPosts = []
-
       if (searchCtx.filter.searchTerm.length > 0 && searchCtx.filter.categories.length === 0) {
         filteredPosts = posts.filter((post) =>
           post.fields.title.toLowerCase().includes(searchCtx.filter.searchTerm.toLowerCase().trim())
@@ -18,32 +18,36 @@ export default function useDisplayPosts(searchCtx, posts) {
         searchCtx.filter.searchTerm.length === 0
       ) {
         filteredPosts = posts.filter((post) => {
-          if (posts === 'recipes') {
-            post?.fields?.category?.fields?.name
+          if (type === 'recipes') {
+            return post?.fields?.category?.fields?.name
               .toLowerCase()
               .includes(searchCtx.filter.categories.toLowerCase())
           } else {
-            post?.fields?.category[0]?.fields?.name
+            return post?.fields?.category[0]?.fields?.name
               .toLowerCase()
               .includes(searchCtx.filter.categories.toLowerCase())
           }
         })
       } else {
         filteredPosts = posts.filter((post) => {
-          if (posts === 'recipes') {
-            post?.fields?.category?.fields?.name
-              .toLowerCase()
-              .includes(searchCtx.filter.categories.toLowerCase()) &&
+          if (type === 'recipes') {
+            return (
+              post?.fields?.category?.fields?.name
+                .toLowerCase()
+                .includes(searchCtx.filter.categories.toLowerCase()) &&
               post.fields.title
                 .toLowerCase()
                 .includes(searchCtx.filter.searchTerm.toLowerCase().trim())
+            )
           } else {
-            post?.fields?.category[0]?.fields?.name
-              .toLowerCase()
-              .includes(searchCtx.filter.categories.toLowerCase()) &&
+            return (
+              post?.fields?.category[0]?.fields?.name
+                .toLowerCase()
+                .includes(searchCtx.filter.categories.toLowerCase()) &&
               post.fields.title
                 .toLowerCase()
                 .includes(searchCtx.filter.searchTerm.toLowerCase().trim())
+            )
           }
         })
       }
