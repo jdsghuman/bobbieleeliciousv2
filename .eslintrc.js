@@ -7,6 +7,7 @@ module.exports = {
     'plugin:jsx-a11y/recommended', // Accessibility rules
     'prettier/react',
     'prettier/@typescript-eslint',
+    'next',
     'next/core-web-vitals',
   ],
   plugins: ['@typescript-eslint', 'react', 'prettier'],
@@ -22,6 +23,7 @@ module.exports = {
     'jsx-a11y/anchor-is-valid': 'off',
     'jsx-a11y/no-static-element-interactions': 'off',
     'jsx-a11y/click-events-have-key-events': 'off',
+    'no-unused-vars': 'warn',
     // needed for NextJS's jsx without react import
     'react/react-in-jsx-scope': 'off',
     // allow jsx syntax in js files (for next.js project)

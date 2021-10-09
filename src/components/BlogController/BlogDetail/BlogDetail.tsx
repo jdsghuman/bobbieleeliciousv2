@@ -14,6 +14,7 @@ const BlogDetail = ({ blog }: BlogPropType) => {
         <ShareIconItem postImage={blog.fields.image} postName={blog.fields.title} />
       </div>
       {blog?.fields?.image ? (
+        // eslint-disable-next-line @next/next/no-img-element
         <img src={blog.fields.image} alt={blog.fields.title} className={styles['image--main']} />
       ) : (
         <div className={styles['image--main--error']}>
