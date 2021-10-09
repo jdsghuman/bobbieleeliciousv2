@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import styles from './Footer.module.scss'
 import SocialMediaDisplay from '../Icon/SocialMedia/SocialMediaDisplay/SocialMediaDisplay'
 

@@ -39,6 +39,7 @@ const BlogDescription = ({ blog }: BlogPropType) => {
       observer.current = new IntersectionObserver(callbackFunction, options)
       if (node) observer.current.observe(node)
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [isVisible]
   )
 
@@ -46,6 +47,7 @@ const BlogDescription = ({ blog }: BlogPropType) => {
     if (showComments) {
       setShowComments(false)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.asPath])
 
   useEffect(() => {

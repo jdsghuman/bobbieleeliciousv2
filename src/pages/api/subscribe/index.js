@@ -27,6 +27,7 @@ function getRequestParams(email) {
   }
 }
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default async (req, res) => {
   const { email } = req.body
 
@@ -38,7 +39,7 @@ export default async (req, res) => {
 
   try {
     const { url, data, headers } = getRequestParams(email)
-    const response = await axios.post(url, data, { headers })
+    await axios.post(url, data, { headers })
     return res.status(201).json({ error: null })
   } catch (error) {
     return res.status(400).json({

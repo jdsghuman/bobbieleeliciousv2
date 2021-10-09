@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { useEffect, useState } from 'react'
 import CarouselItem from './CarouselItem'
 import Pagination from './Pagination'

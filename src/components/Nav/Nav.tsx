@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState, useContext } from 'react'
 import { useRouter } from 'next/router'
 import classNames from 'classnames/bind'
@@ -50,6 +51,7 @@ const Nav = ({ drawerToggleClickHandler, sideDrawerOpen }) => {
 
   useEffect(() => {
     searchCtx.clearFilter()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.asPath])
 
   return (

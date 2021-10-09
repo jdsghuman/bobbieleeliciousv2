@@ -39,6 +39,7 @@ const Filter = ({ closeFilter, isOpen }) => {
 
   useEffect(() => {
     searchCtx.clearFilter()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.asPath])
 
   return (

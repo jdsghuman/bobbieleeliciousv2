@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import className from 'classnames/bind'
 import styles from './index.module.scss'
 import { aboutText } from '../../data/data'

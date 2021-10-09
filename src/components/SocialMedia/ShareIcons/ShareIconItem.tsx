@@ -3,22 +3,11 @@ import classNames from 'classnames/bind'
 import {
   EmailShareButton,
   FacebookShareButton,
-  LinkedinShareButton,
   PinterestShareButton,
-  RedditShareButton,
-  TwitterShareButton,
   WhatsappShareButton,
 } from 'react-share'
 
-import {
-  EmailIcon,
-  FacebookIcon,
-  LinkedinIcon,
-  PinterestIcon,
-  RedditIcon,
-  TwitterIcon,
-  WhatsappIcon,
-} from 'react-share'
+import { EmailIcon, FacebookIcon, PinterestIcon, WhatsappIcon } from 'react-share'
 import styles from './ShareIcons.module.scss'
 
 const cx = classNames.bind(styles)

@@ -13,6 +13,7 @@ const LinkDisplay = ({ link, children }) => {
 
   useEffect(() => {
     if (router.pathname === link) {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       className = `${className} ${styles.link__selected}`
     }
   }, [])

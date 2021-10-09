@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import LinkDisplay from '../Link/LinkDisplay'
 import classNames from 'classnames/bind'
 import styles from './SideDrawer.module.scss'

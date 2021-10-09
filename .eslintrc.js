@@ -1,6 +1,8 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
   extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
     'plugin:prettier/recommended',
@@ -9,6 +11,7 @@ module.exports = {
     'prettier/@typescript-eslint',
     'next',
     'next/core-web-vitals',
+    'plugin:@typescript-eslint/eslint-recommended',
   ],
   plugins: ['@typescript-eslint', 'react', 'prettier'],
   rules: {
@@ -23,7 +26,9 @@ module.exports = {
     'jsx-a11y/anchor-is-valid': 'off',
     'jsx-a11y/no-static-element-interactions': 'off',
     'jsx-a11y/click-events-have-key-events': 'off',
-    'no-unused-vars': 'warn',
+    '@typescript-eslint/no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars-experimental': 'warn',
+    'no-unused-vars': 'off',
     // needed for NextJS's jsx without react import
     'react/react-in-jsx-scope': 'off',
     // allow jsx syntax in js files (for next.js project)
