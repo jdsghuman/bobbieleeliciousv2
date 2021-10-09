@@ -12,6 +12,7 @@ import Button from '../../Button'
 import FacebookComments from '../../Comments/FacebookComments'
 import Icon from '../../Icon/Icon'
 import styles from './RecipeDescription.module.scss'
+import { loadPolyfills } from '../../Util/polyfills'
 
 const cx = classNames.bind(styles)
 
@@ -33,20 +34,13 @@ const RecipeDescription = ({ recipe }: RecipePropType) => {
 
   const iconRef = useCallback(
     async (node) => {
-      await initializeObserver()
+      await loadPolyfills()
       if (observer.current) observer.current.disconnect()
       observer.current = new IntersectionObserver(callbackFunction, options)
       if (node) observer.current.observe(node)
     },
     [isVisible]
   )
-
-  async function initializeObserver() {
-    if (!('IntersectionObserver' in window)) {
-      //     // This is specifically for Safari - Polyfill
-      await import('intersection-observer')
-    }
-  }
 
   useEffect(() => {
     if (showComments) {
