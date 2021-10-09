@@ -15,6 +15,7 @@ import ScrollToTop from '../../components/ScrollToTop'
 import Slider from '../../components/Slider'
 import PromptSubscribe from '../../components/Subscribe/PromptSubscribe'
 import useDisplayPosts from '../../components/Util/Hooks/useDisplayPosts'
+import { loadPolyfills } from '../../components/Util/polyfills'
 
 export const getStaticProps: GetStaticProps = async () => {
   const posts = await getAllRecipes()
@@ -41,7 +42,7 @@ const Recipes = ({ categories, recipes }: HomePropType) => {
 
   const lastPostElementRef = useCallback(
     async (node) => {
-      await initializeObserver()
+      await loadPolyfills()
       if (loading) return
       if (observer.current) observer.current.disconnect()
       observer.current = new IntersectionObserver((entries) => {
@@ -53,13 +54,6 @@ const Recipes = ({ categories, recipes }: HomePropType) => {
     },
     [loading, hasMore]
   )
-
-  async function initializeObserver() {
-    if (!('IntersectionObserver' in window)) {
-      //     // This is specifically for Safari - Polyfill
-      await import('intersection-observer')
-    }
-  }
 
   const postMetaTags: MetaTags = {
     canonical: 'https://www.bobbieleelicious.com',

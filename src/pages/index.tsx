@@ -17,6 +17,7 @@ import useInfiniteScroll from '../components/Util/Hooks/useInfiniteScroll'
 import PostsNotFound from '../components/Filter/PostsNotFound'
 import PostItemContainer from '../components/FeatureList/PostItemContainer'
 import PosttItem from '../components/FeatureList/PostItem'
+import { loadPolyfills } from '../components/Util/polyfills'
 
 export const getStaticProps: GetStaticProps = async () => {
   await generateSitemap()
@@ -52,7 +53,7 @@ const Home = ({ blogs, featuredPosts, recipes }: HomePropType) => {
   )
   const lastPostElementRef = useCallback(
     async (node) => {
-      await initializeObserver()
+      await loadPolyfills()
       if (loading) return
       if (observer.current) observer.current.disconnect()
       observer.current = new IntersectionObserver((entries) => {
@@ -64,13 +65,6 @@ const Home = ({ blogs, featuredPosts, recipes }: HomePropType) => {
     },
     [loading, hasMore]
   )
-
-  async function initializeObserver() {
-    if (!('IntersectionObserver' in window)) {
-      //     // This is specifically for Safari - Polyfill
-      await import('intersection-observer')
-    }
-  }
 
   const postMetaTags: MetaTags = {
     canonical: 'https://www.bobbieleelicious.com',
