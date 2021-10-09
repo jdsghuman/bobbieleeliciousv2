@@ -1,0 +1,31 @@
+@import '@styles/variables';
+
+.container {
+  text-align: center;
+  &__share {
+    display: flex;
+    justify-content: center;
+    // margin-bottom: 50px;
+    &__side {
+      flex-direction: column;
+      height: 250px;
+      justify-content: space-evenly;
+    }
+    .icon {
+      margin-left: 5px;
+      margin-right: 5px;
+      outline: none;
+      background: #555555;
+    }
+  }
+  .title {
+    display: inline-block;
+    margin-top: 30px;
+    margin-bottom: 5px;
+    border-top: 2px solid $palette-brand-secondary;
+    text-align: center;
+    font-family: 'Rock Salt', cursive;
+    font-size: 1rem;
+    color: #555555;
+  }
+}

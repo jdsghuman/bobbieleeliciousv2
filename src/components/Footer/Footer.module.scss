@@ -1,0 +1,23 @@
+@import '@styles/color-palette';
+
+.footer {
+  bottom: 0;
+  width: 100%;
+  background: rgba(247, 244, 244, 0.7);
+  padding: 20px;
+  height: 200px;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  &__logo {
+    width: 125px;
+  }
+  &__copy {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem;
+    border-top: 1px solid $palette-brand-secondary;
+    padding-top: 5px;
+  }
+}

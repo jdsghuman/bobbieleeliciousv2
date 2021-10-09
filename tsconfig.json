@@ -13,15 +13,14 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve"
-    // "types": [
-    //   "node",
-    //   "gapi", // google
-    //   "gapi.auth2", // google
-    //   "facebook-js-sdk", // facebook
-    //   "gtag"
-    // ]
+    "jsx": "preserve",
+    "baseUrl": "./",
+    "paths": {
+      "@styles/*": ["src/styles/*"],
+      "@components/*": ["src/components/*"],
+      "@data/*": ["src/data/*"]
+    }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/recipe/[slug].tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/pages/recipe/[slug].tsx"],
   "exclude": ["node_modules"]
 }
