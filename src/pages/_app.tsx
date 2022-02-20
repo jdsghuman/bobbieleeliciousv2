@@ -7,12 +7,14 @@ import { defaultMetaTags } from '../components/Util/Constants'
 import * as gtag from '../lib/gtag'
 import { SearchContextProvider } from '../store/search-context'
 
+const isProduction = process.env.NODE_ENV === 'production'
+
 function MyApp({ Component, pageProps }) {
   const router = useRouter()
 
   useEffect(() => {
-    const handleRouteChange = (url) => {
-      gtag.pageview(url)
+    const handleRouteChange = (url: URL) => {
+      if (isProduction) gtag.pageview(url)
     }
     router.events.on('routeChangeComplete', handleRouteChange)
     return () => {
