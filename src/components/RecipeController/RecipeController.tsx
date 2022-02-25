@@ -17,6 +17,44 @@ const RecipeController = ({ post }) => {
 
   const [isTop, setIsTop] = useState(true)
   const [activeTab, setActiveTab] = useState('Details')
+  const [directionList, setDirectionList] = useState([])
+  const [ingredientList, setIngredientList] = useState([])
+
+  const getIngredients = (ingredients) => {
+    if (ingredients) {
+      const ingredientsArray = ingredients.split('--').map((item) => {
+        return {
+          value: item,
+          isActive: false,
+        }
+      })
+      setIngredientList(ingredientsArray)
+    }
+  }
+
+  const getDirections = (directions) => {
+    if (directions) {
+      const directionsArray = directions.split('--').map((item) => {
+        return {
+          value: item,
+          isActive: false,
+        }
+      })
+      setDirectionList(directionsArray)
+    }
+  }
+
+  const selectIngredient = (i: number) => {
+    const newIngredientList = [...ingredientList]
+    newIngredientList[i].isActive = !newIngredientList[i].isActive
+    setIngredientList(newIngredientList)
+  }
+
+  const selectDirection = (i: number) => {
+    const newDirectionList = [...directionList]
+    newDirectionList[i].isActive = !newDirectionList[i].isActive
+    setDirectionList(newDirectionList)
+  }
 
   const handleScroll = () => {
     document.getElementById('details__hr').scrollIntoView({
@@ -37,6 +75,8 @@ const RecipeController = ({ post }) => {
   }, [router.asPath])
 
   useEffect(() => {
+    getDirections(post.fields.recipeDirections)
+    getIngredients(post.fields.ingredients)
     window.scrollTo(0, 0)
     smoothscroll.polyfill()
     const checkScroll = debounce(() => scrollUp(), 100)
@@ -58,8 +98,12 @@ const RecipeController = ({ post }) => {
       />
       <RecipeTabs activeTab={activeTab} setTab={setTab} />
       {activeTab === 'Details' && <RecipeDescription recipe={post} />}
-      {activeTab === 'Ingredients' && <RecipeIngredients ingredients={post.fields.ingredients} />}
-      {activeTab === 'Directions' && <RecipeDirections directions={post.fields.recipeDirections} />}
+      {activeTab === 'Ingredients' && (
+        <RecipeIngredients ingredients={ingredientList} selectIngredient={selectIngredient} />
+      )}
+      {activeTab === 'Directions' && (
+        <RecipeDirections directions={directionList} selectDirection={selectDirection} />
+      )}
     </div>
   )
 }

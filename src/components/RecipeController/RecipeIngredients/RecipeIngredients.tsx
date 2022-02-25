@@ -1,35 +1,34 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-import { useEffect, useState } from 'react'
 import classNames from 'classnames/bind'
 import styles from './RecipeIngredients.module.scss'
 
 const cx = classNames.bind(styles)
 
 interface RecipeIngredientsPropTypes {
-  ingredients: string
+  ingredients: {
+    value: string
+    isActive: boolean
+  }[]
+  selectIngredient: (i: number) => void
 }
-const RecipeIngredients = ({ ingredients }: RecipeIngredientsPropTypes) => {
-  const [ingredientList, setIngredientList] = useState([])
 
-  const getIngredients = () => {
-    if (ingredients) {
-      const ingredientsArray = ingredients.split('--')
-      setIngredientList(ingredientsArray)
-    }
-  }
-
-  const selectIngredient = (event) => event.target.classList.toggle(styles.active)
-
+const RecipeIngredients = ({ ingredients, selectIngredient }: RecipeIngredientsPropTypes) => {
   const displayIngredientList = () => {
-    return ingredientList && ingredientList.length > 0 ? (
-      ingredientList.map((ing, i) => {
-        return ing.includes('*') ? (
+    return ingredients && ingredients.length > 0 ? (
+      ingredients.map((ingredient, i) => {
+        return ingredient.value.includes('*') ? (
           <p className={cx('subtitle', 'unselectable')} key={i}>
-            {ing.substr(1)}
+            {ingredient.value.substr(1)}
           </p>
         ) : (
-          <li className={cx('list', 'unselectable')} onClick={selectIngredient} key={i}>
-            {ing}
+          <li
+            className={cx('list', 'unselectable', {
+              active: ingredient.isActive,
+            })}
+            onClick={() => selectIngredient(i)}
+            key={i}
+          >
+            {ingredient.value}
           </li>
         )
       })
@@ -37,10 +36,6 @@ const RecipeIngredients = ({ ingredients }: RecipeIngredientsPropTypes) => {
       <h3 className={styles.error}>Ingredients unavailable</h3>
     )
   }
-
-  useEffect(() => {
-    getIngredients()
-  }, [ingredients])
 
   return (
     <div className={styles.container}>
