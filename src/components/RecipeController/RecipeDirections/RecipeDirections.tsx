@@ -1,32 +1,36 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-import { useEffect, useState } from 'react'
 import classNames from 'classnames/bind'
 import styles from './RecipeDirections.module.scss'
 
 const cx = classNames.bind(styles)
 
-const RecipeDirections = ({ directions }) => {
-  const [directionList, setDirectionList] = useState([])
-
-  const getDirections = () => {
-    if (directions) {
-      const directionsArray = directions.split('--')
-      setDirectionList(directionsArray)
+interface RecipeDirectionsPropTypes {
+  directions: [
+    {
+      value: string
+      isActive: boolean
     }
-  }
+  ]
+  selectDirection: (i: number) => void
+}
 
-  const selectDirection = (event) => event.target.classList.toggle(styles.active)
-
+const RecipeDirections = ({ directions, selectDirection }: RecipeDirectionsPropTypes) => {
   const displayDirectionsList = () => {
-    return directionList && directionList.length ? (
-      directionList.map((direction, i) => {
-        return direction.includes('*') ? (
+    return directions && directions.length ? (
+      directions.map((direction, i) => {
+        return direction.value.includes('*') ? (
           <h3 key={i} className={cx('reset', 'unselectable')}>
-            {direction.substr(1)}
+            {direction.value.substr(1)}
           </h3>
         ) : (
-          <p key={i} onClick={selectDirection} className={cx('list', 'unselectable')}>
-            {direction}
+          <p
+            key={i}
+            onClick={() => selectDirection(i)}
+            className={cx('list', 'unselectable', {
+              active: direction.isActive,
+            })}
+          >
+            {direction.value}
           </p>
         )
       })
@@ -34,10 +38,6 @@ const RecipeDirections = ({ directions }) => {
       <h3 className={styles.error}>Directions unavailable</h3>
     )
   }
-
-  useEffect(() => {
-    getDirections()
-  }, [directions])
 
   return (
     <div className={styles.container}>
