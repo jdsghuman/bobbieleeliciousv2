@@ -5,12 +5,10 @@ import styles from './RecipeIngredients.module.scss'
 const cx = classNames.bind(styles)
 
 interface RecipeIngredientsPropTypes {
-  ingredients: [
-    {
-      value: string
-      isActive: boolean
-    }
-  ]
+  ingredients: {
+    value: string
+    isActive: boolean
+  }[]
   selectIngredient: (i: number) => void
 }
 

@@ -5,12 +5,10 @@ import styles from './RecipeDirections.module.scss'
 const cx = classNames.bind(styles)
 
 interface RecipeDirectionsPropTypes {
-  directions: [
-    {
-      value: string
-      isActive: boolean
-    }
-  ]
+  directions: {
+    value: string
+    isActive: boolean
+  }[]
   selectDirection: (i: number) => void
 }
 
