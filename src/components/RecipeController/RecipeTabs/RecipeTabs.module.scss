@@ -23,5 +23,10 @@
         border-bottom: 3px solid #333333;
       }
     }
+    &__btn {
+      border: none;
+      background: none;
+      font-family: 'Barlow Condensed', sans-serif;
+    }
   }
 }

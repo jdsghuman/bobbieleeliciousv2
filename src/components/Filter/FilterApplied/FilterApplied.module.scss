@@ -10,14 +10,19 @@
     width: 100%;
     z-index: 100;
     background: $palette-brand-tertiary;
-    color: #333333;
     text-align: center;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 1.1rem;
     cursor: pointer;
     height: 34px;
   }
   &--hide {
     display: none;
   }
+}
+
+.btn {
+  border: none;
+  background: none;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.1rem;
+  color: #333333;
 }
