@@ -32,7 +32,7 @@ const FilterApplied = () => {
       })}
       onClick={searchCtx.clearFilter}
     >
-      Filter applied - tap to clear ({getFilterCount()})
+      <button className={styles.btn}>Filter applied - tap to clear ({getFilterCount()})</button>
     </div>
   )
 }

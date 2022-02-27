@@ -45,9 +45,10 @@ const Slider = ({ items }: SliderPropType) => {
           })
           .map((item) => {
             return (
-              <div
+              <button
                 key={item.sys.id}
                 onClick={() => toggleSliderOption(item.fields.name)}
+                tabIndex={0}
                 className={cx('item', {
                   'item-clicked': searchCtx.filter.categories.includes(item.fields.name),
                 })}
@@ -59,7 +60,7 @@ const Slider = ({ items }: SliderPropType) => {
                 >
                   {item.fields.name}
                 </p>
-              </div>
+              </button>
             )
           })}
       </div>
