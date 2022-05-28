@@ -74,6 +74,7 @@
       color: #555555;
       font-family: 'Barlow Condensed', sans-serif;
       letter-spacing: 1px;
+      outline: 0;
       &:focus {
         border-color: $palette-brand-secondary;
       }
