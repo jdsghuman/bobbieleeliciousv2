@@ -131,10 +131,9 @@
     }
     &__link {
       justify-content: flex-end;
-      height: 40px;
       align-self: center;
       margin: 0.5em;
-      margin-bottom: 2em;
+      margin-bottom: 1em;
       line-height: 1.4;
       a {
         text-decoration: none;
@@ -231,6 +230,7 @@
     }
     &__description {
       margin-top: 0;
+      margin-bottom: 2em;
       padding: 0 8px;
       font-weight: 300;
       color: #4d5156;
