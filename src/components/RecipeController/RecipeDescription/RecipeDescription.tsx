@@ -10,9 +10,9 @@ import Signature from '../../Signature'
 import ShareIconItem from '../../SocialMedia/ShareIcons/ShareIconItem'
 import Button from '../../Button'
 import FacebookComments from '../../Comments/FacebookComments'
-import Icon from '../../Icon/Icon'
 import styles from './RecipeDescription.module.scss'
 import { loadPolyfills } from '../../Util/polyfills'
+import { BiCommentDetail } from 'react-icons/bi'
 
 const cx = classNames.bind(styles)
 
@@ -106,14 +106,8 @@ const RecipeDescription = ({ recipe }: RecipePropType) => {
           onClick={() => setShowComments(!showComments)}
           accent
         >
-          {!showComments ? 'Show' : 'Hide'} Comments
-          <Icon
-            identifier="comment"
-            viewBox="0 0 24 24"
-            dimensions={{ height: 22, width: 22 }}
-            fill={'#333333'}
-            className={styles.icon__comment}
-          />
+          <BiCommentDetail className={styles.icon} />
+          {!showComments ? 'Show' : 'Hide'} comments
         </Button>
       </div>
       {showComments && <FacebookComments post={recipe} />}
