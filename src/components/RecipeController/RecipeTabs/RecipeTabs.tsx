@@ -12,7 +12,10 @@ interface RecipeTabsPropTypes {
 
 const RecipeTabs = ({ activeTab, setTab }: RecipeTabsPropTypes) => {
   return (
-    <div className={styles.tab}>
+    <div
+      className={styles.tab}
+      style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}
+    >
       <div onClick={() => setTab('Details')}>
         <button className={styles.tab__title__btn}>
           <h3
@@ -35,10 +38,7 @@ const RecipeTabs = ({ activeTab, setTab }: RecipeTabsPropTypes) => {
           </h3>
         </button>
       </div>
-      <div
-        onClick={() => setTab('Directions')}
-        style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}
-      >
+      <div onClick={() => setTab('Directions')}>
         <button className={styles.tab__title__btn}>
           <h3
             className={cx('tab__title', {
@@ -48,9 +48,6 @@ const RecipeTabs = ({ activeTab, setTab }: RecipeTabsPropTypes) => {
             Directions
           </h3>
         </button>
-        <div style={{ width: '30px', paddingLeft: '10px' }}>
-          {/* {activeTab === 'Directions' && <MdOutlineTimer size="1.4rem" color="#cebf37" />} */}
-        </div>
       </div>
     </div>
   )
