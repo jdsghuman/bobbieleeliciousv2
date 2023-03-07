@@ -145,3 +145,10 @@
   font-weight: 300;
   margin-top: 10px;
 }
+
+.print__icon {
+  font-size: 1rem;
+  margin-right: 5px;
+  position: relative;
+  top: 3px;
+}

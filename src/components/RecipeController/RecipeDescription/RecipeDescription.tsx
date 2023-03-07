@@ -14,6 +14,7 @@ import FacebookComments from '../../Comments/FacebookComments'
 import styles from './RecipeDescription.module.scss'
 import { loadPolyfills } from '../../Util/polyfills'
 import { BiCommentDetail } from 'react-icons/bi'
+import { AiOutlinePrinter } from 'react-icons/ai'
 
 const cx = classNames.bind(styles)
 
@@ -42,12 +43,6 @@ const RecipeDescription = ({ recipe }: RecipePropType) => {
     },
     [isVisible]
   )
-
-  const printRecipe = () => {
-    const link = router.asPath
-    console.log('link', link)
-    router.push(`${link}/print`)
-  }
 
   useEffect(() => {
     if (showComments) {
@@ -99,7 +94,10 @@ const RecipeDescription = ({ recipe }: RecipePropType) => {
       <div className={styles.print}>
         <Link passHref href={`${router.asPath}/print`}>
           <a target="_blank">
-            <Button className={styles.print__button}>Print recipe</Button>
+            <Button className={styles.print__button}>
+              <AiOutlinePrinter className={styles.icon} />
+              Print recipe
+            </Button>
           </a>
         </Link>
       </div>

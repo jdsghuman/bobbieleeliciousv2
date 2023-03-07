@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-import { AiOutlineClose } from 'react-icons/ai'
+import { AiOutlineClose, AiOutlinePrinter } from 'react-icons/ai'
 import { getAllPostsWithSlug, getPostBySlug } from '../../../../lib/index'
 import { RecipePropType } from '@components/PropTypes/PropTypes'
 
@@ -38,11 +38,6 @@ const Print = ({ recipe }: RecipePropType) => {
   const router = useRouter()
   const [showImage, setShowImage] = useState<boolean>(true)
 
-  console.log('recipe----', recipe)
-  const goToHomePage = () => {
-    router.pathname === '/' && window.location.reload()
-  }
-
   const printPage = () => {
     window.print()
   }
@@ -59,6 +54,7 @@ const Print = ({ recipe }: RecipePropType) => {
       </Link>
       <div>
         <Button onClick={printPage} className={styles.print__button}>
+          <AiOutlinePrinter className={styles.print__icon} />
           Print
         </Button>
       </div>
