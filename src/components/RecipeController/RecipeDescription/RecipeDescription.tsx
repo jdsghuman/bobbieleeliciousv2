@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
 import classNames from 'classnames/bind'
 import ReactMarkdown from 'react-markdown'
+import Link from 'next/link'
 import VideoDetail from '../../VideoDetail/VideoDetail'
 import PostTags from '../../PostTags'
 import ShareIcons from '../../SocialMedia/ShareIcons/ShareIcons'
@@ -41,6 +42,12 @@ const RecipeDescription = ({ recipe }: RecipePropType) => {
     },
     [isVisible]
   )
+
+  const printRecipe = () => {
+    const link = router.asPath
+    console.log('link', link)
+    router.push(`${link}/print`)
+  }
 
   useEffect(() => {
     if (showComments) {
@@ -89,6 +96,13 @@ const RecipeDescription = ({ recipe }: RecipePropType) => {
           <ReactMarkdown>{recipe.fields.tools}</ReactMarkdown>
         </div>
       )}
+      <div className={styles.print}>
+        <Link passHref href={`${router.asPath}/print`}>
+          <a target="_blank">
+            <Button className={styles.print__button}>Print recipe</Button>
+          </a>
+        </Link>
+      </div>
       <ShareIcons
         iconRef={iconRef}
         postImage={recipe.fields.image}
