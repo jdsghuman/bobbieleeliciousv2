@@ -119,3 +119,29 @@
     flex-direction: column;
   }
 }
+
+.print__logo {
+  width: 150px;
+  cursor: pointer;
+}
+
+.print__container {
+  padding: 10px;
+}
+
+.print__title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 2rem;
+}
+
+.print__image {
+  width: 300px;
+  height: 200px;
+  object-fit: contain;
+}
+
+.print__data {
+  font-family: 'Roboto', arial, sans-serif;
+  font-weight: 300;
+  margin-top: 10px;
+}

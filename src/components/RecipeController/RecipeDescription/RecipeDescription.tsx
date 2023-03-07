@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
 import classNames from 'classnames/bind'
 import ReactMarkdown from 'react-markdown'
+import Link from 'next/link'
 import VideoDetail from '../../VideoDetail/VideoDetail'
 import PostTags from '../../PostTags'
 import ShareIcons from '../../SocialMedia/ShareIcons/ShareIcons'
@@ -10,9 +11,9 @@ import Signature from '../../Signature'
 import ShareIconItem from '../../SocialMedia/ShareIcons/ShareIconItem'
 import Button from '../../Button'
 import FacebookComments from '../../Comments/FacebookComments'
-import Icon from '../../Icon/Icon'
 import styles from './RecipeDescription.module.scss'
 import { loadPolyfills } from '../../Util/polyfills'
+import { BiCommentDetail } from 'react-icons/bi'
 
 const cx = classNames.bind(styles)
 
@@ -41,6 +42,12 @@ const RecipeDescription = ({ recipe }: RecipePropType) => {
     },
     [isVisible]
   )
+
+  const printRecipe = () => {
+    const link = router.asPath
+    console.log('link', link)
+    router.push(`${link}/print`)
+  }
 
   useEffect(() => {
     if (showComments) {
@@ -89,6 +96,13 @@ const RecipeDescription = ({ recipe }: RecipePropType) => {
           <ReactMarkdown>{recipe.fields.tools}</ReactMarkdown>
         </div>
       )}
+      <div className={styles.print}>
+        <Link passHref href={`${router.asPath}/print`}>
+          <a target="_blank">
+            <Button className={styles.print__button}>Print recipe</Button>
+          </a>
+        </Link>
+      </div>
       <ShareIcons
         iconRef={iconRef}
         postImage={recipe.fields.image}
@@ -106,14 +120,8 @@ const RecipeDescription = ({ recipe }: RecipePropType) => {
           onClick={() => setShowComments(!showComments)}
           accent
         >
-          {!showComments ? 'Show' : 'Hide'} Comments
-          <Icon
-            identifier="comment"
-            viewBox="0 0 24 24"
-            dimensions={{ height: 22, width: 22 }}
-            fill={'#333333'}
-            className={styles.icon__comment}
-          />
+          <BiCommentDetail className={styles.icon} />
+          {!showComments ? 'Show' : 'Hide'} comments
         </Button>
       </div>
       {showComments && <FacebookComments post={recipe} />}

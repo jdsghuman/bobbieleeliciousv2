@@ -1,4 +1,5 @@
 import { useState, ReactNode } from 'react'
+import { useRouter } from 'next/router'
 import Nav from '../Nav'
 import Footer from '../Footer'
 import Backdrop from '../Backdrop'
@@ -12,6 +13,7 @@ interface Props {
 }
 
 const Layout = ({ children, metaTags }: Props) => {
+  const router = useRouter()
   const [sideDrawerOpen, setSideDrawerOpen] = useState<boolean>(false)
 
   const backdropClickHandler = () => {
@@ -23,6 +25,10 @@ const Layout = ({ children, metaTags }: Props) => {
   }
 
   const getBackdrop = () => sideDrawerOpen && <Backdrop click={backdropClickHandler} />
+
+  if (router.pathname.endsWith('/print')) {
+    return <>{children}</>
+  }
 
   return (
     <>

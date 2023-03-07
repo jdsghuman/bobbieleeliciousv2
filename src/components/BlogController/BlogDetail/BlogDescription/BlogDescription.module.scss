@@ -80,9 +80,6 @@
       justify-content: center;
       margin: 40px auto;
       width: 100%;
-      &--hide {
-        display: none;
-      }
     }
     margin: 0 auto;
     border: 1px solid #e9cec2;
@@ -95,6 +92,12 @@
     align-items: center;
     .icon__comment {
       margin-left: 10px;
+    }
+    .icon {
+      font-size: 1.1rem;
+      margin-right: 5px;
+      position: relative;
+      top: 1px;
     }
   }
 }
