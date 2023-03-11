@@ -9,6 +9,7 @@ import { RecipePropType } from '@components/PropTypes/PropTypes'
 
 import styles from '../../../../styles/Home.module.css'
 import Button from '@components/Button'
+import Spinner from '@components/Spinner'
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const data = await getAllPostsWithSlug('recipe')
@@ -16,7 +17,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     paths: data.items.map((item) => ({
       params: { slug: item.fields.slug },
     })),
-    fallback: false,
+    fallback: true,
   }
 }
 
@@ -41,6 +42,15 @@ const Print = ({ recipe }: RecipePropType) => {
   const printPage = () => {
     window.print()
   }
+
+  if (router.isFallback) {
+    return <Spinner />
+  }
+
+  if (!recipe) {
+    return <Spinner />
+  }
+
   return (
     <div className={styles.print__container}>
       <Link href="/">
