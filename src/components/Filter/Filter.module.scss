@@ -21,8 +21,13 @@
     align-items: center;
     position: absolute;
     z-index: 160;
+    left: -27px;
+    @media (max-width: 900px) {
+      left: -50px;
+    }
     @media (max-width: 800px) {
       position: absolute;
+      left: 0;
     }
   }
 

@@ -13,6 +13,7 @@
     text-align: center;
     cursor: pointer;
     height: 34px;
+    margin-top: 10px;
   }
   &--hide {
     display: none;
@@ -25,4 +26,5 @@
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 1.1rem;
   color: #333333;
+  cursor: pointer;
 }
