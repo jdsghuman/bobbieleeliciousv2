@@ -1,15 +1,17 @@
 /* eslint-disable @next/next/no-img-element */
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import CarouselItem from './CarouselItem'
 import Pagination from './Pagination'
 import { useSwipeable } from 'react-swipeable'
 import styles from './Carousel.module.scss'
+import React from 'react'
 
 interface Carousel {
   featuredPosts: Array<any>
 }
 
-const Carousel = ({ featuredPosts }: Carousel) => {
+const Carousel = React.forwardRef(({ featuredPosts }: Carousel) => {
+  const readMoreButton = useRef<HTMLButtonElement>(null)
   const [currentInterval, setCurrentInterval] = useState(0)
   const [style, setStyle] = useState(styles.carousel__container)
 
@@ -23,6 +25,13 @@ const Carousel = ({ featuredPosts }: Carousel) => {
       type: post.sys.contentType.sys.id,
     }
   })
+
+  const setFocus = (i: number) => {
+    if (readMoreButton.current !== null) {
+      readMoreButton.current.focus()
+    }
+    setCurrentInterval(i)
+  }
 
   const handlers = useSwipeable({
     onSwipedLeft: () =>
@@ -57,7 +66,7 @@ const Carousel = ({ featuredPosts }: Carousel) => {
           />
         </div>
         <div className={styles.carousel__controls}>
-          <CarouselItem imageDetails={images[currentInterval]} />
+          <CarouselItem imageDetails={images[currentInterval]} readMoreRef={readMoreButton} />
         </div>
       </div>
       <ul className={styles.carousel__pagination}>
@@ -65,13 +74,14 @@ const Carousel = ({ featuredPosts }: Carousel) => {
           <Pagination
             key={image.key}
             count={i}
-            setActiveImage={setCurrentInterval}
+            setActiveImage={setFocus}
             active={image.label === images[currentInterval].label}
+            activeNeighbor={i === currentInterval + 1 || i === currentInterval - 1 ? true : false}
           />
         ))}
       </ul>
     </>
   )
-}
+})
 
 export default Carousel
