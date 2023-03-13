@@ -3,13 +3,23 @@ import { truncateText } from '../../Util/Util'
 import Icon from '../../Icon/Icon'
 import styles from './CarouselItem.module.scss'
 
-const CarouselItem = ({ imageDetails }) => (
+interface CarouselItemPropType {
+  imageDetails: {
+    label: string
+    description: string
+    slug: string
+    type: string
+  }
+  readMoreRef: any
+}
+
+const CarouselItem = ({ imageDetails, readMoreRef }: CarouselItemPropType) => (
   <div className={styles.item__container}>
     <div className={styles.item}>
       <h3 className={styles.item__title}>{imageDetails.label}</h3>
       <p className={styles.item__description}>{truncateText(imageDetails.description, 154)}</p>
       <Link href={`${imageDetails.type === 'recipe' ? '/recipe' : '/blog'}/${imageDetails.slug}`}>
-        <a className={styles.item__button}>
+        <a ref={readMoreRef} className={styles.item__button}>
           Read More{' '}
           <Icon
             identifier="arrowright"

@@ -1,13 +1,29 @@
+@import '@styles/variables';
+
 .pagination {
   &__circle {
-    width: 10px;
-    height: 10px;
+    width: 25px;
+    height: 25px;
     margin: 0 5px;
     border: 2px solid rgb(194, 191, 191);
     border-radius: 100%;
+    background: rgb(194, 191, 191);
+    transform: scale(0.5);
     cursor: pointer;
+    opacity: 0.5;
+    &:focus {
+      outline-offset: 2px;
+      -moz-outline-radius: 2px;
+      text-decoration: underline;
+    }
     &--active {
       background: rgb(194, 191, 191);
+      opacity: 1;
+      transform: scale(1);
+      &--neighbor {
+        transform: scale(0.75);
+        opacity: 0.75;
+      }
     }
   }
 }
