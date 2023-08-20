@@ -84,4 +84,5 @@ const Carousel = React.forwardRef(({ featuredPosts }: Carousel) => {
   )
 })
 
+Carousel.displayName = 'Carousel'
 export default Carousel

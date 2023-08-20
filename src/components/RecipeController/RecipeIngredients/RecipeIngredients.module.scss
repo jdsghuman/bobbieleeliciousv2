@@ -8,6 +8,13 @@
   background: rgba(247, 244, 244, 0.7);
   padding-top: 20px;
   border-radius: 5px;
+
+  .list__container {
+    @media (max-width: 600px) {
+      margin-left: 0;
+      padding-left: 10px;
+    }
+  }
   .subtitle {
     font-family: 'Rock Salt', cursive;
     color: #333;
@@ -23,18 +30,25 @@
     }
   }
   .list {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
     margin-bottom: 16px;
     padding-right: 5px;
     list-style: none;
+    list-style-type: none;
     font-size: 1.1rem;
     font-family: 'Lato', sans-serif;
     font-weight: normal;
     cursor: pointer;
     letter-spacing: 0.3px;
     color: #333333;
-    list-style-type: square;
-    list-style-position: outside;
     animation: text-focus 0.3s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+    &__icon {
+      margin-right: 5px;
+      height: 18px;
+      width: 18px;
+    }
   }
   .unselectable {
     -webkit-touch-callout: none; /* iOS Safari */
