@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import classNames from 'classnames/bind'
+import { IoIosSquareOutline, IoIosCheckboxOutline } from 'react-icons/io'
 import styles from './RecipeIngredients.module.scss'
 
 const cx = classNames.bind(styles)
@@ -28,6 +29,13 @@ const RecipeIngredients = ({ ingredients, selectIngredient }: RecipeIngredientsP
             onClick={() => selectIngredient(i)}
             key={i}
           >
+            <span>
+              {ingredient.isActive ? (
+                <IoIosCheckboxOutline className={styles.list__icon} />
+              ) : (
+                <IoIosSquareOutline className={styles.list__icon} />
+              )}
+            </span>
             {ingredient.value}
           </li>
         )
@@ -39,7 +47,7 @@ const RecipeIngredients = ({ ingredients, selectIngredient }: RecipeIngredientsP
 
   return (
     <div className={styles.container}>
-      <ul>{displayIngredientList()}</ul>
+      <ul className={styles.list__container}>{displayIngredientList()}</ul>
     </div>
   )
 }

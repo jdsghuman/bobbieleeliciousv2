@@ -1,5 +1,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import classNames from 'classnames/bind'
+import { IoIosSquareOutline, IoIosCheckboxOutline } from 'react-icons/io'
+
 import styles from './RecipeDirections.module.scss'
 
 const cx = classNames.bind(styles)
@@ -28,7 +30,14 @@ const RecipeDirections = ({ directions, selectDirection }: RecipeDirectionsPropT
               active: direction.isActive,
             })}
           >
-            {direction.value}
+            <span>
+              {direction.isActive ? (
+                <IoIosCheckboxOutline className={styles.list__icon} />
+              ) : (
+                <IoIosSquareOutline className={styles.list__icon} />
+              )}
+            </span>
+            <span className={styles.number}>{direction.value}</span>
           </p>
         )
       })
