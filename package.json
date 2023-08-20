@@ -12,6 +12,7 @@
     "pre-commit": "yarn lint"
   },
   "dependencies": {
+    "@types/node": "^20.5.1",
     "classnames": "^2.2.6",
     "contentful": "^8.1.7",
     "dayjs": "^1.10.4",
@@ -33,7 +34,6 @@
   "devDependencies": {
     "@types/facebook-js-sdk": "^3.3.2",
     "@types/gtag.js": "^0.0.4",
-    "@types/node": "^17.0.21",
     "@types/react": "^18.2.20",
     "@typescript-eslint/eslint-plugin": "^4.15.0",
     "@typescript-eslint/parser": "^4.15.0",
