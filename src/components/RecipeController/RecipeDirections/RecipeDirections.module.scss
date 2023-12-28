@@ -12,11 +12,6 @@
     content: counter(directions-counter) '. ';
   }
 
-  &__directions {
-    p:before {
-      content: counter(directions-counter) '. ';
-    }
-  }
   .reset {
     counter-reset: directions-counter 0;
     padding-left: 20px;
