@@ -15,11 +15,11 @@ const FeatureList = ({ articles, slug, title }) => {
         ))}
       </div>
       {router.pathname === '/' && (
-        <Link href={`/${slug}s`} passHref>
-          <Button primary className={styles['container__button--all']} type="button">
+        <Button primary className={styles['container__button--all']} type="button">
+          <Link href={`/${slug}s`} passHref>
             Go <span className={styles['container__button--all__cursive']}>to</span> {slug}s
-          </Button>
-        </Link>
+          </Link>
+        </Button>
       )}
     </div>
   )

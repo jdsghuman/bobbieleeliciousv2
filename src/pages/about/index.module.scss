@@ -17,6 +17,10 @@
     &__container {
       width: 100%;
       grid-column: 2;
+      display: flex;
+      @media (max-width: 800px) {
+        justify-content: center;
+      }
     }
     &--default {
       max-width: 100%;

@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { truncateText } from '../../Util/Util'
 import BlogDescription from './BlogDescription'
 import { BlogPropType } from '../../PropTypes/PropTypes'
@@ -14,8 +15,14 @@ const BlogDetail = ({ blog }: BlogPropType) => {
         <ShareIconItem postImage={blog.fields.image} postName={blog.fields.title} />
       </div>
       {blog?.fields?.image ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={blog.fields.image} alt={blog.fields.title} className={styles['image--main']} />
+        <Image
+          src={blog.fields.image}
+          width={850}
+          height={450}
+          alt={blog.fields.title}
+          className={styles['image--main']}
+          priority
+        />
       ) : (
         <div className={styles['image--main--error']}>
           <p className={styles['image--main--error__text']}>Image failed to load</p>

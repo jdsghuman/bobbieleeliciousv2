@@ -13,21 +13,12 @@ interface LinkDisplayProps {
 const LinkDisplay = ({ link, children, onClick, style }: LinkDisplayProps) => {
   const router = useRouter()
 
-  let className = children?.props?.className || ''
-  if (router.pathname === link) {
-    className = `${className} ${styles.link__selected}`
-  }
-
-  useEffect(() => {
-    if (router.pathname === link) {
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      className = `${className} ${styles.link__selected}`
-    }
-  }, [])
-
   return (
-    <Link onClick={onClick} href={link} className={style}>
-      {/* {React.cloneElement(children, { className })} */}
+    <Link
+      onClick={onClick}
+      href={link}
+      className={`${style} ${router.pathname === link ? styles.link__selected : ''} `}
+    >
       {children}
     </Link>
   )
