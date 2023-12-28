@@ -4,7 +4,6 @@ import dynamic from 'next/dynamic'
 import styles from '@styles/Home.module.css'
 import { HomePropType } from '../components/PropTypes/PropTypes'
 import { getAllPosts, getAllRecipes } from '../lib/index'
-import Carousel from '../components/Carousel'
 import Subscribe from '../components/Subscribe/Banner/Banner'
 import FeatureList from '../components/FeatureList/FeatureList'
 import Spinner from '../components/Spinner'
@@ -16,8 +15,9 @@ import SearchContext from '../store/search-context'
 import useInfiniteScroll from '../components/Util/Hooks/useInfiniteScroll'
 import PostsNotFound from '../components/Filter/PostsNotFound'
 import PostItemContainer from '../components/FeatureList/PostItemContainer'
-import PosttItem from '../components/FeatureList/PostItem'
+import PostItem from '../components/FeatureList/PostItem'
 import { loadPolyfills } from '../components/Util/polyfills'
+import CarouselContainer from '@components/Carousel'
 
 export const getStaticProps: GetStaticProps = async () => {
   await generateSitemap()
@@ -172,7 +172,7 @@ const Home = ({ blogs, featuredPosts, recipes }: HomePropType) => {
       <PromptSubscribe />
       {searchCtx.filter.searchTerm === '' ? (
         <div className={styles.container}>
-          <Carousel featuredPosts={featuredPosts} />
+          <CarouselContainer featuredPosts={featuredPosts} />
           <Subscribe />
           <FeatureList title="Latest Recipes" articles={recipes.slice(0, 3)} slug="recipe" />
           <FeatureList title="Latest Blogs" articles={blogs.slice(0, 3)} slug="blog" />
@@ -182,7 +182,7 @@ const Home = ({ blogs, featuredPosts, recipes }: HomePropType) => {
           {postsToShow.map((post, index) => {
             if (postsToShow.length === index + 1) {
               return (
-                <PosttItem
+                <PostItem
                   lastRef={lastPostElementRef}
                   key={post.sys.id}
                   article={post}
@@ -191,7 +191,7 @@ const Home = ({ blogs, featuredPosts, recipes }: HomePropType) => {
               )
             } else {
               return (
-                <PosttItem
+                <PostItem
                   article={post}
                   key={post.sys.id}
                   slug={post.sys.contentType.sys.id === 'blogPost' ? 'blog' : 'recipe'}
@@ -207,5 +207,7 @@ const Home = ({ blogs, featuredPosts, recipes }: HomePropType) => {
     </>
   )
 }
+
+Home.displayName = 'Home'
 
 export default Home

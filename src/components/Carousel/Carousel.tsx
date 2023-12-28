@@ -10,7 +10,7 @@ interface Carousel {
   featuredPosts: Array<any>
 }
 
-const Carousel = React.forwardRef(({ featuredPosts }: Carousel) => {
+const CarouselContainer = React.forwardRef(({ featuredPosts }: Carousel) => {
   const readMoreButton = useRef<HTMLButtonElement>(null)
   const [currentInterval, setCurrentInterval] = useState(0)
   const [style, setStyle] = useState(styles.carousel__container)
@@ -84,5 +84,6 @@ const Carousel = React.forwardRef(({ featuredPosts }: Carousel) => {
   )
 })
 
-Carousel.displayName = 'Carousel'
-export default Carousel
+CarouselContainer.displayName = 'CarouselContainer'
+
+export default CarouselContainer

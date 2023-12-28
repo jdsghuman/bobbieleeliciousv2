@@ -3,10 +3,17 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import styles from './LinkDisplay.module.scss'
 
-const LinkDisplay = ({ link, children }) => {
+interface LinkDisplayProps {
+  link: string
+  children?: any
+  onClick?: () => void
+  style?: string
+}
+
+const LinkDisplay = ({ link, children, onClick, style }: LinkDisplayProps) => {
   const router = useRouter()
 
-  let className = children.props.className || ''
+  let className = children?.props?.className || ''
   if (router.pathname === link) {
     className = `${className} ${styles.link__selected}`
   }
@@ -18,7 +25,12 @@ const LinkDisplay = ({ link, children }) => {
     }
   }, [])
 
-  return <Link href={link}>{React.cloneElement(children, { className })}</Link>
+  return (
+    <Link onClick={onClick} href={link} className={style}>
+      {/* {React.cloneElement(children, { className })} */}
+      {children}
+    </Link>
+  )
 }
 
 export default LinkDisplay

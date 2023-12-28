@@ -54,13 +54,11 @@ const Print = ({ recipe }: RecipePropType) => {
   return (
     <div className={styles.print__container}>
       <Link href="/">
-        <a>
-          <img
-            className={styles.print__logo}
-            src="/images/bobbieleelicious-logo-black.png"
-            alt={'Logo'}
-          />
-        </a>
+        <img
+          className={styles.print__logo}
+          src="/images/bobbieleelicious-logo-black.png"
+          alt={'Logo'}
+        />
       </Link>
       <div>
         <Button onClick={printPage} className={styles.print__button}>

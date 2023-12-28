@@ -92,13 +92,11 @@ const RecipeDescription = ({ recipe }: RecipePropType) => {
         </div>
       )}
       <div className={styles.print}>
-        <Link passHref href={`${router.asPath}/print`}>
-          <a target="_blank">
-            <Button className={styles.print__button}>
-              <AiOutlinePrinter className={styles.icon} />
-              Print recipe
-            </Button>
-          </a>
+        <Link passHref href={`${router.asPath}/print`} target="_blank">
+          <Button className={styles.print__button}>
+            <AiOutlinePrinter className={styles.icon} />
+            Print recipe
+          </Button>
         </Link>
       </div>
       <ShareIcons

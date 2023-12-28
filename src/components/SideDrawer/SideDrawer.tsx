@@ -28,36 +28,28 @@ const SideDrawer = ({ click, show }) => {
           'drawer__item--hide': !show,
         })}
       >
-        <LinkDisplay link="/">
-          <a>Home</a>
-        </LinkDisplay>
+        <LinkDisplay link="/">Home</LinkDisplay>
       </div>
       <div
         className={cx('drawer__item', {
           'drawer__item--hide': !show,
         })}
       >
-        <LinkDisplay link="/recipes">
-          <a>Recipes</a>
-        </LinkDisplay>
+        <LinkDisplay link="/recipes">Recipes</LinkDisplay>
       </div>
       <div
         className={cx('drawer__item', {
           'drawer__item--hide': !show,
         })}
       >
-        <LinkDisplay link="/blogs">
-          <a>Blog</a>
-        </LinkDisplay>
+        <LinkDisplay link="/blogs">Blog</LinkDisplay>
       </div>
       <div
         className={cx('drawer__item', {
           'drawer__item--hide': !show,
         })}
       >
-        <LinkDisplay link="/about">
-          <a>About</a>
-        </LinkDisplay>
+        <LinkDisplay link="/about">About</LinkDisplay>
       </div>
     </nav>
   )
