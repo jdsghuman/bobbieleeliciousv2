@@ -39,7 +39,7 @@ const About = () => {
               'about__image--show': true,
             })}
             alt="profile"
-            src="https://i.imgur.com/hCAUcmZ.jpg"
+            src="https://cdn.filestackcontent.com/eFCXsb8GSvWzOcZTJoEO"
             width={519}
             height={693}
             priority
