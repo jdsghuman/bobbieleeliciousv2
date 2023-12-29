@@ -5,7 +5,7 @@ import styles from './Button.module.scss'
 const cx = classNames.bind(styles)
 
 interface ButtonPropTypes extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  type: any
+  type?: 'submit' | 'button' | 'reset'
   className?: string
   children: any
   primary?: boolean
@@ -13,7 +13,14 @@ interface ButtonPropTypes extends React.ButtonHTMLAttributes<HTMLButtonElement> 
   onClick?: any
 }
 
-const Button = ({ children, type, className, primary, accent, onClick }: ButtonPropTypes) => (
+const Button = ({
+  children,
+  type = 'button',
+  className,
+  primary,
+  accent,
+  onClick,
+}: ButtonPropTypes) => (
   <button
     type={type}
     className={cx('button', className, {

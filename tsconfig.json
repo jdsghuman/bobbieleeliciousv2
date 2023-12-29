@@ -30,13 +30,20 @@
         "src/data/*"
       ]
     },
-    "incremental": true
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "strictNullChecks": true
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "src/pages/recipe/[slug].tsx"
+    "src/pages/recipe/[slug].tsx",
+    ".next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"

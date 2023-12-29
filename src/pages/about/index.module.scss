@@ -17,14 +17,14 @@
     &__container {
       width: 100%;
       grid-column: 2;
-      display: flex;
+      position: relative;
       @media (max-width: 800px) {
         justify-content: center;
       }
     }
     &--default {
       max-width: 100%;
-      max-height: auto;
+      height: auto !important;
       box-shadow: 1px 1px 8px 3px rgba(0, 0, 0, 0.4);
       display: none;
     }
@@ -38,7 +38,7 @@
       grid-column: 2;
     }
     @media (max-width: 600px) {
-      margin-top: 40px;
+      margin-top: 30px;
     }
   }
   &__description-text {

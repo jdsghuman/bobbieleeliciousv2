@@ -22,7 +22,7 @@ export const getStaticProps: GetStaticProps = async () => {
   const categories = await getAllCategories('categoryBlogs')
   return {
     props: {
-      blogs: posts.blogs,
+      blogs: posts?.blogs,
       categories,
     },
     revalidate: 200,

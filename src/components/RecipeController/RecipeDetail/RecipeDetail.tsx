@@ -19,6 +19,7 @@ const RecipeDetail = ({ post }: RecipeDetailPropTypes) => {
           width={500}
           height={400}
           className={styles['image--main']}
+          priority
         />
       ) : (
         <div className={styles['image--main--error']}>

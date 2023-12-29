@@ -22,13 +22,13 @@ import CarouselContainer from '@components/Carousel'
 export const getStaticProps: GetStaticProps = async () => {
   await generateSitemap()
   const posts = await getAllPosts()
-  const featuredBlogs = posts.blogs.filter((blog) => blog.fields.featured)
-  const featuredRecipes = posts.recipes.filter((recipe) => recipe.fields.featured)
+  const featuredBlogs = posts?.blogs.filter((blog) => blog.fields.featured)
+  const featuredRecipes = posts?.recipes.filter((recipe) => recipe.fields.featured)
   const allRecipesNoMaxLimit = await getAllRecipes()
   return {
     props: {
-      blogs: posts.blogs,
-      recipes: allRecipesNoMaxLimit.recipes,
+      blogs: posts?.blogs,
+      recipes: allRecipesNoMaxLimit?.recipes,
       featuredPosts: [...featuredBlogs, ...featuredRecipes].sort(
         (a, b) =>
           new Date(b.fields.publishDate).valueOf() - new Date(a.fields.publishDate).valueOf()
@@ -85,7 +85,7 @@ const Home = ({ blogs, featuredPosts, recipes }: HomePropType) => {
   useEffect(() => {
     if (searchCtx.filter.searchTerm.length > 0 || searchCtx.filter.categories.length > 0) {
       setPageNumber(1)
-      let filteredPosts = []
+      let filteredPosts: any = []
       if (searchCtx.filter.searchTerm.length > 0 && searchCtx.filter.categories.length === 0) {
         filteredPosts = [
           ...blogs.filter((blog) =>

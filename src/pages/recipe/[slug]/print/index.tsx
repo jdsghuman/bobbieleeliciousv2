@@ -22,7 +22,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const post = await getPostBySlug('recipe', params.slug)
+  const post = await getPostBySlug('recipe', params?.slug)
 
   if (!post) {
     return { notFound: true }

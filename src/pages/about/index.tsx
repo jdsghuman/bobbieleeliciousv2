@@ -39,9 +39,9 @@ const About = () => {
               'about__image--show': true,
             })}
             alt="profile"
-            src="https://cdn.filestackcontent.com/eFCXsb8GSvWzOcZTJoEO"
-            width={400}
-            height={400}
+            src="https://i.imgur.com/hCAUcmZ.jpg"
+            width={519}
+            height={693}
             priority
           />
         </div>
