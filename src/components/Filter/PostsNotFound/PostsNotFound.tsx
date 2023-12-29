@@ -1,7 +1,7 @@
 import styles from './PostsNotFound.module.scss'
 
 interface PostsNotFoundPropType {
-  postType?: string
+  postType: string
 }
 
 const searchType = {
