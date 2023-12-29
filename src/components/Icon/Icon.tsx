@@ -95,9 +95,9 @@ const Icon = ({
   }
 
   const buildPaths = () => {
-    const identifiers = identifier.split(' ')
-    const paths = []
-    identifiers.forEach((identifier) => {
+    const identifiers = identifier?.split(' ')
+    const paths: any = []
+    identifiers?.forEach((identifier) => {
       paths.push(icons[identifier].map((path, index) => <path key={index} d={path} />))
     })
     return paths
@@ -113,7 +113,7 @@ const Icon = ({
       viewBox={viewBox ? viewBox : '0 0 24 24'}
       className={className}
       fill={fill}
-      style={styles}
+      style={styles || undefined}
       onClick={click}
       stroke={stroke}
       strokeWidth={strokeWidth}
