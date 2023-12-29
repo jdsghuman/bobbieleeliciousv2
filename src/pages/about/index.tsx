@@ -38,7 +38,7 @@ const About = () => {
             className={cx('about__image--default', {
               'about__image--show': true,
             })}
-            alt="profile"
+            alt="image of Bobbielee"
             src="https://cdn.filestackcontent.com/eFCXsb8GSvWzOcZTJoEO"
             width={519}
             height={693}

@@ -18,7 +18,7 @@ const PostItem = ({ article, slug, lastRef }) => {
           <Link href={`/${slug}/` + article.fields.slug} passHref>
             <Image
               src={article.fields.image}
-              alt={article.fields.title}
+              alt={article.fields.title || 'author image'}
               className={styles.item__image}
               width={475}
               height={300}

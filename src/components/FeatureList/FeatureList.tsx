@@ -8,7 +8,7 @@ const FeatureList = ({ articles, slug, title }) => {
   const router = useRouter()
   return (
     <div className={styles.container}>
-      <h3 className={styles.title}>{title}</h3>
+      <h2 className={styles.title}>{title}</h2>
       <div className={styles.items}>
         {articles.map((article) => (
           <PostItem article={article} slug={slug} key={article.sys.id} />

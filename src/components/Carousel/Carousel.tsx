@@ -62,7 +62,7 @@ const CarouselContainer = React.forwardRef(({ featuredPosts }: Carousel) => {
           <img
             className={styles.carousel__image}
             src={images[currentInterval].path}
-            alt={images[currentInterval].label}
+            alt={images[currentInterval].label || 'carousel image'}
           />
         </div>
         <div className={styles.carousel__controls}>

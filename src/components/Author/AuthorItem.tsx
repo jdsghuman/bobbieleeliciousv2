@@ -15,7 +15,7 @@ const AuthorItem = ({ blog }: BlogPropType) => {
             {blog?.fields?.author?.fields?.image ? (
               <Image
                 src={blog.fields.author.fields.image}
-                alt={blog.fields.author.fields.name}
+                alt={blog.fields.author.fields.name || 'author image'}
                 className={styles.image}
                 width={40}
                 height={40}

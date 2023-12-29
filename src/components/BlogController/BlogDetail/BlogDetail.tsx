@@ -19,7 +19,7 @@ const BlogDetail = ({ blog }: BlogPropType) => {
           src={blog.fields.image}
           width={850}
           height={450}
-          alt={blog.fields.title}
+          alt={blog.fields.title || 'main image of blog'}
           className={styles['image--main']}
           priority
         />
