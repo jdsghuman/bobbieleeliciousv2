@@ -4,9 +4,8 @@ const isProduction = process.env.NODE_ENV === 'production'
 
 class MyDocument extends Document {
   render() {
-    const language = 'en'
     return (
-      <Html lang={language}>
+      <Html lang={'en'}>
         <Head>
           {/* Global Site Tag (gtag.js) - Google Analytics */}
           {isProduction && (

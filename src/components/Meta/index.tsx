@@ -12,7 +12,10 @@ const Meta = ({ tags }: Props) => {
         <title key="title">{tags.title}</title>
 
         <meta name="description" key="description" content={tags.description} />
-        <meta name="keywords" content="healthy recipes, fitness, nutrition" />
+        <meta
+          name="keywords"
+          content="healthy recipes, nutrition, impact of ultra-processed foods"
+        />
 
         {/* Begin OpenGraph Tag */}
         <meta property="og:type" key="og_type" content={tags.type} />
@@ -61,6 +64,7 @@ const Meta = ({ tags }: Props) => {
 
         {/* End of Twitter Display card */}
 
+        <meta name="robots" content={`${tags.robots}`} />
         <meta property="fb:app_id" content={process.env.FACEBOOK_APP_ID} />
         <meta property="fb:admins" content={process.env.FACEBOOK_USER_ID_1} />
         <meta property="fb:admins" content={process.env.FACEBOOK_USER_ID_2} />
