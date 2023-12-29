@@ -40,8 +40,8 @@ async function generateSitemap() {
     .filter((page) => !blocklist.includes(page.url))
 
   const allPosts = await getAllPosts()
-  const blogs = allPosts.blogs
-  const recipes = allPosts.recipes
+  const blogs = allPosts?.blogs
+  const recipes = allPosts?.recipes
 
   const postLinksRecipes = recipes.map((post) => ({
     url: `recipe/${post.fields.slug}`,
