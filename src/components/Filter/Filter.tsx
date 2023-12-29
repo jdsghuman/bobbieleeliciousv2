@@ -12,7 +12,7 @@ const Filter = ({ closeFilter, isOpen }) => {
   const searchCtx = useContext(SearchContext)
   const router = useRouter()
 
-  const inputRef = useRef(null)
+  const inputRef = useRef<any>(null)
 
   const clear = () => {
     searchCtx.filter.searchTerm === '' && closeFilter()
@@ -34,7 +34,9 @@ const Filter = ({ closeFilter, isOpen }) => {
   }
 
   useEffect(() => {
-    inputRef.current.focus()
+    if (inputRef) {
+      inputRef?.current?.focus()
+    }
   })
 
   useEffect(() => {
