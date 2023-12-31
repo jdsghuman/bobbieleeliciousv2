@@ -47,7 +47,7 @@ const CarouselContainer = React.forwardRef(({ featuredPosts }: Carousel) => {
       setStyle(styles['container--none'])
 
       setCurrentInterval(currentInterval < featuredPosts.length - 1 ? currentInterval + 1 : 0)
-    }, 60000)
+    }, 6000)
     return () => clearInterval(interval)
   })
 
