@@ -3,9 +3,8 @@ import { GetStaticProps } from 'next'
 import dynamic from 'next/dynamic'
 import styles from '@styles/Home.module.css'
 import { HomePropType } from '../components/PropTypes/PropTypes'
-import { getAllPosts, getAllRecipes } from '../lib/index'
+import { getAllRecipes, getAllBlogs } from '../lib/index'
 import Subscribe from '../components/Subscribe/Banner/Banner'
-import FeatureList from '../components/FeatureList/FeatureList'
 import Spinner from '../components/Spinner'
 import { MetaTags, PageType, RobotsContent } from '../components/PropTypes/Tags'
 import Meta from '../components/Meta'
@@ -19,16 +18,40 @@ import PostItem from '../components/FeatureList/PostItem'
 import { loadPolyfills } from '../components/Util/polyfills'
 import CarouselContainer from '@components/Carousel'
 
+const DynamicFeatureList = dynamic(() => import('@components/FeatureList/FeatureList'), {
+  loading: () => <p>Loading...</p>,
+})
 export const getStaticProps: GetStaticProps = async () => {
   await generateSitemap()
-  const posts = await getAllPosts()
-  const featuredBlogs = posts?.blogs.filter((blog) => blog.fields.featured)
-  const featuredRecipes = posts?.recipes.filter((recipe) => recipe.fields.featured)
+  const posts = await getAllBlogs()
+
+  const updatedBlogs = posts?.blogs.map((blog) => {
+    if (typeof blog.fields.description === 'string') {
+      blog.fields.description = blog.fields.description.slice(0, 155)
+    }
+    blog.type = 'blog'
+
+    return blog
+  })
+
   const allRecipesNoMaxLimit = await getAllRecipes()
+
+  const updatedRecipes = allRecipesNoMaxLimit?.recipes.map((recipe) => {
+    if (typeof recipe.fields.description === 'string') {
+      recipe.fields.description = recipe.fields.description.slice(0, 155)
+    }
+    recipe.type = 'recipe'
+
+    return recipe
+  })
+
+  const featuredBlogs = posts?.blogs.filter((blog) => blog.fields.featured)
+
+  const featuredRecipes = allRecipesNoMaxLimit?.recipes.filter((recipe) => recipe.fields.featured)
   return {
     props: {
-      blogs: posts?.blogs,
-      recipes: allRecipesNoMaxLimit?.recipes,
+      blogs: updatedBlogs,
+      recipes: updatedRecipes,
       featuredPosts: [...featuredBlogs, ...featuredRecipes].sort(
         (a, b) =>
           new Date(b.fields.publishDate).valueOf() - new Date(a.fields.publishDate).valueOf()
@@ -174,8 +197,8 @@ const Home = ({ blogs, featuredPosts, recipes }: HomePropType) => {
         <div className={styles.container}>
           <CarouselContainer featuredPosts={featuredPosts} />
           <Subscribe />
-          <FeatureList title="Latest Recipes" articles={recipes.slice(0, 3)} slug="recipe" />
-          <FeatureList title="Latest Blogs" articles={blogs.slice(0, 3)} slug="blog" />
+          <DynamicFeatureList title="Latest Recipes" articles={recipes.slice(0, 3)} slug="recipe" />
+          <DynamicFeatureList title="Latest Blogs" articles={blogs.slice(0, 3)} slug="blog" />
         </div>
       ) : (
         <PostItemContainer title="posts">
@@ -186,7 +209,7 @@ const Home = ({ blogs, featuredPosts, recipes }: HomePropType) => {
                   lastRef={lastPostElementRef}
                   key={post.sys.id}
                   article={post}
-                  slug={post.sys.contentType.sys.id === 'blogPost' ? 'blog' : 'recipe'}
+                  slug={post.type === 'blogPost' ? 'blog' : 'recipe'}
                 />
               )
             } else {
@@ -194,7 +217,7 @@ const Home = ({ blogs, featuredPosts, recipes }: HomePropType) => {
                 <PostItem
                   article={post}
                   key={post.sys.id}
-                  slug={post.sys.contentType.sys.id === 'blogPost' ? 'blog' : 'recipe'}
+                  slug={post.type === 'blogPost' ? 'blog' : 'recipe'}
                   lastRef={null}
                 />
               )

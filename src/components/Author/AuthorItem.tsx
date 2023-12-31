@@ -9,7 +9,7 @@ const cx = classNames.bind(styles)
 const AuthorItem = ({ blog }: BlogPropType) => {
   return (
     <div className={styles.container}>
-      {blog.sys.contentType.sys.id === 'blogPost' && (
+      {blog.sys.id === 'blogPost' && (
         <>
           <div className={styles['container--image']}>
             {blog?.fields?.author?.fields?.image ? (

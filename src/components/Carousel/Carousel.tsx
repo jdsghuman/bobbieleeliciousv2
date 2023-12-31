@@ -1,4 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
+import Image from 'next/image'
 import { useEffect, useState, useRef } from 'react'
 import CarouselItem from './CarouselItem'
 import Pagination from './Pagination'
@@ -22,7 +22,7 @@ const CarouselContainer = React.forwardRef(({ featuredPosts }: Carousel) => {
       path: post.fields.image,
       description: post.fields.description,
       slug: post.fields.slug,
-      type: post.sys.contentType.sys.id,
+      type: post.type,
     }
   })
 
@@ -47,7 +47,7 @@ const CarouselContainer = React.forwardRef(({ featuredPosts }: Carousel) => {
       setStyle(styles['container--none'])
 
       setCurrentInterval(currentInterval < featuredPosts.length - 1 ? currentInterval + 1 : 0)
-    }, 6000)
+    }, 60000)
     return () => clearInterval(interval)
   })
 
@@ -59,10 +59,13 @@ const CarouselContainer = React.forwardRef(({ featuredPosts }: Carousel) => {
     <>
       <div {...handlers} className={styles.carousel}>
         <div className={style}>
-          <img
+          <Image
             className={styles.carousel__image}
             src={images[currentInterval].path}
             alt={images[currentInterval].label || 'carousel image'}
+            width={1000}
+            height={600}
+            priority
           />
         </div>
         <div className={styles.carousel__controls}>
