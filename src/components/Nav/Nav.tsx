@@ -64,14 +64,12 @@ const Nav = ({ drawerToggleClickHandler, sideDrawerOpen }) => {
       >
         <>
           <div className={styles['logo__container--desktop']}>
-            <LinkDisplay link="/">
-              <a onClick={goToHomePage}>
-                <img
-                  className={styles.image}
-                  src="/images/bobbieleelicious-logo-black.png"
-                  alt={'Logo'}
-                />
-              </a>
+            <LinkDisplay link="/" onClick={goToHomePage}>
+              <img
+                className={styles.image}
+                src="/images/bobbieleelicious-logo-black.png"
+                alt={'Logo'}
+              />
             </LinkDisplay>
           </div>
           <div
@@ -102,16 +100,14 @@ const Nav = ({ drawerToggleClickHandler, sideDrawerOpen }) => {
               <div className={styles['nav__search__mobile--none']}></div>
             )}
             <div className={styles['logo__container--mobile']}>
-              <LinkDisplay link="/">
-                <a onClick={goToHomePage}>
-                  <img
-                    className={cx('logo__image', {
-                      'logo__image--small': !isTopOfPage,
-                    })}
-                    src="/images/bobbieleelicious-logo-black.png"
-                    alt={'Logo'}
-                  />
-                </a>
+              <LinkDisplay link="/" onClick={goToHomePage}>
+                <img
+                  className={cx('logo__image', {
+                    'logo__image--small': !isTopOfPage,
+                  })}
+                  src="/images/bobbieleelicious-logo-black.png"
+                  alt={'Logo'}
+                />
               </LinkDisplay>
             </div>
             <nav
@@ -137,31 +133,23 @@ const Nav = ({ drawerToggleClickHandler, sideDrawerOpen }) => {
                 })}
               >
                 <li className={styles['nav__items--home']}>
-                  <LinkDisplay link="/">
-                    <a onClick={handleMobileMenu} className={styles.nav__link}>
-                      Home
-                    </a>
+                  <LinkDisplay link="/" onClick={handleMobileMenu} style={styles.nav__link}>
+                    Home
                   </LinkDisplay>
                 </li>
                 <li>
-                  <LinkDisplay link="/recipes">
-                    <a onClick={handleMobileMenu} className={styles.nav__link}>
-                      Recipes
-                    </a>
+                  <LinkDisplay link="/recipes" onClick={handleMobileMenu} style={styles.nav__link}>
+                    Recipes
                   </LinkDisplay>
                 </li>
                 <li>
-                  <LinkDisplay link="/blogs">
-                    <a onClick={handleMobileMenu} className={styles.nav__link}>
-                      Blog
-                    </a>
+                  <LinkDisplay link="/blogs" onClick={handleMobileMenu} style={styles.nav__link}>
+                    Blog
                   </LinkDisplay>
                 </li>
                 <li>
-                  <LinkDisplay link="/about">
-                    <a onClick={handleMobileMenu} className={styles.nav__link}>
-                      About
-                    </a>
+                  <LinkDisplay link="/about" onClick={handleMobileMenu} style={styles.nav__link}>
+                    About
                   </LinkDisplay>
                 </li>
                 {router.pathname === '/recipes' ||

@@ -1,4 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
+import Image from 'next/image'
 import { useEffect, useState, useRef } from 'react'
 import CarouselItem from './CarouselItem'
 import Pagination from './Pagination'
@@ -10,7 +10,7 @@ interface Carousel {
   featuredPosts: Array<any>
 }
 
-const Carousel = React.forwardRef(({ featuredPosts }: Carousel) => {
+const CarouselContainer = React.forwardRef(({ featuredPosts }: Carousel) => {
   const readMoreButton = useRef<HTMLButtonElement>(null)
   const [currentInterval, setCurrentInterval] = useState(0)
   const [style, setStyle] = useState(styles.carousel__container)
@@ -22,7 +22,7 @@ const Carousel = React.forwardRef(({ featuredPosts }: Carousel) => {
       path: post.fields.image,
       description: post.fields.description,
       slug: post.fields.slug,
-      type: post.sys.contentType.sys.id,
+      type: post.type,
     }
   })
 
@@ -59,10 +59,13 @@ const Carousel = React.forwardRef(({ featuredPosts }: Carousel) => {
     <>
       <div {...handlers} className={styles.carousel}>
         <div className={style}>
-          <img
+          <Image
             className={styles.carousel__image}
             src={images[currentInterval].path}
-            alt={images[currentInterval].label}
+            alt={images[currentInterval].label || 'carousel image'}
+            width={1000}
+            height={600}
+            priority
           />
         </div>
         <div className={styles.carousel__controls}>
@@ -84,5 +87,6 @@ const Carousel = React.forwardRef(({ featuredPosts }: Carousel) => {
   )
 })
 
-Carousel.displayName = 'Carousel'
-export default Carousel
+CarouselContainer.displayName = 'CarouselContainer'
+
+export default CarouselContainer

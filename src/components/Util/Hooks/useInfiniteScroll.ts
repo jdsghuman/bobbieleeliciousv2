@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 export default function useInfiniteScroll(pageNumber, posts, query = '', categories = '') {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
-  const [postsToShow, setPostsToShow] = useState([])
+  const [postsToShow, setPostsToShow] = useState<any>([])
   const [hasMore, setHasMore] = useState(false)
   const [resetFilter, setResetFilter] = useState(false)
 

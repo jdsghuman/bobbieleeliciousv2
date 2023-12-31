@@ -22,7 +22,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const post = await getPostBySlug('recipe', params.slug)
+  const post = await getPostBySlug('recipe', params?.slug)
 
   if (!post) {
     return { notFound: true }
@@ -54,13 +54,11 @@ const Print = ({ recipe }: RecipePropType) => {
   return (
     <div className={styles.print__container}>
       <Link href="/">
-        <a>
-          <img
-            className={styles.print__logo}
-            src="/images/bobbieleelicious-logo-black.png"
-            alt={'Logo'}
-          />
-        </a>
+        <img
+          className={styles.print__logo}
+          src="/images/bobbieleelicious-logo-black.png"
+          alt={'Logo'}
+        />
       </Link>
       <div>
         <Button onClick={printPage} className={styles.print__button}>

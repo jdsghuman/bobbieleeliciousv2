@@ -1,4 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
+import Image from 'next/image'
 import className from 'classnames/bind'
 import styles from './index.module.scss'
 import { aboutText } from '../../data/data'
@@ -34,12 +34,15 @@ const About = () => {
       <Meta tags={postMetaTags} />
       <div className={styles.about}>
         <div className={styles.about__image__container}>
-          <img
+          <Image
             className={cx('about__image--default', {
               'about__image--show': true,
             })}
-            alt="profile"
+            alt="image of Bobbielee"
             src="https://cdn.filestackcontent.com/eFCXsb8GSvWzOcZTJoEO"
+            width={519}
+            height={693}
+            priority
           />
         </div>
         <div className={styles['about__text-container']}>

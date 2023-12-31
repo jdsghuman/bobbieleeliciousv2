@@ -12,6 +12,10 @@ const Meta = ({ tags }: Props) => {
         <title key="title">{tags.title}</title>
 
         <meta name="description" key="description" content={tags.description} />
+        <meta
+          name="keywords"
+          content="healthy recipes, lifestyle blog, nutrition, impact of ultra-processed foods"
+        />
 
         {/* Begin OpenGraph Tag */}
         <meta property="og:type" key="og_type" content={tags.type} />

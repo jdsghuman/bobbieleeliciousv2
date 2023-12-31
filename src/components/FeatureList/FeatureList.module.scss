@@ -73,6 +73,11 @@
       text-transform: lowercase;
       font-size: 1.1rem;
     }
+
+    a {
+      text-decoration: none;
+      color: #333;
+    }
     &:hover {
       background: rgba(233, 206, 194, 0.7);
     }

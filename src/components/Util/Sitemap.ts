@@ -3,7 +3,7 @@ const globby = require('globby')
 const { SitemapStream, streamToPromise } = require('sitemap')
 const { Readable } = require('stream')
 const fs = require('fs')
-import { getAllPosts } from '../../lib/index'
+import { getAllBlogs, getAllRecipes } from '../../lib/index'
 
 // pages that should not be in the sitemap
 const blocklist = ['/404']
@@ -39,16 +39,15 @@ async function generateSitemap() {
     })
     .filter((page) => !blocklist.includes(page.url))
 
-  const allPosts = await getAllPosts()
-  const blogs = allPosts.blogs
-  const recipes = allPosts.recipes
+  const allBlogs = await getAllBlogs()
+  const allRecipes = await getAllRecipes()
 
-  const postLinksRecipes = recipes.map((post) => ({
+  const postLinksRecipes = allRecipes?.recipes.map((post) => ({
     url: `recipe/${post.fields.slug}`,
     changefreq: 'daily',
     priority: 0.7,
   }))
-  const postLinksBlogs = blogs.map((post) => ({
+  const postLinksBlogs = allBlogs?.blogs.map((post) => ({
     url: `blog/${post.fields.slug}`,
     changefreq: 'daily',
     priority: 0.7,

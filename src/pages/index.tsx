@@ -3,10 +3,8 @@ import { GetStaticProps } from 'next'
 import dynamic from 'next/dynamic'
 import styles from '@styles/Home.module.css'
 import { HomePropType } from '../components/PropTypes/PropTypes'
-import { getAllPosts, getAllRecipes } from '../lib/index'
-import Carousel from '../components/Carousel'
+import { getAllRecipes, getAllBlogs } from '../lib/index'
 import Subscribe from '../components/Subscribe/Banner/Banner'
-import FeatureList from '../components/FeatureList/FeatureList'
 import Spinner from '../components/Spinner'
 import { MetaTags, PageType, RobotsContent } from '../components/PropTypes/Tags'
 import Meta from '../components/Meta'
@@ -16,19 +14,44 @@ import SearchContext from '../store/search-context'
 import useInfiniteScroll from '../components/Util/Hooks/useInfiniteScroll'
 import PostsNotFound from '../components/Filter/PostsNotFound'
 import PostItemContainer from '../components/FeatureList/PostItemContainer'
-import PosttItem from '../components/FeatureList/PostItem'
+import PostItem from '../components/FeatureList/PostItem'
 import { loadPolyfills } from '../components/Util/polyfills'
+import CarouselContainer from '@components/Carousel'
 
+const DynamicFeatureList = dynamic(() => import('@components/FeatureList/FeatureList'), {
+  loading: () => <p>Loading...</p>,
+})
 export const getStaticProps: GetStaticProps = async () => {
   await generateSitemap()
-  const posts = await getAllPosts()
-  const featuredBlogs = posts.blogs.filter((blog) => blog.fields.featured)
-  const featuredRecipes = posts.recipes.filter((recipe) => recipe.fields.featured)
+  const posts = await getAllBlogs()
+
+  const updatedBlogs = posts?.blogs.map((blog) => {
+    if (typeof blog.fields.description === 'string') {
+      blog.fields.description = blog.fields.description.slice(0, 155)
+    }
+    blog.type = 'blog'
+
+    return blog
+  })
+
   const allRecipesNoMaxLimit = await getAllRecipes()
+
+  const updatedRecipes = allRecipesNoMaxLimit?.recipes.map((recipe) => {
+    if (typeof recipe.fields.description === 'string') {
+      recipe.fields.description = recipe.fields.description.slice(0, 155)
+    }
+    recipe.type = 'recipe'
+
+    return recipe
+  })
+
+  const featuredBlogs = posts?.blogs.filter((blog) => blog.fields.featured)
+
+  const featuredRecipes = allRecipesNoMaxLimit?.recipes.filter((recipe) => recipe.fields.featured)
   return {
     props: {
-      blogs: posts.blogs,
-      recipes: allRecipesNoMaxLimit.recipes,
+      blogs: updatedBlogs,
+      recipes: updatedRecipes,
       featuredPosts: [...featuredBlogs, ...featuredRecipes].sort(
         (a, b) =>
           new Date(b.fields.publishDate).valueOf() - new Date(a.fields.publishDate).valueOf()
@@ -85,7 +108,7 @@ const Home = ({ blogs, featuredPosts, recipes }: HomePropType) => {
   useEffect(() => {
     if (searchCtx.filter.searchTerm.length > 0 || searchCtx.filter.categories.length > 0) {
       setPageNumber(1)
-      let filteredPosts = []
+      let filteredPosts: any = []
       if (searchCtx.filter.searchTerm.length > 0 && searchCtx.filter.categories.length === 0) {
         filteredPosts = [
           ...blogs.filter((blog) =>
@@ -172,29 +195,29 @@ const Home = ({ blogs, featuredPosts, recipes }: HomePropType) => {
       <PromptSubscribe />
       {searchCtx.filter.searchTerm === '' ? (
         <div className={styles.container}>
-          <Carousel featuredPosts={featuredPosts} />
+          <CarouselContainer featuredPosts={featuredPosts} />
           <Subscribe />
-          <FeatureList title="Latest Recipes" articles={recipes.slice(0, 3)} slug="recipe" />
-          <FeatureList title="Latest Blogs" articles={blogs.slice(0, 3)} slug="blog" />
+          <DynamicFeatureList title="Latest Recipes" articles={recipes.slice(0, 3)} slug="recipe" />
+          <DynamicFeatureList title="Latest Blogs" articles={blogs.slice(0, 3)} slug="blog" />
         </div>
       ) : (
         <PostItemContainer title="posts">
           {postsToShow.map((post, index) => {
             if (postsToShow.length === index + 1) {
               return (
-                <PosttItem
+                <PostItem
                   lastRef={lastPostElementRef}
                   key={post.sys.id}
                   article={post}
-                  slug={post.sys.contentType.sys.id === 'blogPost' ? 'blog' : 'recipe'}
+                  slug={post.type === 'blogPost' ? 'blog' : 'recipe'}
                 />
               )
             } else {
               return (
-                <PosttItem
+                <PostItem
                   article={post}
                   key={post.sys.id}
-                  slug={post.sys.contentType.sys.id === 'blogPost' ? 'blog' : 'recipe'}
+                  slug={post.type === 'blogPost' ? 'blog' : 'recipe'}
                   lastRef={null}
                 />
               )
@@ -207,5 +230,7 @@ const Home = ({ blogs, featuredPosts, recipes }: HomePropType) => {
     </>
   )
 }
+
+Home.displayName = 'Home'
 
 export default Home

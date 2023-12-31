@@ -4,34 +4,37 @@ const client = require('contentful').createClient({
   accessToken: process.env.NEXT_CONTENTFUL_ACCESS_TOKEN,
 })
 
-export async function getAllPosts() {
-  const blogs = await client
-    .getEntries({
-      content_type: 'blogPost',
-      order: '-fields.publishDate',
-    })
-    .then((response) => response.items)
+// Note: response is limited to 100 posts
+// export async function getAllPosts() {
+//   const blogs = await client
+//     .getEntries({
+//       content_type: 'blogPost',
+//       order: '-fields.publishDate',
+//     })
+//     .then((response) => response.items)
 
-  const recipes = await client
-    .getEntries({
-      content_type: 'recipe',
-      order: '-fields.publishDate',
-    })
-    .then((response) => response.items)
+//   const recipes = await client
+//     .getEntries({
+//       content_type: 'recipe',
+//       order: '-fields.publishDate',
+//     })
+//     .then((response) => response.items)
 
-  if (blogs && recipes) {
-    return {
-      blogs,
-      recipes,
-    }
-  }
-}
+//   if (blogs && recipes) {
+//     return {
+//       blogs,
+//       recipes,
+//     }
+//   }
+// }
 
 export async function getAllBlogs() {
   const blogs = await client
     .getEntries({
       content_type: 'blogPost',
       order: '-fields.publishDate',
+      select:
+        'fields.title, fields.description, fields.image, fields.slug, fields.description, fields.featured, fields.publishDate, fields.author, fields.category, fields.metaDescription',
     })
     .then((response) => response.items)
 
@@ -47,6 +50,8 @@ export async function getAllRecipes() {
     .getEntries({
       content_type: 'recipe',
       order: '-fields.publishDate',
+      select:
+        'fields.title, fields.description, fields.image, fields.slug, fields.description, fields.featured, fields.publishDate, fields.author, fields.category, fields.metaDescription',
       limit: 200,
     })
     .then((response) => response.items)

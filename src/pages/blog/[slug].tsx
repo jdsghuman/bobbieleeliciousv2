@@ -24,8 +24,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const post = await getPostBySlug('blogPost', params.slug)
-  const morePosts = await getMorePosts('blogPost', params.slug)
+  const post = await getPostBySlug('blogPost', params?.slug)
+  const morePosts = await getMorePosts('blogPost', params?.slug)
 
   if (!post || !morePosts) {
     return { notFound: true }

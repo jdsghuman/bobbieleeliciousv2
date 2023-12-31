@@ -44,7 +44,7 @@ const ShareIconItem = ({
       >
         <FacebookIcon size={defaultIconSize} round={true} bgStyle={{ fill: `${colorIcons}` }} />
       </FacebookShareButton>
-      <PinterestShareButton url={url} media={postImage} className={styles.icon}>
+      <PinterestShareButton url={url} media={postImage || ''} className={styles.icon}>
         <PinterestIcon size={defaultIconSize} round bgStyle={{ fill: `${colorIcons}` }} />
       </PinterestShareButton>
       <EmailShareButton

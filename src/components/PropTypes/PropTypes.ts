@@ -20,6 +20,7 @@ export interface BlogsPropType {
       }
     }
   }
+  type: 'blog' | 'recipe'
 }
 
 export interface BlogPropType {
@@ -66,6 +67,7 @@ export interface RecipesPropType {
       }
     }
   }
+  type: 'blog' | 'recipe'
 }
 
 export interface RecipePropType {
@@ -124,4 +126,5 @@ export interface FeaturedPost {
     publishDate: string
     title: string
   }
+  type: 'blog' | 'recipe'
 }

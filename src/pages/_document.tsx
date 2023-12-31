@@ -4,9 +4,8 @@ const isProduction = process.env.NODE_ENV === 'production'
 
 class MyDocument extends Document {
   render() {
-    const language = 'en'
     return (
-      <Html lang={language}>
+      <Html lang={'en'}>
         <Head>
           {/* Global Site Tag (gtag.js) - Google Analytics */}
           {isProduction && (
@@ -21,9 +20,7 @@ class MyDocument extends Document {
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', '${process.env.GA_TRACKING_ID}', {
-              page_path: window.location.pathname,
-            });
+            gtag('config', '${process.env.GA_TRACKING_ID}');
           `,
                 }}
               />

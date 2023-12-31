@@ -18,7 +18,7 @@ const PostItem = ({ article, slug, lastRef }) => {
           <Link href={`/${slug}/` + article.fields.slug} passHref>
             <Image
               src={article.fields.image}
-              alt={article.fields.title}
+              alt={article.fields.title || 'author image'}
               className={styles.item__image}
               width={475}
               height={300}
@@ -30,7 +30,7 @@ const PostItem = ({ article, slug, lastRef }) => {
       )}
       <div className={styles.item__link}>
         <Link href={`/${slug}/` + article.fields.slug}>
-          <a>{truncateText(article.fields.title, 60)}</a>
+          {truncateText(article.fields.title, 60)}
         </Link>
       </div>
       <p className={styles.item__description}>
@@ -40,7 +40,7 @@ const PostItem = ({ article, slug, lastRef }) => {
       </p>
       <div
         className={cx('item__container__button', {
-          'item__container__button--center': article.sys.contentType.sys.id !== 'blogPost',
+          'item__container__button--center': article.sys.id !== 'blogPost',
         })}
       >
         <AuthorItem blog={article} />

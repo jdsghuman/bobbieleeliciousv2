@@ -17,7 +17,9 @@ const Slider = ({ items }: SliderPropType) => {
   const ref = useRef<HTMLDivElement>(null)
 
   const scroll = (scrollOffset) => {
-    ref.current.scrollLeft += scrollOffset
+    if (ref?.current) {
+      ref.current.scrollLeft += scrollOffset
+    }
   }
 
   const toggleSliderOption = (name) => {

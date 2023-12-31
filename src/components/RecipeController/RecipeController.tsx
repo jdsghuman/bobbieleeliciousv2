@@ -17,8 +17,8 @@ const RecipeController = ({ post }) => {
 
   const [isTop, setIsTop] = useState(true)
   const [activeTab, setActiveTab] = useState('Details')
-  const [directionList, setDirectionList] = useState([])
-  const [ingredientList, setIngredientList] = useState([])
+  const [directionList, setDirectionList] = useState<{ value: string; isActive: boolean }[]>([])
+  const [ingredientList, setIngredientList] = useState<{ value: string; isActive: boolean }[]>([])
 
   const getIngredients = (ingredients) => {
     if (ingredients) {
@@ -57,7 +57,7 @@ const RecipeController = ({ post }) => {
   }
 
   const handleScroll = () => {
-    document.getElementById('details__hr').scrollIntoView({
+    document.getElementById('details__hr')?.scrollIntoView({
       behavior: 'smooth',
     })
   }
