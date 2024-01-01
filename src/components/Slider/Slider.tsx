@@ -54,6 +54,7 @@ const Slider = ({ items }: SliderPropType) => {
                 className={cx('item', {
                   'item-clicked': searchCtx.filter.categories.includes(item.fields.name),
                 })}
+                type="button"
               >
                 <p
                   className={cx('item-title', 'unselectable', {

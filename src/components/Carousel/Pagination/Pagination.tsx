@@ -19,6 +19,7 @@ const Pagination = ({ active, count, setActiveImage, activeNeighbor }: Paginatio
           'pagination__circle--active--neighbor': activeNeighbor,
         })}
         onClick={() => setActiveImage(count)}
+        type="button"
       ></button>
     </li>
   )

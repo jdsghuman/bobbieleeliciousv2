@@ -61,7 +61,7 @@ const Print = ({ recipe }: RecipePropType) => {
         />
       </Link>
       <div>
-        <Button onClick={printPage} className={styles.print__button}>
+        <Button onClick={printPage} type="button" className={styles.print__button}>
           <AiOutlinePrinter className={styles.print__icon} />
           Print
         </Button>
