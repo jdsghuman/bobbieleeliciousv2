@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import classNames from 'classnames/bind'
+import { useRouter } from 'next/router'
 import PropTypes from 'prop-types'
 import Button from '../Button'
 import { truncateText } from '../Util/Util'
@@ -11,6 +12,8 @@ import AuthorItem from '../Author'
 const cx = classNames.bind(styles)
 
 const PostItem = ({ article, slug, lastRef }) => {
+  const router = useRouter()
+
   return (
     <div className={styles.item} key={article.sys.id} ref={lastRef}>
       {article.fields.image ? (
@@ -44,17 +47,19 @@ const PostItem = ({ article, slug, lastRef }) => {
         })}
       >
         <AuthorItem blog={article} />
-        <Link href={`/${slug}/` + article.fields.slug} passHref>
-          <Button className={styles.item__button} type="button" accent>
-            Read more{' '}
-            <Icon
-              identifier="arrowright"
-              viewBox="0 0 24 24"
-              dimensions={{ height: 24, width: 24 }}
-              fill={'rgb(233, 206, 194)'}
-              className={styles.icon__right}
-            />
-          </Button>
+        <Link
+          className={styles['item__button--accent']}
+          href={`/${slug}/` + article.fields.slug}
+          passHref
+        >
+          Read more{' '}
+          <Icon
+            identifier="arrowright"
+            viewBox="0 0 24 24"
+            dimensions={{ height: 24, width: 24 }}
+            fill={'rgb(233, 206, 194)'}
+            className={styles.icon__right}
+          />
         </Link>
       </div>
     </div>

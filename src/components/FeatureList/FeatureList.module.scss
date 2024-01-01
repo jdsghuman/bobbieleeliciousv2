@@ -213,6 +213,26 @@
       box-shadow: none;
       color: #555;
       font-size: 1rem;
+      &--accent {
+        text-decoration: none;
+        text-align: center;
+        padding: 0.5em 1em;
+        border-radius: 2px;
+        cursor: pointer;
+        background: none;
+        align-self: center;
+        margin-top: auto;
+        margin-right: 10px;
+        border: 1px solid rgb(233, 206, 194);
+        box-shadow: none;
+        color: #555;
+        font-size: 1rem;
+        transition: all 400ms cubic-bezier(0.22, 1, 0.36, 1);
+        &:hover {
+          color: #888;
+          box-shadow: $box-shadow-button;
+        }
+      }
       &:hover {
         color: #888;
         box-shadow: $box-shadow-button;
