@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import styles from './LinkDisplay.module.scss'
@@ -17,6 +16,7 @@ const LinkDisplay = ({ link, children, onClick, style }: LinkDisplayProps) => {
     <Link
       onClick={onClick}
       href={link}
+      type="button"
       className={`${style} ${router.pathname === link ? styles.link__selected : ''} `}
     >
       {children}

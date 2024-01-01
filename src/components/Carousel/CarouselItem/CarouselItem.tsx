@@ -23,7 +23,7 @@ const CarouselItem = ({ imageDetails, readMoreRef }: CarouselItemPropType) => (
         ref={readMoreRef}
         className={styles.item__button}
       >
-        Read More{' '}
+        Read More <span className={styles.item__button__sr}>about {imageDetails.label}</span>
         <Icon
           identifier="arrowright"
           viewBox="0 0 24 24"

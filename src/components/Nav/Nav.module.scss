@@ -187,6 +187,9 @@ $breakpoint--md: 800px;
         &:first-child {
           border-left: 1px solid #ccc;
         }
+        &:last-child {
+          border-right: none;
+        }
         @media (max-width: $breakpoint--md) {
           margin-left: 0;
           padding-bottom: 0.9em;

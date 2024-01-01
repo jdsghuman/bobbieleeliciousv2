@@ -155,15 +155,17 @@ const Nav = ({ drawerToggleClickHandler, sideDrawerOpen }) => {
                 {router.pathname === '/recipes' ||
                 router.pathname === '/blogs' ||
                 router.pathname === '/' ? (
-                  <button className={styles.nav__btn} onClick={toggleFilter}>
-                    <Icon
-                      identifier="search"
-                      viewBox="0 0 600 350"
-                      fill={'#555'}
-                      dimensions={{ height: 30, width: 26 }}
-                      className={styles.nav__search}
-                    />
-                  </button>
+                  <li>
+                    <button className={styles.nav__btn} type="button" onClick={toggleFilter}>
+                      <Icon
+                        identifier="search"
+                        viewBox="0 0 600 350"
+                        fill={'#555'}
+                        dimensions={{ height: 30, width: 26 }}
+                        className={styles.nav__search}
+                      />
+                    </button>
+                  </li>
                 ) : (
                   <div className={styles['nav__search--none']}></div>
                 )}

@@ -17,7 +17,7 @@ const RecipeTabs = ({ activeTab, setTab }: RecipeTabsPropTypes) => {
       style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}
     >
       <div onClick={() => setTab('Details')}>
-        <button className={styles.tab__title__btn}>
+        <button type="button" className={styles.tab__title__btn}>
           <h3
             className={cx('tab__title', {
               'tab__title--active': activeTab === 'Details',
@@ -28,7 +28,7 @@ const RecipeTabs = ({ activeTab, setTab }: RecipeTabsPropTypes) => {
         </button>
       </div>
       <div onClick={() => setTab('Ingredients')}>
-        <button className={styles.tab__title__btn}>
+        <button type="button" className={styles.tab__title__btn}>
           <h3
             className={cx('tab__title', {
               'tab__title--active': activeTab === 'Ingredients',
@@ -39,7 +39,7 @@ const RecipeTabs = ({ activeTab, setTab }: RecipeTabsPropTypes) => {
         </button>
       </div>
       <div onClick={() => setTab('Directions')}>
-        <button className={styles.tab__title__btn}>
+        <button type="button" className={styles.tab__title__btn}>
           <h3
             className={cx('tab__title', {
               'tab__title--active': activeTab === 'Directions',
