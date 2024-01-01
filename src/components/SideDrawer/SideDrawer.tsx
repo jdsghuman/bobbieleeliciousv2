@@ -1,4 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
+import Image from 'next/image'
 import LinkDisplay from '../Link/LinkDisplay'
 import classNames from 'classnames/bind'
 import styles from './SideDrawer.module.scss'
@@ -16,10 +16,12 @@ const SideDrawer = ({ click, show }) => {
     >
       <div onClick={click} className={styles.drawer__header}>
         <LinkDisplay link="/">
-          <img
+          <Image
             className={styles.drawer__image}
             alt="logo"
             src="/images/BobbieLeeLicious-logo-transparent.png"
+            width={200}
+            height={80}
           />
         </LinkDisplay>
       </div>

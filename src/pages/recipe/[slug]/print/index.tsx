@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-/* eslint-disable @next/next/no-img-element */
+import Image from 'next/image'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
@@ -53,11 +53,13 @@ const Print = ({ recipe }: RecipePropType) => {
 
   return (
     <div className={styles.print__container}>
-      <Link href="/">
-        <img
+      <Link href="/" passHref>
+        <Image
           className={styles.print__logo}
           src="/images/bobbieleelicious-logo-black.png"
           alt={'Logo'}
+          width={200}
+          height={75}
         />
       </Link>
       <div>
@@ -70,10 +72,12 @@ const Print = ({ recipe }: RecipePropType) => {
         <h1 className={styles.print__title}>{recipe.fields.title}</h1>
         {showImage && (
           <div style={{ display: 'flex', flexDirection: 'row' }}>
-            <img
+            <Image
               src={recipe.fields.image}
               alt={recipe.fields.image}
               className={styles.print__image}
+              width={200}
+              height={200}
             />
             <AiOutlineClose
               onClick={() => setShowImage(false)}

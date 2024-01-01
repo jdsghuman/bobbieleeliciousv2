@@ -22,6 +22,7 @@ const CarouselItem = ({ imageDetails, readMoreRef }: CarouselItemPropType) => (
         href={`${imageDetails.type === 'recipe' ? '/recipe' : '/blog'}/${imageDetails.slug}`}
         ref={readMoreRef}
         className={styles.item__button}
+        passHref
       >
         Read More <span className={styles.item__button__sr}>about {imageDetails.label}</span>
         <Icon

@@ -1,5 +1,5 @@
-/* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState, useContext } from 'react'
+import Image from 'next/image'
 import { useRouter } from 'next/router'
 import classNames from 'classnames/bind'
 import debounce from 'lodash.debounce'
@@ -65,10 +65,12 @@ const Nav = ({ drawerToggleClickHandler, sideDrawerOpen }) => {
         <>
           <div className={styles['logo__container--desktop']}>
             <LinkDisplay link="/" onClick={goToHomePage}>
-              <img
+              <Image
                 className={styles.image}
                 src="/images/bobbieleelicious-logo-black.png"
                 alt={'Logo'}
+                width={200}
+                height={100}
               />
             </LinkDisplay>
           </div>
@@ -101,12 +103,14 @@ const Nav = ({ drawerToggleClickHandler, sideDrawerOpen }) => {
             )}
             <div className={styles['logo__container--mobile']}>
               <LinkDisplay link="/" onClick={goToHomePage}>
-                <img
+                <Image
                   className={cx('logo__image', {
                     'logo__image--small': !isTopOfPage,
                   })}
                   src="/images/bobbieleelicious-logo-black.png"
                   alt={'Logo'}
+                  width={200}
+                  height={100}
                 />
               </LinkDisplay>
             </div>
