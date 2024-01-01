@@ -53,7 +53,7 @@ const Print = ({ recipe }: RecipePropType) => {
 
   return (
     <div className={styles.print__container}>
-      <Link href="/">
+      <Link href="/" passHref>
         <Image
           className={styles.print__logo}
           src="/images/bobbieleelicious-logo-black.png"

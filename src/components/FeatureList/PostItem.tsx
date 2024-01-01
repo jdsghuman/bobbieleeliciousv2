@@ -1,9 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import classNames from 'classnames/bind'
-import { useRouter } from 'next/router'
 import PropTypes from 'prop-types'
-import Button from '../Button'
 import { truncateText } from '../Util/Util'
 import Icon from '../Icon/Icon'
 import styles from './FeatureList.module.scss'
@@ -12,8 +10,6 @@ import AuthorItem from '../Author'
 const cx = classNames.bind(styles)
 
 const PostItem = ({ article, slug, lastRef }) => {
-  const router = useRouter()
-
   return (
     <div className={styles.item} key={article.sys.id} ref={lastRef}>
       {article.fields.image ? (

@@ -5,7 +5,7 @@ import { IconPropType } from '../../PropTypes/PropTypes'
 const BlogIcon = ({ fill, link, className, viewBox }: IconPropType) => {
   return (
     <div className={className}>
-      <Link href={link || ''} className={styles.icon__link}>
+      <Link href={link || ''} className={styles.icon__link} passHref>
         <svg
           aria-labelledby="blog-id"
           viewBox={viewBox}
