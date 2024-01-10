@@ -39,7 +39,7 @@ const PostItem = ({ article, slug, lastRef }) => {
       </p>
       <div
         className={cx('item__container__button', {
-          'item__container__button--center': article.sys.id !== 'blogPost',
+          'item__container__button--center': article.type !== 'blog',
         })}
       >
         <AuthorItem blog={article} />
