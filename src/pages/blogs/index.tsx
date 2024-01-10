@@ -3,7 +3,7 @@ import { GetStaticProps } from 'next'
 import { getAllBlogs, getAllCategories } from '../../lib/index'
 import { HomePropType } from '../../components/PropTypes/PropTypes'
 import PostItemContainer from '../../components/FeatureList/PostItemContainer'
-import PosttItem from '../../components/FeatureList/PostItem'
+import PostItem from '../../components/FeatureList/PostItem'
 import Subscribe from '../../components/Subscribe/Banner/Banner'
 import useInfiniteScroll from '../../components/Util/Hooks/useInfiniteScroll'
 import Spinner from '../../components/Spinner'
@@ -19,10 +19,16 @@ import { loadPolyfills } from '../../components/Util/polyfills'
 
 export const getStaticProps: GetStaticProps = async () => {
   const posts = await getAllBlogs()
+
+  const updatedBlogs = posts?.blogs.map((blog) => {
+    blog.type = 'blog'
+    return blog
+  })
+
   const categories = await getAllCategories('categoryBlogs')
   return {
     props: {
-      blogs: posts?.blogs,
+      blogs: updatedBlogs,
       categories,
     },
     revalidate: 200,
@@ -83,15 +89,10 @@ const Blogs = ({ blogs, categories }: HomePropType) => {
         {postsToShow.map((blog, index) => {
           if (postsToShow.length === index + 1) {
             return (
-              <PosttItem
-                lastRef={lastPostElementRef}
-                key={blog.sys.id}
-                article={blog}
-                slug="blog"
-              />
+              <PostItem lastRef={lastPostElementRef} key={blog.sys.id} article={blog} slug="blog" />
             )
           } else {
-            return <PosttItem article={blog} key={blog.sys.id} slug="blog" lastRef={null} />
+            return <PostItem article={blog} key={blog.sys.id} slug="blog" lastRef={null} />
           }
         })}
         <div>{loading && 'Loading...'}</div>

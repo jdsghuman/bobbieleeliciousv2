@@ -209,7 +209,7 @@ const Home = ({ blogs, featuredPosts, recipes }: HomePropType) => {
                   lastRef={lastPostElementRef}
                   key={post.sys.id}
                   article={post}
-                  slug={post.type === 'blogPost' ? 'blog' : 'recipe'}
+                  slug={post.type === 'blog' ? 'blog' : 'recipe'}
                 />
               )
             } else {
@@ -217,7 +217,7 @@ const Home = ({ blogs, featuredPosts, recipes }: HomePropType) => {
                 <PostItem
                   article={post}
                   key={post.sys.id}
-                  slug={post.type === 'blogPost' ? 'blog' : 'recipe'}
+                  slug={post.type === 'blog' ? 'blog' : 'recipe'}
                   lastRef={null}
                 />
               )
