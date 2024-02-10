@@ -21,11 +21,11 @@ const About = () => {
   }
 
   const postMetaTags: MetaTags = {
-    canonical: 'https://www.bobbieleelicious.com',
+    canonical: 'https://www.bobbieleelicious.com/about',
     description: `Delicious and nutritious healthy vegetarian recipes`,
     image: `https://cdn.filestackcontent.com/eFCXsb8GSvWzOcZTJoEO`,
     robots: `${RobotsContent.follow},${RobotsContent.index}`,
-    title: `Bobbieleelicious`,
+    title: `Bobbieleelicious | About`,
     type: PageType.website,
   }
 

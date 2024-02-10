@@ -39,10 +39,10 @@ const PostItem = ({ article, slug, lastRef }) => {
       </p>
       <div
         className={cx('item__container__button', {
-          'item__container__button--center': article.type !== 'blog',
+          'item__container__button--center': slug !== 'blog',
         })}
       >
-        <AuthorItem blog={article} />
+        <AuthorItem blog={article} slug={slug} />
         <Link
           className={styles['item__button--accent']}
           href={`/${slug}/` + article.fields.slug}

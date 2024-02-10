@@ -26,6 +26,7 @@ export interface BlogsPropType {
 export interface BlogPropType {
   blog: BlogsPropType
   morePosts?: Array<any>
+  slug?: 'blog' | 'recipe'
 }
 
 export interface TagPropType {
