@@ -6,10 +6,10 @@ import styles from './AuthorItem.module.scss'
 
 const cx = classNames.bind(styles)
 
-const AuthorItem = ({ blog }: BlogPropType) => {
+const AuthorItem = ({ blog, slug }: BlogPropType) => {
   return (
     <div className={styles.container}>
-      {blog.type === 'blog' && (
+      {(blog.type === 'blog' || slug === 'blog') && (
         <>
           <div className={styles['container--image']}>
             {blog?.fields?.author?.fields?.image ? (

@@ -56,7 +56,7 @@ const Recipes = ({ categories, recipes }: HomePropType) => {
   )
 
   const postMetaTags: MetaTags = {
-    canonical: 'https://www.bobbieleelicious.com',
+    canonical: 'https://www.bobbieleelicious.com/recipes',
     description: `Delicious and nutritious healthy vegetarian recipes`,
     image: 'https://www.bobbieleelicious.com/images/bobbieleelicious.png',
     robots: `${RobotsContent.follow},${RobotsContent.index}`,

@@ -63,7 +63,7 @@ const Blogs = ({ blogs, categories }: HomePropType) => {
   )
 
   const postMetaTags: MetaTags = {
-    canonical: 'https://www.bobbieleelicious.com',
+    canonical: 'https://www.bobbieleelicious.com/blogs',
     description: `Healthy lifestyle and living`,
     image: 'https://www.bobbieleelicious.com/images/bobbieleelicious.png',
     robots: `${RobotsContent.follow},${RobotsContent.index}`,
