@@ -14,7 +14,6 @@ const cx = classNames.bind(styles)
 
 const RecipeController = ({ post }) => {
   const router = useRouter()
-  console.log('post----', post)
 
   const [isTop, setIsTop] = useState(true)
   const [activeTab, setActiveTab] = useState('Details')
@@ -22,7 +21,6 @@ const RecipeController = ({ post }) => {
   const [ingredientList, setIngredientList] = useState<{ value: string; isActive: boolean }[]>([])
   const [finished, setFinished] = useState<boolean>(false)
 
-  console.log('directionList----', directionList)
   const getIngredients = (ingredients) => {
     if (ingredients) {
       const ingredientsArray = ingredients.split('--').map((item) => {
