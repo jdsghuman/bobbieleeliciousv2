@@ -21,6 +21,7 @@ const RecipeController = ({ post }) => {
   const [ingredientList, setIngredientList] = useState<{ value: string; isActive: boolean }[]>([])
   const [finished, setFinished] = useState<boolean>(false)
 
+  console.log('finished----', finished)
   const getIngredients = (ingredients) => {
     if (ingredients) {
       const ingredientsArray = ingredients.split('--').map((item) => {
@@ -73,6 +74,7 @@ const RecipeController = ({ post }) => {
 
   useEffect(() => {
     setActiveTab('Details')
+    setFinished(false)
     getDirections(post.fields.recipeDirections)
     getIngredients(post.fields.ingredients)
   }, [router.asPath])

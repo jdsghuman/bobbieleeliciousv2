@@ -62,7 +62,7 @@ const RecipeDirections = ({
   const callAfterConfetti = () => {
     setTimeout(() => {
       setFinished(true)
-    }, 3000)
+    }, 2000)
   }
   return (
     <div className={styles.container}>
