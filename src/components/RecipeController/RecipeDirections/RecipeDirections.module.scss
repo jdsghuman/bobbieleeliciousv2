@@ -8,8 +8,19 @@
   background: rgba(247, 244, 244, 0.7);
   padding-top: 20px;
   border-radius: 5px;
+  position: relative;
   .number:before {
     content: counter(directions-counter) '. ';
+  }
+
+  .progress__bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 30px;
+    background-color: #007bff;
+    transition: width 0.3s ease;
   }
 
   .reset {

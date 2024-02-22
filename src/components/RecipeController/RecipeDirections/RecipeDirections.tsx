@@ -1,6 +1,8 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import classNames from 'classnames/bind'
 import { IoIosSquareOutline, IoIosCheckboxOutline } from 'react-icons/io'
+import Realistic from 'react-canvas-confetti/dist/presets/fireworks'
+import ProgressBar from '@components/ProgressBar/ProgressBar'
 
 import styles from './RecipeDirections.module.scss'
 
@@ -12,9 +14,20 @@ interface RecipeDirectionsPropTypes {
     isActive: boolean
   }[]
   selectDirection: (i: number) => void
+  finished: boolean
+  setFinished: (i: boolean) => void
 }
 
-const RecipeDirections = ({ directions, selectDirection }: RecipeDirectionsPropTypes) => {
+const RecipeDirections = ({
+  directions,
+  selectDirection,
+  finished,
+  setFinished,
+}: RecipeDirectionsPropTypes) => {
+  const totalCount = directions.filter((direction) => !direction.value.includes('*')).length
+  const completed = directions.filter((direction) => direction.isActive !== false).length
+  const progress = Math.ceil((completed / totalCount) * 100)
+
   const displayDirectionsList = () => {
     return directions && directions.length ? (
       directions.map((direction, i) => {
@@ -46,9 +59,20 @@ const RecipeDirections = ({ directions, selectDirection }: RecipeDirectionsPropT
     )
   }
 
+  const callAfterConfetti = () => {
+    setTimeout(() => {
+      setFinished(true)
+    }, 3000)
+  }
   return (
     <div className={styles.container}>
+      <ProgressBar progress={progress} location={'top'} />
+      {progress === 100 && finished === false && (
+        <Realistic autorun={{ speed: 3, duration: 800 }} onInit={callAfterConfetti} />
+      )}
+
       <div className={styles.container__directions}>{displayDirectionsList()}</div>
+      <ProgressBar progress={progress} location="bottom" />
     </div>
   )
 }
