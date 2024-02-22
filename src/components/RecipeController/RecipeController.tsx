@@ -19,6 +19,7 @@ const RecipeController = ({ post }) => {
   const [activeTab, setActiveTab] = useState('Details')
   const [directionList, setDirectionList] = useState<{ value: string; isActive: boolean }[]>([])
   const [ingredientList, setIngredientList] = useState<{ value: string; isActive: boolean }[]>([])
+  const [finished, setFinished] = useState<boolean>(false)
 
   const getIngredients = (ingredients) => {
     if (ingredients) {
@@ -102,7 +103,12 @@ const RecipeController = ({ post }) => {
         <RecipeIngredients ingredients={ingredientList} selectIngredient={selectIngredient} />
       )}
       {activeTab === 'Directions' && (
-        <RecipeDirections directions={directionList} selectDirection={selectDirection} />
+        <RecipeDirections
+          finished={finished}
+          setFinished={setFinished}
+          directions={directionList}
+          selectDirection={selectDirection}
+        />
       )}
     </div>
   )
