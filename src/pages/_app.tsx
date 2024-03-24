@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
+import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/next'
+
 import '@styles/main.scss'
 import Layout from '../components/Layout/Layout'
 import { defaultMetaTags } from '../components/Util/Constants'
@@ -39,6 +42,8 @@ function MyApp({ Component, pageProps }) {
           <meta name="theme-color" content="#ffffff"></meta>
         </Head>
         <Component {...pageProps} />
+        <Analytics />
+        <SpeedInsights />
       </Layout>
     </SearchContextProvider>
   )

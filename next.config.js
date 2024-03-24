@@ -14,6 +14,11 @@ module.exports = {
       },
       {
         protocol: 'https',
+        hostname: 'imgur.com',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
         hostname: 'cdn.filestackcontent.com',
         pathname: '**',
       },
