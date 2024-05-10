@@ -60,7 +60,7 @@ const Recipes = ({ categories, recipes }: HomePropType) => {
     description: `Delicious and nutritious healthy vegetarian recipes`,
     image: 'https://www.bobbieleelicious.com/images/bobbieleelicious.png',
     robots: `${RobotsContent.follow},${RobotsContent.index}`,
-    title: `Bobbieleelicious`,
+    title: `Bobbieleelicious | Recipes`,
     type: PageType.website,
   }
 
@@ -68,9 +68,19 @@ const Recipes = ({ categories, recipes }: HomePropType) => {
     (postsToShow.length === 0 && searchCtx.filter.searchTerm.length > 0) ||
     (postsToShow.length === 0 && searchCtx.filter.categories.length > 0)
   ) {
-    return <PostsNotFound postType={'recipe'} />
+    return (
+      <>
+        <Meta tags={postMetaTags} />
+        <PostsNotFound postType={'recipe'} />
+      </>
+    )
   } else if (postsToShow.length === 0) {
-    return <Spinner />
+    return (
+      <>
+        <Meta tags={postMetaTags} />
+        <Spinner />
+      </>
+    )
   }
   return (
     <>

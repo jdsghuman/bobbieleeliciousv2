@@ -67,7 +67,7 @@ const Blogs = ({ blogs, categories }: HomePropType) => {
     description: `Healthy lifestyle and living`,
     image: 'https://www.bobbieleelicious.com/images/bobbieleelicious.png',
     robots: `${RobotsContent.follow},${RobotsContent.index}`,
-    title: `Bobbieleelicious`,
+    title: `Bobbieleelicious | Blogs`,
     type: PageType.website,
   }
 
@@ -75,9 +75,19 @@ const Blogs = ({ blogs, categories }: HomePropType) => {
     (postsToShow.length === 0 && searchCtx.filter.searchTerm.length > 0) ||
     (postsToShow.length === 0 && searchCtx.filter.categories.length > 0)
   ) {
-    return <PostsNotFound postType={'blog'} />
+    return (
+      <>
+        <Meta tags={postMetaTags} />
+        <PostsNotFound postType={'blog'} />
+      </>
+    )
   } else if (postsToShow.length === 0) {
-    return <Spinner />
+    return (
+      <>
+        <Meta tags={postMetaTags} />
+        <Spinner />
+      </>
+    )
   }
   return (
     <>
