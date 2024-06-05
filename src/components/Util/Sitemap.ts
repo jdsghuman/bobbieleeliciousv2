@@ -44,16 +44,24 @@ async function generateSitemap() {
 
   const postLinksRecipes = allRecipes?.recipes.map((post) => ({
     url: `recipe/${post.fields.slug}`,
-    changefreq: 'daily',
-    priority: 0.7,
+    changefreq: 'weekly',
+    priority: 0.8,
   }))
   const postLinksBlogs = allBlogs?.blogs.map((post) => ({
     url: `blog/${post.fields.slug}`,
-    changefreq: 'daily',
-    priority: 0.7,
+    changefreq: 'weekly',
+    priority: 0.8,
   }))
 
-  const links = [...pageLinks, ...postLinksRecipes, ...postLinksBlogs]
+  // Add static links for main category pages
+  const staticLinks = [
+    { url: '/recipes', changefreq: 'weekly', priority: 0.7 },
+    { url: '/blogs', changefreq: 'weekly', priority: 0.7 },
+    { url: '/about', changefreq: 'monthly', priority: 0.6 },
+  ]
+
+  const links = [...pageLinks, ...postLinksRecipes, ...postLinksBlogs, ...staticLinks]
+
   const stream = new SitemapStream({ hostname: baseUrl })
   const xml = await streamToPromise(Readable.from(links).pipe(stream)).then((data) =>
     data.toString()
