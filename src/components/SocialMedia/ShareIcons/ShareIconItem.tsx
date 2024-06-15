@@ -36,15 +36,15 @@ const ShareIconItem = ({
   }, [])
   return (
     <div ref={iconRef} className={cx('container__share', className)}>
-      <FacebookShareButton
-        url={url}
-        quote={`Bobbieleelicous - ${postName}`}
-        hashtag={'Bobbieleelicious'}
-        className={styles.icon}
-      >
+      <FacebookShareButton url={url} hashtag={'Bobbieleelicious'} className={styles.icon}>
         <FacebookIcon size={defaultIconSize} round={true} bgStyle={{ fill: `${colorIcons}` }} />
       </FacebookShareButton>
-      <PinterestShareButton url={url} media={postImage || ''} className={styles.icon}>
+      <PinterestShareButton
+        url={url}
+        media={postImage || ''}
+        description={postName}
+        className={styles.icon}
+      >
         <PinterestIcon size={defaultIconSize} round bgStyle={{ fill: `${colorIcons}` }} />
       </PinterestShareButton>
       <EmailShareButton
