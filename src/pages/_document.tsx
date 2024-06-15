@@ -7,6 +7,10 @@ class MyDocument extends Document {
     return (
       <Html lang={'en'}>
         <Head>
+          <meta
+            name="google-site-verification"
+            content="OfS2U5NJTL2TnEeQIG_HYU9wqFtQwInZn6-4XjltexA"
+          />
           {/* Global Site Tag (gtag.js) - Google Analytics */}
           {isProduction && (
             <>
