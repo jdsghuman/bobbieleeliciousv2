@@ -20,6 +20,7 @@ const RecipeDetail = ({ post }: RecipeDetailPropTypes) => {
           height={400}
           className={styles['image--main']}
           priority
+          unoptimized
         />
       ) : (
         <div className={styles['image--main--error']}>

@@ -21,6 +21,7 @@ const PostItem = ({ article, slug, lastRef }) => {
               className={styles.item__image}
               width={475}
               height={300}
+              unoptimized
             />
           </Link>
         </div>

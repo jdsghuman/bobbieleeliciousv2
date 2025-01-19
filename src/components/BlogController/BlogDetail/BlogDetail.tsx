@@ -22,6 +22,7 @@ const BlogDetail = ({ blog }: BlogPropType) => {
           alt={blog.fields.title || 'main image of blog'}
           className={styles['image--main']}
           priority
+          unoptimized
         />
       ) : (
         <div className={styles['image--main--error']}>
