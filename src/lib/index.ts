@@ -29,37 +29,39 @@ const client = require('contentful').createClient({
 // }
 
 export async function getAllBlogs() {
-  const blogs = await client
-    .getEntries({
+  try {
+    const response = await client.getEntries({
       content_type: 'blogPost',
       order: '-fields.publishDate',
       select:
         'fields.title, fields.description, fields.image, fields.slug, fields.description, fields.featured, fields.publishDate, fields.author, fields.category, fields.metaDescription',
     })
-    .then((response) => response.items)
 
-  if (blogs) {
     return {
-      blogs,
+      blogs: response.items || [],
     }
+  } catch (error) {
+    console.log(error)
+    return { blogs: [] }
   }
 }
 
 export async function getAllRecipes() {
-  const recipes = await client
-    .getEntries({
+  try {
+    const response = await client.getEntries({
       content_type: 'recipe',
       order: '-fields.publishDate',
       select:
         'fields.title, fields.description, fields.image, fields.slug, fields.description, fields.featured, fields.publishDate, fields.author, fields.category, fields.metaDescription',
       limit: 200,
     })
-    .then((response) => response.items)
 
-  if (recipes) {
     return {
-      recipes,
+      recipes: response.items || [],
     }
+  } catch (error) {
+    console.log(error)
+    return { recipes: [] }
   }
 }
 

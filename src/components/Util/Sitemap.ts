@@ -9,6 +9,7 @@ import { getAllBlogs, getAllRecipes } from '../../lib/index'
 const blocklist = ['/404']
 async function generateSitemap() {
   if (process.env.NODE_ENV === 'development') {
+    console.log('Sitemap generation skipped in development mode.')
     return
   }
   const baseUrl = process.env.BASE_URL
@@ -62,10 +63,15 @@ async function generateSitemap() {
 
   const links = [...pageLinks, ...postLinksRecipes, ...postLinksBlogs, ...staticLinks]
 
+  const publicDir = './public'
+  if (!fs.existsSync(publicDir)) {
+    fs.mkdir(publicDir)
+  }
+
   const stream = new SitemapStream({ hostname: baseUrl })
   const xml = await streamToPromise(Readable.from(links).pipe(stream)).then((data) =>
     data.toString()
   )
-  fs.writeFileSync('./public/sitemap.xml', xml)
+  fs.writeFileSync(`${publicDir}/sitemap.xml`, xml)
 }
 export default generateSitemap
