@@ -66,6 +66,7 @@ async function generateSitemap() {
 
   // Add static links for main category pages
   const staticLinks = [
+    { url: '/', changefreq: 'weekly', priority: 0.7 },
     { url: '/recipes', changefreq: 'weekly', priority: 0.7 },
     { url: '/blogs', changefreq: 'weekly', priority: 0.7 },
     { url: '/about', changefreq: 'monthly', priority: 0.6 },
