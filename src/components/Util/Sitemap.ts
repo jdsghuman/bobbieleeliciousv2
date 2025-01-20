@@ -2,7 +2,7 @@
 const globby = require('globby')
 const { SitemapStream, streamToPromise } = require('sitemap')
 const { Readable } = require('stream')
-const fs = require('fs')
+const fs = require('fs').promises
 import { getAllBlogs, getAllRecipes } from '../../lib/index'
 
 // pages that should not be in the sitemap
@@ -13,6 +13,16 @@ async function generateSitemap() {
     return
   }
   const baseUrl = process.env.BASE_URL
+  const publicDir = './public'
+
+  try {
+    await fs.mkdir(publicDir, { recursive: true })
+    console.log('Sitemap successfully written to public/sitemap.xml')
+  } catch (err) {
+    console.error(`Failed to create public directory: ${err}`)
+    return
+  }
+
   const pages = await globby([
     'pages/**/*{.js,.tsx,.ts,.mdx}',
     'pages/*{.js,.tsx,.ts,.mdx}',
@@ -63,15 +73,15 @@ async function generateSitemap() {
 
   const links = [...pageLinks, ...postLinksRecipes, ...postLinksBlogs, ...staticLinks]
 
-  const publicDir = './public'
-  if (!fs.existsSync(publicDir)) {
-    fs.mkdir(publicDir)
+  try {
+    const stream = new SitemapStream({ hostname: baseUrl })
+    const xml = await streamToPromise(Readable.from(links).pipe(stream)).then((data) =>
+      data.toString()
+    )
+    await fs.writeFile(`${publicDir}/sitemap.xml`, xml)
+    console.log('Sitemap successfully written to public/sitemap.xml')
+  } catch (err) {
+    console.error(`Failed to write sitemap.xml: ${err}`)
   }
-
-  const stream = new SitemapStream({ hostname: baseUrl })
-  const xml = await streamToPromise(Readable.from(links).pipe(stream)).then((data) =>
-    data.toString()
-  )
-  fs.writeFileSync(`${publicDir}/sitemap.xml`, xml)
 }
 export default generateSitemap
