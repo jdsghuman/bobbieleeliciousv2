@@ -23,7 +23,7 @@ const About = () => {
   const postMetaTags: MetaTags = {
     canonical: 'https://www.bobbieleelicious.com/about',
     description: `Delicious and nutritious healthy vegetarian recipes`,
-    image: `https://cdn.filestackcontent.com/eFCXsb8GSvWzOcZTJoEO`,
+    image: `https://i.imgur.com/hCAUcmZ.jpeg`,
     robots: `${RobotsContent.follow},${RobotsContent.index}`,
     title: `Bobbieleelicious | About`,
     type: PageType.website,
@@ -39,7 +39,7 @@ const About = () => {
               'about__image--show': true,
             })}
             alt="image of Bobbielee"
-            src="https://cdn.filestackcontent.com/eFCXsb8GSvWzOcZTJoEO"
+            src="https://i.imgur.com/hCAUcmZ.jpeg"
             width={519}
             height={693}
             priority
