@@ -25,8 +25,20 @@
     &--default {
       max-width: 100%;
       height: auto !important;
-      box-shadow: 1px 1px 8px 3px rgba(0, 0, 0, 0.4);
+      box-shadow: 0px 0px 4\6px 3px rgba(0, 0, 0, 0.1);
       display: none;
+      @media (max-width: 800px) {
+        max-height: 500px;
+        object-fit: cover;
+      }
+      @media (max-width: 460px) {
+        max-height: 400px;
+        object-fit: cover;
+      }
+      @media (max-width: 400px) {
+        max-height: 350px;
+        object-fit: cover;
+      }
     }
     &--show {
       display: unset;
