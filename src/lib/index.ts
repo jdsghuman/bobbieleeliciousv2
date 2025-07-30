@@ -34,7 +34,7 @@ export async function getAllBlogs() {
       content_type: 'blogPost',
       order: '-fields.publishDate',
       select:
-        'fields.title, fields.description, fields.image, fields.slug, fields.description, fields.featured, fields.publishDate, fields.author, fields.category, fields.metaDescription',
+        'fields.title, fields.description, fields.image, fields.slug, fields.featured, fields.publishDate, fields.author, fields.category, fields.metaDescription',
     })
 
     return {
@@ -52,7 +52,7 @@ export async function getAllRecipes() {
       content_type: 'recipe',
       order: '-fields.publishDate',
       select:
-        'fields.title, fields.description, fields.image, fields.slug, fields.description, fields.featured, fields.publishDate, fields.author, fields.category, fields.metaDescription',
+        'fields.title, fields.description, fields.image, fields.slug, fields.featured, fields.publishDate, fields.author, fields.category, fields.metaDescription',
       limit: 200,
     })
 

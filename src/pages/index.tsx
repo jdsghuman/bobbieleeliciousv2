@@ -57,7 +57,7 @@ export const getStaticProps: GetStaticProps = async () => {
           new Date(b.fields.publishDate).valueOf() - new Date(a.fields.publishDate).valueOf()
       ),
     },
-    revalidate: 200,
+    revalidate: 3600,
   }
 }
 
