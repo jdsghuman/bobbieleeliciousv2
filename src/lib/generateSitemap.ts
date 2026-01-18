@@ -23,23 +23,23 @@ async function generateSitemap() {
     return
   }
 
-  const pages = await globby([
-    'src/pages/**/*{.js,.tsx,.ts,.mdx}',
-    'src/pages/*{.js,.tsx,.ts,.mdx}',
-    '!src/pages/**/[*', // excludes dynamic routes like [slug].tsx
-    '!src/pages/_*.{js,ts,tsx}',
-    '!src/pages/api/**',
-  ])
-
   // const pages = await globby([
-  //   'pages/**/*{.js,.tsx,.ts,.mdx}',
-  //   'pages/*{.js,.tsx,.ts,.mdx}',
-  //   '!pages/**/[*',
-  //   '!pages/_*.js',
-  //   '!pages/_*.ts',
-  //   '!pages/_*.tsx',
-  //   '!pages/api',
+  //   'src/pages/**/*{.js,.tsx,.ts,.mdx}',
+  //   'src/pages/*{.js,.tsx,.ts,.mdx}',
+  //   '!src/pages/**/[*', // excludes dynamic routes like [slug].tsx
+  //   '!src/pages/_*.{js,ts,tsx}',
+  //   '!src/pages/api/**',
   // ])
+
+  const pages = await globby([
+    'pages/**/*{.js,.tsx,.ts,.mdx}',
+    'pages/*{.js,.tsx,.ts,.mdx}',
+    '!pages/**/[*',
+    '!pages/_*.js',
+    '!pages/_*.ts',
+    '!pages/_*.tsx',
+    '!pages/api',
+  ])
   // normal page routes
   const pageLinks = pages
     .map((page) => {
