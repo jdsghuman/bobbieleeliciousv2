@@ -8,7 +8,7 @@ import Subscribe from '../components/Subscribe/Banner/Banner'
 import Spinner from '../components/Spinner'
 import { MetaTags, PageType, RobotsContent } from '../components/PropTypes/Tags'
 import Meta from '../components/Meta'
-import generateSitemap from '../components/Util/Sitemap'
+import generateSitemap from '../lib/generateSitemap'
 import PromptSubscribe from '../components/Subscribe/PromptSubscribe'
 import SearchContext from '../store/search-context'
 import useInfiniteScroll from '../components/Util/Hooks/useInfiniteScroll'
@@ -57,7 +57,7 @@ export const getStaticProps: GetStaticProps = async () => {
           new Date(b.fields.publishDate).valueOf() - new Date(a.fields.publishDate).valueOf()
       ),
     },
-    revalidate: 3600,
+    revalidate: 86400,
   }
 }
 

@@ -1,2 +1,31 @@
 User-agent: *
 Sitemap: https://bobbieleelicious.com/sitemap.xml
+
+# Block Next.js build files
+Disallow: /_next/
+
+# Block API routes (bots hit these heavily)
+Disallow: /api/
+
+# Block common sensitive/scan targets
+Disallow: /.env
+Disallow: /.git
+
+# Block internal search (if you have it)
+Disallow: /search
+Disallow: /search/
+Disallow: /*?q=
+Disallow: /*&q=
+Disallow: /*?search=
+Disallow: /*&search=
+
+# Block tracking parameters (duplicate URLs / crawl waste)
+Disallow: /*?utm_
+Disallow: /*&utm_
+Disallow: /*?gclid=
+Disallow: /*&gclid=
+Disallow: /*?fbclid=
+Disallow: /*&fbclid=
+
+# Reduce load from polite bots (Google ignores Crawl-delay)
+Crawl-delay: 10
