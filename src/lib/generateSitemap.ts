@@ -3,7 +3,7 @@ const globby = require('globby')
 const { SitemapStream, streamToPromise } = require('sitemap')
 const { Readable } = require('stream')
 const fs = require('fs').promises
-import { getAllBlogs, getAllRecipes } from '../../lib/index'
+import { getAllBlogs, getAllRecipes } from './index'
 
 // pages that should not be in the sitemap
 const blocklist = ['/404']
@@ -24,14 +24,22 @@ async function generateSitemap() {
   }
 
   const pages = await globby([
-    'pages/**/*{.js,.tsx,.ts,.mdx}',
-    'pages/*{.js,.tsx,.ts,.mdx}',
-    '!pages/**/[*',
-    '!pages/_*.js',
-    '!pages/_*.ts',
-    '!pages/_*.tsx',
-    '!pages/api',
+    'src/pages/**/*{.js,.tsx,.ts,.mdx}',
+    'src/pages/*{.js,.tsx,.ts,.mdx}',
+    '!src/pages/**/[*', // excludes dynamic routes like [slug].tsx
+    '!src/pages/_*.{js,ts,tsx}',
+    '!src/pages/api/**',
   ])
+
+  // const pages = await globby([
+  //   'pages/**/*{.js,.tsx,.ts,.mdx}',
+  //   'pages/*{.js,.tsx,.ts,.mdx}',
+  //   '!pages/**/[*',
+  //   '!pages/_*.js',
+  //   '!pages/_*.ts',
+  //   '!pages/_*.tsx',
+  //   '!pages/api',
+  // ])
   // normal page routes
   const pageLinks = pages
     .map((page) => {
@@ -54,12 +62,12 @@ async function generateSitemap() {
   const allRecipes = await getAllRecipes()
 
   const postLinksRecipes = allRecipes?.recipes.map((post) => ({
-    url: `recipe/${post.fields.slug}`,
+    url: `/recipe/${post.fields.slug}`,
     changefreq: 'weekly',
     priority: 0.8,
   }))
   const postLinksBlogs = allBlogs?.blogs.map((post) => ({
-    url: `blog/${post.fields.slug}`,
+    url: `/blog/${post.fields.slug}`,
     changefreq: 'weekly',
     priority: 0.8,
   }))
