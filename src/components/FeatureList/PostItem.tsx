@@ -14,7 +14,7 @@ const PostItem = ({ article, slug, lastRef }) => {
     <div className={styles.item} key={article.sys.id} ref={lastRef}>
       {article.fields.image ? (
         <div>
-          <Link href={`/${slug}/` + article.fields.slug} passHref>
+          <Link href={`/${slug}/` + article.fields.slug} prefetch={false} passHref>
             <Image
               src={article.fields.image}
               alt={article.fields.title || 'author image'}
@@ -29,7 +29,7 @@ const PostItem = ({ article, slug, lastRef }) => {
         <div className={cx('item__image', 'item__image--default')}></div>
       )}
       <div className={styles.item__link}>
-        <Link href={`/${slug}/` + article.fields.slug}>
+        <Link href={`/${slug}/` + article.fields.slug} prefetch={false}>
           {truncateText(article.fields.title, 60)}
         </Link>
       </div>
@@ -47,6 +47,7 @@ const PostItem = ({ article, slug, lastRef }) => {
         <Link
           className={styles['item__button--accent']}
           href={`/${slug}/` + article.fields.slug}
+          prefetch={false}
           passHref
         >
           Read more{' '}

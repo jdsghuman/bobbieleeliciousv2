@@ -17,6 +17,7 @@ const LinkDisplay = ({ link, children, onClick, style }: LinkDisplayProps) => {
       onClick={onClick}
       href={link}
       type="button"
+      prefetch={false}
       className={`${style} ${router.pathname === link ? styles.link__selected : ''} `}
     >
       {children}
