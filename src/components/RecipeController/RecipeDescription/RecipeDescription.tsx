@@ -92,7 +92,7 @@ const RecipeDescription = ({ recipe }: RecipePropType) => {
         </div>
       )}
       <div className={styles.print}>
-        <Link passHref href={`${router.asPath}/print`} target="_blank">
+        <Link passHref href={`${router.asPath}/print`} target="_blank" prefetch={false}>
           <Button type="button" className={styles.print__button}>
             <AiOutlinePrinter className={styles.icon} />
             Print recipe
