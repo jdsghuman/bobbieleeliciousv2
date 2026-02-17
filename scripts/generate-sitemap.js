@@ -67,9 +67,9 @@ function dedupeByUrl(links) {
 }
 
 async function generateSitemap() {
-  const baseUrl = process.env.BASE_URL
-  if (!baseUrl) {
-    throw new Error('BASE_URL environment variable is required to generate sitemap.xml')
+  const baseUrl = process.env.BASE_URL || 'https://www.bobbieleelicious.com'
+  if (!process.env.BASE_URL) {
+    console.warn('BASE_URL is not set. Falling back to https://www.bobbieleelicious.com')
   }
 
   const publicDir = path.join(process.cwd(), 'public')
@@ -117,7 +117,9 @@ async function generateSitemap() {
   const links = dedupeByUrl([...pageLinks, ...postLinksRecipes, ...postLinksBlogs, ...staticLinks])
 
   const stream = new SitemapStream({ hostname: baseUrl })
-  const xml = await streamToPromise(Readable.from(links).pipe(stream)).then((data) => data.toString())
+  const xml = await streamToPromise(Readable.from(links).pipe(stream)).then((data) =>
+    data.toString()
+  )
 
   await fs.writeFile(path.join(publicDir, 'sitemap.xml'), xml)
   console.log('Sitemap successfully written to public/sitemap.xml')
