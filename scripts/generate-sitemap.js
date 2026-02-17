@@ -78,7 +78,8 @@ async function generateSitemap() {
   const pages = await globby([
     'src/pages/**/*{.js,.tsx,.ts,.mdx}',
     'src/pages/*{.js,.tsx,.ts,.mdx}',
-    '!src/pages/**/[*',
+    '!src/pages/**/[[]*[]].{js,ts,tsx,mdx}',
+    '!src/pages/**/[[]*[]]/**',
     '!src/pages/_*.js',
     '!src/pages/_*.ts',
     '!src/pages/_*.tsx',
@@ -92,6 +93,7 @@ async function generateSitemap() {
       priority: 0.7,
     }))
     .filter((page) => !blocklist.includes(page.url))
+    .filter((page) => !page.url.includes('['))
 
   const [blogs, recipes] = await Promise.all([getAllBlogs(), getAllRecipes()])
 
