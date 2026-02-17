@@ -8,7 +8,6 @@ import Subscribe from '../components/Subscribe/Banner/Banner'
 import Spinner from '../components/Spinner'
 import { MetaTags, PageType, RobotsContent } from '../components/PropTypes/Tags'
 import Meta from '../components/Meta'
-import generateSitemap from '../lib/generateSitemap'
 import PromptSubscribe from '../components/Subscribe/PromptSubscribe'
 import SearchContext from '../store/search-context'
 import useInfiniteScroll from '../components/Util/Hooks/useInfiniteScroll'
@@ -22,7 +21,6 @@ const DynamicFeatureList = dynamic(() => import('@components/FeatureList/Feature
   loading: () => <p>Loading...</p>,
 })
 export const getStaticProps: GetStaticProps = async () => {
-  await generateSitemap()
   const posts = await getAllBlogs()
 
   const updatedBlogs = posts?.blogs.map((blog) => {
