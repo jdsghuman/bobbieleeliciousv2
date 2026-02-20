@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { AiOutlineClose, AiOutlinePrinter } from 'react-icons/ai'
 import { getAllPostsWithSlug, getPostBySlug } from '../../../../lib/index'
 import { RecipePropType } from '@components/PropTypes/PropTypes'
+import { RobotsContent } from '@components/PropTypes/Tags'
 
 import styles from '../../../../styles/Home.module.css'
 import Button from '@components/Button'
@@ -53,11 +54,11 @@ const Print = ({ recipe }: RecipePropType) => {
   }
 
   const canonicalUrl = `https://www.bobbieleelicious.com/recipe/${recipe.fields.slug}`
-  console.log('canonicalUrl', canonicalUrl)
+
   return (
     <>
       <Head>
-        <meta name="robots" content="noindex,follow" />
+        <meta name="robots" content={`${RobotsContent.no_index},${RobotsContent.follow}`} />
         <link rel="canonical" href={canonicalUrl} />
       </Head>
       <div className={styles.print__container}>
