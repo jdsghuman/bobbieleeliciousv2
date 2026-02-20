@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
+import Head from 'next/head'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
@@ -51,141 +52,149 @@ const Print = ({ recipe }: RecipePropType) => {
     return <Spinner />
   }
 
+  const canonicalUrl = `https://www.bobbieleelicious.com/recipe/${recipe.fields.slug}`
+  console.log('canonicalUrl', canonicalUrl)
   return (
-    <div className={styles.print__container}>
-      <Link href="/" passHref prefetch={false}>
-        <Image
-          className={styles.print__logo}
-          src="/images/bobbieleelicious-logo-black.png"
-          alt={'Logo'}
-          width={200}
-          height={75}
-        />
-      </Link>
-      <div>
-        <Button onClick={printPage} type="button" className={styles.print__button}>
-          <AiOutlinePrinter className={styles.print__icon} />
-          Print
-        </Button>
-      </div>
-      <div>
-        <h1 className={styles.print__title}>{recipe.fields.title}</h1>
-        {showImage && (
-          <div style={{ display: 'flex', flexDirection: 'row' }}>
-            <Image
-              src={recipe.fields.image}
-              alt={recipe.fields.image}
-              className={styles.print__image}
-              width={200}
-              height={200}
-            />
-            <AiOutlineClose
-              onClick={() => setShowImage(false)}
-              style={{ fontSize: '1.4rem', cursor: 'pointer' }}
-            />
-          </div>
-        )}
-      </div>
-      <div className={styles.print__data}>
-        <p style={{ margin: '4px' }}>
-          <span style={{ fontWeight: 'bold' }}>Prep:</span> {recipe.fields.prep}
-        </p>
-        <p style={{ margin: '4px' }}>
-          <span style={{ fontWeight: 'bold' }}>Cook Time:</span> {recipe.fields.cooktime}
-        </p>
-        <p style={{ margin: '4px' }}>
-          <span style={{ fontWeight: 'bold' }}>Servings:</span> {recipe.fields.servings}
-        </p>
-      </div>
-      <div>
-        <h3
-          style={{
-            fontFamily: '"Barlow Condensed", sans-serif',
-            fontSize: '2rem',
-            marginBottom: '0',
-            color: '#333',
-          }}
-        >
-          Ingredients
-        </h3>
-        <ul style={{ listStyleType: 'square' }}>
-          {recipe.fields.ingredients.split('--').map((ingredient, i) => (
-            <li
-              key={i}
-              style={{
-                fontSize: '1.2rem',
-                fontFamily: 'Lato, sans-serif',
-                fontWeight: 'lighter',
-                marginBottom: '3px',
-              }}
-            >
-              {ingredient}
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div>
-        <h3
-          style={{
-            fontFamily: '"Barlow Condensed", sans-serif',
-            fontSize: '2rem',
-            marginBottom: '0',
-            color: '#333',
-          }}
-        >
-          Directions
-        </h3>
-        <ol>
-          {recipe.fields.recipeDirections.split('--').map((step, i) => (
-            <li
-              key={i}
-              style={{
-                fontSize: '1.2rem',
-                fontFamily: 'Lato, sans-serif',
-                fontWeight: 'lighter',
-                marginBottom: '3px',
-              }}
-            >
-              {step}
-            </li>
-          ))}
-        </ol>
-      </div>
-      {recipe.fields.recipeNotes && (
-        <div style={{ marginTop: '20px' }}>
+    <>
+      <Head>
+        <meta name="robots" content="noindex,follow" />
+        <link rel="canonical" href={canonicalUrl} />
+      </Head>
+      <div className={styles.print__container}>
+        <Link href="/" passHref prefetch={false}>
+          <Image
+            className={styles.print__logo}
+            src="/images/bobbieleelicious-logo-black.png"
+            alt={'Logo'}
+            width={200}
+            height={75}
+          />
+        </Link>
+        <div>
+          <Button onClick={printPage} type="button" className={styles.print__button}>
+            <AiOutlinePrinter className={styles.print__icon} />
+            Print
+          </Button>
+        </div>
+        <div>
+          <h1 className={styles.print__title}>{recipe.fields.title}</h1>
+          {showImage && (
+            <div style={{ display: 'flex', flexDirection: 'row' }}>
+              <Image
+                src={recipe.fields.image}
+                alt={recipe.fields.image}
+                className={styles.print__image}
+                width={200}
+                height={200}
+              />
+              <AiOutlineClose
+                onClick={() => setShowImage(false)}
+                style={{ fontSize: '1.4rem', cursor: 'pointer' }}
+              />
+            </div>
+          )}
+        </div>
+        <div className={styles.print__data}>
+          <p style={{ margin: '4px' }}>
+            <span style={{ fontWeight: 'bold' }}>Prep:</span> {recipe.fields.prep}
+          </p>
+          <p style={{ margin: '4px' }}>
+            <span style={{ fontWeight: 'bold' }}>Cook Time:</span> {recipe.fields.cooktime}
+          </p>
+          <p style={{ margin: '4px' }}>
+            <span style={{ fontWeight: 'bold' }}>Servings:</span> {recipe.fields.servings}
+          </p>
+        </div>
+        <div>
           <h3
             style={{
               fontFamily: '"Barlow Condensed", sans-serif',
               fontSize: '2rem',
+              marginBottom: '0',
               color: '#333',
             }}
           >
-            Recipe notes:
+            Ingredients
           </h3>
-          <p style={{ fontFamily: 'Lato, sans-serif', fontWeight: 'lighter' }}>
-            {recipe.fields.recipeNotes}
-          </p>
+          <ul style={{ listStyleType: 'square' }}>
+            {recipe.fields.ingredients.split('--').map((ingredient, i) => (
+              <li
+                key={i}
+                style={{
+                  fontSize: '1.2rem',
+                  fontFamily: 'Lato, sans-serif',
+                  fontWeight: 'lighter',
+                  marginBottom: '3px',
+                }}
+              >
+                {ingredient}
+              </li>
+            ))}
+          </ul>
         </div>
-      )}
-      <div>
-        <h3
-          style={{
-            fontFamily: '"Barlow Condensed", sans-serif',
-            fontSize: '2rem',
-            marginBottom: '200px',
-            color: '#333',
-          }}
-        >
-          Your notes:
-        </h3>
+        <div>
+          <h3
+            style={{
+              fontFamily: '"Barlow Condensed", sans-serif',
+              fontSize: '2rem',
+              marginBottom: '0',
+              color: '#333',
+            }}
+          >
+            Directions
+          </h3>
+          <ol>
+            {recipe.fields.recipeDirections.split('--').map((step, i) => (
+              <li
+                key={i}
+                style={{
+                  fontSize: '1.2rem',
+                  fontFamily: 'Lato, sans-serif',
+                  fontWeight: 'lighter',
+                  marginBottom: '3px',
+                }}
+              >
+                {step}
+              </li>
+            ))}
+          </ol>
+        </div>
+        {recipe.fields.recipeNotes && (
+          <div style={{ marginTop: '20px' }}>
+            <h3
+              style={{
+                fontFamily: '"Barlow Condensed", sans-serif',
+                fontSize: '2rem',
+                color: '#333',
+              }}
+            >
+              Recipe notes:
+            </h3>
+            <p style={{ fontFamily: 'Lato, sans-serif', fontWeight: 'lighter' }}>
+              {recipe.fields.recipeNotes}
+            </p>
+          </div>
+        )}
+        <div>
+          <h3
+            style={{
+              fontFamily: '"Barlow Condensed", sans-serif',
+              fontSize: '2rem',
+              marginBottom: '200px',
+              color: '#333',
+            }}
+          >
+            Your notes:
+          </h3>
+        </div>
+        <p>
+          Link to recipe:{' '}
+          <a
+            href={`${router.basePath}/recipe/${recipe.fields.slug}`}
+          >{`www.bobbieleelicious.com/recipe/${recipe.fields.slug}`}</a>
+        </p>
       </div>
-      <p>
-        Link to recipe:{' '}
-        <a
-          href={`${router.basePath}/recipe/${recipe.fields.slug}`}
-        >{`www.bobbieleelicious.com/recipe/${recipe.fields.slug}`}</a>
-      </p>
-    </div>
+    </>
   )
 }
 
