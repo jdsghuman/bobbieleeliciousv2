@@ -30,7 +30,7 @@ const PostItem = ({ article, slug, lastRef }) => {
       )}
       <div className={styles.item__link}>
         <Link href={`/${slug}/` + article.fields.slug} prefetch={false}>
-          {truncateText(article.fields.title, 60)}
+          {truncateText(article.fields.title, 120)}
         </Link>
       </div>
       <p className={styles.item__description}>
