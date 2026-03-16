@@ -105,10 +105,9 @@ interface CategoryPropType {
 }
 
 export interface HomePropType {
-  blogs: BlogsPropType[]
-  recipes: RecipesPropType[]
   featuredPosts: []
-  categories: []
+  latestBlogs: BlogsPropType[]
+  latestRecipes: RecipesPropType[]
 }
 
 export interface IconPropType {
