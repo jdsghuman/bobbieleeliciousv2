@@ -3,7 +3,7 @@ import { GetStaticProps } from 'next'
 import dynamic from 'next/dynamic'
 import styles from '@styles/Home.module.css'
 import { HomePropType } from '../components/PropTypes/PropTypes'
-import { getAllRecipes, getAllBlogs } from '../lib/index'
+import { getAllBlogs, getAllRecipes } from '../lib/index'
 import Subscribe from '../components/Subscribe/Banner/Banner'
 import Spinner from '../components/Spinner'
 import { MetaTags, PageType, RobotsContent } from '../components/PropTypes/Tags'
@@ -20,50 +20,61 @@ import CarouselContainer from '@components/Carousel'
 const DynamicFeatureList = dynamic(() => import('@components/FeatureList/FeatureList'), {
   loading: () => <p>Loading...</p>,
 })
-export const getStaticProps: GetStaticProps = async () => {
-  const posts = await getAllBlogs()
 
-  const updatedBlogs = posts?.blogs.map((blog) => {
+export const getStaticProps: GetStaticProps = async () => {
+  const [featuredBlogsData, featuredRecipesData, latestBlogsData, latestRecipesData] =
+    await Promise.all([
+      getAllBlogs({ featured: true }),
+      getAllRecipes({ featured: true }),
+      getAllBlogs({ limit: 3 }),
+      getAllRecipes({ limit: 3 }),
+    ])
+
+  const featuredBlogs = featuredBlogsData.blogs.map((blog) => {
     if (typeof blog.fields.description === 'string') {
       blog.fields.description = blog.fields.description.slice(0, 155)
     }
     blog.type = 'blog'
-
     return blog
   })
 
-  const allRecipesNoMaxLimit = await getAllRecipes()
-
-  const updatedRecipes = allRecipesNoMaxLimit?.recipes.map((recipe) => {
+  const featuredRecipes = featuredRecipesData.recipes.map((recipe) => {
     if (typeof recipe.fields.description === 'string') {
       recipe.fields.description = recipe.fields.description.slice(0, 155)
     }
     recipe.type = 'recipe'
-
     return recipe
   })
 
-  const featuredBlogs = posts?.blogs.filter((blog) => blog.fields.featured)
+  const latestBlogs = latestBlogsData.blogs.map((blog) => {
+    blog.type = 'blog'
+    return blog
+  })
 
-  const featuredRecipes = allRecipesNoMaxLimit?.recipes.filter((recipe) => recipe.fields.featured)
+  const latestRecipes = latestRecipesData.recipes.map((recipe) => {
+    recipe.type = 'recipe'
+    return recipe
+  })
+
   return {
     props: {
-      blogs: updatedBlogs,
-      recipes: updatedRecipes,
       featuredPosts: [...featuredBlogs, ...featuredRecipes].sort(
         (a, b) =>
           new Date(b.fields.publishDate).valueOf() - new Date(a.fields.publishDate).valueOf()
       ),
+      latestBlogs,
+      latestRecipes,
     },
     revalidate: 86400,
   }
 }
 
-const Home = ({ blogs, featuredPosts, recipes }: HomePropType) => {
+const Home = ({ featuredPosts, latestBlogs, latestRecipes }: HomePropType) => {
   const searchCtx = useContext(SearchContext)
   const observer = useRef<any>()
 
   const [postsToDisplay, setPostsToDisplay] = useState([])
+  const [searchLoading, setSearchLoading] = useState(false)
 
   const [pageNumber, setPageNumber] = useState(0)
   const { postsToShow, loading, hasMore, error } = useInfiniteScroll(
@@ -104,62 +115,33 @@ const Home = ({ blogs, featuredPosts, recipes }: HomePropType) => {
   )
 
   useEffect(() => {
-    if (searchCtx.filter.searchTerm.length > 0 || searchCtx.filter.categories.length > 0) {
-      setPageNumber(1)
-      let filteredPosts: any = []
-      if (searchCtx.filter.searchTerm.length > 0 && searchCtx.filter.categories.length === 0) {
-        filteredPosts = [
-          ...blogs.filter((blog) =>
-            blog.fields.title
-              .toLowerCase()
-              .includes(searchCtx.filter.searchTerm.toLowerCase().trim())
-          ),
-          ...recipes.filter((recipe) =>
-            recipe.fields.title
-              .toLowerCase()
-              .includes(searchCtx.filter.searchTerm.toLowerCase().trim())
-          ),
-        ]
-      } else if (
-        searchCtx.filter.categories.length > 0 &&
-        searchCtx.filter.searchTerm.length === 0
-      ) {
-        filteredPosts = [
-          ...blogs.filter((blog) =>
-            blog?.fields?.category[0]?.fields?.name
-              .toLowerCase()
-              .includes(searchCtx.filter.categories.toLowerCase())
-          ),
-          ...recipes.filter((recipe) =>
-            recipe?.fields?.category?.fields?.name
-              .toLowerCase()
-              .includes(searchCtx.filter.categories.toLowerCase())
-          ),
-        ]
-      } else {
-        filteredPosts = [
-          ...blogs.filter(
-            (blog) =>
-              blog?.fields?.category[0]?.fields?.name
-                .toLowerCase()
-                .includes(searchCtx.filter.categories.toLowerCase()) &&
-              blog.fields.title
-                .toLowerCase()
-                .includes(searchCtx.filter.searchTerm.toLowerCase().trim())
-          ),
-          ...recipes.filter(
-            (recipe) =>
-              recipe?.fields?.category?.fields?.name
-                .toLowerCase()
-                .includes(searchCtx.filter.categories.toLowerCase()) &&
-              recipe.fields.title
-                .toLowerCase()
-                .includes(searchCtx.filter.searchTerm.toLowerCase().trim())
-          ),
-        ]
-      }
-      setPostsToDisplay(filteredPosts)
-    }
+    if (searchCtx.filter.searchTerm.length === 0 && searchCtx.filter.categories.length === 0) return
+
+    const controller = new AbortController()
+
+    setSearchLoading(true)
+    setPageNumber(1)
+
+    const params = new URLSearchParams()
+    if (searchCtx.filter.searchTerm) params.set('searchTerm', searchCtx.filter.searchTerm)
+    if (searchCtx.filter.categories) params.set('categories', searchCtx.filter.categories)
+
+    fetch(`/api/search?${params}`, { signal: controller.signal })
+      .then((res) => {
+        if (!res.ok) throw new Error(`Search failed: ${res.status}`)
+        return res.json()
+      })
+      .then((data) => {
+        setPostsToDisplay(data.results)
+        setSearchLoading(false)
+      })
+      .catch((err) => {
+        if (err.name === 'AbortError') return
+        console.error('Search request failed', err)
+        setSearchLoading(false)
+      })
+
+    return () => controller.abort()
   }, [searchCtx.filter.searchTerm, searchCtx.filter.categories])
 
   useEffect(() => {
@@ -175,7 +157,7 @@ const Home = ({ blogs, featuredPosts, recipes }: HomePropType) => {
     }
   }, [])
 
-  if (!blogs && !featuredPosts && !recipes) {
+  if (!featuredPosts) {
     return <Spinner />
   }
 
@@ -183,6 +165,7 @@ const Home = ({ blogs, featuredPosts, recipes }: HomePropType) => {
     (postsToShow.length === 0 && searchCtx.filter.searchTerm.length > 0) ||
     (postsToShow.length === 0 && searchCtx.filter.categories.length > 0)
   ) {
+    if (searchLoading) return <Spinner />
     return <PostsNotFound postType={'post'} />
   }
 
@@ -195,8 +178,8 @@ const Home = ({ blogs, featuredPosts, recipes }: HomePropType) => {
         <div className={styles.container}>
           <CarouselContainer featuredPosts={featuredPosts} />
           <Subscribe />
-          <DynamicFeatureList title="Latest Recipes" articles={recipes.slice(0, 3)} slug="recipe" />
-          <DynamicFeatureList title="Latest Blogs" articles={blogs.slice(0, 3)} slug="blog" />
+          <DynamicFeatureList title="Latest Recipes" articles={latestRecipes} slug="recipe" />
+          <DynamicFeatureList title="Latest Blogs" articles={latestBlogs} slug="blog" />
         </div>
       ) : (
         <PostItemContainer title="posts">

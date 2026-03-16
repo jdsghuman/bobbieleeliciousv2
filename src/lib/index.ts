@@ -28,14 +28,23 @@ const client = require('contentful').createClient({
 //   }
 // }
 
-export async function getAllBlogs() {
+interface QueryOptions {
+  featured?: boolean
+  limit?: number
+}
+
+export async function getAllBlogs({ featured, limit }: QueryOptions = {}) {
   try {
-    const response = await client.getEntries({
+    const query: Record<string, any> = {
       content_type: 'blogPost',
       order: '-fields.publishDate',
       select:
         'fields.title, fields.description, fields.image, fields.slug, fields.featured, fields.publishDate, fields.author, fields.category, fields.metaDescription',
-    })
+    }
+    if (featured) query['fields.featured'] = true
+    if (limit) query.limit = limit
+
+    const response = await client.getEntries(query)
 
     return {
       blogs: response.items || [],
@@ -46,15 +55,18 @@ export async function getAllBlogs() {
   }
 }
 
-export async function getAllRecipes() {
+export async function getAllRecipes({ featured, limit }: QueryOptions = {}) {
   try {
-    const response = await client.getEntries({
+    const query: Record<string, any> = {
       content_type: 'recipe',
       order: '-fields.publishDate',
       select:
         'fields.title, fields.description, fields.image, fields.slug, fields.featured, fields.publishDate, fields.author, fields.category, fields.metaDescription',
-      limit: 200,
-    })
+    }
+    if (featured) query['fields.featured'] = true
+    query.limit = limit ?? 200
+
+    const response = await client.getEntries(query)
 
     return {
       recipes: response.items || [],
