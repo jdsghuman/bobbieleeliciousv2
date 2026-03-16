@@ -50,16 +50,21 @@ const Filter = ({ closeFilter, isOpen }) => {
         'container--show': isOpen,
       })}
     >
-      <Icon
-        identifier="close"
-        viewBox="0 0 500 512"
-        dimensions={{ height: 18, width: 18 }}
+      <button
+        type="button"
+        onClick={closeFilter}
+        aria-label="Close search"
         className={styles.container__close}
-        click={closeFilter}
-      />
+      >
+        <Icon identifier="close" viewBox="0 0 500 512" dimensions={{ height: 12, width: 12 }} />
+      </button>
       <div className={styles.search__container}>
         <div className={styles.search}>
+          <label htmlFor="search-input" className={styles['sr-only']}>
+            Search
+          </label>
           <input
+            id="search-input"
             type="text"
             name="searchTerm"
             onChange={(e) => updateSearch(e)}
@@ -67,6 +72,7 @@ const Filter = ({ closeFilter, isOpen }) => {
             value={searchCtx.filter.searchTerm}
             ref={inputRef}
             className={styles.search__input}
+            placeholder="Search..."
           />
         </div>
         <Icon

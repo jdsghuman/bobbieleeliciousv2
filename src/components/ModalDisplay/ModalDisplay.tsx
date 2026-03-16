@@ -41,13 +41,9 @@ const ModalDisplay = ({ isOpen, closeModal, ...props }: ModalDisplayPropType) =>
         ariaHideApp={false}
         contentLabel="Modal"
       >
-        <Icon
-          identifier="close"
-          viewBox="0 0 500 512"
-          dimensions={{ height: 18, width: 18 }}
-          className={styles.icon}
-          click={closeModal}
-        />
+        <button type="button" onClick={closeModal} aria-label="Close modal" className={styles.icon}>
+          <Icon identifier="close" viewBox="0 0 500 512" dimensions={{ height: 18, width: 18 }} />
+        </button>
         {props.children}
       </Modal>
     </div>

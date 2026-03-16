@@ -17,7 +17,7 @@ const PostItem = ({ article, slug, lastRef }) => {
           <Link href={`/${slug}/` + article.fields.slug} prefetch={false} passHref>
             <Image
               src={article.fields.image}
-              alt={article.fields.title || 'author image'}
+              alt={article.fields.title || ''}
               className={styles.item__image}
               width={475}
               height={300}
@@ -49,6 +49,7 @@ const PostItem = ({ article, slug, lastRef }) => {
           href={`/${slug}/` + article.fields.slug}
           prefetch={false}
           passHref
+          aria-label={`Read more about ${article.fields.title}`}
         >
           Read more{' '}
           <Icon
