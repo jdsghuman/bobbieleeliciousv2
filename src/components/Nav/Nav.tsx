@@ -92,7 +92,8 @@ const Nav = ({ drawerToggleClickHandler, sideDrawerOpen }) => {
                 <button
                   type="button"
                   onClick={toggleFilter}
-                  aria-label="Open search"
+                  aria-label={isOpenFilter ? 'Close search' : 'Open search'}
+                  aria-expanded={isOpenFilter}
                   className={styles.nav__search__mobile}
                 >
                   <Icon
@@ -169,7 +170,8 @@ const Nav = ({ drawerToggleClickHandler, sideDrawerOpen }) => {
                       className={styles.nav__btn}
                       type="button"
                       onClick={toggleFilter}
-                      aria-label="Open search"
+                      aria-label={isOpenFilter ? 'Close search' : 'Open search'}
+                      aria-expanded={isOpenFilter}
                     >
                       <Icon
                         identifier="search"
