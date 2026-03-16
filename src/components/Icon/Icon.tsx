@@ -1,6 +1,5 @@
 interface IconPropType {
   className?: string
-  click?: () => void
   dimensions?: {
     width: number
     height: number
@@ -14,7 +13,6 @@ interface IconPropType {
 
 const Icon = ({
   className,
-  click,
   dimensions,
   fill,
   identifier,
@@ -114,9 +112,10 @@ const Icon = ({
       className={className}
       fill={fill}
       style={styles || undefined}
-      onClick={click}
       stroke={stroke}
       strokeWidth={strokeWidth}
+      aria-hidden="true"
+      focusable="false"
     >
       {buildPaths()}
     </svg>

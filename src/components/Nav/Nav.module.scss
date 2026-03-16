@@ -247,6 +247,10 @@ $breakpoint--md: 800px;
         }
       }
       &__mobile {
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
         @media (min-width: 801px) {
           display: none;
         }

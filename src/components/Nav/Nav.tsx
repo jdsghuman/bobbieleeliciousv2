@@ -89,14 +89,19 @@ const Nav = ({ drawerToggleClickHandler, sideDrawerOpen }) => {
                 })}
               >
                 <Filter isOpen={isOpenFilter} closeFilter={toggleFilter} />
-                <Icon
-                  identifier="search"
-                  viewBox="0 0 600 350"
-                  fill={'#555'}
-                  dimensions={{ height: 30, width: 26 }}
+                <button
+                  type="button"
+                  onClick={toggleFilter}
+                  aria-label="Open search"
                   className={styles.nav__search__mobile}
-                  click={toggleFilter}
-                />
+                >
+                  <Icon
+                    identifier="search"
+                    viewBox="0 0 600 350"
+                    fill={'#555'}
+                    dimensions={{ height: 30, width: 26 }}
+                  />
+                </button>
               </div>
             ) : (
               <div className={styles['nav__search__mobile--none']}></div>
@@ -160,7 +165,12 @@ const Nav = ({ drawerToggleClickHandler, sideDrawerOpen }) => {
                 router.pathname === '/blogs' ||
                 router.pathname === '/' ? (
                   <li>
-                    <button className={styles.nav__btn} type="button" onClick={toggleFilter}>
+                    <button
+                      className={styles.nav__btn}
+                      type="button"
+                      onClick={toggleFilter}
+                      aria-label="Open search"
+                    >
                       <Icon
                         identifier="search"
                         viewBox="0 0 600 350"

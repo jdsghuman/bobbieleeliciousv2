@@ -20,6 +20,8 @@ const Pagination = ({ active, count, setActiveImage, activeNeighbor }: Paginatio
         })}
         onClick={() => setActiveImage(count)}
         type="button"
+        aria-label={`Go to slide ${count + 1}`}
+        aria-current={active ? 'true' : undefined}
       ></button>
     </li>
   )

@@ -31,15 +31,20 @@ const Slider = ({ items }: SliderPropType) => {
   }, [])
   return (
     <div className={styles.container__slider}>
-      <Icon
-        identifier="chevronBack"
-        viewBox="0 0 512 512"
-        fill="none"
-        stroke="#888888"
-        strokeWidth="22"
+      <button
+        type="button"
+        onClick={() => scroll(-60)}
+        aria-label="Scroll categories left"
         className={styles.arrow}
-        click={() => scroll(-60)}
-      />
+      >
+        <Icon
+          identifier="chevronBack"
+          viewBox="0 0 512 512"
+          fill="none"
+          stroke="#888888"
+          strokeWidth="22"
+        />
+      </button>
       <div ref={ref} className={styles.container}>
         {items.data
           .sort((a, b) => {
@@ -50,7 +55,7 @@ const Slider = ({ items }: SliderPropType) => {
               <button
                 key={item.sys.id}
                 onClick={() => toggleSliderOption(item.fields.name)}
-                tabIndex={0}
+                aria-pressed={searchCtx.filter.categories.includes(item.fields.name)}
                 className={cx('item', {
                   'item-clicked': searchCtx.filter.categories.includes(item.fields.name),
                 })}
@@ -67,15 +72,20 @@ const Slider = ({ items }: SliderPropType) => {
             )
           })}
       </div>
-      <Icon
-        identifier="chevronForward"
-        viewBox="0 0 512 512"
-        fill="none"
-        stroke="#888888"
-        strokeWidth="15"
+      <button
+        type="button"
+        onClick={() => scroll(60)}
+        aria-label="Scroll categories right"
         className={styles.arrow}
-        click={() => scroll(60)}
-      />
+      >
+        <Icon
+          identifier="chevronForward"
+          viewBox="0 0 512 512"
+          fill="none"
+          stroke="#888888"
+          strokeWidth="15"
+        />
+      </button>
     </div>
   )
 }
