@@ -95,7 +95,7 @@ interface AuthorPropType {
   }
 }
 
-interface CategoryPropType {
+export interface CategoryPropType {
   fields: {
     name: string
   }
@@ -105,19 +105,19 @@ interface CategoryPropType {
 }
 
 export interface HomePropType {
-  featuredPosts: []
+  featuredPosts: FeaturedPost[]
   latestBlogs: BlogsPropType[]
   latestRecipes: RecipesPropType[]
 }
 
 export interface BlogsPagePropType {
   blogs: BlogsPropType[]
-  categories: []
+  categories: { data: CategoryPropType[] }
 }
 
 export interface RecipesPagePropType {
   recipes: RecipesPropType[]
-  categories: []
+  categories: { data: CategoryPropType[] }
 }
 
 export interface IconPropType {
