@@ -31,16 +31,21 @@ const ScrollToTop = () => {
 
   return (
     <div>
-      <Icon
-        identifier="arrowup"
-        viewBox="2 0 18 22"
-        fill={'#888'}
-        dimensions={{ height: 44, width: 30 }}
+      <button
+        type="button"
+        onClick={scrollTop}
+        aria-label="Scroll to top"
         className={cx('icon', {
           'icon--hide': !showScroll,
         })}
-        click={scrollTop}
-      />
+      >
+        <Icon
+          identifier="arrowup"
+          viewBox="2 0 18 22"
+          fill={'#888'}
+          dimensions={{ height: 44, width: 30 }}
+        />
+      </button>
     </div>
   )
 }
