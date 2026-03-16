@@ -13,7 +13,6 @@ interface Carousel {
 const CarouselContainer = React.forwardRef(({ featuredPosts }: Carousel) => {
   const readMoreButton = useRef<HTMLButtonElement>(null)
   const [currentInterval, setCurrentInterval] = useState(0)
-  const [style, setStyle] = useState(styles.carousel__container)
 
   const images = featuredPosts.map((post, i) => {
     return {
@@ -35,39 +34,47 @@ const CarouselContainer = React.forwardRef(({ featuredPosts }: Carousel) => {
 
   const handlers = useSwipeable({
     onSwipedLeft: () =>
-      setCurrentInterval(currentInterval < featuredPosts.length - 1 ? currentInterval + 1 : 0),
+      setCurrentInterval((prev) => (prev < featuredPosts.length - 1 ? prev + 1 : 0)),
     onSwipedRight: () =>
-      setCurrentInterval(currentInterval > 0 ? currentInterval - 1 : featuredPosts.length - 1),
+      setCurrentInterval((prev) => (prev > 0 ? prev - 1 : featuredPosts.length - 1)),
     preventDefaultTouchmoveEvent: true,
     trackMouse: true,
   })
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setStyle(styles['container--none'])
-
-      setCurrentInterval(currentInterval < featuredPosts.length - 1 ? currentInterval + 1 : 0)
+      setCurrentInterval((prev) => (prev < featuredPosts.length - 1 ? prev + 1 : 0))
     }, 6000)
     return () => clearInterval(interval)
-  })
-
-  useEffect(() => {
-    setStyle(styles.carousel__container)
-  }, [currentInterval])
+  }, [featuredPosts.length])
 
   return (
     <>
       <div {...handlers} className={styles.carousel}>
-        <div className={style}>
-          <Image
-            className={styles.carousel__image}
-            src={images[currentInterval].path}
-            alt={images[currentInterval].label || 'carousel image'}
-            width={1000}
-            height={600}
-            priority
-          />
-        </div>
+        {images.map((image, i) => {
+          const total = images.length
+          const isActive = i === currentInterval
+          const isAdjacent =
+            i === (currentInterval + 1) % total || i === (currentInterval - 1 + total) % total
+          if (!isActive && !isAdjacent) return null
+          return (
+            <div
+              key={image.key}
+              className={`${styles.carousel__container} ${
+                isActive ? styles['carousel__container--active'] : ''
+              }`}
+            >
+              <Image
+                className={styles.carousel__image}
+                src={image.path}
+                alt={image.label || 'carousel image'}
+                width={1000}
+                height={600}
+                priority={isActive && currentInterval === 0}
+              />
+            </div>
+          )
+        })}
         <div className={styles.carousel__controls}>
           <CarouselItem imageDetails={images[currentInterval]} readMoreRef={readMoreButton} />
         </div>
