@@ -117,6 +117,8 @@ const Home = ({ featuredPosts, latestBlogs, latestRecipes }: HomePropType) => {
   useEffect(() => {
     if (searchCtx.filter.searchTerm.length === 0 && searchCtx.filter.categories.length === 0) return
 
+    const controller = new AbortController()
+
     setSearchLoading(true)
     setPageNumber(1)
 
@@ -124,7 +126,7 @@ const Home = ({ featuredPosts, latestBlogs, latestRecipes }: HomePropType) => {
     if (searchCtx.filter.searchTerm) params.set('searchTerm', searchCtx.filter.searchTerm)
     if (searchCtx.filter.categories) params.set('categories', searchCtx.filter.categories)
 
-    fetch(`/api/search?${params}`)
+    fetch(`/api/search?${params}`, { signal: controller.signal })
       .then((res) => {
         if (!res.ok) throw new Error(`Search failed: ${res.status}`)
         return res.json()
@@ -134,9 +136,12 @@ const Home = ({ featuredPosts, latestBlogs, latestRecipes }: HomePropType) => {
         setSearchLoading(false)
       })
       .catch((err) => {
+        if (err.name === 'AbortError') return
         console.error('Search request failed', err)
         setSearchLoading(false)
       })
+
+    return () => controller.abort()
   }, [searchCtx.filter.searchTerm, searchCtx.filter.categories])
 
   useEffect(() => {
