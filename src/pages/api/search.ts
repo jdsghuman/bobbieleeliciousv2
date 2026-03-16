@@ -34,5 +34,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     ...recipes.filter((r: any) => matchesTerm(r.fields.title) && matchesRecipeCat(r)),
   ]
 
+  res.setHeader('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=300')
   res.status(200).json({ results })
 }

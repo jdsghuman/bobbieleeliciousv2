@@ -125,12 +125,18 @@ const Home = ({ featuredPosts, latestBlogs, latestRecipes }: HomePropType) => {
     if (searchCtx.filter.categories) params.set('categories', searchCtx.filter.categories)
 
     fetch(`/api/search?${params}`)
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) throw new Error(`Search failed: ${res.status}`)
+        return res.json()
+      })
       .then((data) => {
         setPostsToDisplay(data.results)
         setSearchLoading(false)
       })
-      .catch(() => setSearchLoading(false))
+      .catch((err) => {
+        console.error('Search request failed', err)
+        setSearchLoading(false)
+      })
   }, [searchCtx.filter.searchTerm, searchCtx.filter.categories])
 
   useEffect(() => {

@@ -110,6 +110,16 @@ export interface HomePropType {
   latestRecipes: RecipesPropType[]
 }
 
+export interface BlogsPagePropType {
+  blogs: BlogsPropType[]
+  categories: []
+}
+
+export interface RecipesPagePropType {
+  recipes: RecipesPropType[]
+  categories: []
+}
+
 export interface IconPropType {
   fill?: string
   link?: string

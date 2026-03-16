@@ -62,10 +62,9 @@ export async function getAllRecipes({ featured, limit }: QueryOptions = {}) {
       order: '-fields.publishDate',
       select:
         'fields.title, fields.description, fields.image, fields.slug, fields.featured, fields.publishDate, fields.author, fields.category, fields.metaDescription',
-      limit: 200,
     }
     if (featured) query['fields.featured'] = true
-    if (limit) query.limit = limit
+    query.limit = limit ?? 200
 
     const response = await client.getEntries(query)
 

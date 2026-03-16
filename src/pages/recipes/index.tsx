@@ -1,7 +1,7 @@
 import { useCallback, useRef, useContext } from 'react'
 import { GetStaticProps } from 'next'
 import { getAllRecipes, getAllCategories } from '../../lib/index'
-import { HomePropType } from '../../components/PropTypes/PropTypes'
+import { RecipesPagePropType } from '../../components/PropTypes/PropTypes'
 import PostItemContainer from '../../components/FeatureList/PostItemContainer'
 import PostItem from '../../components/FeatureList/PostItem'
 import Subscribe from '../../components/Subscribe/Banner/Banner'
@@ -28,7 +28,7 @@ export const getStaticProps: GetStaticProps = async () => {
     revalidate: 86400,
   }
 }
-const Recipes = ({ categories, recipes }: HomePropType) => {
+const Recipes = ({ categories, recipes }: RecipesPagePropType) => {
   const searchCtx = useContext(SearchContext)
   const { postsToDisplay, pageNumber, setPageNumber } = useDisplayPosts(recipes, 'recipes')
 
