@@ -51,24 +51,31 @@ const CarouselContainer = React.forwardRef(({ featuredPosts }: Carousel) => {
   return (
     <>
       <div {...handlers} className={styles.carousel}>
-        {images.map((image, i) => (
-          <div
-            key={image.key}
-            className={`${styles.carousel__container} ${
-              i === currentInterval ? styles['carousel__container--active'] : ''
-            }`}
-          >
-            <Image
-              className={styles.carousel__image}
-              src={image.path}
-              alt={image.label || 'carousel image'}
-              width={1000}
-              height={600}
-              priority={i === 0}
-            />
-          </div>
-        ))}
-        <div key={currentInterval} className={styles.carousel__controls}>
+        {images.map((image, i) => {
+          const total = images.length
+          const isActive = i === currentInterval
+          const isAdjacent =
+            i === (currentInterval + 1) % total || i === (currentInterval - 1 + total) % total
+          if (!isActive && !isAdjacent) return null
+          return (
+            <div
+              key={image.key}
+              className={`${styles.carousel__container} ${
+                isActive ? styles['carousel__container--active'] : ''
+              }`}
+            >
+              <Image
+                className={styles.carousel__image}
+                src={image.path}
+                alt={image.label || 'carousel image'}
+                width={1000}
+                height={600}
+                priority={isActive && currentInterval === 0}
+              />
+            </div>
+          )
+        })}
+        <div className={styles.carousel__controls}>
           <CarouselItem imageDetails={images[currentInterval]} readMoreRef={readMoreButton} />
         </div>
       </div>

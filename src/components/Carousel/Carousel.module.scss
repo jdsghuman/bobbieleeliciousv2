@@ -46,7 +46,6 @@
     align-self: center;
     list-style: none;
     width: 450px;
-    animation: slide-up 500ms cubic-bezier(0.22, 1, 0.36, 1) both;
     @media (max-width: 530px) {
       width: 300px;
     }
@@ -59,13 +58,3 @@
   }
 }
 
-@keyframes slide-up {
-  from {
-    opacity: 0;
-    transform: translateX(-50%) translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
-}
