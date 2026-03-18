@@ -1,5 +1,4 @@
 import { useCallback, useRef, useState } from 'react'
-import { useRouter } from 'next/router'
 import classNames from 'classnames/bind'
 import ReactMarkdown from 'react-markdown'
 import AuthorItem from '../../../Author'
@@ -14,8 +13,6 @@ import { loadPolyfills } from '../../../Util/polyfills'
 const cx = classNames.bind(styles)
 
 const BlogDescription = ({ blog }: BlogPropType) => {
-  const router = useRouter()
-
   const [isVisible, setIsVisible] = useState(false)
   const observer = useRef<any>()
 

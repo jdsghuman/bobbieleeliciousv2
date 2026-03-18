@@ -41,8 +41,13 @@
   padding: 0;
   font-size: inherit;
   line-height: 1;
-  cursor: pointer;
+  cursor: default;
   color: $palette-brand-secondary;
+}
+
+button.star__filled,
+button.star__empty {
+  cursor: pointer;
 
   &:focus-visible {
     outline: 2px solid $palette-brand-secondary;
