@@ -38,7 +38,7 @@ SCSS modules (`.module.scss`) for component-scoped styles. Global SCSS variables
 |---|---|
 | Contentful | Headless CMS — all blog/recipe content |
 | Mailchimp | Newsletter via `/api/subscribe` API route |
-| Disqus | Comments on posts |
+| Supabase | Reviews (recipes) + comments (blog posts) via `/api/reviews/[slug]` and `/api/comments/[slug]` |
 | Facebook SDK | Social sharing (initialized in `_document.tsx`) |
 | Google Analytics | Tracking via `src/lib/gtag.tsx` + route change events in `_app.tsx` |
 | Vercel Analytics | Performance metrics |
@@ -50,6 +50,7 @@ Required in `.env.local`:
 - `MAILCHIMP_API_KEY`, `MAILCHIMP_LIST_ID`
 - `BASE_URL` — canonical domain (e.g. `https://www.bobbieleelicious.com`)
 - `GA_TRACKING_ID`, `FACEBOOK_APP_ID`, `FACEBOOK_USER_ID_1`, `FACEBOOK_USER_ID_2`
+- `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` — used server-side only in API routes
 
 ### Special page behavior
 

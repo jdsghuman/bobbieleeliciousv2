@@ -13,6 +13,7 @@
     "pre-commit": "npm run lint"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.99.2",
     "@vercel/analytics": "^1.2.2",
     "@vercel/speed-insights": "^1.0.10",
     "classnames": "^2.2.6",
