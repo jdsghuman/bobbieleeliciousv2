@@ -34,14 +34,21 @@
   font-size: 1.4rem;
 }
 
-.star__filled {
-  color: $palette-brand-secondary;
-  cursor: inherit;
-}
-
+.star__filled,
 .star__empty {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: inherit;
+  line-height: 1;
+  cursor: pointer;
   color: $palette-brand-secondary;
-  cursor: inherit;
+
+  &:focus-visible {
+    outline: 2px solid $palette-brand-secondary;
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
 }
 
 .form {

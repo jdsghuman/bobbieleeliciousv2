@@ -38,7 +38,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         commenter_email: commenter_email || null,
         comment_text: comment_text.trim(),
       })
-      .select()
+      .select('id, slug, commenter_name, comment_text, created_at')
       .single()
 
     if (error) return res.status(500).json({ error: error.message })

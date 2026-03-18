@@ -25,8 +25,18 @@ const BlogComments = ({ slug }: Props) => {
   const [text, setText] = useState('')
 
   useEffect(() => {
+    setLoading(true)
+    setError('')
+    setSubmitError('')
+    setName('')
+    setEmail('')
+    setText('')
+    setComments([])
     fetch(`/api/comments/${slug}`)
-      .then((r) => r.json())
+      .then((r) => {
+        if (!r.ok) throw new Error('Failed to load comments.')
+        return r.json()
+      })
       .then((data) => {
         setComments(Array.isArray(data) ? data : [])
         setLoading(false)

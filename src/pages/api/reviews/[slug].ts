@@ -26,8 +26,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(400).json({ error: 'reviewer_name is required' })
     }
 
-    const parsedRating = parseInt(rating, 10)
-    if (isNaN(parsedRating) || parsedRating < 1 || parsedRating > 5) {
+    const parsedRating = Number(rating)
+    if (!Number.isInteger(parsedRating) || parsedRating < 1 || parsedRating > 5) {
       return res.status(400).json({ error: 'rating must be an integer between 1 and 5' })
     }
 
@@ -40,7 +40,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         reviewer_email: reviewer_email || null,
         review_text,
       })
-      .select()
+      .select('id, slug, rating, reviewer_name, review_text, created_at')
       .single()
 
     if (error) return res.status(500).json({ error: error.message })

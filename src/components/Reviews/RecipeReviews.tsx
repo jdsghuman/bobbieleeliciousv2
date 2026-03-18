@@ -27,23 +27,29 @@ const StarRating = ({
 
   return (
     <span className={styles.stars}>
-      {[1, 2, 3, 4, 5].map((n) => (
-        <span
-          key={n}
-          className={
-            n <= (interactive ? hovered || rating : rating)
-              ? styles.star__filled
-              : styles.star__empty
-          }
-          onClick={() => interactive && onSelect && onSelect(n)}
-          onMouseEnter={() => interactive && setHovered(n)}
-          onMouseLeave={() => interactive && setHovered(0)}
-          role={interactive ? 'button' : undefined}
-          aria-label={interactive ? `Rate ${n} star${n !== 1 ? 's' : ''}` : undefined}
-        >
-          {n <= (interactive ? hovered || rating : rating) ? '★' : '☆'}
-        </span>
-      ))}
+      {[1, 2, 3, 4, 5].map((n) => {
+        const isFilled = n <= (interactive ? hovered || rating : rating)
+        if (interactive) {
+          return (
+            <button
+              key={n}
+              type="button"
+              className={isFilled ? styles.star__filled : styles.star__empty}
+              onClick={() => onSelect && onSelect(n)}
+              onMouseEnter={() => setHovered(n)}
+              onMouseLeave={() => setHovered(0)}
+              aria-label={`Rate ${n} star${n !== 1 ? 's' : ''}`}
+            >
+              {isFilled ? '★' : '☆'}
+            </button>
+          )
+        }
+        return (
+          <span key={n} className={isFilled ? styles.star__filled : styles.star__empty}>
+            {isFilled ? '★' : '☆'}
+          </span>
+        )
+      })}
     </span>
   )
 }
@@ -62,8 +68,20 @@ const RecipeReviews = ({ slug }: Props) => {
   const [text, setText] = useState('')
 
   useEffect(() => {
+    setLoading(true)
+    setError('')
+    setSubmitError('')
+    setSubmitted(false)
+    setReviews([])
+    setRating(0)
+    setName('')
+    setEmail('')
+    setText('')
     fetch(`/api/reviews/${slug}`)
-      .then((r) => r.json())
+      .then((r) => {
+        if (!r.ok) throw new Error('Failed to load reviews.')
+        return r.json()
+      })
       .then((data) => {
         setReviews(Array.isArray(data) ? data : [])
         setLoading(false)
