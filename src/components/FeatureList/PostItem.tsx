@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import classNames from 'classnames/bind'
@@ -10,10 +11,16 @@ import AuthorItem from '../Author'
 const cx = classNames.bind(styles)
 
 const PostItem = ({ article, slug, lastRef }) => {
+  const [imageLoaded, setImageLoaded] = useState(false)
+
   return (
     <div className={styles.item} key={article.sys.id} ref={lastRef}>
       {article.fields.image ? (
-        <div>
+        <div
+          className={cx('item__image__wrapper', {
+            'item__image__wrapper--loading': !imageLoaded,
+          })}
+        >
           <Link href={`/${slug}/` + article.fields.slug} prefetch={false} passHref>
             <Image
               src={article.fields.image}
@@ -22,6 +29,7 @@ const PostItem = ({ article, slug, lastRef }) => {
               width={475}
               height={300}
               unoptimized
+              onLoad={() => setImageLoaded(true)}
             />
           </Link>
         </div>

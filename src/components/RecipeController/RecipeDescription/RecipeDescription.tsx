@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
 import classNames from 'classnames/bind'
 import ReactMarkdown from 'react-markdown'
@@ -10,10 +10,9 @@ import { RecipePropType } from '../../PropTypes/PropTypes'
 import Signature from '../../Signature'
 import ShareIconItem from '../../SocialMedia/ShareIcons/ShareIconItem'
 import Button from '../../Button'
-import FacebookComments from '../../Comments/FacebookComments'
+import RecipeReviews from '../../Reviews/RecipeReviews'
 import styles from './RecipeDescription.module.scss'
 import { loadPolyfills } from '../../Util/polyfills'
-import { BiCommentDetail } from 'react-icons/bi'
 import { AiOutlinePrinter } from 'react-icons/ai'
 
 const cx = classNames.bind(styles)
@@ -21,7 +20,6 @@ const cx = classNames.bind(styles)
 const RecipeDescription = ({ recipe }: RecipePropType) => {
   const router = useRouter()
   const [isVisible, setIsVisible] = useState(false)
-  const [showComments, setShowComments] = useState(false)
   const observer = useRef<any>()
 
   const callbackFunction = (entries) => {
@@ -43,16 +41,6 @@ const RecipeDescription = ({ recipe }: RecipePropType) => {
     },
     [isVisible]
   )
-
-  useEffect(() => {
-    if (showComments) {
-      setShowComments(false)
-    }
-  }, [router.asPath])
-
-  useEffect(() => {
-    setShowComments(false)
-  }, [])
 
   return (
     <div className={styles.container}>
@@ -105,22 +93,7 @@ const RecipeDescription = ({ recipe }: RecipePropType) => {
         postName={recipe.fields.title}
       />
       {recipe?.fields?.tag && <PostTags tags={recipe.fields.tag} />}
-      <div
-        className={cx('button__comment__container', {
-          'button__comment__container--hide': showComments,
-        })}
-      >
-        <Button
-          className={styles.button__comment}
-          type="button"
-          onClick={() => setShowComments(!showComments)}
-          accent
-        >
-          <BiCommentDetail className={styles.icon} />
-          {!showComments ? 'Show' : 'Hide'} comments
-        </Button>
-      </div>
-      {showComments && <FacebookComments post={recipe} />}
+      <RecipeReviews slug={recipe.fields.slug} />
     </div>
   )
 }

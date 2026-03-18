@@ -245,12 +245,24 @@
       border-radius: 3px;
       cursor: pointer;
       transition: opacity 0.2s ease-in;
+      display: block;
       &--default {
         height: 258px;
         background: #e6e3e3;
       }
       &:hover {
         opacity: 0.8;
+      }
+      &__wrapper {
+        width: 100%;
+        height: 275px;
+        border-radius: 3px;
+        overflow: hidden;
+        &--loading {
+          background: linear-gradient(90deg, #f0f0f0 25%, #e8e8e8 50%, #f0f0f0 75%);
+          background-size: 800px 100%;
+          animation: shimmer 1.5s infinite linear;
+        }
       }
     }
     &__description {
@@ -282,6 +294,15 @@
       position: absolute;
       bottom: 0;
     }
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -400px 0;
+  }
+  100% {
+    background-position: 400px 0;
   }
 }
 
