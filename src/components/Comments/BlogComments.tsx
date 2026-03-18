@@ -82,7 +82,7 @@ const BlogComments = ({ slug }: Props) => {
       }
 
       const newComment: Comment = await res.json()
-      setComments([newComment, ...comments])
+      setComments((prev) => [newComment, ...prev])
       setName('')
       setEmail('')
       setText('')

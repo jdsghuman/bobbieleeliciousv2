@@ -133,7 +133,7 @@ const RecipeReviews = ({ slug }: Props) => {
       }
 
       const newReview: Review = await res.json()
-      setReviews([newReview, ...reviews])
+      setReviews((prev) => [newReview, ...prev])
       setRating(0)
       setName('')
       setEmail('')
