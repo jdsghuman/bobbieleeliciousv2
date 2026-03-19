@@ -25,7 +25,7 @@ export const getStaticProps: GetStaticProps = async () => {
       recipes: posts?.recipes,
       categories,
     },
-    revalidate: 86400,
+    revalidate: 604800,
   }
 }
 const Recipes = ({ categories, recipes }: RecipesPagePropType) => {

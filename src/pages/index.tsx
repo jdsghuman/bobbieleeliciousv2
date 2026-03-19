@@ -65,7 +65,7 @@ export const getStaticProps: GetStaticProps = async () => {
       latestBlogs,
       latestRecipes,
     },
-    revalidate: 86400,
+    revalidate: 604800,
   }
 }
 
