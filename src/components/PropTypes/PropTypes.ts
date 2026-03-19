@@ -74,6 +74,7 @@ export interface RecipesPropType {
 export interface RecipePropType {
   recipe: RecipesPropType
   morePosts?: Array<any>
+  aggregateRating?: { ratingValue: number; ratingCount: number } | null
 }
 
 interface AuthorPropType {

@@ -30,7 +30,7 @@ const Meta = ({ tags }: Props) => {
       {/*Twitter Cards */}
       {tags.twitter_site && (
         <>
-          <meta name="twitter:card" key="twitter_card" content="summary" />
+          <meta name="twitter:card" key="twitter_card" content={tags.twitter_card || 'summary'} />
           <meta name="twitter:site" key="twitter_site" content={tags.twitter_site} />
           <meta name="twitter:domain" key="twitter_domain" content={tags.twitter_domain} />
           <meta name="twitter:image:src" key="twitter_img" content={tags.image} />

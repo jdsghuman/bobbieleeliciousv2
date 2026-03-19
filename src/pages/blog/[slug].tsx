@@ -1,5 +1,6 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
 import dynamic from 'next/dynamic'
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import Spinner from '../../components/Spinner'
 import { BlogPropType } from '../../components/PropTypes/PropTypes'
@@ -62,6 +63,27 @@ const Blog = ({ blog, morePosts }: BlogPropType) => {
     robots: `${RobotsContent.follow},${RobotsContent.index}`,
     title: `${blog.fields.title}`,
     type: PageType.article,
+    twitter_card: 'summary_large_image',
+  }
+
+  const articleJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: blog.fields.title,
+    description: blog.fields.metaDescription || truncateText(blog.fields.description, 160),
+    image: blog.fields.image ? [blog.fields.image] : undefined,
+    author: blog.fields.author?.fields?.name
+      ? { '@type': 'Person', name: blog.fields.author.fields.name }
+      : undefined,
+    datePublished: blog.fields.publishDate,
+    publisher: {
+      '@type': 'Organization',
+      name: 'Bobbieleelicious',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://www.bobbieleelicious.com/favicon.ico',
+      },
+    },
   }
 
   const ScrollToTop = dynamic(
@@ -74,6 +96,12 @@ const Blog = ({ blog, morePosts }: BlogPropType) => {
   return (
     <>
       <Meta tags={postMetaTags} />
+      <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+        />
+      </Head>
       <ScrollToTop />
       <PromptSubscribe />
       <BlogDetail blog={blog} />
