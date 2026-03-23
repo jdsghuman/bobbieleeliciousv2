@@ -1,3 +1,9 @@
+declare global {
+  interface Window {
+    gtag: (...args: any[]) => void
+  }
+}
+
 // https://developers.google.com/analytics/devguides/collection/gtagjs/pages
 export const pageview = (url: URL): void => {
   window.gtag('config', process.env.GA_TRACKING_ID as string, {

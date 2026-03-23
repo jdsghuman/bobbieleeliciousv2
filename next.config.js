@@ -22,6 +22,11 @@ module.exports = {
         hostname: 'cdn.filestackcontent.com',
         pathname: '**',
       },
+      {
+        protocol: 'https',
+        hostname: 'cdn.sanity.io',
+        pathname: '**',
+      },
     ],
   },
 }

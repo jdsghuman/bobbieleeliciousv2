@@ -41,10 +41,7 @@ const ShareIconItem = ({
       </FacebookShareButton>
       <PinterestShareButton
         url={url}
-        media={
-          'https://res.cloudinary.com/dgh1kb5od/image/upload/v1712591752/edmelwtxp6zxcsvagx36.png' ||
-          ''
-        }
+        media="https://res.cloudinary.com/dgh1kb5od/image/upload/v1712591752/edmelwtxp6zxcsvagx36.png"
         description={postName}
         className={styles.icon}
       >
