@@ -55,6 +55,10 @@ const BlogComments = ({ slug }: Props) => {
       setSubmitError('Please enter your name.')
       return
     }
+    if (!email.trim()) {
+      setSubmitError('Please enter your email.')
+      return
+    }
     if (!text.trim()) {
       setSubmitError('Please enter a comment.')
       return
@@ -69,7 +73,7 @@ const BlogComments = ({ slug }: Props) => {
         body: JSON.stringify({
           slug,
           commenter_name: name,
-          commenter_email: email || null,
+          commenter_email: email,
           comment_text: text,
         }),
       })
@@ -113,7 +117,8 @@ const BlogComments = ({ slug }: Props) => {
         </div>
         <div className={styles.form__field}>
           <label className={styles.form__label} htmlFor="commenter-email">
-            Email <span className={styles.form__optional}>(optional, never shown)</span>
+            Email <span aria-hidden>*</span>
+            <span className={styles.form__optional}>(never shown)</span>
           </label>
           <input
             id="commenter-email"
@@ -121,6 +126,7 @@ const BlogComments = ({ slug }: Props) => {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
           />
         </div>
         <div className={styles.form__field}>
