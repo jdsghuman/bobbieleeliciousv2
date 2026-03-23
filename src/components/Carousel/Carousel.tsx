@@ -64,14 +64,16 @@ const CarouselContainer = React.forwardRef(({ featuredPosts }: Carousel) => {
                 isActive ? styles['carousel__container--active'] : ''
               }`}
             >
-              <Image
-                className={styles.carousel__image}
-                src={image.path}
-                alt={image.label || 'carousel image'}
-                width={1000}
-                height={600}
-                priority={isActive && currentInterval === 0}
-              />
+              {image.path && (
+                <Image
+                  className={styles.carousel__image}
+                  src={image.path}
+                  alt={image.label || 'carousel image'}
+                  width={1000}
+                  height={600}
+                  priority={isActive && currentInterval === 0}
+                />
+              )}
             </div>
           )
         })}

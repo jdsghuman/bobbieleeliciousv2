@@ -18,37 +18,20 @@ export default function useDisplayPosts(posts, type) {
         searchCtx.filter.searchTerm.length === 0
       ) {
         filteredPosts = posts.filter((post) => {
-          if (type === 'recipes') {
-            return post?.fields?.category?.fields?.name
-              .toLowerCase()
-              .includes(searchCtx.filter.categories.toLowerCase())
-          } else {
-            return post?.fields?.category[0]?.fields?.name
-              .toLowerCase()
-              .includes(searchCtx.filter.categories.toLowerCase())
-          }
+          return post?.fields?.category?.fields?.name
+            .toLowerCase()
+            .includes(searchCtx.filter.categories.toLowerCase())
         })
       } else {
         filteredPosts = posts.filter((post) => {
-          if (type === 'recipes') {
-            return (
-              post?.fields?.category?.fields?.name
-                .toLowerCase()
-                .includes(searchCtx.filter.categories.toLowerCase()) &&
-              post.fields.title
-                .toLowerCase()
-                .includes(searchCtx.filter.searchTerm.toLowerCase().trim())
-            )
-          } else {
-            return (
-              post?.fields?.category[0]?.fields?.name
-                .toLowerCase()
-                .includes(searchCtx.filter.categories.toLowerCase()) &&
-              post.fields.title
-                .toLowerCase()
-                .includes(searchCtx.filter.searchTerm.toLowerCase().trim())
-            )
-          }
+          return (
+            post?.fields?.category?.fields?.name
+              .toLowerCase()
+              .includes(searchCtx.filter.categories.toLowerCase()) &&
+            post.fields.title
+              .toLowerCase()
+              .includes(searchCtx.filter.searchTerm.toLowerCase().trim())
+          )
         })
       }
       setPostsToDisplay(filteredPosts)

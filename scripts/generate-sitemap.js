@@ -1,27 +1,35 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
+require('dotenv').config({ path: '.env.local' })
 const path = require('path')
 const fs = require('fs').promises
 const { Readable } = require('stream')
 const globby = require('globby')
 const { SitemapStream, streamToPromise } = require('sitemap')
-const contentful = require('contentful')
+const { createClient } = require('@sanity/client')
 
 const blocklist = ['/404']
 
-const client = contentful.createClient({
-  space: process.env.NEXT_CONTENTFUL_SPACE_ID,
-  accessToken: process.env.NEXT_CONTENTFUL_ACCESS_TOKEN,
+const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID
+const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET
+if (!projectId || !dataset) {
+  throw new Error(
+    'Missing required Sanity configuration. Set NEXT_PUBLIC_SANITY_PROJECT_ID and NEXT_PUBLIC_SANITY_DATASET.'
+  )
+}
+
+const client = createClient({
+  projectId,
+  dataset,
+  apiVersion: '2024-01-01',
+  useCdn: true,
 })
 
 async function getAllBlogs() {
   try {
-    const response = await client.getEntries({
-      content_type: 'blogPost',
-      order: '-fields.publishDate',
-      select: 'fields.slug',
-    })
-
-    return response.items || []
+    const items = await client.fetch(
+      `*[_type == "blogPost"] | order(publishDate desc) { "fields": { "slug": slug.current } }`
+    )
+    return items || []
   } catch (error) {
     console.log(error)
     return []
@@ -30,14 +38,10 @@ async function getAllBlogs() {
 
 async function getAllRecipes() {
   try {
-    const response = await client.getEntries({
-      content_type: 'recipe',
-      order: '-fields.publishDate',
-      select: 'fields.slug',
-      limit: 200,
-    })
-
-    return response.items || []
+    const items = await client.fetch(
+      `*[_type == "recipe"] | order(publishDate desc) [0...200] { "fields": { "slug": slug.current } }`
+    )
+    return items || []
   } catch (error) {
     console.log(error)
     return []
