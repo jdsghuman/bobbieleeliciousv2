@@ -1,13 +1,13 @@
-import { defineField, defineType } from 'sanity'
+import {defineField, defineType} from 'sanity'
 
 export default defineType({
   name: 'category',
   title: 'Category',
   type: 'document',
   fields: [
-    defineField({ name: 'name', title: 'Name', type: 'string', validation: (r) => r.required() }),
+    defineField({name: 'name', title: 'Name', type: 'string', validation: (r) => r.required()}),
   ],
   preview: {
-    select: { title: 'name' },
+    select: {title: 'name'},
   },
 })
