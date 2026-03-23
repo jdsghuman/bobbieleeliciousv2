@@ -34,3 +34,6 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# local contentful dev cache (delete this file to force a fresh fetch)
+.contentful-cache.json
