@@ -1,8 +1,14 @@
 import { createClient } from '@sanity/client'
 
+function requireEnv(name: string): string {
+  const value = process.env[name]
+  if (!value) throw new Error(`Missing required environment variable: ${name}`)
+  return value
+}
+
 const client = createClient({
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 'avs8mde7',
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
+  projectId: requireEnv('NEXT_PUBLIC_SANITY_PROJECT_ID'),
+  dataset: requireEnv('NEXT_PUBLIC_SANITY_DATASET'),
   apiVersion: '2024-01-01',
   useCdn: true,
 })
