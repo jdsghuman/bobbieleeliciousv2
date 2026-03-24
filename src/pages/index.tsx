@@ -3,7 +3,7 @@ import { GetStaticProps } from 'next'
 import dynamic from 'next/dynamic'
 import styles from '@styles/Home.module.css'
 import { HomePropType } from '../components/PropTypes/PropTypes'
-import { getAllBlogs, getAllRecipes } from '../lib/index'
+import { getHomePageData } from '../lib/index'
 import Subscribe from '../components/Subscribe/Banner/Banner'
 import Spinner from '../components/Spinner'
 import { MetaTags, PageType, RobotsContent } from '../components/PropTypes/Tags'
@@ -22,48 +22,32 @@ const DynamicFeatureList = dynamic(() => import('@components/FeatureList/Feature
 })
 
 export const getStaticProps: GetStaticProps = async () => {
-  const [featuredBlogsData, featuredRecipesData, latestBlogsData, latestRecipesData] =
-    await Promise.all([
-      getAllBlogs({ featured: true }),
-      getAllRecipes({ featured: true }),
-      getAllBlogs({ limit: 3 }),
-      getAllRecipes({ limit: 3 }),
-    ])
+  const { featuredBlogs, featuredRecipes, latestBlogs, latestRecipes } = await getHomePageData()
 
-  const featuredBlogs = featuredBlogsData.blogs.map((blog) => {
-    if (typeof blog.fields.description === 'string') {
-      blog.fields.description = blog.fields.description.slice(0, 155)
-    }
-    blog.type = 'blog'
-    return blog
-  })
-
-  const featuredRecipes = featuredRecipesData.recipes.map((recipe) => {
-    if (typeof recipe.fields.description === 'string') {
-      recipe.fields.description = recipe.fields.description.slice(0, 155)
-    }
-    recipe.type = 'recipe'
-    return recipe
-  })
-
-  const latestBlogs = latestBlogsData.blogs.map((blog) => {
-    blog.type = 'blog'
-    return blog
-  })
-
-  const latestRecipes = latestRecipesData.recipes.map((recipe) => {
-    recipe.type = 'recipe'
-    return recipe
-  })
+  const featuredPosts = [
+    ...featuredBlogs.map((blog) => {
+      if (typeof blog.fields.description === 'string') {
+        blog.fields.description = blog.fields.description.slice(0, 155)
+      }
+      blog.type = 'blog'
+      return blog
+    }),
+    ...featuredRecipes.map((recipe) => {
+      if (typeof recipe.fields.description === 'string') {
+        recipe.fields.description = recipe.fields.description.slice(0, 155)
+      }
+      recipe.type = 'recipe'
+      return recipe
+    }),
+  ].sort(
+    (a, b) => new Date(b.fields.publishDate).valueOf() - new Date(a.fields.publishDate).valueOf()
+  )
 
   return {
     props: {
-      featuredPosts: [...featuredBlogs, ...featuredRecipes].sort(
-        (a, b) =>
-          new Date(b.fields.publishDate).valueOf() - new Date(a.fields.publishDate).valueOf()
-      ),
-      latestBlogs,
-      latestRecipes,
+      featuredPosts,
+      latestBlogs: latestBlogs.map((blog) => ({ ...blog, type: 'blog' })),
+      latestRecipes: latestRecipes.map((recipe) => ({ ...recipe, type: 'recipe' })),
     },
     revalidate: 86400,
   }
