@@ -25,20 +25,28 @@ export const getStaticProps: GetStaticProps = async () => {
   const { featuredBlogs, featuredRecipes, latestBlogs, latestRecipes } = await getHomePageData()
 
   const featuredPosts = [
-    ...featuredBlogs.map((blog) => {
-      if (typeof blog.fields.description === 'string') {
-        blog.fields.description = blog.fields.description.slice(0, 155)
-      }
-      blog.type = 'blog'
-      return blog
-    }),
-    ...featuredRecipes.map((recipe) => {
-      if (typeof recipe.fields.description === 'string') {
-        recipe.fields.description = recipe.fields.description.slice(0, 155)
-      }
-      recipe.type = 'recipe'
-      return recipe
-    }),
+    ...featuredBlogs.map((blog) => ({
+      ...blog,
+      fields: {
+        ...blog.fields,
+        description:
+          typeof blog.fields.description === 'string'
+            ? blog.fields.description.slice(0, 155)
+            : blog.fields.description,
+      },
+      type: 'blog',
+    })),
+    ...featuredRecipes.map((recipe) => ({
+      ...recipe,
+      fields: {
+        ...recipe.fields,
+        description:
+          typeof recipe.fields.description === 'string'
+            ? recipe.fields.description.slice(0, 155)
+            : recipe.fields.description,
+      },
+      type: 'recipe',
+    })),
   ].sort(
     (a, b) => new Date(b.fields.publishDate).valueOf() - new Date(a.fields.publishDate).valueOf()
   )

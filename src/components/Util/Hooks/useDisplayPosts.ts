@@ -19,15 +19,15 @@ export default function useDisplayPosts(posts, type) {
       ) {
         filteredPosts = posts.filter((post) => {
           return post?.fields?.category?.fields?.name
-            .toLowerCase()
-            .includes(searchCtx.filter.categories.toLowerCase())
+            ?.toLowerCase()
+            ?.includes(searchCtx.filter.categories.toLowerCase())
         })
       } else {
         filteredPosts = posts.filter((post) => {
           return (
             post?.fields?.category?.fields?.name
-              .toLowerCase()
-              .includes(searchCtx.filter.categories.toLowerCase()) &&
+              ?.toLowerCase()
+              ?.includes(searchCtx.filter.categories.toLowerCase()) &&
             post.fields.title
               .toLowerCase()
               .includes(searchCtx.filter.searchTerm.toLowerCase().trim())

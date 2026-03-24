@@ -23,7 +23,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   const matchesTerm = (title: string) => !searchTerm || title.toLowerCase().includes(searchTerm)
   const matchesCat = (post: any) =>
-    !categories || post?.fields?.category?.fields?.name?.toLowerCase().includes(categories)
+    !categories || post?.fields?.category?.fields?.name?.toLowerCase()?.includes(categories)
 
   const results = [
     ...blogs.filter((b: any) => matchesTerm(b.fields.title) && matchesCat(b)),
