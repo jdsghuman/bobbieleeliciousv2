@@ -135,12 +135,13 @@ const Recipe = ({ recipe, morePosts, ratingValue, ratingCount }: RecipePageProps
     recipeInstructions: recipe.fields.recipeDirections
       ? recipe.fields.recipeDirections
           .split('--')
-          .map((s, i) => ({
+          .map((s) => s.trim())
+          .filter(Boolean)
+          .map((text, i) => ({
             '@type': 'HowToStep',
             position: i + 1,
-            text: s.trim(),
+            text,
           }))
-          .filter((s) => s.text)
       : [],
     ...(ratingValue !== null && ratingCount > 0
       ? {
