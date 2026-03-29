@@ -29,6 +29,9 @@ const Slider = ({ items }: SliderPropType) => {
   useEffect(() => {
     smoothscroll.polyfill()
   }, [])
+
+  if (!items?.data?.length) return null
+
   return (
     <div className={styles.container__slider}>
       <button
