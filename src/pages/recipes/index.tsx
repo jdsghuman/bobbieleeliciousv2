@@ -19,7 +19,7 @@ import { loadPolyfills } from '../../components/Util/polyfills'
 
 export const getStaticProps: GetStaticProps = async () => {
   const posts = await getAllRecipes()
-  const categories = await getAllCategories('category')
+  const categories = await getAllCategories('recipe')
   return {
     props: {
       recipes: posts?.recipes,

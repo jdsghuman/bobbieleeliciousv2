@@ -166,10 +166,10 @@ export async function getAllPostsWithSlug(type: string) {
   return { items: items || [] }
 }
 
-export async function getAllCategories(_type: string) {
-  // Both categoryBlogs and category (recipes) are merged into one 'category' type in Sanity
+export async function getAllCategories(postType: 'blogPost' | 'recipe') {
   const data = await client.fetch(
-    `*[_type == "category"] | order(name asc) { "sys": { "id": _id }, "fields": { name } }`
+    `*[_type == "category" && count(*[_type == $postType && references(^._id)]) > 0] | order(name asc) { "sys": { "id": _id }, "fields": { name } }`,
+    { postType }
   )
   return { data: data || [] }
 }
