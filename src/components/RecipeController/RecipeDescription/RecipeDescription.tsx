@@ -1,52 +1,23 @@
-import { useCallback, useRef, useState } from 'react'
-import { useRouter } from 'next/router'
 import classNames from 'classnames/bind'
 import ReactMarkdown from 'react-markdown'
-import Link from 'next/link'
 import VideoDetail from '../../VideoDetail/VideoDetail'
-import PostTags from '../../PostTags'
-import ShareIcons from '../../SocialMedia/ShareIcons/ShareIcons'
 import { RecipePropType } from '../../PropTypes/PropTypes'
 import Signature from '../../Signature'
 import ShareIconItem from '../../SocialMedia/ShareIcons/ShareIconItem'
-import Button from '../../Button'
-import RecipeReviews from '../../Reviews/RecipeReviews'
 import styles from './RecipeDescription.module.scss'
-import { loadPolyfills } from '../../Util/polyfills'
-import { AiOutlinePrinter } from 'react-icons/ai'
 
 const cx = classNames.bind(styles)
 
-const RecipeDescription = ({ recipe }: RecipePropType) => {
-  const router = useRouter()
-  const [isVisible, setIsVisible] = useState(false)
-  const observer = useRef<any>()
+interface RecipeDescriptionProps extends RecipePropType {
+  footerShareVisible: boolean
+}
 
-  const callbackFunction = (entries) => {
-    const [entry] = entries
-    setIsVisible(entry.isIntersecting || entry.boundingClientRect.top < 400)
-  }
-  const options = {
-    root: null,
-    rootMargin: '0px',
-    threshold: 1.0,
-  }
-
-  const iconRef = useCallback(
-    async (node) => {
-      await loadPolyfills()
-      if (observer.current) observer.current.disconnect()
-      observer.current = new IntersectionObserver(callbackFunction, options)
-      if (node) observer.current.observe(node)
-    },
-    [isVisible]
-  )
-
+const RecipeDescription = ({ recipe, footerShareVisible }: RecipeDescriptionProps) => {
   return (
     <div className={styles.container}>
       <div
         className={cx('share', {
-          'share--hide': isVisible,
+          'share--hide': footerShareVisible,
         })}
       >
         <ShareIconItem
@@ -79,21 +50,6 @@ const RecipeDescription = ({ recipe }: RecipePropType) => {
           <ReactMarkdown>{recipe.fields.tools}</ReactMarkdown>
         </div>
       )}
-      <div className={styles.print}>
-        <Link passHref href={`${router.asPath}/print`} target="_blank" prefetch={false}>
-          <Button type="button" className={styles.print__button}>
-            <AiOutlinePrinter className={styles.icon} />
-            Print recipe
-          </Button>
-        </Link>
-      </div>
-      <ShareIcons
-        iconRef={iconRef}
-        postImage={recipe.fields.image}
-        postName={recipe.fields.title}
-      />
-      {recipe?.fields?.tag && <PostTags tags={recipe.fields.tag} />}
-      <RecipeReviews slug={recipe.fields.slug} />
     </div>
   )
 }

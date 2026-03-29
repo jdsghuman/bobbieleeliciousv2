@@ -12,7 +12,11 @@
   .number:before {
     content: counter(directions-counter) '. ';
   }
-
+  .title {
+    margin-left: 30px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.5rem;
+  }
   .progress__bar {
     position: absolute;
     top: 0;
