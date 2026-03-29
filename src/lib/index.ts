@@ -168,7 +168,7 @@ export async function getAllPostsWithSlug(type: string) {
 
 export async function getAllCategories(postType: 'blogPost' | 'recipe') {
   const data = await client.fetch(
-    `*[_type == "category" && count(*[_type == $postType && references(^._id)]) > 0] | order(name asc) { "sys": { "id": _id }, "fields": { name } }`,
+    `*[_type == "category" && _id in *[_type == $postType && defined(category)].category._ref] | order(name asc) { "sys": { "id": _id }, "fields": { name } }`,
     { postType }
   )
   return { data: data || [] }
