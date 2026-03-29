@@ -23,7 +23,7 @@ const RecipeController = ({ post }) => {
   const [footerShareVisible, setFooterShareVisible] = useState(false)
   const observer = useRef<IntersectionObserver | null>(null)
 
-  const iconRef = useCallback(async (node) => {
+  const iconRef = useCallback(async (node: HTMLDivElement | null) => {
     if (observer.current) {
       observer.current.disconnect()
       observer.current = null

@@ -1,3 +1,4 @@
+import type { RefCallback } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import PostTags from '../../PostTags'
@@ -9,7 +10,7 @@ import styles from './RecipeFooter.module.scss'
 import { RecipePropType } from '@components/PropTypes/PropTypes'
 
 interface RecipeFooterProps extends RecipePropType {
-  iconRef: any
+  iconRef: RefCallback<HTMLDivElement>
 }
 
 const RecipeFooter = ({ recipe, iconRef }: RecipeFooterProps) => {
