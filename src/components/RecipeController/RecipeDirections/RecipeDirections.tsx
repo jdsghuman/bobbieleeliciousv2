@@ -67,6 +67,7 @@ const RecipeDirections = ({
   return (
     <div className={styles.container}>
       <ProgressBar progress={progress} location={'top'} />
+      <h3 className={styles.title}>Directions</h3>
       {progress === 100 && finished === false && (
         <Realistic autorun={{ speed: 3, duration: 800 }} onInit={callAfterConfetti} />
       )}

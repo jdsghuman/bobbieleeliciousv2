@@ -1,14 +1,15 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
 import debounce from 'lodash.debounce'
 import classNames from 'classnames/bind'
 import smoothscroll from 'smoothscroll-polyfill'
 import RecipeData from './RecipeData'
-import RecipeTabs from './RecipeTabs'
 import styles from './RecipeController.module.scss'
 import RecipeDescription from './RecipeDescription'
 import RecipeIngredients from './RecipeIngredients'
 import RecipeDirections from './RecipeDirections'
+import RecipeFooter from './RecipeFooter'
+import { loadPolyfills } from '../Util/polyfills'
 
 const cx = classNames.bind(styles)
 
@@ -16,10 +17,24 @@ const RecipeController = ({ post }) => {
   const router = useRouter()
 
   const [isTop, setIsTop] = useState(true)
-  const [activeTab, setActiveTab] = useState('Details')
   const [directionList, setDirectionList] = useState<{ value: string; isActive: boolean }[]>([])
   const [ingredientList, setIngredientList] = useState<{ value: string; isActive: boolean }[]>([])
   const [finished, setFinished] = useState<boolean>(false)
+  const [footerShareVisible, setFooterShareVisible] = useState(false)
+  const observer = useRef<any>()
+
+  const iconRef = useCallback(async (node) => {
+    await loadPolyfills()
+    if (observer.current) observer.current.disconnect()
+    observer.current = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries
+        setFooterShareVisible(entry.isIntersecting || entry.boundingClientRect.top < 400)
+      },
+      { root: null, rootMargin: '0px', threshold: 1.0 }
+    )
+    if (node) observer.current.observe(node)
+  }, [])
 
   const getIngredients = (ingredients) => {
     if (ingredients) {
@@ -67,12 +82,7 @@ const RecipeController = ({ post }) => {
     window.scrollY > 75 ? setIsTop(false) : setIsTop(true)
   }
 
-  const setTab = (tab) => {
-    setActiveTab(tab)
-  }
-
   useEffect(() => {
-    setActiveTab('Details')
     setFinished(false)
     getDirections(post.fields.recipeDirections)
     getIngredients(post.fields.ingredients)
@@ -100,19 +110,17 @@ const RecipeController = ({ post }) => {
         prep={post.fields.prep}
         servings={post.fields.servings}
       />
-      <RecipeTabs activeTab={activeTab} setTab={setTab} />
-      {activeTab === 'Details' && <RecipeDescription recipe={post} />}
-      {activeTab === 'Ingredients' && (
-        <RecipeIngredients ingredients={ingredientList} selectIngredient={selectIngredient} />
-      )}
-      {activeTab === 'Directions' && (
-        <RecipeDirections
-          finished={finished}
-          setFinished={setFinished}
-          directions={directionList}
-          selectDirection={selectDirection}
-        />
-      )}
+      <RecipeDescription recipe={post} footerShareVisible={footerShareVisible} />
+
+      <RecipeIngredients ingredients={ingredientList} selectIngredient={selectIngredient} />
+
+      <RecipeDirections
+        finished={finished}
+        setFinished={setFinished}
+        directions={directionList}
+        selectDirection={selectDirection}
+      />
+      <RecipeFooter recipe={post} iconRef={iconRef} />
     </div>
   )
 }

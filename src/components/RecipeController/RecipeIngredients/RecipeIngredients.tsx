@@ -47,6 +47,7 @@ const RecipeIngredients = ({ ingredients, selectIngredient }: RecipeIngredientsP
 
   return (
     <div className={styles.container}>
+      <h3 className={styles.title}>Ingredients</h3>
       <ul className={styles.list__container}>{displayIngredientList()}</ul>
     </div>
   )

@@ -1,0 +1,20 @@
+@import '@styles/variables';
+
+.print {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: -10px;
+  &__button {
+    background: none;
+    border: 2px solid $palette-brand-tertiary;
+    color: #333;
+    font-size: 0.8rem;
+  }
+  .icon {
+    font-size: 1rem;
+    margin-right: 5px;
+    position: relative;
+    top: 3px;
+  }
+}
