@@ -21,11 +21,15 @@ const RecipeController = ({ post }) => {
   const [ingredientList, setIngredientList] = useState<{ value: string; isActive: boolean }[]>([])
   const [finished, setFinished] = useState<boolean>(false)
   const [footerShareVisible, setFooterShareVisible] = useState(false)
-  const observer = useRef<any>()
+  const observer = useRef<IntersectionObserver | null>(null)
 
   const iconRef = useCallback(async (node) => {
+    if (observer.current) {
+      observer.current.disconnect()
+      observer.current = null
+    }
+    if (!node) return
     await loadPolyfills()
-    if (observer.current) observer.current.disconnect()
     observer.current = new IntersectionObserver(
       (entries) => {
         const [entry] = entries
@@ -33,7 +37,16 @@ const RecipeController = ({ post }) => {
       },
       { root: null, rootMargin: '0px', threshold: 1.0 }
     )
-    if (node) observer.current.observe(node)
+    observer.current.observe(node)
+  }, [])
+
+  useEffect(() => {
+    return () => {
+      if (observer.current) {
+        observer.current.disconnect()
+        observer.current = null
+      }
+    }
   }, [])
 
   const getIngredients = (ingredients) => {
