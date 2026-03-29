@@ -17,7 +17,7 @@
   transition: margin-top 0.3s ease-out;
   animation: recipeDetails 1.2s ease-out backwards;
   @media (max-width: 625px) {
-    margin-top: -150px;
+    margin-top: -120px;
   }
   &--scrolled {
     margin-top: 0;
