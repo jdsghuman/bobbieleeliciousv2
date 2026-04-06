@@ -167,11 +167,6 @@ const Home = ({ featuredPosts, latestBlogs, latestRecipes }: HomePropType) => {
     '@type': 'WebSite',
     name: 'Bobbieleelicious',
     url: 'https://www.bobbieleelicious.com',
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: 'https://www.bobbieleelicious.com/?search={search_term_string}',
-      'query-input': 'required name=search_term_string',
-    },
   }
 
   return (
