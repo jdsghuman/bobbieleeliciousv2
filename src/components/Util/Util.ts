@@ -13,3 +13,10 @@ export const formatDate = (dateString: string) => {
 export function concatenateStrings(...args: string[]) {
   return args.join(',')
 }
+
+export function safeJsonLd(data: Record<string, unknown>): string {
+  return JSON.stringify(data)
+    .replace(/&/g, '\\u0026')
+    .replace(/</g, '\\u003c')
+    .replace(/>/g, '\\u003e')
+}

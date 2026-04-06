@@ -10,15 +10,8 @@ import FeatureList from '../../components/FeatureList/FeatureList'
 import Subscribe from '../../components/Subscribe/Banner/Banner'
 import { MetaTags, PageType, RobotsContent } from '../../components/PropTypes/Tags'
 import Meta from '../../components/Meta'
-import { truncateText } from '../../components/Util/Util'
+import { truncateText, safeJsonLd } from '../../components/Util/Util'
 import PromptSubscribe from '../../components/Subscribe/PromptSubscribe'
-
-function safeJsonLd(data: Record<string, unknown>): string {
-  return JSON.stringify(data)
-    .replace(/&/g, '\\u0026')
-    .replace(/</g, '\\u003c')
-    .replace(/>/g, '\\u003e')
-}
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const data = await getAllPostsWithSlug('blogPost')

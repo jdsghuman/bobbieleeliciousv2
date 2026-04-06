@@ -11,17 +11,8 @@ import FeatureList from '../../components/FeatureList/FeatureList'
 import Subscribe from '../../components/Subscribe/Banner/Banner'
 import { MetaTags, PageType, RobotsContent } from '../../components/PropTypes/Tags'
 import Meta from '../../components/Meta'
-import { truncateText } from '../../components/Util/Util'
+import { truncateText, safeJsonLd } from '../../components/Util/Util'
 import PromptSubscribe from '../../components/Subscribe/PromptSubscribe'
-
-// Serializes an object to JSON safe for inline <script> tags by escaping characters
-// that could break out of the script context and become XSS vectors.
-function safeJsonLd(data: Record<string, unknown>): string {
-  return JSON.stringify(data)
-    .replace(/&/g, '\\u0026')
-    .replace(/</g, '\\u003c')
-    .replace(/>/g, '\\u003e')
-}
 
 // Converts freeform time strings (e.g. "1 hour 30 mins") to ISO 8601 duration (e.g. "PT1H30M").
 // Returns undefined if the string can't be parsed, so the field is omitted from JSON-LD.

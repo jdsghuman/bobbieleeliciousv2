@@ -16,6 +16,7 @@ import PostsNotFound from '../components/Filter/PostsNotFound'
 import PostItemContainer from '../components/FeatureList/PostItemContainer'
 import PostItem from '../components/FeatureList/PostItem'
 import { loadPolyfills } from '../components/Util/polyfills'
+import { safeJsonLd } from '../components/Util/Util'
 import CarouselContainer from '@components/Carousel'
 
 const DynamicFeatureList = dynamic(() => import('@components/FeatureList/FeatureList'), {
@@ -176,10 +177,7 @@ const Home = ({ featuredPosts, latestBlogs, latestRecipes }: HomePropType) => {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(websiteLd)
-              .replace(/&/g, '\\u0026')
-              .replace(/</g, '\\u003c')
-              .replace(/>/g, '\\u003e'),
+            __html: safeJsonLd(websiteLd),
           }}
         />
       </Head>
