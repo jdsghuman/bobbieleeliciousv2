@@ -29,4 +29,7 @@ export type MetaTags = {
   twitter_site?: string
   twitter_domain?: string
   twitter_img?: string
+  article_publishedTime?: string
+  article_author?: string
+  article_section?: string
 }

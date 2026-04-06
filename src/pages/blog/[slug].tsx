@@ -1,5 +1,6 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
 import dynamic from 'next/dynamic'
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import Spinner from '../../components/Spinner'
 import { BlogPropType } from '../../components/PropTypes/PropTypes'
@@ -11,6 +12,13 @@ import { MetaTags, PageType, RobotsContent } from '../../components/PropTypes/Ta
 import Meta from '../../components/Meta'
 import { truncateText } from '../../components/Util/Util'
 import PromptSubscribe from '../../components/Subscribe/PromptSubscribe'
+
+function safeJsonLd(data: Record<string, unknown>): string {
+  return JSON.stringify(data)
+    .replace(/&/g, '\\u0026')
+    .replace(/</g, '\\u003c')
+    .replace(/>/g, '\\u003e')
+}
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const data = await getAllPostsWithSlug('blogPost')
@@ -56,17 +64,58 @@ const Blog = ({ blog, morePosts }: BlogPropType) => {
     return <Spinner />
   }
 
+  const authorName = blog.fields.author?.fields?.name ?? 'Bobbieleelicious'
+  const categoryName = blog.fields.category?.fields?.name
+  const description = blog.fields.metaDescription
+    ? blog.fields.metaDescription
+    : truncateText(blog.fields.description, 160)
+  const canonicalUrl = `https://www.bobbieleelicious.com/blog/${blog.fields.slug}`
+
   const postMetaTags: MetaTags = {
-    canonical: `https://www.bobbieleelicious.com/blog/${blog.fields.slug}`,
-    description: `${
-      blog.fields.metaDescription
-        ? blog.fields.metaDescription
-        : truncateText(blog.fields.description, 160)
-    }`,
+    canonical: canonicalUrl,
+    description,
     image: `${blog.fields.image}`,
     robots: `${RobotsContent.follow},${RobotsContent.index}`,
     title: `${blog.fields.title}`,
     type: PageType.article,
+    twitter_card: 'summary_large_image',
+    ...(blog.fields.publishDate && { article_publishedTime: blog.fields.publishDate }),
+    article_author: authorName,
+    ...(categoryName && { article_section: categoryName }),
+  }
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: blog.fields.title,
+    description,
+    image: blog.fields.image,
+    url: canonicalUrl,
+    datePublished: blog.fields.publishDate,
+    author: {
+      '@type': 'Person',
+      name: authorName,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Bobbieleelicious',
+      url: 'https://www.bobbieleelicious.com',
+    },
+  }
+
+  const breadcrumbLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.bobbieleelicious.com' },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Blogs',
+        item: 'https://www.bobbieleelicious.com/blogs',
+      },
+      { '@type': 'ListItem', position: 3, name: blog.fields.title, item: canonicalUrl },
+    ],
   }
 
   const ScrollToTop = dynamic(
@@ -79,6 +128,16 @@ const Blog = ({ blog, morePosts }: BlogPropType) => {
   return (
     <>
       <Meta tags={postMetaTags} />
+      <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbLd) }}
+        />
+      </Head>
       <ScrollToTop />
       <PromptSubscribe />
       <BlogDetail blog={blog} />

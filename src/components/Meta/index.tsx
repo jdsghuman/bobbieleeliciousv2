@@ -30,7 +30,7 @@ const Meta = ({ tags }: Props) => {
       {/*Twitter Cards */}
       {tags.twitter_site && (
         <>
-          <meta name="twitter:card" key="twitter_card" content="summary" />
+          <meta name="twitter:card" key="twitter_card" content={tags.twitter_card || 'summary'} />
           <meta name="twitter:site" key="twitter_site" content={tags.twitter_site} />
           <meta name="twitter:domain" key="twitter_domain" content={tags.twitter_domain} />
           <meta name="twitter:image:src" key="twitter_img" content={tags.image} />
@@ -39,6 +39,13 @@ const Meta = ({ tags }: Props) => {
       {tags.description && (
         <meta name="twitter:description" key="twitter_description" content={tags.description} />
       )}
+
+      {/* Article OG tags */}
+      {tags.article_publishedTime && (
+        <meta property="article:published_time" content={tags.article_publishedTime} />
+      )}
+      {tags.article_author && <meta property="article:author" content={tags.article_author} />}
+      {tags.article_section && <meta property="article:section" content={tags.article_section} />}
 
       {tags.robots && <meta name="robots" content={`${tags.robots}`} />}
       <meta property="fb:app_id" content={process.env.FACEBOOK_APP_ID} />

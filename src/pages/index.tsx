@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext, useCallback, useRef } from 'react'
 import { GetStaticProps } from 'next'
 import dynamic from 'next/dynamic'
+import Head from 'next/head'
 import styles from '@styles/Home.module.css'
 import { HomePropType } from '../components/PropTypes/PropTypes'
 import { getHomePageData } from '../lib/index'
@@ -161,9 +162,32 @@ const Home = ({ featuredPosts, latestBlogs, latestRecipes }: HomePropType) => {
     return <PostsNotFound postType={'post'} />
   }
 
+  const websiteLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Bobbieleelicious',
+    url: 'https://www.bobbieleelicious.com',
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: 'https://www.bobbieleelicious.com/?search={search_term_string}',
+      'query-input': 'required name=search_term_string',
+    },
+  }
+
   return (
     <>
       <Meta tags={postMetaTags} />
+      <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteLd)
+              .replace(/&/g, '\\u0026')
+              .replace(/</g, '\\u003c')
+              .replace(/>/g, '\\u003e'),
+          }}
+        />
+      </Head>
       <ScrollToTop />
       <PromptSubscribe />
       {searchCtx.filter.searchTerm === '' ? (
