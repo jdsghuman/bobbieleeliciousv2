@@ -107,7 +107,8 @@ const Recipe = ({ recipe, morePosts, ratingValue, ratingCount }: RecipePageProps
     type: PageType.article,
     twitter_card: 'summary_large_image',
     ...(recipe.fields.publishDate && { article_publishedTime: recipe.fields.publishDate }),
-    article_author: authorName,
+    article_author: 'https://www.bobbieleelicious.com/about',
+    article_author_name: authorName,
     ...(categoryName && { article_section: categoryName }),
   }
 

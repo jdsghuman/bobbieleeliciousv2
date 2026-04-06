@@ -53,6 +53,9 @@ const Meta = ({ tags }: Props) => {
       {tags.article_author && (
         <meta property="article:author" key="article_author" content={tags.article_author} />
       )}
+      {tags.article_author_name && (
+        <meta name="author" key="author" content={tags.article_author_name} />
+      )}
       {tags.article_section && (
         <meta property="article:section" key="article_section" content={tags.article_section} />
       )}

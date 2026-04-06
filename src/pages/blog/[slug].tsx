@@ -73,7 +73,8 @@ const Blog = ({ blog, morePosts }: BlogPropType) => {
     type: PageType.article,
     twitter_card: 'summary_large_image',
     ...(blog.fields.publishDate && { article_publishedTime: blog.fields.publishDate }),
-    article_author: authorName,
+    article_author: 'https://www.bobbieleelicious.com/about',
+    article_author_name: authorName,
     ...(categoryName && { article_section: categoryName }),
   }
 
