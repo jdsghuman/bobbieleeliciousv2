@@ -13,3 +13,13 @@ export const formatDate = (dateString: string) => {
 export function concatenateStrings(...args: string[]) {
   return args.join(',')
 }
+
+// Escapes characters that can affect HTML/script parsing when JSON-LD is embedded inline.
+export function safeJsonLd(data: Record<string, unknown>): string {
+  return JSON.stringify(data)
+    .replace(/&/g, '\\u0026')
+    .replace(/</g, '\\u003c')
+    .replace(/>/g, '\\u003e')
+    .replace(/\u2028/g, '\\u2028')
+    .replace(/\u2029/g, '\\u2029')
+}

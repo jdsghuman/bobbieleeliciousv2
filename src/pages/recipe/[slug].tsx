@@ -11,17 +11,8 @@ import FeatureList from '../../components/FeatureList/FeatureList'
 import Subscribe from '../../components/Subscribe/Banner/Banner'
 import { MetaTags, PageType, RobotsContent } from '../../components/PropTypes/Tags'
 import Meta from '../../components/Meta'
-import { truncateText } from '../../components/Util/Util'
+import { truncateText, safeJsonLd } from '../../components/Util/Util'
 import PromptSubscribe from '../../components/Subscribe/PromptSubscribe'
-
-// Serializes an object to JSON safe for inline <script> tags by escaping characters
-// that could break out of the script context and become XSS vectors.
-function safeJsonLd(data: Record<string, unknown>): string {
-  return JSON.stringify(data)
-    .replace(/&/g, '\\u0026')
-    .replace(/</g, '\\u003c')
-    .replace(/>/g, '\\u003e')
-}
 
 // Converts freeform time strings (e.g. "1 hour 30 mins") to ISO 8601 duration (e.g. "PT1H30M").
 // Returns undefined if the string can't be parsed, so the field is omitted from JSON-LD.
@@ -100,17 +91,40 @@ const Recipe = ({ recipe, morePosts, ratingValue, ratingCount }: RecipePageProps
     return <Spinner />
   }
 
+  const authorName = recipe.fields.author?.[0]?.fields?.name ?? 'Bobbieleelicious'
+  const categoryName = recipe.fields.category?.fields?.name
+  const description = recipe.fields.metaDescription
+    ? recipe.fields.metaDescription
+    : truncateText(recipe.fields.description, 160)
+  const canonicalUrl = `https://www.bobbieleelicious.com/recipe/${recipe.fields.slug}`
+
   const postMetaTags: MetaTags = {
-    canonical: `https://www.bobbieleelicious.com/recipe/${recipe.fields.slug}`,
-    description: `${
-      recipe.fields.metaDescription
-        ? recipe.fields.metaDescription
-        : truncateText(recipe.fields.description, 160)
-    }`,
+    canonical: canonicalUrl,
+    description,
     image: `${recipe.fields.image}`,
     robots: `${RobotsContent.follow},${RobotsContent.index}`,
     title: `${recipe.fields.title}`,
     type: PageType.article,
+    twitter_card: 'summary_large_image',
+    ...(recipe.fields.publishDate && { article_publishedTime: recipe.fields.publishDate }),
+    article_author: 'https://www.bobbieleelicious.com/about',
+    article_author_name: authorName,
+    ...(categoryName && { article_section: categoryName }),
+  }
+
+  const breadcrumbLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.bobbieleelicious.com' },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Recipes',
+        item: 'https://www.bobbieleelicious.com/recipes',
+      },
+      { '@type': 'ListItem', position: 3, name: recipe.fields.title, item: canonicalUrl },
+    ],
   }
 
   const jsonLd = {
@@ -118,10 +132,10 @@ const Recipe = ({ recipe, morePosts, ratingValue, ratingCount }: RecipePageProps
     '@type': 'Recipe',
     name: recipe.fields.title,
     image: recipe.fields.image,
-    description: recipe.fields.metaDescription || truncateText(recipe.fields.description, 160),
+    description,
     author: {
       '@type': 'Person',
-      name: recipe.fields.author?.[0]?.fields?.name ?? 'Bobbieleelicious',
+      name: authorName,
     },
     prepTime: toIsoDuration(recipe.fields.prep),
     cookTime: toIsoDuration(recipe.fields.cooktime),
@@ -170,6 +184,10 @@ const Recipe = ({ recipe, morePosts, ratingValue, ratingCount }: RecipePageProps
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbLd) }}
         />
       </Head>
       <ScrollToTop />

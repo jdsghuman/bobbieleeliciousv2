@@ -29,4 +29,10 @@ export type MetaTags = {
   twitter_site?: string
   twitter_domain?: string
   twitter_img?: string
+  article_publishedTime?: string
+  // article:author expects a URL per the OG spec
+  article_author?: string
+  // human-readable author name, rendered as <meta name="author">
+  article_author_name?: string
+  article_section?: string
 }

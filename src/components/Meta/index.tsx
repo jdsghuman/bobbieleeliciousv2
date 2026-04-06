@@ -28,9 +28,11 @@ const Meta = ({ tags }: Props) => {
       <meta property="og:site_name" key="og_site_name" content={tags.og_site_name || tags.title} />
 
       {/*Twitter Cards */}
+      {(tags.twitter_card || tags.twitter_site) && (
+        <meta name="twitter:card" key="twitter_card" content={tags.twitter_card || 'summary'} />
+      )}
       {tags.twitter_site && (
         <>
-          <meta name="twitter:card" key="twitter_card" content="summary" />
           <meta name="twitter:site" key="twitter_site" content={tags.twitter_site} />
           <meta name="twitter:domain" key="twitter_domain" content={tags.twitter_domain} />
           <meta name="twitter:image:src" key="twitter_img" content={tags.image} />
@@ -38,6 +40,24 @@ const Meta = ({ tags }: Props) => {
       )}
       {tags.description && (
         <meta name="twitter:description" key="twitter_description" content={tags.description} />
+      )}
+
+      {/* Article OG tags */}
+      {tags.article_publishedTime && (
+        <meta
+          property="article:published_time"
+          key="article_published_time"
+          content={tags.article_publishedTime}
+        />
+      )}
+      {tags.article_author && (
+        <meta property="article:author" key="article_author" content={tags.article_author} />
+      )}
+      {tags.article_author_name && (
+        <meta name="author" key="author" content={tags.article_author_name} />
+      )}
+      {tags.article_section && (
+        <meta property="article:section" key="article_section" content={tags.article_section} />
       )}
 
       {tags.robots && <meta name="robots" content={`${tags.robots}`} />}

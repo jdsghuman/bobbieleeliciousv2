@@ -22,7 +22,7 @@ const About = () => {
 
   const postMetaTags: MetaTags = {
     canonical: 'https://www.bobbieleelicious.com/about',
-    description: `Delicious and nutritious healthy vegetarian recipes`,
+    description: `Learn about Bobbielee, the creator behind Bobbieleelicious — a healthy recipe and lifestyle blog.`,
     image: `https://i.imgur.com/P3kuVMh.jpeg`,
     robots: `${RobotsContent.follow},${RobotsContent.index}`,
     title: `Bobbieleelicious | About`,
