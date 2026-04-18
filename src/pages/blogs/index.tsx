@@ -68,6 +68,7 @@ const Blogs = ({ blogs, categories }: BlogsPagePropType) => {
     image: 'https://www.bobbieleelicious.com/images/bobbieleelicious.png',
     robots: `${RobotsContent.follow},${RobotsContent.index}`,
     title: `Bobbieleelicious | Blogs`,
+    twitter_card: 'summary_large_image',
     type: PageType.website,
   }
 

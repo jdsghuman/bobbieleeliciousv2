@@ -61,6 +61,7 @@ const Recipes = ({ categories, recipes }: RecipesPagePropType) => {
     image: 'https://www.bobbieleelicious.com/images/bobbieleelicious.png',
     robots: `${RobotsContent.follow},${RobotsContent.index}`,
     title: `Bobbieleelicious | Recipes`,
+    twitter_card: 'summary_large_image',
     type: PageType.website,
   }
 

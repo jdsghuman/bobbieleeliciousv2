@@ -26,6 +26,7 @@ const About = () => {
     image: `https://i.imgur.com/P3kuVMh.jpeg`,
     robots: `${RobotsContent.follow},${RobotsContent.index}`,
     title: `Bobbieleelicious | About`,
+    twitter_card: 'summary_large_image',
     type: PageType.website,
   }
 

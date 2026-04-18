@@ -28,14 +28,16 @@ const Meta = ({ tags }: Props) => {
       <meta property="og:site_name" key="og_site_name" content={tags.og_site_name || tags.title} />
 
       {/*Twitter Cards */}
-      {(tags.twitter_card || tags.twitter_site) && (
-        <meta name="twitter:card" key="twitter_card" content={tags.twitter_card || 'summary'} />
+      {tags.twitter_card && (
+        <>
+          <meta name="twitter:card" key="twitter_card" content={tags.twitter_card} />
+          <meta name="twitter:image" key="twitter_img" content={tags.og_image || tags.image} />
+        </>
       )}
       {tags.twitter_site && (
         <>
           <meta name="twitter:site" key="twitter_site" content={tags.twitter_site} />
           <meta name="twitter:domain" key="twitter_domain" content={tags.twitter_domain} />
-          <meta name="twitter:image:src" key="twitter_img" content={tags.image} />
         </>
       )}
       {tags.description && (
