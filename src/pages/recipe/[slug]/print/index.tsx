@@ -89,10 +89,20 @@ const Print = ({ recipe }: RecipePropType) => {
                 width={200}
                 height={200}
               />
-              <AiOutlineClose
+              <button
+                type="button"
+                aria-label="Hide image"
                 onClick={() => setShowImage(false)}
-                style={{ fontSize: '1.4rem', cursor: 'pointer' }}
-              />
+                style={{
+                  background: 'transparent',
+                  border: 'none',
+                  padding: 0,
+                  fontSize: '1.4rem',
+                  cursor: 'pointer',
+                }}
+              >
+                <AiOutlineClose aria-hidden="true" />
+              </button>
             </div>
           )}
         </div>
