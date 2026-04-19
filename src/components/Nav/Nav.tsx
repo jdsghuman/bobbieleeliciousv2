@@ -68,7 +68,7 @@ const Nav = ({ drawerToggleClickHandler, sideDrawerOpen }) => {
               <Image
                 className={styles.image}
                 src="/images/bobbieleelicious-logo-black.png"
-                alt={'Logo'}
+                alt={'Bobbieleelicious logo'}
                 width={200}
                 height={100}
               />
@@ -114,7 +114,7 @@ const Nav = ({ drawerToggleClickHandler, sideDrawerOpen }) => {
                     'logo__image--small': !isTopOfPage,
                   })}
                   src="/images/bobbieleelicious-logo-black.png"
-                  alt={'Logo'}
+                  alt={'Bobbieleelicious logo'}
                   width={200}
                   height={100}
                 />

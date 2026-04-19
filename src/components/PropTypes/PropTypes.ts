@@ -14,6 +14,7 @@ export interface BlogsPropType {
   }
   sys: {
     id: string
+    updatedAt?: string
     contentType: {
       sys: {
         id: string
@@ -62,6 +63,7 @@ export interface RecipesPropType {
   }
   sys: {
     id: string
+    updatedAt?: string
     contentType: {
       sys: {
         id: string

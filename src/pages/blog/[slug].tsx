@@ -69,7 +69,7 @@ const Blog = ({ blog, morePosts }: BlogPropType) => {
     description,
     image: `${blog.fields.image}`,
     robots: `${RobotsContent.follow},${RobotsContent.index}`,
-    title: `${blog.fields.title}`,
+    title: `${blog.fields.title} | Bobbieleelicious`,
     type: PageType.article,
     twitter_card: 'summary_large_image',
     ...(blog.fields.publishDate && { article_publishedTime: blog.fields.publishDate }),
@@ -86,6 +86,7 @@ const Blog = ({ blog, morePosts }: BlogPropType) => {
     image: blog.fields.image,
     url: canonicalUrl,
     datePublished: blog.fields.publishDate,
+    ...(blog.sys.updatedAt && { dateModified: blog.sys.updatedAt }),
     author: {
       '@type': 'Person',
       name: authorName,
@@ -94,6 +95,12 @@ const Blog = ({ blog, morePosts }: BlogPropType) => {
       '@type': 'Organization',
       name: 'Bobbieleelicious',
       url: 'https://www.bobbieleelicious.com',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://www.bobbieleelicious.com/images/bobbieleelicious.png',
+        width: 1050,
+        height: 450,
+      },
     },
   }
 

@@ -23,6 +23,8 @@ export type MetaTags = {
   og_URL?: string
   canonical: string
   og_image?: string
+  og_image_width?: number
+  og_image_height?: number
   og_site_name?: string
   twitter_card?: string
   twitter_description?: string

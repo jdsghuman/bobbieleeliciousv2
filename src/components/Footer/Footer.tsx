@@ -13,7 +13,7 @@ const Footer = () => {
       <div>
         <Image
           className={styles.footer__logo}
-          alt="logo"
+          alt="Bobbieleelicious logo"
           src="/images/BobbieLeeLicious-logo-transparent.png"
           width={125}
           height={52}

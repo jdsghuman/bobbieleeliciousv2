@@ -15,7 +15,7 @@ const client = createClient({
 
 // Full fields for detail pages
 const BLOG_FIELDS = `
-  "sys": { "id": _id },
+  "sys": { "id": _id, "updatedAt": _updatedAt },
   "fields": {
     title,
     "slug": slug.current,
@@ -34,7 +34,7 @@ const BLOG_FIELDS = `
 `
 
 const RECIPE_FIELDS = `
-  "sys": { "id": _id },
+  "sys": { "id": _id, "updatedAt": _updatedAt },
   "fields": {
     title,
     "slug": slug.current,
