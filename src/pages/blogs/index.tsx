@@ -64,8 +64,10 @@ const Blogs = ({ blogs, categories }: BlogsPagePropType) => {
 
   const postMetaTags: MetaTags = {
     canonical: 'https://www.bobbieleelicious.com/blogs',
-    description: `Healthy lifestyle and living`,
+    description: `Explore healthy lifestyle tips from a lifestyle medicine RN, including nourishing daily habits, clean products, wellness routines, and simple ways to feel your best.`,
     image: 'https://www.bobbieleelicious.com/images/bobbieleelicious.png',
+    og_image_width: 1050,
+    og_image_height: 450,
     robots: `${RobotsContent.follow},${RobotsContent.index}`,
     title: `Bobbieleelicious | Blogs`,
     twitter_card: 'summary_large_image',

@@ -94,8 +94,10 @@ const Home = ({ featuredPosts, latestBlogs, latestRecipes }: HomePropType) => {
 
   const postMetaTags: MetaTags = {
     canonical: 'https://www.bobbieleelicious.com',
-    description: `Delicious and nutritious healthy vegetarian recipes and lifestyle blog`,
+    description: `Lifestyle medicine RN sharing nourishing daily vegetarian recipes for busy moms and lifestyles, focused on whole foods, protein, and fiber for lasting health.`,
     image: 'https://www.bobbieleelicious.com/images/bobbieleelicious.png',
+    og_image_width: 1050,
+    og_image_height: 450,
     robots: `${RobotsContent.follow},${RobotsContent.index}`,
     title: `Bobbieleelicious`,
     twitter_card: 'summary_large_image',

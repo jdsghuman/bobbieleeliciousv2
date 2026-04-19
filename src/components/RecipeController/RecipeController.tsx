@@ -16,9 +16,12 @@ const cx = classNames.bind(styles)
 const RecipeController = ({ post }) => {
   const router = useRouter()
 
+  const parseList = (str: string | undefined) =>
+    str ? str.split('--').map((value) => ({ value, isActive: false })) : []
+
   const [isTop, setIsTop] = useState(true)
-  const [directionList, setDirectionList] = useState<{ value: string; isActive: boolean }[]>([])
-  const [ingredientList, setIngredientList] = useState<{ value: string; isActive: boolean }[]>([])
+  const [directionList, setDirectionList] = useState(() => parseList(post.fields.recipeDirections))
+  const [ingredientList, setIngredientList] = useState(() => parseList(post.fields.ingredients))
   const [finished, setFinished] = useState<boolean>(false)
   const [footerShareVisible, setFooterShareVisible] = useState(false)
   const observer = useRef<IntersectionObserver | null>(null)
@@ -102,8 +105,6 @@ const RecipeController = ({ post }) => {
   }, [router.asPath])
 
   useEffect(() => {
-    getDirections(post.fields.recipeDirections)
-    getIngredients(post.fields.ingredients)
     window.scrollTo(0, 0)
     smoothscroll.polyfill()
     const checkScroll = debounce(() => scrollUp(), 100)

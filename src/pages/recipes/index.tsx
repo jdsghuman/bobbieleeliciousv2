@@ -57,8 +57,10 @@ const Recipes = ({ categories, recipes }: RecipesPagePropType) => {
 
   const postMetaTags: MetaTags = {
     canonical: 'https://www.bobbieleelicious.com/recipes',
-    description: `Delicious and nutritious healthy vegetarian recipes`,
+    description: `Explore nourishing daily vegetarian recipes made for busy moms and lifestyles, including high-protein meals, fiber-rich bowls, quick dinners, and simple whole-food dishes.`,
     image: 'https://www.bobbieleelicious.com/images/bobbieleelicious.png',
+    og_image_width: 1050,
+    og_image_height: 450,
     robots: `${RobotsContent.follow},${RobotsContent.index}`,
     title: `Bobbieleelicious | Recipes`,
     twitter_card: 'summary_large_image',
