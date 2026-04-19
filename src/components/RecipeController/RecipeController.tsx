@@ -52,30 +52,6 @@ const RecipeController = ({ post }) => {
     }
   }, [])
 
-  const getIngredients = (ingredients) => {
-    if (ingredients) {
-      const ingredientsArray = ingredients.split('--').map((item) => {
-        return {
-          value: item,
-          isActive: false,
-        }
-      })
-      setIngredientList(ingredientsArray)
-    }
-  }
-
-  const getDirections = (directions) => {
-    if (directions) {
-      const directionsArray = directions.split('--').map((item) => {
-        return {
-          value: item,
-          isActive: false,
-        }
-      })
-      setDirectionList(directionsArray)
-    }
-  }
-
   const selectIngredient = (i: number) => {
     const newIngredientList = [...ingredientList]
     newIngredientList[i].isActive = !newIngredientList[i].isActive
@@ -100,8 +76,8 @@ const RecipeController = ({ post }) => {
 
   useEffect(() => {
     setFinished(false)
-    getDirections(post.fields.recipeDirections)
-    getIngredients(post.fields.ingredients)
+    setDirectionList(parseList(post.fields.recipeDirections))
+    setIngredientList(parseList(post.fields.ingredients))
   }, [router.asPath])
 
   useEffect(() => {

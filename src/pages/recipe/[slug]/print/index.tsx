@@ -202,7 +202,7 @@ const Print = ({ recipe }: RecipePropType) => {
         <p>
           Link to recipe:{' '}
           <a
-            href={`${router.basePath}/recipe/${recipe.fields.slug}`}
+            href={`https://www.bobbieleelicious.com/recipe/${recipe.fields.slug}`}
           >{`www.bobbieleelicious.com/recipe/${recipe.fields.slug}`}</a>
         </p>
       </div>
