@@ -17,10 +17,20 @@ const Filter = ({ closeFilter, isOpen }) => {
   const clear = () => {
     searchCtx.filter.searchTerm === '' && closeFilter()
     searchCtx.clearFilter()
+    router.replace({ pathname: router.pathname }, undefined, { shallow: true })
   }
 
   const updateSearch = (e) => {
-    searchCtx.updateFilter('searchTerm', e.target.value)
+    const value = e.target.value
+    searchCtx.updateFilter('searchTerm', value)
+    const existing = new URLSearchParams(router.asPath.split('?')[1] || '')
+    const newQuery: Record<string, string> = Object.fromEntries(existing.entries())
+    if (value) {
+      newQuery.q = value
+    } else {
+      delete newQuery.q
+    }
+    router.replace({ pathname: router.pathname, query: newQuery }, undefined, { shallow: true })
   }
 
   const handleKeyDown = (e) => {
@@ -38,11 +48,6 @@ const Filter = ({ closeFilter, isOpen }) => {
       inputRef?.current?.focus()
     }
   })
-
-  useEffect(() => {
-    searchCtx.clearFilter()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router.asPath])
 
   return (
     <div

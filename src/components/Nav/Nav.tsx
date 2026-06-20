@@ -49,11 +49,6 @@ const Nav = ({ drawerToggleClickHandler, sideDrawerOpen }) => {
     return () => window.removeEventListener('scroll', debounceNav)
   }, [])
 
-  useEffect(() => {
-    searchCtx.clearFilter()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router.asPath])
-
   return (
     <>
       <header
