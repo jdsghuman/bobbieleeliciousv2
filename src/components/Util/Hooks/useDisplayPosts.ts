@@ -9,7 +9,7 @@ export default function useDisplayPosts(posts, type) {
   const router = useRouter()
 
   useEffect(() => {
-    const params = new URLSearchParams(router.asPath.split('?')[1] || '')
+    const params = new URLSearchParams((router.asPath.split('?')[1] || '').split('#')[0])
     const q = params.get('q') || ''
     const category = params.get('category') || ''
 

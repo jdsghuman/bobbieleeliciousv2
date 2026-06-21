@@ -25,8 +25,9 @@ const Slider = ({ items }: SliderPropType) => {
   }
 
   const toggleSliderOption = (name) => {
+    const existing = new URLSearchParams((router.asPath.split('?')[1] || '').split('#')[0])
+    if ((existing.get('category') || '') === name) return
     searchCtx.updateFilter('categories', name)
-    const existing = new URLSearchParams(router.asPath.split('?')[1] || '')
     const newQuery: Record<string, string> = Object.fromEntries(existing.entries())
     newQuery.category = name
     router.replace({ pathname: router.pathname, query: newQuery }, undefined, { shallow: true })

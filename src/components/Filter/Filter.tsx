@@ -23,7 +23,7 @@ const Filter = ({ closeFilter, isOpen }) => {
   const updateSearch = (e) => {
     const value = e.target.value
     searchCtx.updateFilter('searchTerm', value)
-    const existing = new URLSearchParams(router.asPath.split('?')[1] || '')
+    const existing = new URLSearchParams((router.asPath.split('?')[1] || '').split('#')[0])
     const newQuery: Record<string, string> = Object.fromEntries(existing.entries())
     if (value) {
       newQuery.q = value
