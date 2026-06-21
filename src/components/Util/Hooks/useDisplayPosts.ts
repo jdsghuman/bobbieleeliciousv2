@@ -1,60 +1,46 @@
 import { useEffect, useState, useContext } from 'react'
+import { useRouter } from 'next/router'
 import SearchContext from '../../../store/search-context'
 
 export default function useDisplayPosts(posts, type) {
   const [postsToDisplay, setPostsToDisplay] = useState([])
-  const [pageNumber, setPageNumber] = useState(0)
+  const [pageNumber, setPageNumber] = useState(1)
   const searchCtx = useContext(SearchContext)
-  useEffect(() => {
-    if (searchCtx.filter.searchTerm.length > 0 || searchCtx.filter.categories.length > 0) {
-      setPageNumber(1)
-      let filteredPosts = []
-      if (searchCtx.filter.searchTerm.length > 0 && searchCtx.filter.categories.length === 0) {
-        filteredPosts = posts.filter((post) =>
-          post.fields.title.toLowerCase().includes(searchCtx.filter.searchTerm.toLowerCase().trim())
-        )
-      } else if (
-        searchCtx.filter.categories.length > 0 &&
-        searchCtx.filter.searchTerm.length === 0
-      ) {
-        filteredPosts = posts.filter((post) => {
-          return post?.fields?.category?.fields?.name
-            ?.toLowerCase()
-            ?.includes(searchCtx.filter.categories.toLowerCase())
-        })
-      } else {
-        filteredPosts = posts.filter((post) => {
-          return (
-            post?.fields?.category?.fields?.name
-              ?.toLowerCase()
-              ?.includes(searchCtx.filter.categories.toLowerCase()) &&
-            post.fields.title
-              .toLowerCase()
-              .includes(searchCtx.filter.searchTerm.toLowerCase().trim())
-          )
-        })
-      }
-      setPostsToDisplay(filteredPosts)
-    } else if (
-      searchCtx.filter.searchTerm.length === 0 &&
-      searchCtx.filter.categories.length === 0
-    ) {
-      setPageNumber(1)
-      setPostsToDisplay(posts)
-    }
-  }, [searchCtx.filter.searchTerm, searchCtx.filter.categories])
+  const router = useRouter()
 
   useEffect(() => {
-    if (searchCtx.filter.searchTerm.length === 0 && searchCtx.filter.categories.length === 0) {
-      setPageNumber(1)
-      setPostsToDisplay(posts)
-    }
-  }, [searchCtx.filter.searchTerm, searchCtx.filter.categories])
+    const params = new URLSearchParams((router.asPath.split('?')[1] || '').split('#')[0])
+    const q = params.get('q') || ''
+    const category = params.get('category') || ''
 
-  useEffect(() => {
+    searchCtx.updateFilter('searchTerm', q)
+    searchCtx.updateFilter('categories', category)
+
     setPageNumber(1)
-    setPostsToDisplay(posts)
-  }, [])
+
+    if (!q && !category) {
+      setPostsToDisplay(posts)
+      return
+    }
+
+    let filtered = posts
+    if (q && !category) {
+      filtered = posts.filter((p) => p.fields.title.toLowerCase().includes(q.toLowerCase().trim()))
+    } else if (category && !q) {
+      filtered = posts.filter((p) =>
+        p?.fields?.category?.fields?.name?.toLowerCase()?.includes(category.toLowerCase())
+      )
+    } else {
+      filtered = posts.filter(
+        (p) =>
+          p?.fields?.category?.fields?.name?.toLowerCase()?.includes(category.toLowerCase()) &&
+          p.fields.title.toLowerCase().includes(q.toLowerCase().trim())
+      )
+    }
+    setPostsToDisplay(filtered)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router.asPath])
+
   return {
     postsToDisplay,
     pageNumber,

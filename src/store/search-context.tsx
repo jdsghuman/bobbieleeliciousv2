@@ -25,7 +25,10 @@ export function SearchContextProvider(props) {
   }
 
   function updateFilterHandler(name, value) {
-    setActiveFilter((prevData) => ({ ...prevData, [name]: value }))
+    setActiveFilter((prevData) => {
+      if (prevData[name] === value) return prevData
+      return { ...prevData, [name]: value }
+    })
   }
 
   const context = {

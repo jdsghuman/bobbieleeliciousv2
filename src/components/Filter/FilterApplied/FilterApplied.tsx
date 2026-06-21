@@ -21,6 +21,11 @@ const FilterApplied = () => {
     return sum
   }
 
+  const handleClear = () => {
+    searchCtx.clearFilter()
+    router.replace({ pathname: router.pathname }, undefined, { shallow: true })
+  }
+
   return (
     <div
       className={cx('filter--show', {
@@ -30,7 +35,7 @@ const FilterApplied = () => {
             router.pathname !== '/blogs' &&
             router.pathname !== '/'),
       })}
-      onClick={searchCtx.clearFilter}
+      onClick={handleClear}
     >
       <button type="button" className={styles.btn}>
         Filter applied - tap to clear ({getFilterCount()})

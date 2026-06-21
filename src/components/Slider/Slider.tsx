@@ -1,4 +1,5 @@
 import { useEffect, useRef, useContext } from 'react'
+import { useRouter } from 'next/router'
 import SearchContext from '../../store/search-context'
 import PropTypes from 'prop-types'
 import Icon from '../Icon/Icon'
@@ -14,6 +15,7 @@ interface SliderPropType {
 
 const Slider = ({ items }: SliderPropType) => {
   const searchCtx = useContext(SearchContext)
+  const router = useRouter()
   const ref = useRef<HTMLDivElement>(null)
 
   const scroll = (scrollOffset) => {
@@ -23,7 +25,12 @@ const Slider = ({ items }: SliderPropType) => {
   }
 
   const toggleSliderOption = (name) => {
+    const existing = new URLSearchParams((router.asPath.split('?')[1] || '').split('#')[0])
+    if ((existing.get('category') || '') === name) return
     searchCtx.updateFilter('categories', name)
+    const newQuery: Record<string, string> = Object.fromEntries(existing.entries())
+    newQuery.category = name
+    router.replace({ pathname: router.pathname, query: newQuery }, undefined, { shallow: true })
   }
 
   useEffect(() => {
