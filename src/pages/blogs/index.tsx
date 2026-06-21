@@ -7,6 +7,7 @@ import PostItem from '../../components/FeatureList/PostItem'
 import Subscribe from '../../components/Subscribe/Banner/Banner'
 import useInfiniteScroll from '../../components/Util/Hooks/useInfiniteScroll'
 import Spinner from '../../components/Spinner'
+import PostItemSkeleton from '../../components/FeatureList/PostItemSkeleton'
 import { MetaTags, PageType, RobotsContent } from '../../components/PropTypes/Tags'
 import Meta from '../../components/Meta'
 import SearchContext from '../../store/search-context'
@@ -108,7 +109,13 @@ const Blogs = ({ blogs, categories }: BlogsPagePropType) => {
             return <PostItem article={blog} key={blog.sys.id} slug="blog" lastRef={null} />
           }
         })}
-        <div>{loading && 'Loading...'}</div>
+        {loading && (
+          <>
+            <PostItemSkeleton />
+            <PostItemSkeleton />
+            <PostItemSkeleton />
+          </>
+        )}
         <div>{error && 'Error'}</div>
       </PostItemContainer>
       <Subscribe />

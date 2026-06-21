@@ -15,18 +15,23 @@ export default function useInfiniteScroll(pageNumber, posts, query = '', categor
   useEffect(() => {
     setLoading(true)
     setError(false)
-    if (!postsToShow && resetFilter) {
-      setPostsToShow(posts.slice(0, 9))
-    } else if (resetFilter) {
-      setPostsToShow(posts.slice(0, 9))
-      setResetFilter(false)
-    } else {
-      setPostsToShow((prevPosts) => {
-        return [...prevPosts, ...posts.slice(postsToShow.length, postsToShow.length + 10)]
-      })
-    }
-    setHasMore(posts.length > postsToShow.length)
-    setLoading(false)
+
+    const timer = setTimeout(() => {
+      if (!postsToShow && resetFilter) {
+        setPostsToShow(posts.slice(0, 9))
+      } else if (resetFilter) {
+        setPostsToShow(posts.slice(0, 9))
+        setResetFilter(false)
+      } else {
+        setPostsToShow((prevPosts) => {
+          return [...prevPosts, ...posts.slice(postsToShow.length, postsToShow.length + 10)]
+        })
+      }
+      setHasMore(posts.length > postsToShow.length)
+      setLoading(false)
+    }, 300)
+
+    return () => clearTimeout(timer)
   }, [pageNumber, query, posts, categories])
 
   return { postsToShow, loading, hasMore, error }
