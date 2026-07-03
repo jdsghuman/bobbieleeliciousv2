@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "ES2017",
     "lib": [
       "dom",
       "dom.iterable",
@@ -14,20 +14,19 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "baseUrl": "./",
     "paths": {
       "@styles/*": [
-        "src/styles/*"
+        "./src/styles/*"
       ],
       "@components/*": [
-        "src/components/*"
+        "./src/components/*"
       ],
       "@data/*": [
-        "src/data/*"
+        "./src/data/*"
       ]
     },
     "incremental": true,
@@ -42,7 +41,6 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "src/pages/recipe/[slug].tsx",
     ".next/types/**/*.ts"
   ],
   "exclude": [
