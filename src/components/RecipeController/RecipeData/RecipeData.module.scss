@@ -34,4 +34,45 @@
       margin-bottom: 5px;
     }
   }
+
+  .servings {
+    &__controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 6px;
+      margin-bottom: 3px;
+    }
+    &__btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      border: 1px solid #c8c3c3;
+      border-radius: 50%;
+      background: #fff;
+      color: #555555;
+      font-size: 1rem;
+      line-height: 1;
+      cursor: pointer;
+      padding: 0;
+      transition: background 0.15s, border-color 0.15s;
+      &:hover:not(:disabled) {
+        background: #ede9e9;
+        border-color: #aaa;
+      }
+      &:disabled {
+        opacity: 0.35;
+        cursor: default;
+      }
+    }
+    &__count {
+      font-weight: 600;
+      font-size: 0.95rem;
+      min-width: 18px;
+      text-align: center;
+    }
+  }
 }

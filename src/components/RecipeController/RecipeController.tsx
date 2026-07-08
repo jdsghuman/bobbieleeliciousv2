@@ -13,17 +13,26 @@ import { loadPolyfills } from '../Util/polyfills'
 
 const cx = classNames.bind(styles)
 
+const parseOriginalServings = (servings: string | undefined): number | null => {
+  if (!servings) return null
+  const match = servings.match(/\d+/)
+  return match ? parseInt(match[0]) : null
+}
+
 const RecipeController = ({ post }) => {
   const router = useRouter()
 
   const parseList = (str: string | undefined) =>
     str ? str.split('--').map((value) => ({ value, isActive: false })) : []
 
+  const originalServings = parseOriginalServings(post.fields.servings)
+
   const [isTop, setIsTop] = useState(true)
   const [directionList, setDirectionList] = useState(() => parseList(post.fields.recipeDirections))
   const [ingredientList, setIngredientList] = useState(() => parseList(post.fields.ingredients))
   const [finished, setFinished] = useState<boolean>(false)
   const [footerShareVisible, setFooterShareVisible] = useState(false)
+  const [currentServings, setCurrentServings] = useState<number>(() => originalServings ?? 0)
   const observer = useRef<IntersectionObserver | null>(null)
 
   const iconRef = useCallback(async (node: HTMLDivElement | null) => {
@@ -78,6 +87,7 @@ const RecipeController = ({ post }) => {
     setFinished(false)
     setDirectionList(parseList(post.fields.recipeDirections))
     setIngredientList(parseList(post.fields.ingredients))
+    setCurrentServings(parseOriginalServings(post.fields.servings) ?? 0)
   }, [router.asPath])
 
   useEffect(() => {
@@ -99,10 +109,20 @@ const RecipeController = ({ post }) => {
         cooktime={post.fields.cooktime}
         prep={post.fields.prep}
         servings={post.fields.servings}
+        currentServings={originalServings !== null ? currentServings : undefined}
+        onServingsChange={
+          originalServings !== null ? (n) => setCurrentServings(Math.max(1, n)) : undefined
+        }
       />
       <RecipeDescription recipe={post} footerShareVisible={footerShareVisible} />
 
-      <RecipeIngredients ingredients={ingredientList} selectIngredient={selectIngredient} />
+      <RecipeIngredients
+        ingredients={ingredientList}
+        selectIngredient={selectIngredient}
+        multiplier={
+          originalServings !== null && originalServings > 0 ? currentServings / originalServings : 1
+        }
+      />
 
       <RecipeDirections
         finished={finished}

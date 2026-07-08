@@ -1,7 +1,23 @@
 import Icon from '../../Icon/Icon'
 import styles from './RecipeData.module.scss'
 
-const RecipeData = ({ cooktime, prep, servings }) => {
+interface RecipeDataProps {
+  cooktime: string
+  prep: string
+  servings: string
+  currentServings?: number
+  onServingsChange?: (n: number) => void
+}
+
+const RecipeData = ({
+  cooktime,
+  prep,
+  servings,
+  currentServings,
+  onServingsChange,
+}: RecipeDataProps) => {
+  const interactive = currentServings !== undefined && onServingsChange !== undefined
+
   return (
     <div className={styles.container}>
       <div className={styles.container__icon}>
@@ -17,7 +33,28 @@ const RecipeData = ({ cooktime, prep, servings }) => {
       <div className={styles.container__icon}>
         <p className={styles.icon__title}>Servings</p>
         <Icon identifier="user" viewBox="0 0 300 200" dimensions={{ height: 22, width: 15 }} />
-        <p className={styles.icon__details}>{servings}</p>
+        {interactive ? (
+          <div className={styles.servings__controls}>
+            <button
+              className={styles.servings__btn}
+              onClick={() => onServingsChange(currentServings - 1)}
+              aria-label="Decrease servings"
+              disabled={currentServings <= 1}
+            >
+              −
+            </button>
+            <span className={styles.servings__count}>{currentServings}</span>
+            <button
+              className={styles.servings__btn}
+              onClick={() => onServingsChange(currentServings + 1)}
+              aria-label="Increase servings"
+            >
+              +
+            </button>
+          </div>
+        ) : (
+          <p className={styles.icon__details}>{servings}</p>
+        )}
       </div>
     </div>
   )

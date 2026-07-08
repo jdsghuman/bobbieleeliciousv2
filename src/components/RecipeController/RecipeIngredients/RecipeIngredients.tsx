@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import classNames from 'classnames/bind'
 import { IoIosSquareOutline, IoIosCheckboxOutline } from 'react-icons/io'
+import { scaleIngredient } from '../../../lib/scaleIngredient'
 import styles from './RecipeIngredients.module.scss'
 
 const cx = classNames.bind(styles)
@@ -11,12 +12,18 @@ interface RecipeIngredientsPropTypes {
     isActive: boolean
   }[]
   selectIngredient: (i: number) => void
+  multiplier?: number
 }
 
-const RecipeIngredients = ({ ingredients, selectIngredient }: RecipeIngredientsPropTypes) => {
+const RecipeIngredients = ({
+  ingredients,
+  selectIngredient,
+  multiplier = 1,
+}: RecipeIngredientsPropTypes) => {
   const displayIngredientList = () => {
     return ingredients && ingredients.length > 0 ? (
       ingredients.map((ingredient, i) => {
+        const displayValue = scaleIngredient(ingredient.value, multiplier)
         return ingredient.value.includes('*') ? (
           <p className={cx('subtitle', 'unselectable')} key={i}>
             {ingredient.value.substr(1)}
@@ -36,7 +43,7 @@ const RecipeIngredients = ({ ingredients, selectIngredient }: RecipeIngredientsP
                 <IoIosSquareOutline className={styles.list__icon} />
               )}
             </span>
-            {ingredient.value}
+            {displayValue}
           </li>
         )
       })
