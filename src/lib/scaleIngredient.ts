@@ -19,7 +19,7 @@ function parseLeadingNumber(str: string): { value: number; end: number } | null 
   // Mixed number + unicode fraction: "1 ¾"
   for (const [char, val] of FRACTION_MAP) {
     const m = str.match(new RegExp(`^(\\d+)\\s+(${char})`))
-    if (m) return { value: parseInt(m[1]) + val, end: m[0].length }
+    if (m) return { value: parseInt(m[1], 10) + val, end: m[0].length }
   }
   // Standalone unicode fraction: "¾"
   for (const [char, val] of FRACTION_MAP) {
@@ -29,14 +29,14 @@ function parseLeadingNumber(str: string): { value: number; end: number } | null 
   const mixed = str.match(/^(\d+)\s+(\d+)\s*\/\s*(\d+)/)
   if (mixed) {
     return {
-      value: parseInt(mixed[1]) + parseInt(mixed[2]) / parseInt(mixed[3]),
+      value: parseInt(mixed[1], 10) + parseInt(mixed[2], 10) / parseInt(mixed[3], 10),
       end: mixed[0].length,
     }
   }
   // ASCII fraction: "1/2"
   const frac = str.match(/^(\d+)\s*\/\s*(\d+)/)
   if (frac) {
-    return { value: parseInt(frac[1]) / parseInt(frac[2]), end: frac[0].length }
+    return { value: parseInt(frac[1], 10) / parseInt(frac[2], 10), end: frac[0].length }
   }
   // Decimal or integer
   const num = str.match(/^(\d+\.?\d*)/)

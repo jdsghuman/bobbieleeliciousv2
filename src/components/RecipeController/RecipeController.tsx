@@ -16,7 +16,8 @@ const cx = classNames.bind(styles)
 const parseOriginalServings = (servings: string | undefined): number | null => {
   if (!servings) return null
   const match = servings.match(/\d+/)
-  return match ? parseInt(match[0]) : null
+  const n = match ? parseInt(match[0], 10) : NaN
+  return Number.isFinite(n) && n > 0 ? n : null
 }
 
 const RecipeController = ({ post }) => {
