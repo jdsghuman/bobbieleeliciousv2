@@ -16,8 +16,6 @@ const RecipeData = ({
   currentServings,
   onServingsChange,
 }: RecipeDataProps) => {
-  const interactive = currentServings !== undefined && onServingsChange !== undefined
-
   return (
     <div className={styles.container}>
       <div className={styles.container__icon}>
@@ -33,9 +31,10 @@ const RecipeData = ({
       <div className={styles.container__icon}>
         <p className={styles.icon__title}>Servings</p>
         <Icon identifier="user" viewBox="0 0 300 200" dimensions={{ height: 22, width: 15 }} />
-        {interactive ? (
+        {currentServings !== undefined && onServingsChange !== undefined ? (
           <div className={styles.servings__controls}>
             <button
+              type="button"
               className={styles.servings__btn}
               onClick={() => onServingsChange(currentServings - 1)}
               aria-label="Decrease servings"
@@ -45,6 +44,7 @@ const RecipeData = ({
             </button>
             <span className={styles.servings__count}>{currentServings}</span>
             <button
+              type="button"
               className={styles.servings__btn}
               onClick={() => onServingsChange(currentServings + 1)}
               aria-label="Increase servings"

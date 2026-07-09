@@ -10,7 +10,10 @@ const FRACTION_MAP: Array<[string, number]> = [
   ['⅞', 7 / 8],
 ]
 
-const FRACTIONS_OUT: Array<[number, string]> = FRACTION_MAP.map(([sym, val]) => [val, sym])
+const FRACTIONS_OUT: Array<[number, string]> = FRACTION_MAP.map(([sym, val]): [number, string] => [
+  val,
+  sym,
+])
 
 function parseLeadingNumber(str: string): { value: number; end: number } | null {
   // Mixed number + unicode fraction: "1 ¾"
@@ -46,6 +49,9 @@ function parseLeadingNumber(str: string): { value: number; end: number } | null 
 function formatNumber(n: number): string {
   if (n <= 0) return String(Math.max(0, Math.round(n * 10) / 10))
 
+  // Check near-integer first so e.g. 1.92 rounds to 2, not "1 ⅞"
+  if (Math.abs(n - Math.round(n)) < 0.1) return String(Math.round(n))
+
   const whole = Math.floor(n)
   const frac = n - whole
 
@@ -64,7 +70,6 @@ function formatNumber(n: number): string {
     }
   }
 
-  if (Math.abs(n - Math.round(n)) < 0.1) return String(Math.round(n))
   return String(Math.round(n * 10) / 10)
 }
 
