@@ -1,4 +1,5 @@
 @import '@styles/variables';
+@import '@styles/color-palette';
 
 .container {
   max-width: 800px;
@@ -38,6 +39,38 @@
       font-family: 'Rock Salt', cursive;
     }
   }
+  .rating {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    margin: 0.4rem 0 0.75rem;
+    margin-top: -0.5rem;
+  }
+
+  .rating__text {
+    font-size: 0.9rem;
+    color: $secondary;
+    font-family: 'Lato', sans-serif;
+  }
+
+  .stars {
+    display: inline-flex;
+    gap: 1px;
+    font-size: 1.2rem;
+  }
+
+  .star__filled {
+    color: $palette-brand-secondary;
+    line-height: 1;
+  }
+
+  .star__empty {
+    color: $palette-brand-secondary;
+    line-height: 1;
+    opacity: 0.3;
+  }
+
   .image--main {
     width: 100%;
     height: 425px;

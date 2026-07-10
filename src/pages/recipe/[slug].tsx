@@ -205,7 +205,7 @@ const Recipe = ({ recipe, morePosts, ratingValue, ratingCount }: RecipePageProps
       </Head>
       <ScrollToTop />
       <PromptSubscribe />
-      <RecipeDetail post={recipe} />
+      <RecipeDetail post={recipe} ratingValue={ratingValue} ratingCount={ratingCount} />
       <FeatureList title="More From Bobbieleelicious" articles={morePosts} slug="recipe" />
       <Subscribe />
     </>

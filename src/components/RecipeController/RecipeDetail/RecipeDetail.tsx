@@ -6,12 +6,32 @@ import styles from './RecipeDetail.module.scss'
 
 interface RecipeDetailPropTypes {
   post: BlogsPropType | RecipesPropType
+  ratingValue?: number | null
+  ratingCount?: number
 }
 
-const RecipeDetail = ({ post }: RecipeDetailPropTypes) => {
+const StarRating = ({ rating }: { rating: number }) => (
+  <span className={styles.stars} aria-hidden="true">
+    {[1, 2, 3, 4, 5].map((n) => (
+      <span key={n} className={n <= rating ? styles.star__filled : styles.star__empty}>
+        {n <= rating ? '★' : '☆'}
+      </span>
+    ))}
+  </span>
+)
+
+const RecipeDetail = ({ post, ratingValue, ratingCount }: RecipeDetailPropTypes) => {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>{truncateText(post.fields.title, 60)}</h1>
+      {ratingValue !== null && ratingValue !== undefined && ratingCount && ratingCount > 0 && (
+        <div className={styles.rating}>
+          <StarRating rating={Math.round(ratingValue)} />
+          <span className={styles.rating__text}>
+            {ratingValue} ({ratingCount} review{ratingCount !== 1 ? 's' : ''})
+          </span>
+        </div>
+      )}
       {post?.fields.image ? (
         <Image
           src={post.fields.image}

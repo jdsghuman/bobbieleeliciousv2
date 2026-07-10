@@ -26,7 +26,7 @@ const StarRating = ({
   const [hovered, setHovered] = useState(0)
 
   return (
-    <span className={styles.stars}>
+    <span className={styles.stars} aria-hidden={!interactive || undefined}>
       {[1, 2, 3, 4, 5].map((n) => {
         const isFilled = n <= (interactive ? hovered || rating : rating)
         if (interactive) {
