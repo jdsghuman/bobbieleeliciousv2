@@ -52,6 +52,14 @@
     font-size: 0.9rem;
     color: $secondary;
     font-family: 'Lato', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .rating__count {
+    font-size: 0.8rem;
+    font-weight: 400;
   }
 
   .stars {
