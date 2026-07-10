@@ -12,6 +12,7 @@ interface Review {
 
 interface Props {
   slug: string
+  onReviewsChange?: (ratingValue: number | null, ratingCount: number) => void
 }
 
 const StarRating = ({
@@ -54,7 +55,7 @@ const StarRating = ({
   )
 }
 
-const RecipeReviews = ({ slug }: Props) => {
+const RecipeReviews = ({ slug, onReviewsChange }: Props) => {
   const [reviews, setReviews] = useState<Review[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -83,8 +84,16 @@ const RecipeReviews = ({ slug }: Props) => {
         return r.json()
       })
       .then((data) => {
-        setReviews(Array.isArray(data) ? data : [])
+        const loaded: Review[] = Array.isArray(data) ? data : []
+        setReviews(loaded)
         setLoading(false)
+        if (onReviewsChange) {
+          const avg =
+            loaded.length > 0
+              ? Math.round((loaded.reduce((sum, r) => sum + r.rating, 0) / loaded.length) * 10) / 10
+              : null
+          onReviewsChange(avg, loaded.length)
+        }
       })
       .catch(() => {
         setError('Failed to load reviews.')
@@ -133,7 +142,15 @@ const RecipeReviews = ({ slug }: Props) => {
       }
 
       const newReview: Review = await res.json()
-      setReviews((prev) => [newReview, ...prev])
+      setReviews((prev) => {
+        const updated = [newReview, ...prev]
+        if (onReviewsChange) {
+          const avg =
+            Math.round((updated.reduce((sum, r) => sum + r.rating, 0) / updated.length) * 10) / 10
+          onReviewsChange(avg, updated.length)
+        }
+        return updated
+      })
       setRating(0)
       setName('')
       setEmail('')

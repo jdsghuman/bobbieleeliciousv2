@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import Image from 'next/image'
 import { BlogsPropType, RecipesPropType } from '../../PropTypes/PropTypes'
 import { truncateText } from '../../Util/Util'
@@ -20,11 +21,23 @@ const StarRating = ({ rating }: { rating: number }) => (
   </span>
 )
 
-const RecipeDetail = ({ post, ratingValue, ratingCount }: RecipeDetailPropTypes) => {
+const RecipeDetail = ({
+  post,
+  ratingValue: initialRatingValue,
+  ratingCount: initialRatingCount,
+}: RecipeDetailPropTypes) => {
+  const [ratingValue, setRatingValue] = useState(initialRatingValue ?? null)
+  const [ratingCount, setRatingCount] = useState(initialRatingCount ?? 0)
+
+  const handleReviewsChange = (newRatingValue: number | null, newRatingCount: number) => {
+    setRatingValue(newRatingValue)
+    setRatingCount(newRatingCount)
+  }
+
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>{truncateText(post.fields.title, 60)}</h1>
-      {ratingValue !== null && ratingValue !== undefined && ratingCount && ratingCount > 0 && (
+      {ratingValue !== null && ratingCount > 0 && (
         <div className={styles.rating}>
           <StarRating rating={Math.round(ratingValue)} />
           <span className={styles.rating__text}>
@@ -47,7 +60,7 @@ const RecipeDetail = ({ post, ratingValue, ratingCount }: RecipeDetailPropTypes)
           <p className={styles['image--main--error__text']}>Image failed to load</p>
         </div>
       )}
-      <RecipeController post={post} />
+      <RecipeController post={post} onReviewsChange={handleReviewsChange} />
     </div>
   )
 }
