@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import Image from 'next/image'
 import { BlogsPropType, RecipesPropType } from '../../PropTypes/PropTypes'
 import { truncateText } from '../../Util/Util'
@@ -29,10 +29,14 @@ const RecipeDetail = ({
   const [ratingValue, setRatingValue] = useState(initialRatingValue ?? null)
   const [ratingCount, setRatingCount] = useState(initialRatingCount ?? 0)
 
-  const handleReviewsChange = (newRatingValue: number | null, newRatingCount: number) => {
-    setRatingValue(newRatingValue)
-    setRatingCount(newRatingCount)
-  }
+  const handleReviewsChange = useCallback(
+    (newRatingValue: number | null, newRatingCount: number) => {
+      setRatingValue(newRatingValue)
+
+      setRatingCount(newRatingCount)
+    },
+    []
+  )
 
   return (
     <div className={styles.container}>

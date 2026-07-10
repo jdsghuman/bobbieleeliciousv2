@@ -99,7 +99,7 @@ const RecipeReviews = ({ slug, onReviewsChange }: Props) => {
         setError('Failed to load reviews.')
         setLoading(false)
       })
-  }, [slug])
+  }, [slug, onReviewsChange])
 
   const averageRating =
     reviews.length > 0
@@ -142,15 +142,15 @@ const RecipeReviews = ({ slug, onReviewsChange }: Props) => {
       }
 
       const newReview: Review = await res.json()
-      setReviews((prev) => {
-        const updated = [newReview, ...prev]
-        if (onReviewsChange) {
-          const avg =
-            Math.round((updated.reduce((sum, r) => sum + r.rating, 0) / updated.length) * 10) / 10
-          onReviewsChange(avg, updated.length)
-        }
-        return updated
-      })
+      const updatedReviews = [newReview, ...reviews]
+      setReviews(updatedReviews)
+      if (onReviewsChange) {
+        const avg =
+          Math.round(
+            (updatedReviews.reduce((sum, r) => sum + r.rating, 0) / updatedReviews.length) * 10
+          ) / 10
+        onReviewsChange(avg, updatedReviews.length)
+      }
       setRating(0)
       setName('')
       setEmail('')
