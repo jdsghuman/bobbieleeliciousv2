@@ -45,7 +45,10 @@ const RecipeDetail = ({
         <div className={styles.rating}>
           <StarRating rating={Math.round(ratingValue)} />
           <span className={styles.rating__text}>
-            {ratingValue} ({ratingCount} review{ratingCount !== 1 ? 's' : ''})
+            <strong>{ratingValue} out of 5</strong>
+            <span className={styles.rating__count}>
+              ({ratingCount} review{ratingCount !== 1 ? 's' : ''})
+            </span>
           </span>
         </div>
       )}
