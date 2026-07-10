@@ -11,7 +11,7 @@ interface RecipeDetailPropTypes {
 }
 
 const StarRating = ({ rating }: { rating: number }) => (
-  <span className={styles.stars}>
+  <span className={styles.stars} aria-hidden="true">
     {[1, 2, 3, 4, 5].map((n) => (
       <span key={n} className={n <= rating ? styles.star__filled : styles.star__empty}>
         {n <= rating ? '★' : '☆'}
