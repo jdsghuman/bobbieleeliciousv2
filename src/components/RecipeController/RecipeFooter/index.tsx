@@ -10,9 +10,10 @@ import { RecipePropType } from '@components/PropTypes/PropTypes'
 
 interface RecipeFooterProps extends RecipePropType {
   iconRef: (node: HTMLDivElement | null) => void | Promise<void>
+  onReviewsChange?: (ratingValue: number | null, ratingCount: number) => void
 }
 
-const RecipeFooter = ({ recipe, iconRef }: RecipeFooterProps) => {
+const RecipeFooter = ({ recipe, iconRef, onReviewsChange }: RecipeFooterProps) => {
   const router = useRouter()
 
   return (
@@ -31,7 +32,7 @@ const RecipeFooter = ({ recipe, iconRef }: RecipeFooterProps) => {
         postName={recipe.fields.title}
       />
       {recipe?.fields?.tag && <PostTags tags={recipe.fields.tag} />}
-      <RecipeReviews slug={recipe.fields.slug} />
+      <RecipeReviews slug={recipe.fields.slug} onReviewsChange={onReviewsChange} />
     </div>
   )
 }

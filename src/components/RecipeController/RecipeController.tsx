@@ -20,7 +20,13 @@ const parseOriginalServings = (servings: string | undefined): number | null => {
   return Number.isFinite(n) && n > 0 ? n : null
 }
 
-const RecipeController = ({ post }) => {
+const RecipeController = ({
+  post,
+  onReviewsChange,
+}: {
+  post: any
+  onReviewsChange?: (ratingValue: number | null, ratingCount: number) => void
+}) => {
   const router = useRouter()
 
   const parseList = (str: string | undefined) =>
@@ -131,7 +137,7 @@ const RecipeController = ({ post }) => {
         directions={directionList}
         selectDirection={selectDirection}
       />
-      <RecipeFooter recipe={post} iconRef={iconRef} />
+      <RecipeFooter recipe={post} iconRef={iconRef} onReviewsChange={onReviewsChange} />
     </div>
   )
 }
