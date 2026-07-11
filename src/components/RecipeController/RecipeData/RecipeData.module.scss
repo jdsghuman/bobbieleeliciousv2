@@ -41,7 +41,7 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
-      margin-top: 6px;
+      margin-top: 4px;
       margin-bottom: 3px;
     }
     &__btn {
@@ -55,6 +55,9 @@
       background: #fff;
       color: #555555;
       font-size: 1rem;
+      @media (max-width: 400px) {
+        font-size: 0.85rem;
+      }
       line-height: 1;
       cursor: pointer;
       padding: 0;
@@ -70,7 +73,7 @@
     }
     &__count {
       font-weight: 600;
-      font-size: 0.95rem;
+      font-size: 0.8rem;
       min-width: 18px;
       text-align: center;
     }
