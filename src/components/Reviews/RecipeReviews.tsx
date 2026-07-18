@@ -83,7 +83,7 @@ const RecipeReviews = ({ slug, onReviewsChange }: Props) => {
   const [replyError, setReplyError] = useState('')
 
   useEffect(() => {
-    setOwnerSecret(sessionStorage.getItem(OWNER_SECRET_STORAGE_KEY) || '')
+    setOwnerSecret(localStorage.getItem(OWNER_SECRET_STORAGE_KEY) || '')
   }, [])
 
   useEffect(() => {
@@ -228,7 +228,7 @@ const RecipeReviews = ({ slug, onReviewsChange }: Props) => {
 
       const newReply: Review = await res.json()
       setReviews([...reviews, newReply])
-      sessionStorage.setItem(OWNER_SECRET_STORAGE_KEY, ownerSecret)
+      localStorage.setItem(OWNER_SECRET_STORAGE_KEY, ownerSecret)
       setReplyText('')
       setReplyOpenId(null)
     } catch {
