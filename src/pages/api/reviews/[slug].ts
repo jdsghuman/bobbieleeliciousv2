@@ -23,6 +23,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const { rating, reviewer_name, reviewer_email, review_text, parent_id, owner_secret } = req.body
 
     if (parent_id) {
+      if (typeof parent_id !== 'string') {
+        return res.status(400).json({ error: 'parent_id must be a string' })
+      }
       if (!process.env.REVIEW_OWNER_SECRET || owner_secret !== process.env.REVIEW_OWNER_SECRET) {
         return res.status(401).json({ error: 'Not authorized to reply.' })
       }
