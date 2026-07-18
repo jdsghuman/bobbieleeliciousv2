@@ -83,7 +83,11 @@ const RecipeReviews = ({ slug, onReviewsChange }: Props) => {
   const [replyError, setReplyError] = useState('')
 
   useEffect(() => {
-    setOwnerSecret(localStorage.getItem(OWNER_SECRET_STORAGE_KEY) || '')
+    try {
+      setOwnerSecret(localStorage.getItem(OWNER_SECRET_STORAGE_KEY) || '')
+    } catch {
+      setOwnerSecret('')
+    }
   }, [])
 
   useEffect(() => {
@@ -125,7 +129,9 @@ const RecipeReviews = ({ slug, onReviewsChange }: Props) => {
   const topLevelReviews = reviews.filter((r) => !r.parent_id)
   const repliesByParent = reviews.reduce<Record<string, Review[]>>((acc, r) => {
     if (r.parent_id) {
-      acc[r.parent_id] = [...(acc[r.parent_id] || []), r]
+      const key = r.parent_id
+      if (!acc[key]) acc[key] = []
+      acc[key].push(r)
     }
     return acc
   }, {})
@@ -174,8 +180,11 @@ const RecipeReviews = ({ slug, onReviewsChange }: Props) => {
       }
 
       const newReview: Review = await res.json()
-      const updatedReviews = [newReview, ...reviews]
-      setReviews(updatedReviews)
+      let updatedReviews: Review[] = []
+      setReviews((prev) => {
+        updatedReviews = [newReview, ...prev]
+        return updatedReviews
+      })
       if (onReviewsChange) {
         const rated = updatedReviews.filter((r) => !r.parent_id)
         const avg =
@@ -227,8 +236,12 @@ const RecipeReviews = ({ slug, onReviewsChange }: Props) => {
       }
 
       const newReply: Review = await res.json()
-      setReviews([...reviews, newReply])
-      localStorage.setItem(OWNER_SECRET_STORAGE_KEY, ownerSecret)
+      setReviews((prev) => [newReply, ...prev])
+      try {
+        localStorage.setItem(OWNER_SECRET_STORAGE_KEY, ownerSecret)
+      } catch {
+        // ignore — storage may be unavailable (e.g. private browsing quota limits)
+      }
       setReplyText('')
       setReplyOpenId(null)
     } catch {
@@ -328,7 +341,9 @@ const RecipeReviews = ({ slug, onReviewsChange }: Props) => {
               <div key={reply.id} className={styles.reply}>
                 <div className={styles.review__header}>
                   <strong className={styles.review__name}>{reply.reviewer_name}</strong>
-                  <span className={styles.reply__badge}>Author reply</span>
+                  {reply.is_owner_reply && (
+                    <span className={styles.reply__badge}>Author reply</span>
+                  )}
                   <span className={styles.review__date}>
                     {new Date(reply.created_at).toLocaleDateString()}
                   </span>

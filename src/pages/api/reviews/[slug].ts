@@ -30,6 +30,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return res.status(400).json({ error: 'review_text is required' })
       }
 
+      const { data: parentRows, error: parentError } = await supabase
+        .from('recipe_reviews')
+        .select('id, slug, parent_id')
+        .eq('id', parent_id)
+        .limit(1)
+
+      if (parentError) return res.status(500).json({ error: parentError.message })
+
+      const parent = parentRows?.[0]
+      if (!parent || parent.slug !== slug || parent.parent_id) {
+        return res.status(400).json({ error: 'Invalid parent review.' })
+      }
+
       const { data, error } = await supabase
         .from('recipe_reviews')
         .insert({
@@ -59,6 +72,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(400).json({ error: 'rating must be an integer between 1 and 5' })
     }
 
+    if (review_text != null && typeof review_text !== 'string') {
+      return res.status(400).json({ error: 'review_text must be a string' })
+    }
+    const normalizedReviewText = review_text?.trim() || null
+
     const { data, error } = await supabase
       .from('recipe_reviews')
       .insert({
@@ -66,7 +84,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         rating: parsedRating,
         reviewer_name: reviewer_name.trim(),
         reviewer_email: reviewer_email || null,
-        review_text,
+        review_text: normalizedReviewText,
       })
       .select('id, slug, rating, reviewer_name, review_text, created_at, parent_id, is_owner_reply')
       .single()
