@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import Image from 'next/image'
 import { useRouter } from 'next/router'
 import styles from './RecipeReviews.module.scss'
 
@@ -340,6 +341,13 @@ const RecipeReviews = ({ slug, onReviewsChange }: Props) => {
             {(repliesByParent[review.id] || []).map((reply) => (
               <div key={reply.id} className={styles.reply}>
                 <div className={styles.review__header}>
+                  <Image
+                    src={'https://i.imgur.com/hCAUcmZ.jpeg'}
+                    alt={'author image'}
+                    className={styles.image}
+                    width={40}
+                    height={40}
+                  />
                   <strong className={styles.review__name}>{reply.reviewer_name}</strong>
                   {reply.is_owner_reply && (
                     <span className={styles.reply__badge}>Author reply</span>

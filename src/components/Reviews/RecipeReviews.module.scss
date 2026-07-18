@@ -251,3 +251,14 @@ button.star__empty {
     text-decoration: underline;
   }
 }
+
+.image {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+  &--default {
+    height: 33px;
+    background: #e6e3e3;
+  }
+}
