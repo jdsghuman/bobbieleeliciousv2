@@ -182,3 +182,67 @@ button.star__empty {
   line-height: 1.5;
   font-family: 'Lato', sans-serif;
 }
+
+.reply {
+  margin-top: 0.75rem;
+  margin-left: 1.5rem;
+  padding: 0.75rem 1rem;
+  border-left: 3px solid $palette-brand-secondary;
+  background: #fff;
+  border-radius: 0 6px 6px 0;
+}
+
+.reply__badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: $palette-brand-secondary;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.replyAction {
+  margin-top: 0.75rem;
+}
+
+.replyToggle {
+  background: none;
+  border: none;
+  padding: 0;
+  color: $palette-brand-secondary;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Lato', sans-serif;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.replyForm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  margin-left: 1.5rem;
+}
+
+.replyForm__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.replyCancel {
+  background: none;
+  border: none;
+  padding: 0;
+  color: $secondary;
+  font-size: 0.9rem;
+  cursor: pointer;
+  font-family: 'Lato', sans-serif;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

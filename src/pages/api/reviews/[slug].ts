@@ -11,7 +11,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.method === 'GET') {
     const { data, error } = await supabase
       .from('recipe_reviews')
-      .select('id, slug, rating, reviewer_name, review_text, created_at')
+      .select('id, slug, rating, reviewer_name, review_text, created_at, parent_id, is_owner_reply')
       .eq('slug', slug)
       .order('created_at', { ascending: false })
 
@@ -20,7 +20,35 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   if (req.method === 'POST') {
-    const { rating, reviewer_name, reviewer_email, review_text } = req.body
+    const { rating, reviewer_name, reviewer_email, review_text, parent_id, owner_secret } = req.body
+
+    if (parent_id) {
+      if (!process.env.REVIEW_OWNER_SECRET || owner_secret !== process.env.REVIEW_OWNER_SECRET) {
+        return res.status(401).json({ error: 'Not authorized to reply.' })
+      }
+      if (!review_text || typeof review_text !== 'string' || review_text.trim() === '') {
+        return res.status(400).json({ error: 'review_text is required' })
+      }
+
+      const { data, error } = await supabase
+        .from('recipe_reviews')
+        .insert({
+          slug,
+          rating: null,
+          reviewer_name: reviewer_name?.trim() || 'Bobbielee',
+          reviewer_email: null,
+          review_text: review_text.trim(),
+          parent_id,
+          is_owner_reply: true,
+        })
+        .select(
+          'id, slug, rating, reviewer_name, review_text, created_at, parent_id, is_owner_reply'
+        )
+        .single()
+
+      if (error) return res.status(500).json({ error: error.message })
+      return res.status(201).json(data)
+    }
 
     if (!reviewer_name || typeof reviewer_name !== 'string' || reviewer_name.trim() === '') {
       return res.status(400).json({ error: 'reviewer_name is required' })
@@ -40,7 +68,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         reviewer_email: reviewer_email || null,
         review_text,
       })
-      .select('id, slug, rating, reviewer_name, review_text, created_at')
+      .select('id, slug, rating, reviewer_name, review_text, created_at, parent_id, is_owner_reply')
       .single()
 
     if (error) return res.status(500).json({ error: error.message })

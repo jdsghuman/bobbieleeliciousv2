@@ -1,14 +1,19 @@
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 import styles from './RecipeReviews.module.scss'
 
 interface Review {
   id: string
   slug: string
-  rating: number
+  rating: number | null
   reviewer_name: string
   review_text: string | null
   created_at: string
+  parent_id: string | null
+  is_owner_reply: boolean
 }
+
+const OWNER_SECRET_STORAGE_KEY = 'bobbielee_review_owner_secret'
 
 interface Props {
   slug: string
@@ -56,6 +61,9 @@ const StarRating = ({
 }
 
 const RecipeReviews = ({ slug, onReviewsChange }: Props) => {
+  const router = useRouter()
+  const isOwnerView = router.query.owner === '1'
+
   const [reviews, setReviews] = useState<Review[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -67,6 +75,16 @@ const RecipeReviews = ({ slug, onReviewsChange }: Props) => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [text, setText] = useState('')
+
+  const [replyOpenId, setReplyOpenId] = useState<string | null>(null)
+  const [replyText, setReplyText] = useState('')
+  const [ownerSecret, setOwnerSecret] = useState('')
+  const [replySubmitting, setReplySubmitting] = useState(false)
+  const [replyError, setReplyError] = useState('')
+
+  useEffect(() => {
+    setOwnerSecret(sessionStorage.getItem(OWNER_SECRET_STORAGE_KEY) || '')
+  }, [])
 
   useEffect(() => {
     setLoading(true)
@@ -88,11 +106,14 @@ const RecipeReviews = ({ slug, onReviewsChange }: Props) => {
         setReviews(loaded)
         setLoading(false)
         if (onReviewsChange) {
+          const rated = loaded.filter((r) => !r.parent_id)
           const avg =
-            loaded.length > 0
-              ? Math.round((loaded.reduce((sum, r) => sum + r.rating, 0) / loaded.length) * 10) / 10
+            rated.length > 0
+              ? Math.round(
+                  (rated.reduce((sum, r) => sum + (r.rating || 0), 0) / rated.length) * 10
+                ) / 10
               : null
-          onReviewsChange(avg, loaded.length)
+          onReviewsChange(avg, rated.length)
         }
       })
       .catch(() => {
@@ -101,9 +122,20 @@ const RecipeReviews = ({ slug, onReviewsChange }: Props) => {
       })
   }, [slug, onReviewsChange])
 
+  const topLevelReviews = reviews.filter((r) => !r.parent_id)
+  const repliesByParent = reviews.reduce<Record<string, Review[]>>((acc, r) => {
+    if (r.parent_id) {
+      acc[r.parent_id] = [...(acc[r.parent_id] || []), r]
+    }
+    return acc
+  }, {})
+
   const averageRating =
-    reviews.length > 0
-      ? Math.round((reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length) * 10) / 10
+    topLevelReviews.length > 0
+      ? Math.round(
+          (topLevelReviews.reduce((sum, r) => sum + (r.rating || 0), 0) / topLevelReviews.length) *
+            10
+        ) / 10
       : 0
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -145,11 +177,10 @@ const RecipeReviews = ({ slug, onReviewsChange }: Props) => {
       const updatedReviews = [newReview, ...reviews]
       setReviews(updatedReviews)
       if (onReviewsChange) {
+        const rated = updatedReviews.filter((r) => !r.parent_id)
         const avg =
-          Math.round(
-            (updatedReviews.reduce((sum, r) => sum + r.rating, 0) / updatedReviews.length) * 10
-          ) / 10
-        onReviewsChange(avg, updatedReviews.length)
+          Math.round((rated.reduce((sum, r) => sum + (r.rating || 0), 0) / rated.length) * 10) / 10
+        onReviewsChange(avg, rated.length)
       }
       setRating(0)
       setName('')
@@ -163,16 +194,60 @@ const RecipeReviews = ({ slug, onReviewsChange }: Props) => {
     }
   }
 
+  const handleReplySubmit = async (parentId: string) => {
+    setReplyError('')
+
+    if (!replyText.trim()) {
+      setReplyError('Please enter a reply.')
+      return
+    }
+    if (!ownerSecret.trim()) {
+      setReplyError('Please enter the owner secret.')
+      return
+    }
+
+    setReplySubmitting(true)
+
+    try {
+      const res = await fetch(`/api/reviews/${slug}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          parent_id: parentId,
+          review_text: replyText,
+          owner_secret: ownerSecret,
+        }),
+      })
+
+      if (!res.ok) {
+        const err = await res.json()
+        setReplyError(err.error || 'Failed to submit reply.')
+        setReplySubmitting(false)
+        return
+      }
+
+      const newReply: Review = await res.json()
+      setReviews([...reviews, newReply])
+      sessionStorage.setItem(OWNER_SECRET_STORAGE_KEY, ownerSecret)
+      setReplyText('')
+      setReplyOpenId(null)
+    } catch {
+      setReplyError('Failed to submit reply.')
+    } finally {
+      setReplySubmitting(false)
+    }
+  }
+
   return (
     <div className={styles.container}>
       <h3 className={styles.heading}>Reviews</h3>
 
-      {reviews.length > 0 && (
+      {topLevelReviews.length > 0 && (
         <div className={styles.summary}>
           <StarRating rating={Math.round(averageRating)} />
           <span className={styles.summary__text}>
-            {averageRating} out of 5 &mdash; {reviews.length} review
-            {reviews.length !== 1 ? 's' : ''}
+            {averageRating} out of 5 &mdash; {topLevelReviews.length} review
+            {topLevelReviews.length !== 1 ? 's' : ''}
           </span>
         </div>
       )}
@@ -232,21 +307,86 @@ const RecipeReviews = ({ slug, onReviewsChange }: Props) => {
       {loading && <p className={styles.status}>Loading reviews…</p>}
       {error && <p className={styles.error}>{error}</p>}
 
-      {!loading && reviews.length === 0 && (
+      {!loading && topLevelReviews.length === 0 && (
         <p className={styles.status}>No reviews yet. Be the first!</p>
       )}
 
       <div className={styles.list}>
-        {reviews.map((review) => (
+        {topLevelReviews.map((review) => (
           <div key={review.id} className={styles.review}>
             <div className={styles.review__header}>
               <strong className={styles.review__name}>{review.reviewer_name}</strong>
-              <StarRating rating={review.rating} />
+              {review.rating != null && <StarRating rating={review.rating} />}
               <span className={styles.review__date}>
                 {new Date(review.created_at).toLocaleDateString()}
               </span>
             </div>
             {review.review_text && <p className={styles.review__text}>{review.review_text}</p>}
+
+            {(repliesByParent[review.id] || []).map((reply) => (
+              <div key={reply.id} className={styles.reply}>
+                <div className={styles.review__header}>
+                  <strong className={styles.review__name}>{reply.reviewer_name}</strong>
+                  <span className={styles.reply__badge}>Owner reply</span>
+                  <span className={styles.review__date}>
+                    {new Date(reply.created_at).toLocaleDateString()}
+                  </span>
+                </div>
+                {reply.review_text && <p className={styles.review__text}>{reply.review_text}</p>}
+              </div>
+            ))}
+
+            {isOwnerView && (
+              <div className={styles.replyAction}>
+                {replyOpenId === review.id ? (
+                  <div className={styles.replyForm}>
+                    <input
+                      className={styles.form__input}
+                      type="password"
+                      placeholder="Owner secret"
+                      value={ownerSecret}
+                      onChange={(e) => setOwnerSecret(e.target.value)}
+                    />
+                    <textarea
+                      className={styles.form__textarea}
+                      rows={3}
+                      placeholder="Write a reply…"
+                      value={replyText}
+                      onChange={(e) => setReplyText(e.target.value)}
+                    />
+                    {replyError && <p className={styles.error}>{replyError}</p>}
+                    <div className={styles.replyForm__actions}>
+                      <button
+                        type="button"
+                        className={styles.button}
+                        disabled={replySubmitting}
+                        onClick={() => handleReplySubmit(review.id)}
+                      >
+                        {replySubmitting ? 'Posting…' : 'Post reply'}
+                      </button>
+                      <button
+                        type="button"
+                        className={styles.replyCancel}
+                        onClick={() => {
+                          setReplyOpenId(null)
+                          setReplyError('')
+                        }}
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <button
+                    type="button"
+                    className={styles.replyToggle}
+                    onClick={() => setReplyOpenId(review.id)}
+                  >
+                    Reply
+                  </button>
+                )}
+              </div>
+            )}
           </div>
         ))}
       </div>
