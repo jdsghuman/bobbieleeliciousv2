@@ -274,7 +274,8 @@ const RecipeReviews = ({ slug, onReviewsChange }: Props) => {
           </div>
           <div className={styles.form__field}>
             <label className={styles.form__label} htmlFor="reviewer-email">
-              Email <span aria-hidden>*</span>
+              Email <span aria-hidden>*</span>{' '}
+              <span className={styles.form__private}>(Kept private)</span>
             </label>
             <input
               id="reviewer-email"
@@ -327,7 +328,7 @@ const RecipeReviews = ({ slug, onReviewsChange }: Props) => {
               <div key={reply.id} className={styles.reply}>
                 <div className={styles.review__header}>
                   <strong className={styles.review__name}>{reply.reviewer_name}</strong>
-                  <span className={styles.reply__badge}>Owner reply</span>
+                  <span className={styles.reply__badge}>Author reply</span>
                   <span className={styles.review__date}>
                     {new Date(reply.created_at).toLocaleDateString()}
                   </span>
