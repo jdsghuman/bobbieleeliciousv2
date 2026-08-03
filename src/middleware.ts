@@ -18,7 +18,10 @@ export function middleware(request: NextRequest) {
   const userAgent = request.headers.get('user-agent') ?? ''
 
   if (BLOCKED_USER_AGENT_PATTERNS.some((pattern) => pattern.test(userAgent))) {
-    return new NextResponse('Forbidden', { status: 403 })
+    return new NextResponse('Forbidden', {
+      status: 403,
+      headers: { 'Cache-Control': 'no-store' },
+    })
   }
 
   return NextResponse.next()
